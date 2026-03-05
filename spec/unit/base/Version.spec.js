@@ -220,37 +220,41 @@ describe("each method", function () {
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
 
-    client.api.v2010
-      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-      .messages.each({
-        done: () => {
-          expect(mockCallback).toHaveBeenCalledTimes(5);
-          expect(mockCallback.mock.calls[0][0].body).toBe("payload0");
-          expect(mockCallback.mock.calls[1][0].body).toBe("payload1");
-          expect(mockCallback.mock.calls[2][0].body).toBe("payload2");
-          expect(mockCallback.mock.calls[3][0].body).toBe("payload3");
-          expect(mockCallback.mock.calls[4][0].body).toBe("payload4");
-
-        },
-        callback: mockCallback,
-      });
+    return new Promise((resolve) => {
+      client.api.v2010
+        .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        .messages.each({
+          done: () => {
+            expect(mockCallback).toHaveBeenCalledTimes(5);
+            expect(mockCallback.mock.calls[0][0].body).toBe("payload0");
+            expect(mockCallback.mock.calls[1][0].body).toBe("payload1");
+            expect(mockCallback.mock.calls[2][0].body).toBe("payload2");
+            expect(mockCallback.mock.calls[3][0].body).toBe("payload3");
+            expect(mockCallback.mock.calls[4][0].body).toBe("payload4");
+            resolve();
+          },
+          callback: mockCallback,
+        });
+    });
   });
 
   it("should call user callback with a done function argument", function () {
     let mockCallback = vi.fn();
     holodeck.mock(new Response(200, bodyOne));
 
-    client.api.v2010
-      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-      .messages.each({
-        limit: 1,
-        done: () => {
-          expect(mockCallback).toHaveBeenCalledTimes(1);
-          expect(mockCallback.mock.calls[0][1]).toBeInstanceOf(Function);
-
-        },
-        callback: mockCallback,
-      });
+    return new Promise((resolve) => {
+      client.api.v2010
+        .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        .messages.each({
+          limit: 1,
+          done: () => {
+            expect(mockCallback).toHaveBeenCalledTimes(1);
+            expect(mockCallback.mock.calls[0][1]).toBeInstanceOf(Function);
+            resolve();
+          },
+          callback: mockCallback,
+        });
+    });
   });
 
   it("should call user done with an error if user callback throws an error", function () {
@@ -262,17 +266,19 @@ describe("each method", function () {
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
 
-    client.api.v2010
-      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-      .messages.each({
-        limit: 3,
-        done: (error) => {
-          expect(mockCallback).toHaveBeenCalledTimes(1);
-          expect(error).toBe(mockError);
-
-        },
-        callback: mockCallback,
-      });
+    return new Promise((resolve) => {
+      client.api.v2010
+        .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        .messages.each({
+          limit: 3,
+          done: (error) => {
+            expect(mockCallback).toHaveBeenCalledTimes(1);
+            expect(error).toBe(mockError);
+            resolve();
+          },
+          callback: mockCallback,
+        });
+    });
   });
 
   it("should resolve promise after looping through each resource instance", function () {
