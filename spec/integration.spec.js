@@ -86,18 +86,21 @@ describe("twilio", function () {
       });
 
       await client.messages.list({ limit: 1 });
-      expect(consoleSpy.mock.calls.map((a) => a[0]).join("\n")).toBe(
-        "-- BEGIN Twilio API Request --\n" +
-          `get https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json\n` +
-          "Querystring:\n" +
-          "[object Object]\n" +
-          "Headers:\n" +
-          "Accept: undefined\n" +
-          "User-Agent: undefined\n" +
-          "Accept-Charset: undefined\n" +
-          "-- END Twilio API Request --\n" +
-          "response.statusCode: 200\n" +
-          'response.headers: {"content-type":"application/json"}'
+      const logOutput = consoleSpy.mock.calls.map((a) => a[0]).join("\n");
+      expect(logOutput).toMatch(
+        new RegExp(
+          "-- BEGIN Twilio API Request --\n" +
+            `get https://api\\.twilio\\.com/2010-04-01/Accounts/${accountSid}/Messages\\.json\n` +
+            "Querystring:\n" +
+            "\\[object Object\\]\n" +
+            "Headers:\n" +
+            "Accept: application/json\n" +
+            "User-Agent: twilio-node/.+\n" +
+            "Accept-Charset: utf-8\n" +
+            "-- END Twilio API Request --\n" +
+            "response\\.statusCode: 200\n" +
+            'response\\.headers: \\{"content-type":"application/json"\\}'
+        )
       );
     });
   });
