@@ -1,10 +1,9 @@
-import twilio from "twilio";
+import { webhook, MessagingResponse } from "twilio";
 import bodyParser from "body-parser";
-import { MessagingResponse } from "twilio";
+import express from "express";
 
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-const express = require("express");
 const app = express();
 const port = 3000;
 
@@ -20,7 +19,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/message", twilio.webhook(authToken), (req, res) => {
+app.post("/message", webhook(authToken), (req, res) => {
   // Twilio Messaging URL - receives incoming messages from Twilio
   const response = new MessagingResponse();
 
