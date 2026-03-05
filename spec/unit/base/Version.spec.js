@@ -1233,7 +1233,7 @@ describe("listWithHttpInfo method", function () {
       {}
     );
 
-    return version._version = version; // Make it check limits
+    version._version = version;
 
     return version.listWithHttpInfo({ limit: 2 }).then((response) => {
       expect(response.statusCode).toEqual(200);
