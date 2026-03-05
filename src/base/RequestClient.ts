@@ -284,7 +284,7 @@ class RequestClient {
         options.headers as Headers,
       );
       filteredHeaderKeys.forEach((header) =>
-        console.log(`${header}: ${options.headers?.header}`),
+        console.log(`${header}: ${options.headers?.[header]}`),
       );
     }
 
