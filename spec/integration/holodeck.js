@@ -78,7 +78,7 @@ class Holodeck {
 
     if (matchedHologramIndex >= 0) {
       const matchedHologram = this.holograms[matchedHologramIndex];
-      this.holograms.splice(matchedHologram, 1);
+      this.holograms.splice(matchedHologramIndex, 1);
 
       const response = matchedHologram.response;
       return {
