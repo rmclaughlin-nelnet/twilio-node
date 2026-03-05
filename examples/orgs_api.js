@@ -1,11 +1,11 @@
-import { Twilio, ClientCredentialProviderBuilder } from "../lib/index.js";
+import { Twilio, OrgsCredentialProviderBuilder } from "../lib/index.js";
 
 const clientId = process.env.ORGS_CLIENT_ID;
 const clientSecret = process.env.ORGS_CLIENT_SECRET;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const organizationSid = process.env.TWILIO_ORG_SID;
 
-const orgsCredentialProvider = new Twilio.OrgsCredentialProviderBuilder()
+const orgsCredentialProvider = new OrgsCredentialProviderBuilder()
   .setClientId(clientId)
   .setClientSecret(clientSecret)
   .build();
