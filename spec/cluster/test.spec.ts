@@ -1,15 +1,15 @@
 import { vi } from "vitest";
 vi.setConfig({ testTimeout: 15000 });
 
-import twilio from "twilio";
+import { Twilio, VoiceResponse } from "twilio";
 
 const fromNumber = process.env.TWILIO_FROM_NUMBER;
 const toNumber = process.env.TWILIO_TO_NUMBER;
 const apiKey = process.env.TWILIO_API_KEY;
 const apiSecret = process.env.TWILIO_API_SECRET;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const testClient = twilio(apiKey, apiSecret, { accountSid });
-const twiml = new twilio.twiml.VoiceResponse();
+const testClient = new Twilio(apiKey, apiSecret, { accountSid });
+const twiml = new VoiceResponse();
 
 test("Should send a text", () => {
   return testClient.messages

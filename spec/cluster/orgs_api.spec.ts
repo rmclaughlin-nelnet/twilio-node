@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 vi.setConfig({ testTimeout: 15000 });
 
-import twilio from "twilio";
+import { Twilio, OrgsCredentialProviderBuilder, NoAuthCredentialProvider } from "twilio";
 
 const clientId = process.env.TWILIO_ORGS_CLIENT_ID;
 const clientSecret = process.env.TWILIO_ORGS_CLIENT_SECRET;
@@ -9,16 +9,16 @@ const organizationSid = process.env.TWILIO_ORG_SID;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const userId = process.env.TWILIO_ORGS_USER_ID;
 
-const client = twilio();
-const orgsCredentialProvider = new twilio.OrgsCredentialProviderBuilder()
+const client = new Twilio();
+const orgsCredentialProvider = new OrgsCredentialProviderBuilder()
   .setClientId(clientId)
   .setClientSecret(clientSecret)
   .build();
 client.setCredentialProvider(orgsCredentialProvider);
 
 test("Should generate access token", () => {
-  const noAuthClient = twilio();
-  noAuthClient.setCredentialProvider(new twilio.NoAuthCredentialProvider());
+  const noAuthClient = new Twilio();
+  noAuthClient.setCredentialProvider(new NoAuthCredentialProvider());
   return noAuthClient.iam.v1.token
     .create({
       grantType: "client_credentials",
