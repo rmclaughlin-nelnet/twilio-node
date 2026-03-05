@@ -6,7 +6,7 @@
     "vitest": "4.0.18"
   },
   "scripts": {
-    "test": "vitest run --exclude '**/webhook*'",
-    "webhook-test": "vitest run --include '**/webhook*'"
+    "test": "vitest run",
+    "webhook-test": "vitest run webhook.spec.ts"
   }
 }
