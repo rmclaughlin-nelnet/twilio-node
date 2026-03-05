@@ -394,23 +394,25 @@ describe("each method", function () {
   it("should short-circuit foreach loop and pass an error if user callback done argument is called with an error", function () {
     let mockError = new Error("An error occurred.");
     let mockCallback = vi.fn((instance, done) => {
-      throw mockError;
+      done(mockError);
     });
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
     holodeck.mock(new Response(200, bodyThree));
 
-    client.api.v2010
-      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-      .messages.each({
-        limit: 3,
-        callback: mockCallback,
-        done: (error) => {
-          expect(mockCallback).toHaveBeenCalledTimes(1);
-          expect(error).toBe(mockError);
-
-        },
-      });
+    return new Promise((resolve) => {
+      client.api.v2010
+        .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        .messages.each({
+          limit: 3,
+          callback: mockCallback,
+          done: (error) => {
+            expect(mockCallback).toHaveBeenCalledTimes(1);
+            expect(error).toBe(mockError);
+            resolve();
+          },
+        });
+    });
   });
 });
 
