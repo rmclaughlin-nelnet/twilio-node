@@ -265,7 +265,7 @@ class RequestClient {
 
   filterLoggingHeaders(headers: Headers) {
     return Object.keys(headers).filter((header) => {
-      return !"authorization".includes(header.toLowerCase());
+      return !header.toLowerCase().includes("authorization");
     });
   }
 
