@@ -73,7 +73,7 @@ export interface EvaluationContext {
    * @returns Resolves to processed EvaluationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EvaluationInstance) => any
+    callback?: (error: Error | null, item?: EvaluationInstance) => any,
   ): Promise<EvaluationInstance>;
 
   /**
@@ -86,8 +86,8 @@ export interface EvaluationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EvaluationInstance>
-    ) => any
+      item?: ApiResponse<EvaluationInstance>,
+    ) => any,
   ): Promise<ApiResponse<EvaluationInstance>>;
 
   /**
@@ -106,7 +106,11 @@ export class EvaluationContextImpl implements EvaluationContext {
   protected _solution: EvaluationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, bundleSid: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    bundleSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(bundleSid)) {
       throw new Error("Parameter 'bundleSid' is not valid.");
     }
@@ -120,7 +124,7 @@ export class EvaluationContextImpl implements EvaluationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EvaluationInstance) => any
+    callback?: (error: Error | null, item?: EvaluationInstance) => any,
   ): Promise<EvaluationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -139,13 +143,13 @@ export class EvaluationContextImpl implements EvaluationContext {
           operationVersion,
           payload,
           instance._solution.bundleSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -153,8 +157,8 @@ export class EvaluationContextImpl implements EvaluationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EvaluationInstance>
-    ) => any
+      item?: ApiResponse<EvaluationInstance>,
+    ) => any,
   ): Promise<ApiResponse<EvaluationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -175,14 +179,14 @@ export class EvaluationContextImpl implements EvaluationContext {
             operationVersion,
             response.body,
             instance._solution.bundleSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -224,7 +228,7 @@ export class EvaluationInstance {
     protected _version: V2,
     payload: EvaluationResource,
     bundleSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -268,7 +272,7 @@ export class EvaluationInstance {
       new EvaluationContextImpl(
         this._version,
         this._solution.bundleSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -281,7 +285,7 @@ export class EvaluationInstance {
    * @returns Resolves to processed EvaluationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EvaluationInstance) => any
+    callback?: (error: Error | null, item?: EvaluationInstance) => any,
   ): Promise<EvaluationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -296,8 +300,8 @@ export class EvaluationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EvaluationInstance>
-    ) => any
+      item?: ApiResponse<EvaluationInstance>,
+    ) => any,
   ): Promise<ApiResponse<EvaluationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -345,7 +349,7 @@ export interface EvaluationListInstance {
    * @returns Resolves to processed EvaluationInstance
    */
   create(
-    callback?: (error: Error | null, item?: EvaluationInstance) => any
+    callback?: (error: Error | null, item?: EvaluationInstance) => any,
   ): Promise<EvaluationInstance>;
 
   /**
@@ -358,8 +362,8 @@ export interface EvaluationListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EvaluationInstance>
-    ) => any
+      item?: ApiResponse<EvaluationInstance>,
+    ) => any,
   ): Promise<ApiResponse<EvaluationInstance>>;
 
   /**
@@ -378,11 +382,11 @@ export interface EvaluationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void
+    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: EvaluationListInstanceEachOptions,
-    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void
+    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams EvaluationInstance records from the API with HTTP metadata captured per page.
@@ -400,11 +404,11 @@ export interface EvaluationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void
+    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: EvaluationListInstanceEachOptions,
-    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void
+    callback?: (item: EvaluationInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of EvaluationInstance records from the API.
@@ -416,7 +420,7 @@ export interface EvaluationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EvaluationPage) => any
+    callback?: (error: Error | null, items: EvaluationPage) => any,
   ): Promise<EvaluationPage>;
   /**
    * Retrieve a single target page of EvaluationInstance records from the API with HTTP metadata.
@@ -428,7 +432,7 @@ export interface EvaluationListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<EvaluationPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EvaluationPage>) => any,
   ): Promise<ApiResponse<EvaluationPage>>;
   /**
    * Lists EvaluationInstance records from the API as a list.
@@ -440,11 +444,11 @@ export interface EvaluationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: EvaluationInstance[]) => any
+    callback?: (error: Error | null, items: EvaluationInstance[]) => any,
   ): Promise<EvaluationInstance[]>;
   list(
     params: EvaluationListInstanceOptions,
-    callback?: (error: Error | null, items: EvaluationInstance[]) => any
+    callback?: (error: Error | null, items: EvaluationInstance[]) => any,
   ): Promise<EvaluationInstance[]>;
   /**
    * Lists EvaluationInstance records from the API as a list with HTTP metadata.
@@ -460,15 +464,15 @@ export interface EvaluationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EvaluationInstance[]>
-    ) => any
+      items: ApiResponse<EvaluationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EvaluationInstance[]>>;
   listWithHttpInfo(
     params: EvaluationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EvaluationInstance[]>
-    ) => any
+      items: ApiResponse<EvaluationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EvaluationInstance[]>>;
   /**
    * Retrieve a single page of EvaluationInstance records from the API.
@@ -482,11 +486,11 @@ export interface EvaluationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: EvaluationPage) => any
+    callback?: (error: Error | null, items: EvaluationPage) => any,
   ): Promise<EvaluationPage>;
   page(
     params: EvaluationListInstancePageOptions,
-    callback?: (error: Error | null, items: EvaluationPage) => any
+    callback?: (error: Error | null, items: EvaluationPage) => any,
   ): Promise<EvaluationPage>;
   /**
    * Retrieve a single page of EvaluationInstance records from the API with HTTP metadata.
@@ -500,11 +504,11 @@ export interface EvaluationListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<EvaluationPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EvaluationPage>) => any,
   ): Promise<ApiResponse<EvaluationPage>>;
   pageWithHttpInfo(
     params: EvaluationListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<EvaluationPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EvaluationPage>) => any,
   ): Promise<ApiResponse<EvaluationPage>>;
 
   /**
@@ -516,7 +520,7 @@ export interface EvaluationListInstance {
 
 export function EvaluationListInstance(
   version: V2,
-  bundleSid: string
+  bundleSid: string,
 ): EvaluationListInstance {
   if (!isValidPathParam(bundleSid)) {
     throw new Error("Parameter 'bundleSid' is not valid.");
@@ -533,7 +537,7 @@ export function EvaluationListInstance(
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Evaluations`;
 
   instance.create = function create(
-    callback?: (error: Error | null, items: EvaluationInstance) => any
+    callback?: (error: Error | null, items: EvaluationInstance) => any,
   ): Promise<EvaluationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -550,13 +554,13 @@ export function EvaluationListInstance(
         new EvaluationInstance(
           operationVersion,
           payload,
-          instance._solution.bundleSid
-        )
+          instance._solution.bundleSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -564,8 +568,8 @@ export function EvaluationListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EvaluationInstance>
-    ) => any
+      items: ApiResponse<EvaluationInstance>,
+    ) => any,
   ): Promise<ApiResponse<EvaluationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -584,14 +588,14 @@ export function EvaluationListInstance(
           body: new EvaluationInstance(
             operationVersion,
             response.body,
-            instance._solution.bundleSid
+            instance._solution.bundleSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -600,7 +604,7 @@ export function EvaluationListInstance(
     params?:
       | EvaluationListInstancePageOptions
       | ((error: Error | null, items: EvaluationPage) => any),
-    callback?: (error: Error | null, items: EvaluationPage) => any
+    callback?: (error: Error | null, items: EvaluationPage) => any,
   ): Promise<EvaluationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -629,12 +633,12 @@ export function EvaluationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EvaluationPage(operationVersion, payload, instance._solution)
+        new EvaluationPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -643,7 +647,7 @@ export function EvaluationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EvaluationPage) => any
+    callback?: (error: Error | null, items: EvaluationPage) => any,
   ): Promise<EvaluationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -651,7 +655,7 @@ export function EvaluationListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new EvaluationPage(instance._version, payload, instance._solution)
+        new EvaluationPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -661,7 +665,7 @@ export function EvaluationListInstance(
     params?:
       | EvaluationListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<EvaluationPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<EvaluationPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EvaluationPage>) => any,
   ): Promise<ApiResponse<EvaluationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -692,14 +696,14 @@ export function EvaluationListInstance(
           body: new EvaluationPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -710,7 +714,10 @@ export function EvaluationListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<EvaluationPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<EvaluationPage>,
+    ) => any,
   ): Promise<ApiResponse<EvaluationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -725,9 +732,9 @@ export function EvaluationListInstance(
         body: new EvaluationPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -739,7 +746,7 @@ export function EvaluationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -763,7 +770,7 @@ export class EvaluationPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: EvaluationSolution
+    solution: EvaluationSolution,
   ) {
     super(version, response, solution);
   }
@@ -777,7 +784,7 @@ export class EvaluationPage extends Page<
     return new EvaluationInstance(
       this._version,
       payload,
-      this._solution.bundleSid
+      this._solution.bundleSid,
     );
   }
 

@@ -36,7 +36,7 @@ export interface DeactivationsContext {
    * @returns Resolves to processed DeactivationsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
+    callback?: (error: Error | null, item?: DeactivationsInstance) => any,
   ): Promise<DeactivationsInstance>;
   /**
    * Fetch a DeactivationsInstance
@@ -48,7 +48,7 @@ export interface DeactivationsContext {
    */
   fetch(
     params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
+    callback?: (error: Error | null, item?: DeactivationsInstance) => any,
   ): Promise<DeactivationsInstance>;
 
   /**
@@ -61,8 +61,8 @@ export interface DeactivationsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
+      item?: ApiResponse<DeactivationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeactivationsInstance>>;
   /**
    * Fetch a DeactivationsInstance and return HTTP info
@@ -76,8 +76,8 @@ export interface DeactivationsContext {
     params: DeactivationsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
+      item?: ApiResponse<DeactivationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeactivationsInstance>>;
 
   /**
@@ -102,7 +102,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
     params?:
       | DeactivationsContextFetchOptions
       | ((error: Error | null, item?: DeactivationsInstance) => any),
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
+    callback?: (error: Error | null, item?: DeactivationsInstance) => any,
   ): Promise<DeactivationsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -129,12 +129,12 @@ export class DeactivationsContextImpl implements DeactivationsContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DeactivationsInstance(operationVersion, payload)
+      (payload) => new DeactivationsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -144,12 +144,12 @@ export class DeactivationsContextImpl implements DeactivationsContext {
       | DeactivationsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<DeactivationsInstance>
+          item?: ApiResponse<DeactivationsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
+      item?: ApiResponse<DeactivationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeactivationsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -180,12 +180,12 @@ export class DeactivationsContextImpl implements DeactivationsContext {
         (response): ApiResponse<DeactivationsInstance> => ({
           ...response,
           body: new DeactivationsInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -214,7 +214,10 @@ export class DeactivationsInstance {
   protected _solution: DeactivationsContextSolution;
   protected _context?: DeactivationsContext;
 
-  constructor(protected _version: V1, payload: DeactivationsResource) {
+  constructor(
+    protected _version: V1,
+    payload: DeactivationsResource,
+  ) {
     this.redirectTo = payload.redirect_to;
 
     this._solution = {};
@@ -239,7 +242,7 @@ export class DeactivationsInstance {
    * @returns Resolves to processed DeactivationsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
+    callback?: (error: Error | null, item?: DeactivationsInstance) => any,
   ): Promise<DeactivationsInstance>;
   /**
    * Fetch a DeactivationsInstance
@@ -251,12 +254,12 @@ export class DeactivationsInstance {
    */
   fetch(
     params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
+    callback?: (error: Error | null, item?: DeactivationsInstance) => any,
   ): Promise<DeactivationsInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
+    callback?: (error: Error | null, item?: DeactivationsInstance) => any,
   ): Promise<DeactivationsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -271,8 +274,8 @@ export class DeactivationsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
+      item?: ApiResponse<DeactivationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeactivationsInstance>>;
   /**
    * Fetch a DeactivationsInstance and return HTTP info
@@ -286,16 +289,16 @@ export class DeactivationsInstance {
     params: DeactivationsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
+      item?: ApiResponse<DeactivationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeactivationsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DeactivationsInstance>
-    ) => any
+      item?: ApiResponse<DeactivationsInstance>,
+    ) => any,
   ): Promise<ApiResponse<DeactivationsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -334,7 +337,7 @@ export interface DeactivationsListInstance {
 }
 
 export function DeactivationsListInstance(
-  version: V1
+  version: V1,
 ): DeactivationsListInstance {
   const instance = (() => instance.get()) as DeactivationsListInstance;
 
@@ -352,7 +355,7 @@ export function DeactivationsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

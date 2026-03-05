@@ -93,7 +93,7 @@ export interface VerificationContext {
    * @returns Resolves to processed VerificationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, item?: VerificationInstance) => any,
   ): Promise<VerificationInstance>;
 
   /**
@@ -106,8 +106,8 @@ export interface VerificationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationInstance>
-    ) => any
+      item?: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>>;
 
   /**
@@ -120,7 +120,7 @@ export interface VerificationContext {
    */
   update(
     params: VerificationContextUpdateOptions,
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, item?: VerificationInstance) => any,
   ): Promise<VerificationInstance>;
 
   /**
@@ -135,8 +135,8 @@ export interface VerificationContext {
     params: VerificationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationInstance>
-    ) => any
+      item?: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>>;
 
   /**
@@ -155,7 +155,11 @@ export class VerificationContextImpl implements VerificationContext {
   protected _solution: VerificationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -169,7 +173,7 @@ export class VerificationContextImpl implements VerificationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, item?: VerificationInstance) => any,
   ): Promise<VerificationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -188,13 +192,13 @@ export class VerificationContextImpl implements VerificationContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -202,8 +206,8 @@ export class VerificationContextImpl implements VerificationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationInstance>
-    ) => any
+      item?: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -224,21 +228,21 @@ export class VerificationContextImpl implements VerificationContext {
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: VerificationContextUpdateOptions,
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, item?: VerificationInstance) => any,
   ): Promise<VerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -271,13 +275,13 @@ export class VerificationContextImpl implements VerificationContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -286,8 +290,8 @@ export class VerificationContextImpl implements VerificationContext {
     params: VerificationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationInstance>
-    ) => any
+      item?: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -322,14 +326,14 @@ export class VerificationContextImpl implements VerificationContext {
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -376,7 +380,7 @@ export class VerificationInstance {
     protected _version: V2,
     payload: VerificationResource,
     serviceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.serviceSid = payload.service_sid;
@@ -461,7 +465,7 @@ export class VerificationInstance {
       new VerificationContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -474,7 +478,7 @@ export class VerificationInstance {
    * @returns Resolves to processed VerificationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, item?: VerificationInstance) => any,
   ): Promise<VerificationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -489,8 +493,8 @@ export class VerificationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationInstance>
-    ) => any
+      item?: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -505,12 +509,12 @@ export class VerificationInstance {
    */
   update(
     params: VerificationContextUpdateOptions,
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, item?: VerificationInstance) => any,
   ): Promise<VerificationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, item?: VerificationInstance) => any,
   ): Promise<VerificationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -527,16 +531,16 @@ export class VerificationInstance {
     params: VerificationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationInstance>
-    ) => any
+      item?: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationInstance>
-    ) => any
+      item?: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -593,7 +597,7 @@ export interface VerificationListInstance {
    */
   create(
     params: VerificationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, item?: VerificationInstance) => any,
   ): Promise<VerificationInstance>;
 
   /**
@@ -608,8 +612,8 @@ export interface VerificationListInstance {
     params: VerificationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationInstance>
-    ) => any
+      item?: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>>;
 
   /**
@@ -621,7 +625,7 @@ export interface VerificationListInstance {
 
 export function VerificationListInstance(
   version: V2,
-  serviceSid: string
+  serviceSid: string,
 ): VerificationListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -639,7 +643,7 @@ export function VerificationListInstance(
 
   instance.create = function create(
     params: VerificationListInstanceCreateOptions,
-    callback?: (error: Error | null, items: VerificationInstance) => any
+    callback?: (error: Error | null, items: VerificationInstance) => any,
   ): Promise<VerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -673,7 +677,7 @@ export function VerificationListInstance(
       data["RateLimits"] = serialize.object(params["rateLimits"]);
     if (params["channelConfiguration"] !== undefined)
       data["ChannelConfiguration"] = serialize.object(
-        params["channelConfiguration"]
+        params["channelConfiguration"],
       );
     if (params["appHash"] !== undefined) data["AppHash"] = params["appHash"];
     if (params["templateSid"] !== undefined)
@@ -684,7 +688,7 @@ export function VerificationListInstance(
     if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
     if (params["enableSnaClientToken"] !== undefined)
       data["EnableSnaClientToken"] = serialize.bool(
-        params["enableSnaClientToken"]
+        params["enableSnaClientToken"],
       );
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
@@ -707,13 +711,13 @@ export function VerificationListInstance(
         new VerificationInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -722,8 +726,8 @@ export function VerificationListInstance(
     params: VerificationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<VerificationInstance>
-    ) => any
+      items: ApiResponse<VerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -757,7 +761,7 @@ export function VerificationListInstance(
       data["RateLimits"] = serialize.object(params["rateLimits"]);
     if (params["channelConfiguration"] !== undefined)
       data["ChannelConfiguration"] = serialize.object(
-        params["channelConfiguration"]
+        params["channelConfiguration"],
       );
     if (params["appHash"] !== undefined) data["AppHash"] = params["appHash"];
     if (params["templateSid"] !== undefined)
@@ -768,7 +772,7 @@ export function VerificationListInstance(
     if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
     if (params["enableSnaClientToken"] !== undefined)
       data["EnableSnaClientToken"] = serialize.bool(
-        params["enableSnaClientToken"]
+        params["enableSnaClientToken"],
       );
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
@@ -793,14 +797,14 @@ export function VerificationListInstance(
           body: new VerificationInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -811,7 +815,7 @@ export function VerificationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

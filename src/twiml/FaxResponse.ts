@@ -50,34 +50,34 @@ export class FaxResponse extends TwiML {
   }
 }
 
-  type ReceiveMediaType = "application/pdf" | "image/tiff";
+type ReceiveMediaType = "application/pdf" | "image/tiff";
 
-  type ReceivePageSize = "letter" | "legal" | "a4";
+type ReceivePageSize = "letter" | "legal" | "a4";
 
+/**
+ * Attributes to pass to receive
+ */
+export interface ReceiveAttributes {
+  /** action - Receive action URL */
+  action?: string;
+  /** mediaType - The media type used to store media in the fax media store */
+  mediaType?: ReceiveMediaType;
+  /** method - Receive action URL method */
+  method?: string;
+  /** pageSize - What size to interpret received pages as */
+  pageSize?: ReceivePageSize;
+  /** storeMedia - Whether or not to store received media in the fax media store */
+  storeMedia?: boolean;
+}
+
+export class Receive extends TwiML {
+  receive: XMLElement;
   /**
-   * Attributes to pass to receive
+   * <Receive> TwiML Verb
    */
-  export interface ReceiveAttributes {
-    /** action - Receive action URL */
-    action?: string;
-    /** mediaType - The media type used to store media in the fax media store */
-    mediaType?: ReceiveMediaType;
-    /** method - Receive action URL method */
-    method?: string;
-    /** pageSize - What size to interpret received pages as */
-    pageSize?: ReceivePageSize;
-    /** storeMedia - Whether or not to store received media in the fax media store */
-    storeMedia?: boolean;
+  constructor(receive: XMLElement) {
+    super();
+    this.receive = receive;
+    this._propertyName = "receive";
   }
-
-  export class Receive extends TwiML {
-    receive: XMLElement;
-    /**
-     * <Receive> TwiML Verb
-     */
-    constructor(receive: XMLElement) {
-      super();
-      this.receive = receive;
-      this._propertyName = "receive";
-    }
-  }
+}

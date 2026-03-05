@@ -64,7 +64,7 @@ export interface VerificationCheckListInstance {
    * @returns Resolves to processed VerificationCheckInstance
    */
   create(
-    callback?: (error: Error | null, item?: VerificationCheckInstance) => any
+    callback?: (error: Error | null, item?: VerificationCheckInstance) => any,
   ): Promise<VerificationCheckInstance>;
   /**
    * Create a VerificationCheckInstance
@@ -76,7 +76,7 @@ export interface VerificationCheckListInstance {
    */
   create(
     params: VerificationCheckListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: VerificationCheckInstance) => any
+    callback?: (error: Error | null, item?: VerificationCheckInstance) => any,
   ): Promise<VerificationCheckInstance>;
 
   /**
@@ -89,8 +89,8 @@ export interface VerificationCheckListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationCheckInstance>
-    ) => any
+      item?: ApiResponse<VerificationCheckInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationCheckInstance>>;
   /**
    * Create a VerificationCheckInstance and return HTTP info
@@ -104,8 +104,8 @@ export interface VerificationCheckListInstance {
     params: VerificationCheckListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VerificationCheckInstance>
-    ) => any
+      item?: ApiResponse<VerificationCheckInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationCheckInstance>>;
 
   /**
@@ -117,7 +117,7 @@ export interface VerificationCheckListInstance {
 
 export function VerificationCheckListInstance(
   version: V2,
-  serviceSid: string
+  serviceSid: string,
 ): VerificationCheckListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -133,7 +133,7 @@ export function VerificationCheckListInstance(
     params?:
       | VerificationCheckListInstanceCreateOptions
       | ((error: Error | null, items: VerificationCheckInstance) => any),
-    callback?: (error: Error | null, items: VerificationCheckInstance) => any
+    callback?: (error: Error | null, items: VerificationCheckInstance) => any,
   ): Promise<VerificationCheckInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -170,13 +170,13 @@ export function VerificationCheckListInstance(
         new VerificationCheckInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -186,12 +186,12 @@ export function VerificationCheckListInstance(
       | VerificationCheckListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<VerificationCheckInstance>
+          items: ApiResponse<VerificationCheckInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<VerificationCheckInstance>
-    ) => any
+      items: ApiResponse<VerificationCheckInstance>,
+    ) => any,
   ): Promise<ApiResponse<VerificationCheckInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -230,14 +230,14 @@ export function VerificationCheckListInstance(
           body: new VerificationCheckInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -248,7 +248,7 @@ export function VerificationCheckListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -277,7 +277,7 @@ export class VerificationCheckInstance {
   constructor(
     protected _version: V2,
     payload: VerificationCheckResource,
-    serviceSid: string
+    serviceSid: string,
   ) {
     this.sid = payload.sid;
     this.serviceSid = payload.service_sid;

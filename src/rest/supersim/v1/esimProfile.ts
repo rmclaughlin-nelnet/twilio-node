@@ -110,7 +110,7 @@ export interface EsimProfileContext {
    * @returns Resolves to processed EsimProfileInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any,
   ): Promise<EsimProfileInstance>;
 
   /**
@@ -123,8 +123,8 @@ export interface EsimProfileContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EsimProfileInstance>
-    ) => any
+      item?: ApiResponse<EsimProfileInstance>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfileInstance>>;
 
   /**
@@ -142,7 +142,10 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   protected _solution: EsimProfileContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -152,7 +155,7 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any,
   ): Promise<EsimProfileInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -170,13 +173,13 @@ export class EsimProfileContextImpl implements EsimProfileContext {
         new EsimProfileInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -184,8 +187,8 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EsimProfileInstance>
-    ) => any
+      item?: ApiResponse<EsimProfileInstance>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfileInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -205,14 +208,14 @@ export class EsimProfileContextImpl implements EsimProfileContext {
           body: new EsimProfileInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -259,7 +262,7 @@ export class EsimProfileInstance {
   constructor(
     protected _version: V1,
     payload: EsimProfileResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -348,7 +351,7 @@ export class EsimProfileInstance {
    * @returns Resolves to processed EsimProfileInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any,
   ): Promise<EsimProfileInstance> {
     return this._proxy.fetch(callback);
   }
@@ -363,8 +366,8 @@ export class EsimProfileInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EsimProfileInstance>
-    ) => any
+      item?: ApiResponse<EsimProfileInstance>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfileInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -416,7 +419,7 @@ export interface EsimProfileListInstance {
    * @returns Resolves to processed EsimProfileInstance
    */
   create(
-    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any,
   ): Promise<EsimProfileInstance>;
   /**
    * Create a EsimProfileInstance
@@ -428,7 +431,7 @@ export interface EsimProfileListInstance {
    */
   create(
     params: EsimProfileListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+    callback?: (error: Error | null, item?: EsimProfileInstance) => any,
   ): Promise<EsimProfileInstance>;
 
   /**
@@ -441,8 +444,8 @@ export interface EsimProfileListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EsimProfileInstance>
-    ) => any
+      item?: ApiResponse<EsimProfileInstance>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfileInstance>>;
   /**
    * Create a EsimProfileInstance and return HTTP info
@@ -456,8 +459,8 @@ export interface EsimProfileListInstance {
     params: EsimProfileListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EsimProfileInstance>
-    ) => any
+      item?: ApiResponse<EsimProfileInstance>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfileInstance>>;
 
   /**
@@ -476,11 +479,11 @@ export interface EsimProfileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void
+    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: EsimProfileListInstanceEachOptions,
-    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void
+    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams EsimProfileInstance records from the API with HTTP metadata captured per page.
@@ -498,11 +501,11 @@ export interface EsimProfileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void
+    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: EsimProfileListInstanceEachOptions,
-    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void
+    callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of EsimProfileInstance records from the API.
@@ -514,7 +517,7 @@ export interface EsimProfileListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EsimProfilePage) => any
+    callback?: (error: Error | null, items: EsimProfilePage) => any,
   ): Promise<EsimProfilePage>;
   /**
    * Retrieve a single target page of EsimProfileInstance records from the API with HTTP metadata.
@@ -526,7 +529,10 @@ export interface EsimProfileListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<EsimProfilePage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EsimProfilePage>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfilePage>>;
   /**
    * Lists EsimProfileInstance records from the API as a list.
@@ -538,11 +544,11 @@ export interface EsimProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: EsimProfileInstance[]) => any
+    callback?: (error: Error | null, items: EsimProfileInstance[]) => any,
   ): Promise<EsimProfileInstance[]>;
   list(
     params: EsimProfileListInstanceOptions,
-    callback?: (error: Error | null, items: EsimProfileInstance[]) => any
+    callback?: (error: Error | null, items: EsimProfileInstance[]) => any,
   ): Promise<EsimProfileInstance[]>;
   /**
    * Lists EsimProfileInstance records from the API as a list with HTTP metadata.
@@ -558,15 +564,15 @@ export interface EsimProfileListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EsimProfileInstance[]>
-    ) => any
+      items: ApiResponse<EsimProfileInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfileInstance[]>>;
   listWithHttpInfo(
     params: EsimProfileListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EsimProfileInstance[]>
-    ) => any
+      items: ApiResponse<EsimProfileInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfileInstance[]>>;
   /**
    * Retrieve a single page of EsimProfileInstance records from the API.
@@ -580,11 +586,11 @@ export interface EsimProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: EsimProfilePage) => any
+    callback?: (error: Error | null, items: EsimProfilePage) => any,
   ): Promise<EsimProfilePage>;
   page(
     params: EsimProfileListInstancePageOptions,
-    callback?: (error: Error | null, items: EsimProfilePage) => any
+    callback?: (error: Error | null, items: EsimProfilePage) => any,
   ): Promise<EsimProfilePage>;
   /**
    * Retrieve a single page of EsimProfileInstance records from the API with HTTP metadata.
@@ -598,11 +604,17 @@ export interface EsimProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<EsimProfilePage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EsimProfilePage>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfilePage>>;
   pageWithHttpInfo(
     params: EsimProfileListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<EsimProfilePage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EsimProfilePage>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfilePage>>;
 
   /**
@@ -627,7 +639,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     params?:
       | EsimProfileListInstanceCreateOptions
       | ((error: Error | null, items: EsimProfileInstance) => any),
-    callback?: (error: Error | null, items: EsimProfileInstance) => any
+    callback?: (error: Error | null, items: EsimProfileInstance) => any,
   ): Promise<EsimProfileInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -659,12 +671,12 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EsimProfileInstance(operationVersion, payload)
+      (payload) => new EsimProfileInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -675,8 +687,8 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
       | ((error: Error | null, items: ApiResponse<EsimProfileInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<EsimProfileInstance>
-    ) => any
+      items: ApiResponse<EsimProfileInstance>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfileInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -712,12 +724,12 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
         (response): ApiResponse<EsimProfileInstance> => ({
           ...response,
           body: new EsimProfileInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -726,7 +738,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     params?:
       | EsimProfileListInstancePageOptions
       | ((error: Error | null, items: EsimProfilePage) => any),
-    callback?: (error: Error | null, items: EsimProfilePage) => any
+    callback?: (error: Error | null, items: EsimProfilePage) => any,
   ): Promise<EsimProfilePage> {
     if (params instanceof Function) {
       callback = params;
@@ -758,12 +770,12 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EsimProfilePage(operationVersion, payload, instance._solution)
+        new EsimProfilePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -772,7 +784,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EsimProfilePage) => any
+    callback?: (error: Error | null, items: EsimProfilePage) => any,
   ): Promise<EsimProfilePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -780,7 +792,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new EsimProfilePage(instance._version, payload, instance._solution)
+        new EsimProfilePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -790,7 +802,10 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     params?:
       | EsimProfileListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<EsimProfilePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<EsimProfilePage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<EsimProfilePage>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfilePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -824,14 +839,14 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
           body: new EsimProfilePage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -844,8 +859,8 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<EsimProfilePage>
-    ) => any
+      items?: ApiResponse<EsimProfilePage>,
+    ) => any,
   ): Promise<ApiResponse<EsimProfilePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -860,9 +875,9 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
         body: new EsimProfilePage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -874,7 +889,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -898,7 +913,7 @@ export class EsimProfilePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: EsimProfileSolution
+    solution: EsimProfileSolution,
   ) {
     super(version, response, solution);
   }

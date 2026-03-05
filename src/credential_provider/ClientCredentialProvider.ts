@@ -43,14 +43,14 @@ export class ClientCredentialProviderBuilder {
   }
 
   public setClientSecret(
-    clientSecret: string
+    clientSecret: string,
   ): ClientCredentialProviderBuilder {
     this.instance.clientSecret = clientSecret;
     return this;
   }
 
   public setTokenManager(
-    tokenManager: TokenManager
+    tokenManager: TokenManager,
   ): ClientCredentialProviderBuilder {
     this.instance.tokenManager = tokenManager;
     return this;

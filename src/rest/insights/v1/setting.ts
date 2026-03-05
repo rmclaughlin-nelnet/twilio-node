@@ -48,7 +48,7 @@ export interface SettingContext {
    * @returns Resolves to processed SettingInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance>;
   /**
    * Fetch a SettingInstance
@@ -60,7 +60,7 @@ export interface SettingContext {
    */
   fetch(
     params: SettingContextFetchOptions,
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance>;
 
   /**
@@ -71,7 +71,10 @@ export interface SettingContext {
    * @returns Resolves to processed SettingInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>>;
   /**
    * Fetch a SettingInstance and return HTTP info
@@ -83,7 +86,10 @@ export interface SettingContext {
    */
   fetchWithHttpInfo(
     params: SettingContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>>;
 
   /**
@@ -94,7 +100,7 @@ export interface SettingContext {
    * @returns Resolves to processed SettingInstance
    */
   update(
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance>;
   /**
    * Update a SettingInstance
@@ -106,7 +112,7 @@ export interface SettingContext {
    */
   update(
     params: SettingContextUpdateOptions,
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance>;
 
   /**
@@ -117,7 +123,10 @@ export interface SettingContext {
    * @returns Resolves to processed SettingInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>>;
   /**
    * Update a SettingInstance and return HTTP info
@@ -129,7 +138,10 @@ export interface SettingContext {
    */
   updateWithHttpInfo(
     params: SettingContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>>;
 
   /**
@@ -154,7 +166,7 @@ export class SettingContextImpl implements SettingContext {
     params?:
       | SettingContextFetchOptions
       | ((error: Error | null, item?: SettingInstance) => any),
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -181,12 +193,12 @@ export class SettingContextImpl implements SettingContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SettingInstance(operationVersion, payload)
+      (payload) => new SettingInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -195,7 +207,10 @@ export class SettingContextImpl implements SettingContext {
     params?:
       | SettingContextFetchOptions
       | ((error: Error | null, item?: ApiResponse<SettingInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -226,12 +241,12 @@ export class SettingContextImpl implements SettingContext {
         (response): ApiResponse<SettingInstance> => ({
           ...response,
           body: new SettingInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -240,7 +255,7 @@ export class SettingContextImpl implements SettingContext {
     params?:
       | SettingContextUpdateOptions
       | ((error: Error | null, item?: SettingInstance) => any),
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -272,12 +287,12 @@ export class SettingContextImpl implements SettingContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SettingInstance(operationVersion, payload)
+      (payload) => new SettingInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -286,7 +301,10 @@ export class SettingContextImpl implements SettingContext {
     params?:
       | SettingContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<SettingInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -322,12 +340,12 @@ export class SettingContextImpl implements SettingContext {
         (response): ApiResponse<SettingInstance> => ({
           ...response,
           body: new SettingInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -359,7 +377,10 @@ export class SettingInstance {
   protected _solution: SettingContextSolution;
   protected _context?: SettingContext;
 
-  constructor(protected _version: V1, payload: SettingResource) {
+  constructor(
+    protected _version: V1,
+    payload: SettingResource,
+  ) {
     this.accountSid = payload.account_sid;
     this.advancedFeatures = payload.advanced_features;
     this.voiceTrace = payload.voice_trace;
@@ -398,7 +419,7 @@ export class SettingInstance {
    * @returns Resolves to processed SettingInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance>;
   /**
    * Fetch a SettingInstance
@@ -410,12 +431,12 @@ export class SettingInstance {
    */
   fetch(
     params: SettingContextFetchOptions,
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -428,7 +449,10 @@ export class SettingInstance {
    * @returns Resolves to processed SettingInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>>;
   /**
    * Fetch a SettingInstance and return HTTP info
@@ -440,12 +464,18 @@ export class SettingInstance {
    */
   fetchWithHttpInfo(
     params: SettingContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -458,7 +488,7 @@ export class SettingInstance {
    * @returns Resolves to processed SettingInstance
    */
   update(
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance>;
   /**
    * Update a SettingInstance
@@ -470,12 +500,12 @@ export class SettingInstance {
    */
   update(
     params: SettingContextUpdateOptions,
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SettingInstance) => any
+    callback?: (error: Error | null, item?: SettingInstance) => any,
   ): Promise<SettingInstance> {
     return this._proxy.update(params, callback);
   }
@@ -488,7 +518,10 @@ export class SettingInstance {
    * @returns Resolves to processed SettingInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>>;
   /**
    * Update a SettingInstance and return HTTP info
@@ -500,12 +533,18 @@ export class SettingInstance {
    */
   updateWithHttpInfo(
     params: SettingContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SettingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SettingInstance>,
+    ) => any,
   ): Promise<ApiResponse<SettingInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -563,7 +602,7 @@ export function SettingListInstance(version: V1): SettingListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

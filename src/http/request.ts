@@ -86,7 +86,7 @@ export class Request<TData> {
           .map((key) =>
             function (this: any) {
               return key + "=" + this.params[key];
-            }.bind(this)()
+            }.bind(this)(),
           )
           .join("&");
     }

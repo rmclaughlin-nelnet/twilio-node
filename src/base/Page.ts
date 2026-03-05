@@ -25,7 +25,7 @@ export class Page<
   TVersion extends Version,
   TPayload extends TwilioResponsePayload,
   TResource,
-  TInstance
+  TInstance,
 > {
   nextPageUrl?: string;
   previousPageUrl?: string;
@@ -45,7 +45,7 @@ export class Page<
   constructor(
     version: TVersion,
     response: Response<string | TPayload>,
-    solution: Solution
+    solution: Solution,
   ) {
     let payload = this.processResponse(response);
 
@@ -88,12 +88,16 @@ export class Page<
       this._payload.meta &&
       "previous_page_url" in this._payload.meta &&
       this._payload.meta.previous_page_url
-    ) {return this._payload.meta.previous_page_url;}
+    ) {
+      return this._payload.meta.previous_page_url;
+    }
 
     if (
       "previous_page_uri" in this._payload &&
       this._payload.previous_page_uri
-    ) {return this._version._domain.absoluteUrl(this._payload.previous_page_uri);}
+    ) {
+      return this._version._domain.absoluteUrl(this._payload.previous_page_uri);
+    }
 
     return undefined;
   }
@@ -109,9 +113,13 @@ export class Page<
       this._payload.meta &&
       "next_page_url" in this._payload.meta &&
       this._payload.meta.next_page_url
-    ) {return this._payload.meta.next_page_url;}
+    ) {
+      return this._payload.meta.next_page_url;
+    }
 
-    if ("next_page_uri" in this._payload && this._payload.next_page_uri) {return this._version._domain.absoluteUrl(this._payload.next_page_uri);}
+    if ("next_page_uri" in this._payload && this._payload.next_page_uri) {
+      return this._version._domain.absoluteUrl(this._payload.next_page_uri);
+    }
 
     return undefined;
   }
@@ -124,7 +132,7 @@ export class Page<
    */
   getInstance(payload: any): TInstance {
     throw new Error(
-      "Page.get_instance() must be implemented in the derived class"
+      "Page.get_instance() must be implemented in the derived class",
     );
   }
 
@@ -165,7 +173,7 @@ export class Page<
     > = reqPromise.then(
       function (this: any, response: any) {
         return new this.constructor(this._version, response, this._solution);
-      }.bind(this)
+      }.bind(this),
     );
 
     return nextPagePromise;
@@ -194,7 +202,7 @@ export class Page<
     > = reqPromise.then(
       function (this: any, response: any) {
         return new this.constructor(this._version, response, this._solution);
-      }.bind(this)
+      }.bind(this),
     );
 
     return prevPagePromise;
@@ -232,7 +240,7 @@ export class Page<
     }
 
     const keys = Object.keys(payload).filter(
-      (key: string) => !Page.META_KEYS.includes(key)
+      (key: string) => !Page.META_KEYS.includes(key),
     );
     if (keys.length === 1) {
       return payload[keys[0]];
@@ -245,7 +253,7 @@ export class Page<
 
   forOwn(
     obj: object,
-    iteratee: (val: any, key: string, object: object) => void
+    iteratee: (val: any, key: string, object: object) => void,
   ) {
     obj = Object(obj);
     for (const [key, val] of Object.entries(obj)) {

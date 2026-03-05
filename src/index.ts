@@ -71,7 +71,7 @@ import type { ClientOpts } from "./base/BaseTwilio.js";
 export function createClient(
   accountSid?: string,
   authToken?: string,
-  opts?: ClientOpts
+  opts?: ClientOpts,
 ): Twilio {
   return new Twilio(accountSid, authToken, opts);
 }

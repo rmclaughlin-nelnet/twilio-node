@@ -264,7 +264,7 @@ export interface CallContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -275,7 +275,7 @@ export interface CallContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -286,7 +286,7 @@ export interface CallContext {
    * @returns Resolves to processed CallInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance>;
 
   /**
@@ -297,7 +297,7 @@ export interface CallContext {
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>>;
 
   /**
@@ -308,7 +308,7 @@ export interface CallContext {
    * @returns Resolves to processed CallInstance
    */
   update(
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance>;
   /**
    * Update a CallInstance
@@ -320,7 +320,7 @@ export interface CallContext {
    */
   update(
     params: CallContextUpdateOptions,
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance>;
 
   /**
@@ -331,7 +331,7 @@ export interface CallContext {
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>>;
   /**
    * Update a CallInstance and return HTTP info
@@ -343,7 +343,7 @@ export interface CallContext {
    */
   updateWithHttpInfo(
     params: CallContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>>;
 
   /**
@@ -372,7 +372,11 @@ export class CallContextImpl implements CallContext {
   protected _userDefinedMessages?: UserDefinedMessageListInstance;
   protected _userDefinedMessageSubscriptions?: UserDefinedMessageSubscriptionListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -391,7 +395,7 @@ export class CallContextImpl implements CallContext {
       EventListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._events;
   }
@@ -402,7 +406,7 @@ export class CallContextImpl implements CallContext {
       NotificationListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._notifications;
   }
@@ -413,7 +417,7 @@ export class CallContextImpl implements CallContext {
       PaymentListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._payments;
   }
@@ -424,7 +428,7 @@ export class CallContextImpl implements CallContext {
       RecordingListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._recordings;
   }
@@ -435,7 +439,7 @@ export class CallContextImpl implements CallContext {
       SiprecListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._siprec;
   }
@@ -446,7 +450,7 @@ export class CallContextImpl implements CallContext {
       StreamListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._streams;
   }
@@ -457,7 +461,7 @@ export class CallContextImpl implements CallContext {
       TranscriptionListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._transcriptions;
   }
@@ -468,7 +472,7 @@ export class CallContextImpl implements CallContext {
       UserDefinedMessageListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._userDefinedMessages;
   }
@@ -479,13 +483,13 @@ export class CallContextImpl implements CallContext {
       UserDefinedMessageSubscriptionListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._userDefinedMessageSubscriptions;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -499,13 +503,13 @@ export class CallContextImpl implements CallContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -518,18 +522,18 @@ export class CallContextImpl implements CallContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -548,19 +552,19 @@ export class CallContextImpl implements CallContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -581,14 +585,14 @@ export class CallContextImpl implements CallContext {
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -597,7 +601,7 @@ export class CallContextImpl implements CallContext {
     params?:
       | CallContextUpdateOptions
       | ((error: Error | null, item?: CallInstance) => any),
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -643,13 +647,13 @@ export class CallContextImpl implements CallContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -658,7 +662,7 @@ export class CallContextImpl implements CallContext {
     params?:
       | CallContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<CallInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -706,14 +710,14 @@ export class CallContextImpl implements CallContext {
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -773,7 +777,7 @@ export class CallInstance {
     protected _version: V2010,
     payload: CallResource,
     accountSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -913,7 +917,7 @@ export class CallInstance {
       new CallContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -926,7 +930,7 @@ export class CallInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -939,7 +943,7 @@ export class CallInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -952,7 +956,7 @@ export class CallInstance {
    * @returns Resolves to processed CallInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance> {
     return this._proxy.fetch(callback);
   }
@@ -965,7 +969,7 @@ export class CallInstance {
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -978,7 +982,7 @@ export class CallInstance {
    * @returns Resolves to processed CallInstance
    */
   update(
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance>;
   /**
    * Update a CallInstance
@@ -990,12 +994,12 @@ export class CallInstance {
    */
   update(
     params: CallContextUpdateOptions,
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance> {
     return this._proxy.update(params, callback);
   }
@@ -1008,7 +1012,7 @@ export class CallInstance {
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>>;
   /**
    * Update a CallInstance and return HTTP info
@@ -1020,12 +1024,12 @@ export class CallInstance {
    */
   updateWithHttpInfo(
     params: CallContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -1156,7 +1160,7 @@ export interface CallListInstance {
    */
   create(
     params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, item?: CallInstance) => any,
   ): Promise<CallInstance>;
 
   /**
@@ -1169,7 +1173,7 @@ export interface CallListInstance {
    */
   createWithHttpInfo(
     params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>>;
 
   /**
@@ -1188,11 +1192,11 @@ export interface CallListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: CallListInstanceEachOptions,
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams CallInstance records from the API with HTTP metadata captured per page.
@@ -1210,11 +1214,11 @@ export interface CallListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: CallListInstanceEachOptions,
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of CallInstance records from the API.
@@ -1226,7 +1230,7 @@ export interface CallListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CallPage) => any
+    callback?: (error: Error | null, items: CallPage) => any,
   ): Promise<CallPage>;
   /**
    * Retrieve a single target page of CallInstance records from the API with HTTP metadata.
@@ -1238,7 +1242,7 @@ export interface CallListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any,
   ): Promise<ApiResponse<CallPage>>;
   /**
    * Lists CallInstance records from the API as a list.
@@ -1250,11 +1254,11 @@ export interface CallListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: CallInstance[]) => any
+    callback?: (error: Error | null, items: CallInstance[]) => any,
   ): Promise<CallInstance[]>;
   list(
     params: CallListInstanceOptions,
-    callback?: (error: Error | null, items: CallInstance[]) => any
+    callback?: (error: Error | null, items: CallInstance[]) => any,
   ): Promise<CallInstance[]>;
   /**
    * Lists CallInstance records from the API as a list with HTTP metadata.
@@ -1268,11 +1272,11 @@ export interface CallListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any,
   ): Promise<ApiResponse<CallInstance[]>>;
   listWithHttpInfo(
     params: CallListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<CallInstance[]>) => any,
   ): Promise<ApiResponse<CallInstance[]>>;
   /**
    * Retrieve a single page of CallInstance records from the API.
@@ -1286,11 +1290,11 @@ export interface CallListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: CallPage) => any
+    callback?: (error: Error | null, items: CallPage) => any,
   ): Promise<CallPage>;
   page(
     params: CallListInstancePageOptions,
-    callback?: (error: Error | null, items: CallPage) => any
+    callback?: (error: Error | null, items: CallPage) => any,
   ): Promise<CallPage>;
   /**
    * Retrieve a single page of CallInstance records from the API with HTTP metadata.
@@ -1304,11 +1308,11 @@ export interface CallListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any,
   ): Promise<ApiResponse<CallPage>>;
   pageWithHttpInfo(
     params: CallListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any,
   ): Promise<ApiResponse<CallPage>>;
 
   /**
@@ -1320,7 +1324,7 @@ export interface CallListInstance {
 
 export function CallListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): CallListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -1338,7 +1342,7 @@ export function CallListInstance(
 
   instance.create = function create(
     params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, items: CallInstance) => any
+    callback?: (error: Error | null, items: CallInstance) => any,
   ): Promise<CallInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1367,7 +1371,7 @@ export function CallListInstance(
     if (params["statusCallbackEvent"] !== undefined)
       data["StatusCallbackEvent"] = serialize.map(
         params["statusCallbackEvent"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["statusCallbackMethod"] !== undefined)
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
@@ -1394,7 +1398,7 @@ export function CallListInstance(
     if (params["recordingStatusCallbackEvent"] !== undefined)
       data["RecordingStatusCallbackEvent"] = serialize.map(
         params["recordingStatusCallbackEvent"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
     if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
@@ -1447,20 +1451,20 @@ export function CallListInstance(
         new CallInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<CallInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<CallInstance>) => any,
   ): Promise<ApiResponse<CallInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1489,7 +1493,7 @@ export function CallListInstance(
     if (params["statusCallbackEvent"] !== undefined)
       data["StatusCallbackEvent"] = serialize.map(
         params["statusCallbackEvent"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["statusCallbackMethod"] !== undefined)
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
@@ -1516,7 +1520,7 @@ export function CallListInstance(
     if (params["recordingStatusCallbackEvent"] !== undefined)
       data["RecordingStatusCallbackEvent"] = serialize.map(
         params["recordingStatusCallbackEvent"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
     if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];
@@ -1571,14 +1575,14 @@ export function CallListInstance(
           body: new CallInstance(
             operationVersion,
             response.body,
-            instance._solution.accountSid
+            instance._solution.accountSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1587,7 +1591,7 @@ export function CallListInstance(
     params?:
       | CallListInstancePageOptions
       | ((error: Error | null, items: CallPage) => any),
-    callback?: (error: Error | null, items: CallPage) => any
+    callback?: (error: Error | null, items: CallPage) => any,
   ): Promise<CallPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1632,12 +1636,12 @@ export function CallListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CallPage(operationVersion, payload, instance._solution)
+      (payload) => new CallPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1646,14 +1650,14 @@ export function CallListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CallPage) => any
+    callback?: (error: Error | null, items: CallPage) => any,
   ): Promise<CallPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new CallPage(instance._version, payload, instance._solution)
+      (payload) => new CallPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1663,7 +1667,7 @@ export function CallListInstance(
     params?:
       | CallListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<CallPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<CallPage>) => any,
   ): Promise<ApiResponse<CallPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1709,12 +1713,12 @@ export function CallListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new CallPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1725,7 +1729,7 @@ export function CallListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<CallPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<CallPage>) => any,
   ): Promise<ApiResponse<CallPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1738,7 +1742,7 @@ export function CallListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new CallPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1750,7 +1754,7 @@ export function CallListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1774,7 +1778,7 @@ export class CallPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: CallSolution
+    solution: CallSolution,
   ) {
     super(version, response, solution);
   }

@@ -47,21 +47,13 @@ export class MessagingResponse extends TwiML {
    * @param body - Message Body
    */
   message(body: string): Message;
-  message(
-    attributes: MessageAttributes,
-    body: string
-  ): Message;
-  message(
-    attributes: MessageAttributes | string,
-    body?: string
-  ): Message {
+  message(attributes: MessageAttributes, body: string): Message;
+  message(attributes: MessageAttributes | string, body?: string): Message {
     if (typeof attributes === "string") {
       body = attributes;
       attributes = {};
     }
-    return new Message(
-      this.response.ele("Message", attributes, body)
-    );
+    return new Message(this.response.ele("Message", attributes, body));
   }
   /**
    * <Redirect> TwiML Verb
@@ -70,129 +62,114 @@ export class MessagingResponse extends TwiML {
    * @param url - Redirect URL
    */
   redirect(url: string): Redirect;
-  redirect(
-    attributes: RedirectAttributes,
-    url: string
-  ): Redirect;
-  redirect(
-    attributes: RedirectAttributes | string,
-    url?: string
-  ): Redirect {
+  redirect(attributes: RedirectAttributes, url: string): Redirect;
+  redirect(attributes: RedirectAttributes | string, url?: string): Redirect {
     if (typeof attributes === "string") {
       url = attributes;
       attributes = {};
     }
-    return new Redirect(
-      this.response.ele("Redirect", attributes, url)
-    );
+    return new Redirect(this.response.ele("Redirect", attributes, url));
   }
 }
 
+/**
+ * Attributes to pass to message
+ */
+export interface MessageAttributes {
+  /** action - A URL specifying where Twilio should send status callbacks for the created outbound message. */
+  action?: string;
+  /** from - Phone Number to send Message from */
+  from?: string;
+  /** method - Action URL Method */
+  method?: string;
+  /** statusCallback - Status callback URL. Deprecated in favor of action. */
+  statusCallback?: string;
+  /** to - Phone Number to send Message to */
+  to?: string;
+}
+
+/**
+ * Attributes to pass to redirect
+ */
+export interface RedirectAttributes {
+  /** method - Redirect URL method */
+  method?: string;
+}
+
+export class Body extends TwiML {
+  body: XMLElement;
   /**
-   * Attributes to pass to message
+   * <Body> TwiML Noun
    */
-  export interface MessageAttributes {
-    /** action - A URL specifying where Twilio should send status callbacks for the created outbound message. */
-    action?: string;
-    /** from - Phone Number to send Message from */
-    from?: string;
-    /** method - Action URL Method */
-    method?: string;
-    /** statusCallback - Status callback URL. Deprecated in favor of action. */
-    statusCallback?: string;
-    /** to - Phone Number to send Message to */
-    to?: string;
+  constructor(body: XMLElement) {
+    super();
+    this.body = body;
+    this._propertyName = "body";
   }
+}
 
+export class Media extends TwiML {
+  media: XMLElement;
   /**
-   * Attributes to pass to redirect
+   * <Media> TwiML Noun
    */
-  export interface RedirectAttributes {
-    /** method - Redirect URL method */
-    method?: string;
+  constructor(media: XMLElement) {
+    super();
+    this.media = media;
+    this._propertyName = "media";
   }
+}
 
-  export class Body extends TwiML {
-    body: XMLElement;
-    /**
-     * <Body> TwiML Noun
-     */
-    constructor(body: XMLElement) {
-      super();
-      this.body = body;
-      this._propertyName = "body";
-    }
+export class Message extends TwiML {
+  message: XMLElement;
+  /**
+   * <Message> TwiML Verb
+   */
+  constructor(message: XMLElement) {
+    super();
+    this.message = message;
+    this._propertyName = "message";
   }
+  /**
+   * <Body> TwiML Noun
+   *
+   * @param attributes - TwiML attributes
+   * @param message - Message Body
+   */
+  body(message: string): Body;
+  body(attributes: object, message: string): Body;
+  body(attributes: object | string, message?: string): Body {
+    if (typeof attributes === "string") {
+      message = attributes;
+      attributes = {};
+    }
+    return new Body(this.message.ele("Body", attributes, message));
+  }
+  /**
+   * <Media> TwiML Noun
+   *
+   * @param attributes - TwiML attributes
+   * @param url - Media URL
+   */
+  media(url: string): Media;
+  media(attributes: object, url: string): Media;
+  media(attributes: object | string, url?: string): Media {
+    if (typeof attributes === "string") {
+      url = attributes;
+      attributes = {};
+    }
+    return new Media(this.message.ele("Media", attributes, url));
+  }
+}
 
-  export class Media extends TwiML {
-    media: XMLElement;
-    /**
-     * <Media> TwiML Noun
-     */
-    constructor(media: XMLElement) {
-      super();
-      this.media = media;
-      this._propertyName = "media";
-    }
+export class Redirect extends TwiML {
+  redirect: XMLElement;
+  /**
+   * <Redirect> TwiML Verb
+   */
+  constructor(redirect: XMLElement) {
+    super();
+    this.redirect = redirect;
+    this._propertyName = "redirect";
   }
-
-  export class Message extends TwiML {
-    message: XMLElement;
-    /**
-     * <Message> TwiML Verb
-     */
-    constructor(message: XMLElement) {
-      super();
-      this.message = message;
-      this._propertyName = "message";
-    }
-    /**
-     * <Body> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param message - Message Body
-     */
-    body(message: string): Body;
-    body(attributes: object, message: string): Body;
-    body(
-      attributes: object | string,
-      message?: string
-    ): Body {
-      if (typeof attributes === "string") {
-        message = attributes;
-        attributes = {};
-      }
-      return new Body(
-        this.message.ele("Body", attributes, message)
-      );
-    }
-    /**
-     * <Media> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param url - Media URL
-     */
-    media(url: string): Media;
-    media(attributes: object, url: string): Media;
-    media(attributes: object | string, url?: string): Media {
-      if (typeof attributes === "string") {
-        url = attributes;
-        attributes = {};
-      }
-      return new Media(
-        this.message.ele("Media", attributes, url)
-      );
-    }
-  }
-
-  export class Redirect extends TwiML {
-    redirect: XMLElement;
-    /**
-     * <Redirect> TwiML Verb
-     */
-    constructor(redirect: XMLElement) {
-      super();
-      this.redirect = redirect;
-      this._propertyName = "redirect";
-    }
-  }
+}

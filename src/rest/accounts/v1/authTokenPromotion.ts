@@ -28,7 +28,7 @@ export interface AuthTokenPromotionContext {
    * @returns Resolves to processed AuthTokenPromotionInstance
    */
   update(
-    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any,
   ): Promise<AuthTokenPromotionInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface AuthTokenPromotionContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthTokenPromotionInstance>
-    ) => any
+      item?: ApiResponse<AuthTokenPromotionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
 
   /**
@@ -54,9 +54,7 @@ export interface AuthTokenPromotionContext {
 
 export interface AuthTokenPromotionContextSolution {}
 
-export class AuthTokenPromotionContextImpl
-  implements AuthTokenPromotionContext
-{
+export class AuthTokenPromotionContextImpl implements AuthTokenPromotionContext {
   protected _solution: AuthTokenPromotionContextSolution;
   protected _uri: string;
 
@@ -66,7 +64,7 @@ export class AuthTokenPromotionContextImpl
   }
 
   update(
-    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any,
   ): Promise<AuthTokenPromotionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -80,12 +78,12 @@ export class AuthTokenPromotionContextImpl
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AuthTokenPromotionInstance(operationVersion, payload)
+      (payload) => new AuthTokenPromotionInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -93,8 +91,8 @@ export class AuthTokenPromotionContextImpl
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthTokenPromotionInstance>
-    ) => any
+      item?: ApiResponse<AuthTokenPromotionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthTokenPromotionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -112,12 +110,12 @@ export class AuthTokenPromotionContextImpl
         (response): ApiResponse<AuthTokenPromotionInstance> => ({
           ...response,
           body: new AuthTokenPromotionInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -150,7 +148,10 @@ export class AuthTokenPromotionInstance {
   protected _solution: AuthTokenPromotionContextSolution;
   protected _context?: AuthTokenPromotionContext;
 
-  constructor(protected _version: V1, payload: AuthTokenPromotionResource) {
+  constructor(
+    protected _version: V1,
+    payload: AuthTokenPromotionResource,
+  ) {
     this.accountSid = payload.account_sid;
     this.authToken = payload.auth_token;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -195,7 +196,7 @@ export class AuthTokenPromotionInstance {
    * @returns Resolves to processed AuthTokenPromotionInstance
    */
   update(
-    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any,
   ): Promise<AuthTokenPromotionInstance> {
     return this._proxy.update(callback);
   }
@@ -210,8 +211,8 @@ export class AuthTokenPromotionInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthTokenPromotionInstance>
-    ) => any
+      item?: ApiResponse<AuthTokenPromotionInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthTokenPromotionInstance>> {
     return this._proxy.updateWithHttpInfo(callback);
   }
@@ -254,7 +255,7 @@ export interface AuthTokenPromotionListInstance {
 }
 
 export function AuthTokenPromotionListInstance(
-  version: V1
+  version: V1,
 ): AuthTokenPromotionListInstance {
   const instance = (() => instance.get()) as AuthTokenPromotionListInstance;
 
@@ -272,7 +273,7 @@ export function AuthTokenPromotionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

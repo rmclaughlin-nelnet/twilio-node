@@ -108,11 +108,11 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: YearlyListInstanceEachOptions,
-    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams YearlyInstance records from the API with HTTP metadata captured per page.
@@ -130,11 +130,11 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: YearlyListInstanceEachOptions,
-    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void
+    callback?: (item: YearlyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of YearlyInstance records from the API.
@@ -146,7 +146,7 @@ export interface YearlyListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: YearlyPage) => any
+    callback?: (error: Error | null, items: YearlyPage) => any,
   ): Promise<YearlyPage>;
   /**
    * Retrieve a single target page of YearlyInstance records from the API with HTTP metadata.
@@ -158,7 +158,7 @@ export interface YearlyListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any,
   ): Promise<ApiResponse<YearlyPage>>;
   /**
    * Lists YearlyInstance records from the API as a list.
@@ -170,11 +170,11 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: YearlyInstance[]) => any
+    callback?: (error: Error | null, items: YearlyInstance[]) => any,
   ): Promise<YearlyInstance[]>;
   list(
     params: YearlyListInstanceOptions,
-    callback?: (error: Error | null, items: YearlyInstance[]) => any
+    callback?: (error: Error | null, items: YearlyInstance[]) => any,
   ): Promise<YearlyInstance[]>;
   /**
    * Lists YearlyInstance records from the API as a list with HTTP metadata.
@@ -190,15 +190,15 @@ export interface YearlyListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<YearlyInstance[]>
-    ) => any
+      items: ApiResponse<YearlyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<YearlyInstance[]>>;
   listWithHttpInfo(
     params: YearlyListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<YearlyInstance[]>
-    ) => any
+      items: ApiResponse<YearlyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<YearlyInstance[]>>;
   /**
    * Retrieve a single page of YearlyInstance records from the API.
@@ -212,11 +212,11 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: YearlyPage) => any
+    callback?: (error: Error | null, items: YearlyPage) => any,
   ): Promise<YearlyPage>;
   page(
     params: YearlyListInstancePageOptions,
-    callback?: (error: Error | null, items: YearlyPage) => any
+    callback?: (error: Error | null, items: YearlyPage) => any,
   ): Promise<YearlyPage>;
   /**
    * Retrieve a single page of YearlyInstance records from the API with HTTP metadata.
@@ -230,11 +230,11 @@ export interface YearlyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any,
   ): Promise<ApiResponse<YearlyPage>>;
   pageWithHttpInfo(
     params: YearlyListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any,
   ): Promise<ApiResponse<YearlyPage>>;
 
   /**
@@ -246,7 +246,7 @@ export interface YearlyListInstance {
 
 export function YearlyListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): YearlyListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -262,7 +262,7 @@ export function YearlyListInstance(
     params?:
       | YearlyListInstancePageOptions
       | ((error: Error | null, items: YearlyPage) => any),
-    callback?: (error: Error | null, items: YearlyPage) => any
+    callback?: (error: Error | null, items: YearlyPage) => any,
   ): Promise<YearlyPage> {
     if (params instanceof Function) {
       callback = params;
@@ -297,12 +297,13 @@ export function YearlyListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new YearlyPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new YearlyPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -311,7 +312,7 @@ export function YearlyListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: YearlyPage) => any
+    callback?: (error: Error | null, items: YearlyPage) => any,
   ): Promise<YearlyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -319,7 +320,7 @@ export function YearlyListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new YearlyPage(instance._version, payload, instance._solution)
+        new YearlyPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -329,7 +330,7 @@ export function YearlyListInstance(
     params?:
       | YearlyListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<YearlyPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<YearlyPage>) => any,
   ): Promise<ApiResponse<YearlyPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -365,12 +366,12 @@ export function YearlyListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new YearlyPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -381,7 +382,7 @@ export function YearlyListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<YearlyPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<YearlyPage>) => any,
   ): Promise<ApiResponse<YearlyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -394,7 +395,7 @@ export function YearlyListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new YearlyPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -406,7 +407,7 @@ export function YearlyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -440,7 +441,7 @@ export class YearlyInstance {
   constructor(
     protected _version: V2010,
     payload: YearlyResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -566,7 +567,7 @@ export class YearlyPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: YearlySolution
+    solution: YearlySolution,
   ) {
     super(version, response, solution);
   }
@@ -580,7 +581,7 @@ export class YearlyPage extends Page<
     return new YearlyInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

@@ -85,7 +85,7 @@ export interface BindingContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -96,7 +96,7 @@ export interface BindingContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -107,7 +107,7 @@ export interface BindingContext {
    * @returns Resolves to processed BindingInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BindingInstance) => any
+    callback?: (error: Error | null, item?: BindingInstance) => any,
   ): Promise<BindingInstance>;
 
   /**
@@ -118,7 +118,10 @@ export interface BindingContext {
    * @returns Resolves to processed BindingInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BindingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BindingInstance>,
+    ) => any,
   ): Promise<ApiResponse<BindingInstance>>;
 
   /**
@@ -137,7 +140,11 @@ export class BindingContextImpl implements BindingContext {
   protected _solution: BindingContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, chatServiceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    chatServiceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(chatServiceSid)) {
       throw new Error("Parameter 'chatServiceSid' is not valid.");
     }
@@ -151,7 +158,7 @@ export class BindingContextImpl implements BindingContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -165,13 +172,13 @@ export class BindingContextImpl implements BindingContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -184,18 +191,18 @@ export class BindingContextImpl implements BindingContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: BindingInstance) => any
+    callback?: (error: Error | null, item?: BindingInstance) => any,
   ): Promise<BindingInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -214,19 +221,22 @@ export class BindingContextImpl implements BindingContext {
           operationVersion,
           payload,
           instance._solution.chatServiceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BindingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BindingInstance>,
+    ) => any,
   ): Promise<ApiResponse<BindingInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -247,14 +257,14 @@ export class BindingContextImpl implements BindingContext {
             operationVersion,
             response.body,
             instance._solution.chatServiceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -299,7 +309,7 @@ export class BindingInstance {
     protected _version: V1,
     payload: BindingResource,
     chatServiceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -364,7 +374,7 @@ export class BindingInstance {
       new BindingContextImpl(
         this._version,
         this._solution.chatServiceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -377,7 +387,7 @@ export class BindingInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -390,7 +400,7 @@ export class BindingInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -403,7 +413,7 @@ export class BindingInstance {
    * @returns Resolves to processed BindingInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BindingInstance) => any
+    callback?: (error: Error | null, item?: BindingInstance) => any,
   ): Promise<BindingInstance> {
     return this._proxy.fetch(callback);
   }
@@ -416,7 +426,10 @@ export class BindingInstance {
    * @returns Resolves to processed BindingInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BindingInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BindingInstance>,
+    ) => any,
   ): Promise<ApiResponse<BindingInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -475,11 +488,11 @@ export interface BindingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
+    callback?: (item: BindingInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: BindingListInstanceEachOptions,
-    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
+    callback?: (item: BindingInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams BindingInstance records from the API with HTTP metadata captured per page.
@@ -497,11 +510,11 @@ export interface BindingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
+    callback?: (item: BindingInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: BindingListInstanceEachOptions,
-    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
+    callback?: (item: BindingInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of BindingInstance records from the API.
@@ -513,7 +526,7 @@ export interface BindingListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BindingPage) => any
+    callback?: (error: Error | null, items: BindingPage) => any,
   ): Promise<BindingPage>;
   /**
    * Retrieve a single target page of BindingInstance records from the API with HTTP metadata.
@@ -525,7 +538,7 @@ export interface BindingListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<BindingPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BindingPage>) => any,
   ): Promise<ApiResponse<BindingPage>>;
   /**
    * Lists BindingInstance records from the API as a list.
@@ -537,11 +550,11 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: BindingInstance[]) => any
+    callback?: (error: Error | null, items: BindingInstance[]) => any,
   ): Promise<BindingInstance[]>;
   list(
     params: BindingListInstanceOptions,
-    callback?: (error: Error | null, items: BindingInstance[]) => any
+    callback?: (error: Error | null, items: BindingInstance[]) => any,
   ): Promise<BindingInstance[]>;
   /**
    * Lists BindingInstance records from the API as a list with HTTP metadata.
@@ -557,15 +570,15 @@ export interface BindingListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<BindingInstance[]>
-    ) => any
+      items: ApiResponse<BindingInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<BindingInstance[]>>;
   listWithHttpInfo(
     params: BindingListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BindingInstance[]>
-    ) => any
+      items: ApiResponse<BindingInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<BindingInstance[]>>;
   /**
    * Retrieve a single page of BindingInstance records from the API.
@@ -579,11 +592,11 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: BindingPage) => any
+    callback?: (error: Error | null, items: BindingPage) => any,
   ): Promise<BindingPage>;
   page(
     params: BindingListInstancePageOptions,
-    callback?: (error: Error | null, items: BindingPage) => any
+    callback?: (error: Error | null, items: BindingPage) => any,
   ): Promise<BindingPage>;
   /**
    * Retrieve a single page of BindingInstance records from the API with HTTP metadata.
@@ -597,11 +610,11 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<BindingPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BindingPage>) => any,
   ): Promise<ApiResponse<BindingPage>>;
   pageWithHttpInfo(
     params: BindingListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<BindingPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BindingPage>) => any,
   ): Promise<ApiResponse<BindingPage>>;
 
   /**
@@ -613,7 +626,7 @@ export interface BindingListInstance {
 
 export function BindingListInstance(
   version: V1,
-  chatServiceSid: string
+  chatServiceSid: string,
 ): BindingListInstance {
   if (!isValidPathParam(chatServiceSid)) {
     throw new Error("Parameter 'chatServiceSid' is not valid.");
@@ -633,7 +646,7 @@ export function BindingListInstance(
     params?:
       | BindingListInstancePageOptions
       | ((error: Error | null, items: BindingPage) => any),
-    callback?: (error: Error | null, items: BindingPage) => any
+    callback?: (error: Error | null, items: BindingPage) => any,
   ): Promise<BindingPage> {
     if (params instanceof Function) {
       callback = params;
@@ -647,7 +660,7 @@ export function BindingListInstance(
     if (params["bindingType"] !== undefined)
       data["BindingType"] = serialize.map(
         params["bindingType"],
-        (e: BindingBindingType) => e
+        (e: BindingBindingType) => e,
       );
     if (params["identity"] !== undefined)
       data["Identity"] = serialize.map(params["identity"], (e: string) => e);
@@ -669,12 +682,12 @@ export function BindingListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BindingPage(operationVersion, payload, instance._solution)
+        new BindingPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -683,7 +696,7 @@ export function BindingListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BindingPage) => any
+    callback?: (error: Error | null, items: BindingPage) => any,
   ): Promise<BindingPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -691,7 +704,7 @@ export function BindingListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new BindingPage(instance._version, payload, instance._solution)
+        new BindingPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -701,7 +714,7 @@ export function BindingListInstance(
     params?:
       | BindingListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<BindingPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<BindingPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<BindingPage>) => any,
   ): Promise<ApiResponse<BindingPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -715,7 +728,7 @@ export function BindingListInstance(
     if (params["bindingType"] !== undefined)
       data["BindingType"] = serialize.map(
         params["bindingType"],
-        (e: BindingBindingType) => e
+        (e: BindingBindingType) => e,
       );
     if (params["identity"] !== undefined)
       data["Identity"] = serialize.map(params["identity"], (e: string) => e);
@@ -737,12 +750,12 @@ export function BindingListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new BindingPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -753,7 +766,7 @@ export function BindingListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<BindingPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<BindingPage>) => any,
   ): Promise<ApiResponse<BindingPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -766,7 +779,7 @@ export function BindingListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new BindingPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -778,7 +791,7 @@ export function BindingListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -802,7 +815,7 @@ export class BindingPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: BindingSolution
+    solution: BindingSolution,
   ) {
     super(version, response, solution);
   }
@@ -816,7 +829,7 @@ export class BindingPage extends Page<
     return new BindingInstance(
       this._version,
       payload,
-      this._solution.chatServiceSid
+      this._solution.chatServiceSid,
     );
   }
 

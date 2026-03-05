@@ -84,11 +84,11 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
+    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: DataSessionListInstanceEachOptions,
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
+    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams DataSessionInstance records from the API with HTTP metadata captured per page.
@@ -106,11 +106,11 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
+    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: DataSessionListInstanceEachOptions,
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
+    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
@@ -122,7 +122,7 @@ export interface DataSessionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DataSessionPage) => any
+    callback?: (error: Error | null, items: DataSessionPage) => any,
   ): Promise<DataSessionPage>;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API with HTTP metadata.
@@ -134,7 +134,10 @@ export interface DataSessionListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DataSessionPage>,
+    ) => any,
   ): Promise<ApiResponse<DataSessionPage>>;
   /**
    * Lists DataSessionInstance records from the API as a list.
@@ -146,11 +149,11 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: DataSessionInstance[]) => any
+    callback?: (error: Error | null, items: DataSessionInstance[]) => any,
   ): Promise<DataSessionInstance[]>;
   list(
     params: DataSessionListInstanceOptions,
-    callback?: (error: Error | null, items: DataSessionInstance[]) => any
+    callback?: (error: Error | null, items: DataSessionInstance[]) => any,
   ): Promise<DataSessionInstance[]>;
   /**
    * Lists DataSessionInstance records from the API as a list with HTTP metadata.
@@ -166,15 +169,15 @@ export interface DataSessionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DataSessionInstance[]>
-    ) => any
+      items: ApiResponse<DataSessionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DataSessionInstance[]>>;
   listWithHttpInfo(
     params: DataSessionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DataSessionInstance[]>
-    ) => any
+      items: ApiResponse<DataSessionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DataSessionInstance[]>>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
@@ -188,11 +191,11 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: DataSessionPage) => any
+    callback?: (error: Error | null, items: DataSessionPage) => any,
   ): Promise<DataSessionPage>;
   page(
     params: DataSessionListInstancePageOptions,
-    callback?: (error: Error | null, items: DataSessionPage) => any
+    callback?: (error: Error | null, items: DataSessionPage) => any,
   ): Promise<DataSessionPage>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API with HTTP metadata.
@@ -206,11 +209,17 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DataSessionPage>,
+    ) => any,
   ): Promise<ApiResponse<DataSessionPage>>;
   pageWithHttpInfo(
     params: DataSessionListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DataSessionPage>,
+    ) => any,
   ): Promise<ApiResponse<DataSessionPage>>;
 
   /**
@@ -222,7 +231,7 @@ export interface DataSessionListInstance {
 
 export function DataSessionListInstance(
   version: V1,
-  simSid: string
+  simSid: string,
 ): DataSessionListInstance {
   if (!isValidPathParam(simSid)) {
     throw new Error("Parameter 'simSid' is not valid.");
@@ -238,7 +247,7 @@ export function DataSessionListInstance(
     params?:
       | DataSessionListInstancePageOptions
       | ((error: Error | null, items: DataSessionPage) => any),
-    callback?: (error: Error | null, items: DataSessionPage) => any
+    callback?: (error: Error | null, items: DataSessionPage) => any,
   ): Promise<DataSessionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -267,12 +276,12 @@ export function DataSessionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DataSessionPage(operationVersion, payload, instance._solution)
+        new DataSessionPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -281,7 +290,7 @@ export function DataSessionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DataSessionPage) => any
+    callback?: (error: Error | null, items: DataSessionPage) => any,
   ): Promise<DataSessionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -289,7 +298,7 @@ export function DataSessionListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new DataSessionPage(instance._version, payload, instance._solution)
+        new DataSessionPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -299,7 +308,10 @@ export function DataSessionListInstance(
     params?:
       | DataSessionListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<DataSessionPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<DataSessionPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DataSessionPage>,
+    ) => any,
   ): Promise<ApiResponse<DataSessionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -330,14 +342,14 @@ export function DataSessionListInstance(
           body: new DataSessionPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -350,8 +362,8 @@ export function DataSessionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<DataSessionPage>
-    ) => any
+      items?: ApiResponse<DataSessionPage>,
+    ) => any,
   ): Promise<ApiResponse<DataSessionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -366,9 +378,9 @@ export function DataSessionListInstance(
         body: new DataSessionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -380,7 +392,7 @@ export function DataSessionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -415,7 +427,7 @@ export class DataSessionInstance {
   constructor(
     protected _version: V1,
     payload: DataSessionResource,
-    simSid: string
+    simSid: string,
   ) {
     this.sid = payload.sid;
     this.simSid = payload.sim_sid;
@@ -547,7 +559,7 @@ export class DataSessionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: DataSessionSolution
+    solution: DataSessionSolution,
   ) {
     super(version, response, solution);
   }
@@ -561,7 +573,7 @@ export class DataSessionPage extends Page<
     return new DataSessionInstance(
       this._version,
       payload,
-      this._solution.simSid
+      this._solution.simSid,
     );
   }
 

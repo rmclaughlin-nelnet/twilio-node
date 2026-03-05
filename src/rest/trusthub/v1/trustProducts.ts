@@ -130,7 +130,7 @@ export interface TrustProductsContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -141,7 +141,7 @@ export interface TrustProductsContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -152,7 +152,7 @@ export interface TrustProductsContext {
    * @returns Resolves to processed TrustProductsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance>;
 
   /**
@@ -165,8 +165,8 @@ export interface TrustProductsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>>;
 
   /**
@@ -177,7 +177,7 @@ export interface TrustProductsContext {
    * @returns Resolves to processed TrustProductsInstance
    */
   update(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance>;
   /**
    * Update a TrustProductsInstance
@@ -189,7 +189,7 @@ export interface TrustProductsContext {
    */
   update(
     params: TrustProductsContextUpdateOptions,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance>;
 
   /**
@@ -202,8 +202,8 @@ export interface TrustProductsContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>>;
   /**
    * Update a TrustProductsInstance and return HTTP info
@@ -217,8 +217,8 @@ export interface TrustProductsContext {
     params: TrustProductsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>>;
 
   /**
@@ -240,7 +240,10 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   protected _trustProductsEntityAssignments?: TrustProductsEntityAssignmentsListInstance;
   protected _trustProductsEvaluations?: TrustProductsEvaluationsListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -254,7 +257,7 @@ export class TrustProductsContextImpl implements TrustProductsContext {
       this._trustProductsChannelEndpointAssignment ||
       TrustProductsChannelEndpointAssignmentListInstance(
         this._version,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._trustProductsChannelEndpointAssignment;
   }
@@ -264,7 +267,7 @@ export class TrustProductsContextImpl implements TrustProductsContext {
       this._trustProductsEntityAssignments ||
       TrustProductsEntityAssignmentsListInstance(
         this._version,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._trustProductsEntityAssignments;
   }
@@ -277,7 +280,7 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -291,13 +294,13 @@ export class TrustProductsContextImpl implements TrustProductsContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -310,18 +313,18 @@ export class TrustProductsContextImpl implements TrustProductsContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -339,13 +342,13 @@ export class TrustProductsContextImpl implements TrustProductsContext {
         new TrustProductsInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -353,8 +356,8 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -374,14 +377,14 @@ export class TrustProductsContextImpl implements TrustProductsContext {
           body: new TrustProductsInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -390,7 +393,7 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     params?:
       | TrustProductsContextUpdateOptions
       | ((error: Error | null, item?: TrustProductsInstance) => any),
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -426,13 +429,13 @@ export class TrustProductsContextImpl implements TrustProductsContext {
         new TrustProductsInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -442,12 +445,12 @@ export class TrustProductsContextImpl implements TrustProductsContext {
       | TrustProductsContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<TrustProductsInstance>
+          item?: ApiResponse<TrustProductsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -485,14 +488,14 @@ export class TrustProductsContextImpl implements TrustProductsContext {
           body: new TrustProductsInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -538,7 +541,7 @@ export class TrustProductsInstance {
   constructor(
     protected _version: V1,
     payload: TrustProductsResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -622,7 +625,7 @@ export class TrustProductsInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -635,7 +638,7 @@ export class TrustProductsInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -648,7 +651,7 @@ export class TrustProductsInstance {
    * @returns Resolves to processed TrustProductsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -663,8 +666,8 @@ export class TrustProductsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -677,7 +680,7 @@ export class TrustProductsInstance {
    * @returns Resolves to processed TrustProductsInstance
    */
   update(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance>;
   /**
    * Update a TrustProductsInstance
@@ -689,12 +692,12 @@ export class TrustProductsInstance {
    */
   update(
     params: TrustProductsContextUpdateOptions,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance> {
     return this._proxy.update(params, callback);
   }
@@ -709,8 +712,8 @@ export class TrustProductsInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>>;
   /**
    * Update a TrustProductsInstance and return HTTP info
@@ -724,16 +727,16 @@ export class TrustProductsInstance {
     params: TrustProductsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -807,7 +810,7 @@ export interface TrustProductsListInstance {
    */
   create(
     params: TrustProductsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance>;
 
   /**
@@ -822,8 +825,8 @@ export interface TrustProductsListInstance {
     params: TrustProductsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsInstance>
-    ) => any
+      item?: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>>;
 
   /**
@@ -844,15 +847,15 @@ export interface TrustProductsListInstance {
   each(
     callback?: (
       item: TrustProductsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: TrustProductsListInstanceEachOptions,
     callback?: (
       item: TrustProductsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams TrustProductsInstance records from the API with HTTP metadata captured per page.
@@ -872,15 +875,15 @@ export interface TrustProductsListInstance {
   eachWithHttpInfo(
     callback?: (
       item: TrustProductsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: TrustProductsListInstanceEachOptions,
     callback?: (
       item: TrustProductsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of TrustProductsInstance records from the API.
@@ -892,7 +895,7 @@ export interface TrustProductsListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TrustProductsPage) => any
+    callback?: (error: Error | null, items: TrustProductsPage) => any,
   ): Promise<TrustProductsPage>;
   /**
    * Retrieve a single target page of TrustProductsInstance records from the API with HTTP metadata.
@@ -906,8 +909,8 @@ export interface TrustProductsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsPage>
-    ) => any
+      items: ApiResponse<TrustProductsPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsPage>>;
   /**
    * Lists TrustProductsInstance records from the API as a list.
@@ -919,11 +922,11 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: TrustProductsInstance[]) => any
+    callback?: (error: Error | null, items: TrustProductsInstance[]) => any,
   ): Promise<TrustProductsInstance[]>;
   list(
     params: TrustProductsListInstanceOptions,
-    callback?: (error: Error | null, items: TrustProductsInstance[]) => any
+    callback?: (error: Error | null, items: TrustProductsInstance[]) => any,
   ): Promise<TrustProductsInstance[]>;
   /**
    * Lists TrustProductsInstance records from the API as a list with HTTP metadata.
@@ -939,15 +942,15 @@ export interface TrustProductsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsInstance[]>
-    ) => any
+      items: ApiResponse<TrustProductsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance[]>>;
   listWithHttpInfo(
     params: TrustProductsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsInstance[]>
-    ) => any
+      items: ApiResponse<TrustProductsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance[]>>;
   /**
    * Retrieve a single page of TrustProductsInstance records from the API.
@@ -961,11 +964,11 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TrustProductsPage) => any
+    callback?: (error: Error | null, items: TrustProductsPage) => any,
   ): Promise<TrustProductsPage>;
   page(
     params: TrustProductsListInstancePageOptions,
-    callback?: (error: Error | null, items: TrustProductsPage) => any
+    callback?: (error: Error | null, items: TrustProductsPage) => any,
   ): Promise<TrustProductsPage>;
   /**
    * Retrieve a single page of TrustProductsInstance records from the API with HTTP metadata.
@@ -981,15 +984,15 @@ export interface TrustProductsListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsPage>
-    ) => any
+      items: ApiResponse<TrustProductsPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsPage>>;
   pageWithHttpInfo(
     params: TrustProductsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsPage>
-    ) => any
+      items: ApiResponse<TrustProductsPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsPage>>;
 
   /**
@@ -1000,7 +1003,7 @@ export interface TrustProductsListInstance {
 }
 
 export function TrustProductsListInstance(
-  version: V1
+  version: V1,
 ): TrustProductsListInstance {
   const instance = ((sid) => instance.get(sid)) as TrustProductsListInstance;
 
@@ -1014,7 +1017,7 @@ export function TrustProductsListInstance(
 
   instance.create = function create(
     params: TrustProductsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TrustProductsInstance) => any
+    callback?: (error: Error | null, items: TrustProductsInstance) => any,
   ): Promise<TrustProductsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1058,12 +1061,12 @@ export function TrustProductsListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TrustProductsInstance(operationVersion, payload)
+      (payload) => new TrustProductsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1072,8 +1075,8 @@ export function TrustProductsListInstance(
     params: TrustProductsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsInstance>
-    ) => any
+      items: ApiResponse<TrustProductsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1121,12 +1124,12 @@ export function TrustProductsListInstance(
         (response): ApiResponse<TrustProductsInstance> => ({
           ...response,
           body: new TrustProductsInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1135,7 +1138,7 @@ export function TrustProductsListInstance(
     params?:
       | TrustProductsListInstancePageOptions
       | ((error: Error | null, items: TrustProductsPage) => any),
-    callback?: (error: Error | null, items: TrustProductsPage) => any
+    callback?: (error: Error | null, items: TrustProductsPage) => any,
   ): Promise<TrustProductsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1169,12 +1172,12 @@ export function TrustProductsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrustProductsPage(operationVersion, payload, instance._solution)
+        new TrustProductsPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1183,7 +1186,7 @@ export function TrustProductsListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TrustProductsPage) => any
+    callback?: (error: Error | null, items: TrustProductsPage) => any,
   ): Promise<TrustProductsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1191,7 +1194,7 @@ export function TrustProductsListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new TrustProductsPage(instance._version, payload, instance._solution)
+        new TrustProductsPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1203,8 +1206,8 @@ export function TrustProductsListInstance(
       | ((error: Error | null, items: ApiResponse<TrustProductsPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<TrustProductsPage>
-    ) => any
+      items: ApiResponse<TrustProductsPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1240,14 +1243,14 @@ export function TrustProductsListInstance(
           body: new TrustProductsPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1260,8 +1263,8 @@ export function TrustProductsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<TrustProductsPage>
-    ) => any
+      items?: ApiResponse<TrustProductsPage>,
+    ) => any,
   ): Promise<ApiResponse<TrustProductsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1276,9 +1279,9 @@ export function TrustProductsListInstance(
         body: new TrustProductsPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1290,7 +1293,7 @@ export function TrustProductsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1314,7 +1317,7 @@ export class TrustProductsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: TrustProductsSolution
+    solution: TrustProductsSolution,
   ) {
     super(version, response, solution);
   }

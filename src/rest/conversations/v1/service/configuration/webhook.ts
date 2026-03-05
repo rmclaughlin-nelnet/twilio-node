@@ -47,7 +47,7 @@ export interface WebhookContext {
    * @returns Resolves to processed WebhookInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance>;
 
   /**
@@ -58,7 +58,10 @@ export interface WebhookContext {
    * @returns Resolves to processed WebhookInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>>;
 
   /**
@@ -69,7 +72,7 @@ export interface WebhookContext {
    * @returns Resolves to processed WebhookInstance
    */
   update(
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance>;
   /**
    * Update a WebhookInstance
@@ -81,7 +84,7 @@ export interface WebhookContext {
    */
   update(
     params: WebhookContextUpdateOptions,
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance>;
 
   /**
@@ -92,7 +95,10 @@ export interface WebhookContext {
    * @returns Resolves to processed WebhookInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>>;
   /**
    * Update a WebhookInstance and return HTTP info
@@ -104,7 +110,10 @@ export interface WebhookContext {
    */
   updateWithHttpInfo(
     params: WebhookContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>>;
 
   /**
@@ -122,7 +131,10 @@ export class WebhookContextImpl implements WebhookContext {
   protected _solution: WebhookContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, chatServiceSid: string) {
+  constructor(
+    protected _version: V1,
+    chatServiceSid: string,
+  ) {
     if (!isValidPathParam(chatServiceSid)) {
       throw new Error("Parameter 'chatServiceSid' is not valid.");
     }
@@ -132,7 +144,7 @@ export class WebhookContextImpl implements WebhookContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -150,19 +162,22 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          instance._solution.chatServiceSid
-        )
+          instance._solution.chatServiceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -182,14 +197,14 @@ export class WebhookContextImpl implements WebhookContext {
           body: new WebhookInstance(
             operationVersion,
             response.body,
-            instance._solution.chatServiceSid
+            instance._solution.chatServiceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -198,7 +213,7 @@ export class WebhookContextImpl implements WebhookContext {
     params?:
       | WebhookContextUpdateOptions
       | ((error: Error | null, item?: WebhookInstance) => any),
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -235,13 +250,13 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          instance._solution.chatServiceSid
-        )
+          instance._solution.chatServiceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -250,7 +265,10 @@ export class WebhookContextImpl implements WebhookContext {
     params?:
       | WebhookContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<WebhookInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -289,14 +307,14 @@ export class WebhookContextImpl implements WebhookContext {
           body: new WebhookInstance(
             operationVersion,
             response.body,
-            instance._solution.chatServiceSid
+            instance._solution.chatServiceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -334,7 +352,7 @@ export class WebhookInstance {
   constructor(
     protected _version: V1,
     payload: WebhookResource,
-    chatServiceSid: string
+    chatServiceSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
@@ -388,7 +406,7 @@ export class WebhookInstance {
    * @returns Resolves to processed WebhookInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance> {
     return this._proxy.fetch(callback);
   }
@@ -401,7 +419,10 @@ export class WebhookInstance {
    * @returns Resolves to processed WebhookInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -414,7 +435,7 @@ export class WebhookInstance {
    * @returns Resolves to processed WebhookInstance
    */
   update(
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance>;
   /**
    * Update a WebhookInstance
@@ -426,12 +447,12 @@ export class WebhookInstance {
    */
   update(
     params: WebhookContextUpdateOptions,
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, item?: WebhookInstance) => any,
   ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);
   }
@@ -444,7 +465,10 @@ export class WebhookInstance {
    * @returns Resolves to processed WebhookInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>>;
   /**
    * Update a WebhookInstance and return HTTP info
@@ -456,12 +480,18 @@ export class WebhookInstance {
    */
   updateWithHttpInfo(
     params: WebhookContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<WebhookInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<WebhookInstance>,
+    ) => any,
   ): Promise<ApiResponse<WebhookInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -509,7 +539,7 @@ export interface WebhookListInstance {
 
 export function WebhookListInstance(
   version: V1,
-  chatServiceSid: string
+  chatServiceSid: string,
 ): WebhookListInstance {
   if (!isValidPathParam(chatServiceSid)) {
     throw new Error("Parameter 'chatServiceSid' is not valid.");
@@ -531,7 +561,7 @@ export function WebhookListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

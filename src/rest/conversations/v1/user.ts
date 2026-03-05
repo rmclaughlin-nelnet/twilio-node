@@ -110,7 +110,7 @@ export interface UserContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
   /**
    * Remove a UserInstance
@@ -122,7 +122,7 @@ export interface UserContext {
    */
   remove(
     params: UserContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -133,7 +133,7 @@ export interface UserContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a UserInstance and return HTTP info
@@ -145,7 +145,7 @@ export interface UserContext {
    */
   removeWithHttpInfo(
     params: UserContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -156,7 +156,7 @@ export interface UserContext {
    * @returns Resolves to processed UserInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance>;
 
   /**
@@ -167,7 +167,7 @@ export interface UserContext {
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>>;
 
   /**
@@ -178,7 +178,7 @@ export interface UserContext {
    * @returns Resolves to processed UserInstance
    */
   update(
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance>;
   /**
    * Update a UserInstance
@@ -190,7 +190,7 @@ export interface UserContext {
    */
   update(
     params: UserContextUpdateOptions,
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance>;
 
   /**
@@ -201,7 +201,7 @@ export interface UserContext {
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>>;
   /**
    * Update a UserInstance and return HTTP info
@@ -213,7 +213,7 @@ export interface UserContext {
    */
   updateWithHttpInfo(
     params: UserContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>>;
 
   /**
@@ -233,7 +233,10 @@ export class UserContextImpl implements UserContext {
 
   protected _userConversations?: UserConversationListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -253,7 +256,7 @@ export class UserContextImpl implements UserContext {
     params?:
       | UserContextRemoveOptions
       | ((error: Error | null, item?: boolean) => any),
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
@@ -279,7 +282,7 @@ export class UserContextImpl implements UserContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -288,7 +291,7 @@ export class UserContextImpl implements UserContext {
     params?:
       | UserContextRemoveOptions
       | ((error: Error | null, item?: ApiResponse<boolean>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
@@ -317,18 +320,18 @@ export class UserContextImpl implements UserContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -343,18 +346,18 @@ export class UserContextImpl implements UserContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserInstance(operationVersion, payload, instance._solution.sid)
+        new UserInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -374,14 +377,14 @@ export class UserContextImpl implements UserContext {
           body: new UserInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -390,7 +393,7 @@ export class UserContextImpl implements UserContext {
     params?:
       | UserContextUpdateOptions
       | ((error: Error | null, item?: UserInstance) => any),
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -424,12 +427,12 @@ export class UserContextImpl implements UserContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserInstance(operationVersion, payload, instance._solution.sid)
+        new UserInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -438,7 +441,7 @@ export class UserContextImpl implements UserContext {
     params?:
       | UserContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<UserInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -477,14 +480,14 @@ export class UserContextImpl implements UserContext {
           body: new UserInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -527,7 +530,11 @@ export class UserInstance {
   protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
-  constructor(protected _version: V1, payload: UserResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: UserResource,
+    sid?: string,
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
@@ -609,7 +616,7 @@ export class UserInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
   /**
    * Remove a UserInstance
@@ -621,12 +628,12 @@ export class UserInstance {
    */
   remove(
     params: UserContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   remove(
     params?: any,
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
@@ -639,7 +646,7 @@ export class UserInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a UserInstance and return HTTP info
@@ -651,12 +658,12 @@ export class UserInstance {
    */
   removeWithHttpInfo(
     params: UserContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   removeWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
@@ -669,7 +676,7 @@ export class UserInstance {
    * @returns Resolves to processed UserInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance> {
     return this._proxy.fetch(callback);
   }
@@ -682,7 +689,7 @@ export class UserInstance {
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -695,7 +702,7 @@ export class UserInstance {
    * @returns Resolves to processed UserInstance
    */
   update(
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance>;
   /**
    * Update a UserInstance
@@ -707,12 +714,12 @@ export class UserInstance {
    */
   update(
     params: UserContextUpdateOptions,
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
   }
@@ -725,7 +732,7 @@ export class UserInstance {
    * @returns Resolves to processed UserInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>>;
   /**
    * Update a UserInstance and return HTTP info
@@ -737,12 +744,12 @@ export class UserInstance {
    */
   updateWithHttpInfo(
     params: UserContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -802,7 +809,7 @@ export interface UserListInstance {
    */
   create(
     params: UserListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, item?: UserInstance) => any,
   ): Promise<UserInstance>;
 
   /**
@@ -815,7 +822,7 @@ export interface UserListInstance {
    */
   createWithHttpInfo(
     params: UserListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>>;
 
   /**
@@ -834,11 +841,11 @@ export interface UserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: UserListInstanceEachOptions,
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams UserInstance records from the API with HTTP metadata captured per page.
@@ -856,11 +863,11 @@ export interface UserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: UserListInstanceEachOptions,
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of UserInstance records from the API.
@@ -872,7 +879,7 @@ export interface UserListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UserPage) => any
+    callback?: (error: Error | null, items: UserPage) => any,
   ): Promise<UserPage>;
   /**
    * Retrieve a single target page of UserInstance records from the API with HTTP metadata.
@@ -884,7 +891,7 @@ export interface UserListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any,
   ): Promise<ApiResponse<UserPage>>;
   /**
    * Lists UserInstance records from the API as a list.
@@ -896,11 +903,11 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: UserInstance[]) => any
+    callback?: (error: Error | null, items: UserInstance[]) => any,
   ): Promise<UserInstance[]>;
   list(
     params: UserListInstanceOptions,
-    callback?: (error: Error | null, items: UserInstance[]) => any
+    callback?: (error: Error | null, items: UserInstance[]) => any,
   ): Promise<UserInstance[]>;
   /**
    * Lists UserInstance records from the API as a list with HTTP metadata.
@@ -914,11 +921,11 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any,
   ): Promise<ApiResponse<UserInstance[]>>;
   listWithHttpInfo(
     params: UserListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any,
   ): Promise<ApiResponse<UserInstance[]>>;
   /**
    * Retrieve a single page of UserInstance records from the API.
@@ -932,11 +939,11 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: UserPage) => any
+    callback?: (error: Error | null, items: UserPage) => any,
   ): Promise<UserPage>;
   page(
     params: UserListInstancePageOptions,
-    callback?: (error: Error | null, items: UserPage) => any
+    callback?: (error: Error | null, items: UserPage) => any,
   ): Promise<UserPage>;
   /**
    * Retrieve a single page of UserInstance records from the API with HTTP metadata.
@@ -950,11 +957,11 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any,
   ): Promise<ApiResponse<UserPage>>;
   pageWithHttpInfo(
     params: UserListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any,
   ): Promise<ApiResponse<UserPage>>;
 
   /**
@@ -977,7 +984,7 @@ export function UserListInstance(version: V1): UserListInstance {
 
   instance.create = function create(
     params: UserListInstanceCreateOptions,
-    callback?: (error: Error | null, items: UserInstance) => any
+    callback?: (error: Error | null, items: UserInstance) => any,
   ): Promise<UserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1011,19 +1018,19 @@ export function UserListInstance(version: V1): UserListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new UserInstance(operationVersion, payload)
+      (payload) => new UserInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: UserListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<UserInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<UserInstance>) => any,
   ): Promise<ApiResponse<UserInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1061,12 +1068,12 @@ export function UserListInstance(version: V1): UserListInstance {
         (response): ApiResponse<UserInstance> => ({
           ...response,
           body: new UserInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1075,7 +1082,7 @@ export function UserListInstance(version: V1): UserListInstance {
     params?:
       | UserListInstancePageOptions
       | ((error: Error | null, items: UserPage) => any),
-    callback?: (error: Error | null, items: UserPage) => any
+    callback?: (error: Error | null, items: UserPage) => any,
   ): Promise<UserPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1103,12 +1110,12 @@ export function UserListInstance(version: V1): UserListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new UserPage(operationVersion, payload, instance._solution)
+      (payload) => new UserPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1117,14 +1124,14 @@ export function UserListInstance(version: V1): UserListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UserPage) => any
+    callback?: (error: Error | null, items: UserPage) => any,
   ): Promise<UserPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new UserPage(instance._version, payload, instance._solution)
+      (payload) => new UserPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1134,7 +1141,7 @@ export function UserListInstance(version: V1): UserListInstance {
     params?:
       | UserListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<UserPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any,
   ): Promise<ApiResponse<UserPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1163,12 +1170,12 @@ export function UserListInstance(version: V1): UserListInstance {
           statusCode: response.statusCode,
           headers: response.headers,
           body: new UserPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1179,7 +1186,7 @@ export function UserListInstance(version: V1): UserListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<UserPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<UserPage>) => any,
   ): Promise<ApiResponse<UserPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1192,7 +1199,7 @@ export function UserListInstance(version: V1): UserListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new UserPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1204,7 +1211,7 @@ export function UserListInstance(version: V1): UserListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

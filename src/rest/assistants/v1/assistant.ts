@@ -246,7 +246,7 @@ export interface AssistantContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -257,7 +257,7 @@ export interface AssistantContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -268,7 +268,7 @@ export interface AssistantContext {
    * @returns Resolves to processed AssistantInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance>;
 
   /**
@@ -281,8 +281,8 @@ export interface AssistantContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>>;
 
   /**
@@ -293,7 +293,7 @@ export interface AssistantContext {
    * @returns Resolves to processed AssistantInstance
    */
   update(
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance>;
   /**
    * Update a AssistantInstance
@@ -307,7 +307,7 @@ export interface AssistantContext {
   update(
     params: AssistantsV1ServiceUpdateAssistantRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance>;
 
   /**
@@ -320,8 +320,8 @@ export interface AssistantContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>>;
   /**
    * Update a AssistantInstance and return HTTP info
@@ -337,8 +337,8 @@ export interface AssistantContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>>;
 
   /**
@@ -361,7 +361,10 @@ export class AssistantContextImpl implements AssistantContext {
   protected _feedbacks?: FeedbackListInstance;
   protected _messages?: MessageListInstance;
 
-  constructor(protected _version: V1, id: string) {
+  constructor(
+    protected _version: V1,
+    id: string,
+  ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -397,7 +400,7 @@ export class AssistantContextImpl implements AssistantContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -411,13 +414,13 @@ export class AssistantContextImpl implements AssistantContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -430,18 +433,18 @@ export class AssistantContextImpl implements AssistantContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -456,12 +459,12 @@ export class AssistantContextImpl implements AssistantContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssistantInstance(operationVersion, payload, instance._solution.id)
+        new AssistantInstance(operationVersion, payload, instance._solution.id),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -469,8 +472,8 @@ export class AssistantContextImpl implements AssistantContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -490,14 +493,14 @@ export class AssistantContextImpl implements AssistantContext {
           body: new AssistantInstance(
             operationVersion,
             response.body,
-            instance._solution.id
+            instance._solution.id,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -507,7 +510,7 @@ export class AssistantContextImpl implements AssistantContext {
       | AssistantsV1ServiceUpdateAssistantRequest
       | ((error: Error | null, item?: AssistantInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -538,12 +541,12 @@ export class AssistantContextImpl implements AssistantContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssistantInstance(operationVersion, payload, instance._solution.id)
+        new AssistantInstance(operationVersion, payload, instance._solution.id),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -555,8 +558,8 @@ export class AssistantContextImpl implements AssistantContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -592,14 +595,14 @@ export class AssistantContextImpl implements AssistantContext {
           body: new AssistantInstance(
             operationVersion,
             response.body,
-            instance._solution.id
+            instance._solution.id,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -641,7 +644,11 @@ export class AssistantInstance {
   protected _solution: AssistantContextSolution;
   protected _context?: AssistantContext;
 
-  constructor(protected _version: V1, payload: AssistantResource, id?: string) {
+  constructor(
+    protected _version: V1,
+    payload: AssistantResource,
+    id?: string,
+  ) {
     this.accountSid = payload.account_sid;
     this.customerAi = payload.customer_ai;
     this.id = payload.id;
@@ -722,7 +729,7 @@ export class AssistantInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -735,7 +742,7 @@ export class AssistantInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -748,7 +755,7 @@ export class AssistantInstance {
    * @returns Resolves to processed AssistantInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance> {
     return this._proxy.fetch(callback);
   }
@@ -763,8 +770,8 @@ export class AssistantInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -777,7 +784,7 @@ export class AssistantInstance {
    * @returns Resolves to processed AssistantInstance
    */
   update(
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance>;
   /**
    * Update a AssistantInstance
@@ -791,12 +798,12 @@ export class AssistantInstance {
   update(
     params: AssistantsV1ServiceUpdateAssistantRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance> {
     return this._proxy.update(params, callback);
   }
@@ -811,8 +818,8 @@ export class AssistantInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>>;
   /**
    * Update a AssistantInstance and return HTTP info
@@ -828,16 +835,16 @@ export class AssistantInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -919,7 +926,7 @@ export interface AssistantListInstance {
   create(
     params: AssistantsV1ServiceCreateAssistantRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: AssistantInstance) => any
+    callback?: (error: Error | null, item?: AssistantInstance) => any,
   ): Promise<AssistantInstance>;
 
   /**
@@ -936,8 +943,8 @@ export interface AssistantListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssistantInstance>
-    ) => any
+      item?: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>>;
 
   /**
@@ -956,11 +963,11 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
+    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: AssistantListInstanceEachOptions,
-    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
+    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams AssistantInstance records from the API with HTTP metadata captured per page.
@@ -978,11 +985,11 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
+    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: AssistantListInstanceEachOptions,
-    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void
+    callback?: (item: AssistantInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of AssistantInstance records from the API.
@@ -994,7 +1001,7 @@ export interface AssistantListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssistantPage) => any
+    callback?: (error: Error | null, items: AssistantPage) => any,
   ): Promise<AssistantPage>;
   /**
    * Retrieve a single target page of AssistantInstance records from the API with HTTP metadata.
@@ -1006,7 +1013,7 @@ export interface AssistantListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<AssistantPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssistantPage>) => any,
   ): Promise<ApiResponse<AssistantPage>>;
   /**
    * Lists AssistantInstance records from the API as a list.
@@ -1018,11 +1025,11 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AssistantInstance[]) => any
+    callback?: (error: Error | null, items: AssistantInstance[]) => any,
   ): Promise<AssistantInstance[]>;
   list(
     params: AssistantListInstanceOptions,
-    callback?: (error: Error | null, items: AssistantInstance[]) => any
+    callback?: (error: Error | null, items: AssistantInstance[]) => any,
   ): Promise<AssistantInstance[]>;
   /**
    * Lists AssistantInstance records from the API as a list with HTTP metadata.
@@ -1038,15 +1045,15 @@ export interface AssistantListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssistantInstance[]>
-    ) => any
+      items: ApiResponse<AssistantInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance[]>>;
   listWithHttpInfo(
     params: AssistantListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssistantInstance[]>
-    ) => any
+      items: ApiResponse<AssistantInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance[]>>;
   /**
    * Retrieve a single page of AssistantInstance records from the API.
@@ -1060,11 +1067,11 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AssistantPage) => any
+    callback?: (error: Error | null, items: AssistantPage) => any,
   ): Promise<AssistantPage>;
   page(
     params: AssistantListInstancePageOptions,
-    callback?: (error: Error | null, items: AssistantPage) => any
+    callback?: (error: Error | null, items: AssistantPage) => any,
   ): Promise<AssistantPage>;
   /**
    * Retrieve a single page of AssistantInstance records from the API with HTTP metadata.
@@ -1078,11 +1085,11 @@ export interface AssistantListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<AssistantPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssistantPage>) => any,
   ): Promise<ApiResponse<AssistantPage>>;
   pageWithHttpInfo(
     params: AssistantListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<AssistantPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssistantPage>) => any,
   ): Promise<ApiResponse<AssistantPage>>;
 
   /**
@@ -1106,7 +1113,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
   instance.create = function create(
     params: AssistantsV1ServiceCreateAssistantRequest,
     headers?: any,
-    callback?: (error: Error | null, items: AssistantInstance) => any
+    callback?: (error: Error | null, items: AssistantInstance) => any,
   ): Promise<AssistantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1132,12 +1139,12 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AssistantInstance(operationVersion, payload)
+      (payload) => new AssistantInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1147,8 +1154,8 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssistantInstance>
-    ) => any
+      items: ApiResponse<AssistantInstance>,
+    ) => any,
   ): Promise<ApiResponse<AssistantInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1178,12 +1185,12 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
         (response): ApiResponse<AssistantInstance> => ({
           ...response,
           body: new AssistantInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1192,7 +1199,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
     params?:
       | AssistantListInstancePageOptions
       | ((error: Error | null, items: AssistantPage) => any),
-    callback?: (error: Error | null, items: AssistantPage) => any
+    callback?: (error: Error | null, items: AssistantPage) => any,
   ): Promise<AssistantPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1221,12 +1228,12 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssistantPage(operationVersion, payload, instance._solution)
+        new AssistantPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1235,7 +1242,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssistantPage) => any
+    callback?: (error: Error | null, items: AssistantPage) => any,
   ): Promise<AssistantPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1243,7 +1250,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AssistantPage(instance._version, payload, instance._solution)
+        new AssistantPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1253,7 +1260,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
     params?:
       | AssistantListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AssistantPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<AssistantPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssistantPage>) => any,
   ): Promise<ApiResponse<AssistantPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1284,14 +1291,14 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
           body: new AssistantPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1302,7 +1309,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<AssistantPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<AssistantPage>) => any,
   ): Promise<ApiResponse<AssistantPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1317,9 +1324,9 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
         body: new AssistantPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1331,7 +1338,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1355,7 +1362,7 @@ export class AssistantPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: AssistantSolution
+    solution: AssistantSolution,
   ) {
     super(version, response, solution);
   }

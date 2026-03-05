@@ -92,7 +92,7 @@ export interface NotificationContext {
    * @returns Resolves to processed NotificationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance>;
 
   /**
@@ -105,8 +105,8 @@ export interface NotificationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
@@ -130,7 +130,7 @@ export class NotificationContextImpl implements NotificationContext {
     protected _version: V2010,
     accountSid: string,
     callSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -149,7 +149,7 @@ export class NotificationContextImpl implements NotificationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -169,13 +169,13 @@ export class NotificationContextImpl implements NotificationContext {
           payload,
           instance._solution.accountSid,
           instance._solution.callSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -183,8 +183,8 @@ export class NotificationContextImpl implements NotificationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -206,14 +206,14 @@ export class NotificationContextImpl implements NotificationContext {
             response.body,
             instance._solution.accountSid,
             instance._solution.callSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -265,7 +265,7 @@ export class NotificationInstance {
     payload: NotificationResource,
     accountSid: string,
     callSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -364,7 +364,7 @@ export class NotificationInstance {
         this._version,
         this._solution.accountSid,
         this._solution.callSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -377,7 +377,7 @@ export class NotificationInstance {
    * @returns Resolves to processed NotificationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -392,8 +392,8 @@ export class NotificationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -459,11 +459,17 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: NotificationInstance,
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: NotificationListInstanceEachOptions,
-    callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: NotificationInstance,
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams NotificationInstance records from the API with HTTP metadata captured per page.
@@ -481,11 +487,17 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: NotificationInstance,
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: NotificationListInstanceEachOptions,
-    callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: NotificationInstance,
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of NotificationInstance records from the API.
@@ -497,7 +509,7 @@ export interface NotificationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: NotificationPage) => any
+    callback?: (error: Error | null, items: NotificationPage) => any,
   ): Promise<NotificationPage>;
   /**
    * Retrieve a single target page of NotificationInstance records from the API with HTTP metadata.
@@ -511,8 +523,8 @@ export interface NotificationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NotificationPage>
-    ) => any
+      items: ApiResponse<NotificationPage>,
+    ) => any,
   ): Promise<ApiResponse<NotificationPage>>;
   /**
    * Lists NotificationInstance records from the API as a list.
@@ -524,11 +536,11 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: NotificationInstance[]) => any
+    callback?: (error: Error | null, items: NotificationInstance[]) => any,
   ): Promise<NotificationInstance[]>;
   list(
     params: NotificationListInstanceOptions,
-    callback?: (error: Error | null, items: NotificationInstance[]) => any
+    callback?: (error: Error | null, items: NotificationInstance[]) => any,
   ): Promise<NotificationInstance[]>;
   /**
    * Lists NotificationInstance records from the API as a list with HTTP metadata.
@@ -544,15 +556,15 @@ export interface NotificationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<NotificationInstance[]>
-    ) => any
+      items: ApiResponse<NotificationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance[]>>;
   listWithHttpInfo(
     params: NotificationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NotificationInstance[]>
-    ) => any
+      items: ApiResponse<NotificationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance[]>>;
   /**
    * Retrieve a single page of NotificationInstance records from the API.
@@ -566,11 +578,11 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: NotificationPage) => any
+    callback?: (error: Error | null, items: NotificationPage) => any,
   ): Promise<NotificationPage>;
   page(
     params: NotificationListInstancePageOptions,
-    callback?: (error: Error | null, items: NotificationPage) => any
+    callback?: (error: Error | null, items: NotificationPage) => any,
   ): Promise<NotificationPage>;
   /**
    * Retrieve a single page of NotificationInstance records from the API with HTTP metadata.
@@ -586,15 +598,15 @@ export interface NotificationListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<NotificationPage>
-    ) => any
+      items: ApiResponse<NotificationPage>,
+    ) => any,
   ): Promise<ApiResponse<NotificationPage>>;
   pageWithHttpInfo(
     params: NotificationListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NotificationPage>
-    ) => any
+      items: ApiResponse<NotificationPage>,
+    ) => any,
   ): Promise<ApiResponse<NotificationPage>>;
 
   /**
@@ -607,7 +619,7 @@ export interface NotificationListInstance {
 export function NotificationListInstance(
   version: V2010,
   accountSid: string,
-  callSid: string
+  callSid: string,
 ): NotificationListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -631,7 +643,7 @@ export function NotificationListInstance(
     params?:
       | NotificationListInstancePageOptions
       | ((error: Error | null, items: NotificationPage) => any),
-    callback?: (error: Error | null, items: NotificationPage) => any
+    callback?: (error: Error | null, items: NotificationPage) => any,
   ): Promise<NotificationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -667,12 +679,12 @@ export function NotificationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NotificationPage(operationVersion, payload, instance._solution)
+        new NotificationPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -681,7 +693,7 @@ export function NotificationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: NotificationPage) => any
+    callback?: (error: Error | null, items: NotificationPage) => any,
   ): Promise<NotificationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -689,7 +701,7 @@ export function NotificationListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new NotificationPage(instance._version, payload, instance._solution)
+        new NotificationPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -701,8 +713,8 @@ export function NotificationListInstance(
       | ((error: Error | null, items: ApiResponse<NotificationPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<NotificationPage>
-    ) => any
+      items: ApiResponse<NotificationPage>,
+    ) => any,
   ): Promise<ApiResponse<NotificationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -740,14 +752,14 @@ export function NotificationListInstance(
           body: new NotificationPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -760,8 +772,8 @@ export function NotificationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<NotificationPage>
-    ) => any
+      items?: ApiResponse<NotificationPage>,
+    ) => any,
   ): Promise<ApiResponse<NotificationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -776,9 +788,9 @@ export function NotificationListInstance(
         body: new NotificationPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -790,7 +802,7 @@ export function NotificationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -814,7 +826,7 @@ export class NotificationPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: NotificationSolution
+    solution: NotificationSolution,
   ) {
     super(version, response, solution);
   }
@@ -829,7 +841,7 @@ export class NotificationPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.callSid
+      this._solution.callSid,
     );
   }
 

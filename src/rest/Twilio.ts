@@ -211,9 +211,7 @@ export class Twilio extends Client {
   //Domains
   /** Getter for (Twilio.Accounts) domain */
   get accounts(): Accounts {
-    return (
-      this._accounts ?? (this._accounts = new Accounts(this))
-    );
+    return this._accounts ?? (this._accounts = new Accounts(this));
   }
   /** Getter for (Twilio.Api) domain */
   get api(): Api {
@@ -221,17 +219,11 @@ export class Twilio extends Client {
   }
   /** Getter for (Twilio.Assistants) domain */
   get assistants(): Assistants {
-    return (
-      this._assistants ??
-      (this._assistants = new Assistants(this))
-    );
+    return this._assistants ?? (this._assistants = new Assistants(this));
   }
   /** Getter for (Twilio.Bulkexports) domain */
   get bulkexports(): Bulkexports {
-    return (
-      this._bulkexports ??
-      (this._bulkexports = new Bulkexports(this))
-    );
+    return this._bulkexports ?? (this._bulkexports = new Bulkexports(this));
   }
   /** Getter for (Twilio.Chat) domain */
   get chat(): Chat {
@@ -244,8 +236,7 @@ export class Twilio extends Client {
   /** Getter for (Twilio.Conversations) domain */
   get conversations(): Conversations {
     return (
-      this._conversations ??
-      (this._conversations = new Conversations(this))
+      this._conversations ?? (this._conversations = new Conversations(this))
     );
   }
   /** Getter for (Twilio.Events) domain */
@@ -258,17 +249,11 @@ export class Twilio extends Client {
   }
   /** Getter for (Twilio.FrontlineApi) domain */
   get frontlineApi(): FrontlineApi {
-    return (
-      this._frontlineApi ??
-      (this._frontlineApi = new FrontlineApi(this))
-    );
+    return this._frontlineApi ?? (this._frontlineApi = new FrontlineApi(this));
   }
   /** Getter for (Twilio.PreviewIam) domain */
   get previewIam(): PreviewIam {
-    return (
-      this._previewIam ??
-      (this._previewIam = new PreviewIam(this))
-    );
+    return this._previewIam ?? (this._previewIam = new PreviewIam(this));
   }
   /** Getter for (Twilio.Iam) domain */
   get iam(): Iam {
@@ -276,29 +261,19 @@ export class Twilio extends Client {
   }
   /** Getter for (Twilio.Insights) domain */
   get insights(): Insights {
-    return (
-      this._insights ?? (this._insights = new Insights(this))
-    );
+    return this._insights ?? (this._insights = new Insights(this));
   }
   /** Getter for (Twilio.Intelligence) domain */
   get intelligence(): Intelligence {
-    return (
-      this._intelligence ??
-      (this._intelligence = new Intelligence(this))
-    );
+    return this._intelligence ?? (this._intelligence = new Intelligence(this));
   }
   /** Getter for (Twilio.IpMessaging) domain */
   get ipMessaging(): IpMessaging {
-    return (
-      this._ipMessaging ??
-      (this._ipMessaging = new IpMessaging(this))
-    );
+    return this._ipMessaging ?? (this._ipMessaging = new IpMessaging(this));
   }
   /** Getter for (Twilio.Knowledge) domain */
   get knowledge(): Knowledge {
-    return (
-      this._knowledge ?? (this._knowledge = new Knowledge(this))
-    );
+    return this._knowledge ?? (this._knowledge = new Knowledge(this));
   }
   /** Getter for (Twilio.Lookups) domain */
   get lookups(): Lookups {
@@ -306,16 +281,11 @@ export class Twilio extends Client {
   }
   /** Getter for (Twilio.Marketplace) domain */
   get marketplace(): Marketplace {
-    return (
-      this._marketplace ??
-      (this._marketplace = new Marketplace(this))
-    );
+    return this._marketplace ?? (this._marketplace = new Marketplace(this));
   }
   /** Getter for (Twilio.Messaging) domain */
   get messaging(): Messaging {
-    return (
-      this._messaging ?? (this._messaging = new Messaging(this))
-    );
+    return this._messaging ?? (this._messaging = new Messaging(this));
   }
   /** Getter for (Twilio.Monitor) domain */
   get monitor(): Monitor {
@@ -351,10 +321,7 @@ export class Twilio extends Client {
   }
   /** Getter for (Twilio.Serverless) domain */
   get serverless(): Serverless {
-    return (
-      this._serverless ??
-      (this._serverless = new Serverless(this))
-    );
+    return this._serverless ?? (this._serverless = new Serverless(this));
   }
   /** Getter for (Twilio.Studio) domain */
   get studio(): Studio {
@@ -362,9 +329,7 @@ export class Twilio extends Client {
   }
   /** Getter for (Twilio.Supersim) domain */
   get supersim(): Supersim {
-    return (
-      this._supersim ?? (this._supersim = new Supersim(this))
-    );
+    return this._supersim ?? (this._supersim = new Supersim(this));
   }
   /** Getter for (Twilio.Sync) domain */
   get sync(): Sync {
@@ -372,22 +337,15 @@ export class Twilio extends Client {
   }
   /** Getter for (Twilio.Taskrouter) domain */
   get taskrouter(): Taskrouter {
-    return (
-      this._taskrouter ??
-      (this._taskrouter = new Taskrouter(this))
-    );
+    return this._taskrouter ?? (this._taskrouter = new Taskrouter(this));
   }
   /** Getter for (Twilio.Trunking) domain */
   get trunking(): Trunking {
-    return (
-      this._trunking ?? (this._trunking = new Trunking(this))
-    );
+    return this._trunking ?? (this._trunking = new Trunking(this));
   }
   /** Getter for (Twilio.Trusthub) domain */
   get trusthub(): Trusthub {
-    return (
-      this._trusthub ?? (this._trusthub = new Trusthub(this))
-    );
+    return this._trusthub ?? (this._trusthub = new Trusthub(this));
   }
   /** Getter for (Twilio.Verify) domain */
   get verify(): Verify {
@@ -403,9 +361,7 @@ export class Twilio extends Client {
   }
   /** Getter for (Twilio.Wireless) domain */
   get wireless(): Wireless {
-    return (
-      this._wireless ?? (this._wireless = new Wireless(this))
-    );
+    return this._wireless ?? (this._wireless = new Wireless(this));
   }
 
   /** Getter for (Twilio.Api.V2010.AccountContext.AddressListInstance) addresses resource */

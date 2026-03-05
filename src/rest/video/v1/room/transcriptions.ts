@@ -53,7 +53,7 @@ export interface TranscriptionsListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TranscriptionsInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -93,7 +93,7 @@ export interface TranscriptionsContext {
    * @returns Resolves to processed TranscriptionsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance>;
 
   /**
@@ -106,8 +106,8 @@ export interface TranscriptionsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>>;
 
   /**
@@ -118,7 +118,7 @@ export interface TranscriptionsContext {
    * @returns Resolves to processed TranscriptionsInstance
    */
   update(
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance>;
   /**
    * Update a TranscriptionsInstance
@@ -130,7 +130,7 @@ export interface TranscriptionsContext {
    */
   update(
     params: TranscriptionsContextUpdateOptions,
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance>;
 
   /**
@@ -143,8 +143,8 @@ export interface TranscriptionsContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>>;
   /**
    * Update a TranscriptionsInstance and return HTTP info
@@ -158,8 +158,8 @@ export interface TranscriptionsContext {
     params: TranscriptionsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>>;
 
   /**
@@ -178,7 +178,11 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
   protected _solution: TranscriptionsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, roomSid: string, ttid: string) {
+  constructor(
+    protected _version: V1,
+    roomSid: string,
+    ttid: string,
+  ) {
     if (!isValidPathParam(roomSid)) {
       throw new Error("Parameter 'roomSid' is not valid.");
     }
@@ -192,7 +196,7 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -211,13 +215,13 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
           operationVersion,
           payload,
           instance._solution.roomSid,
-          instance._solution.ttid
-        )
+          instance._solution.ttid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -225,8 +229,8 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -247,14 +251,14 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
             operationVersion,
             response.body,
             instance._solution.roomSid,
-            instance._solution.ttid
+            instance._solution.ttid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -263,7 +267,7 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
     params?:
       | TranscriptionsContextUpdateOptions
       | ((error: Error | null, item?: TranscriptionsInstance) => any),
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -297,13 +301,13 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
           operationVersion,
           payload,
           instance._solution.roomSid,
-          instance._solution.ttid
-        )
+          instance._solution.ttid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -313,12 +317,12 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
       | TranscriptionsContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<TranscriptionsInstance>
+          item?: ApiResponse<TranscriptionsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -354,14 +358,14 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
             operationVersion,
             response.body,
             instance._solution.roomSid,
-            instance._solution.ttid
+            instance._solution.ttid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -407,7 +411,7 @@ export class TranscriptionsInstance {
     protected _version: V1,
     payload: TranscriptionsResource,
     roomSid: string,
-    ttid?: string
+    ttid?: string,
   ) {
     this.ttid = payload.ttid;
     this.accountSid = payload.account_sid;
@@ -477,7 +481,7 @@ export class TranscriptionsInstance {
       new TranscriptionsContextImpl(
         this._version,
         this._solution.roomSid,
-        this._solution.ttid
+        this._solution.ttid,
       );
     return this._context;
   }
@@ -490,7 +494,7 @@ export class TranscriptionsInstance {
    * @returns Resolves to processed TranscriptionsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -505,8 +509,8 @@ export class TranscriptionsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -519,7 +523,7 @@ export class TranscriptionsInstance {
    * @returns Resolves to processed TranscriptionsInstance
    */
   update(
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance>;
   /**
    * Update a TranscriptionsInstance
@@ -531,12 +535,12 @@ export class TranscriptionsInstance {
    */
   update(
     params: TranscriptionsContextUpdateOptions,
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance> {
     return this._proxy.update(params, callback);
   }
@@ -551,8 +555,8 @@ export class TranscriptionsInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>>;
   /**
    * Update a TranscriptionsInstance and return HTTP info
@@ -566,16 +570,16 @@ export class TranscriptionsInstance {
     params: TranscriptionsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -627,7 +631,7 @@ export interface TranscriptionsListInstance {
    * @returns Resolves to processed TranscriptionsInstance
    */
   create(
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance>;
   /**
    * Create a TranscriptionsInstance
@@ -639,7 +643,7 @@ export interface TranscriptionsListInstance {
    */
   create(
     params: TranscriptionsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TranscriptionsInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance>;
 
   /**
@@ -652,8 +656,8 @@ export interface TranscriptionsListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>>;
   /**
    * Create a TranscriptionsInstance and return HTTP info
@@ -667,8 +671,8 @@ export interface TranscriptionsListInstance {
     params: TranscriptionsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionsInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>>;
 
   /**
@@ -689,15 +693,15 @@ export interface TranscriptionsListInstance {
   each(
     callback?: (
       item: TranscriptionsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: TranscriptionsListInstanceEachOptions,
     callback?: (
       item: TranscriptionsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams TranscriptionsInstance records from the API with HTTP metadata captured per page.
@@ -717,15 +721,15 @@ export interface TranscriptionsListInstance {
   eachWithHttpInfo(
     callback?: (
       item: TranscriptionsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: TranscriptionsListInstanceEachOptions,
     callback?: (
       item: TranscriptionsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of TranscriptionsInstance records from the API.
@@ -737,7 +741,7 @@ export interface TranscriptionsListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TranscriptionsPage) => any
+    callback?: (error: Error | null, items: TranscriptionsPage) => any,
   ): Promise<TranscriptionsPage>;
   /**
    * Retrieve a single target page of TranscriptionsInstance records from the API with HTTP metadata.
@@ -751,8 +755,8 @@ export interface TranscriptionsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionsPage>
-    ) => any
+      items: ApiResponse<TranscriptionsPage>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsPage>>;
   /**
    * Lists TranscriptionsInstance records from the API as a list.
@@ -764,11 +768,11 @@ export interface TranscriptionsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: TranscriptionsInstance[]) => any
+    callback?: (error: Error | null, items: TranscriptionsInstance[]) => any,
   ): Promise<TranscriptionsInstance[]>;
   list(
     params: TranscriptionsListInstanceOptions,
-    callback?: (error: Error | null, items: TranscriptionsInstance[]) => any
+    callback?: (error: Error | null, items: TranscriptionsInstance[]) => any,
   ): Promise<TranscriptionsInstance[]>;
   /**
    * Lists TranscriptionsInstance records from the API as a list with HTTP metadata.
@@ -784,15 +788,15 @@ export interface TranscriptionsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionsInstance[]>
-    ) => any
+      items: ApiResponse<TranscriptionsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance[]>>;
   listWithHttpInfo(
     params: TranscriptionsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionsInstance[]>
-    ) => any
+      items: ApiResponse<TranscriptionsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance[]>>;
   /**
    * Retrieve a single page of TranscriptionsInstance records from the API.
@@ -806,11 +810,11 @@ export interface TranscriptionsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TranscriptionsPage) => any
+    callback?: (error: Error | null, items: TranscriptionsPage) => any,
   ): Promise<TranscriptionsPage>;
   page(
     params: TranscriptionsListInstancePageOptions,
-    callback?: (error: Error | null, items: TranscriptionsPage) => any
+    callback?: (error: Error | null, items: TranscriptionsPage) => any,
   ): Promise<TranscriptionsPage>;
   /**
    * Retrieve a single page of TranscriptionsInstance records from the API with HTTP metadata.
@@ -826,15 +830,15 @@ export interface TranscriptionsListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionsPage>
-    ) => any
+      items: ApiResponse<TranscriptionsPage>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsPage>>;
   pageWithHttpInfo(
     params: TranscriptionsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionsPage>
-    ) => any
+      items: ApiResponse<TranscriptionsPage>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsPage>>;
 
   /**
@@ -846,7 +850,7 @@ export interface TranscriptionsListInstance {
 
 export function TranscriptionsListInstance(
   version: V1,
-  roomSid: string
+  roomSid: string,
 ): TranscriptionsListInstance {
   if (!isValidPathParam(roomSid)) {
     throw new Error("Parameter 'roomSid' is not valid.");
@@ -866,7 +870,7 @@ export function TranscriptionsListInstance(
     params?:
       | TranscriptionsListInstanceCreateOptions
       | ((error: Error | null, items: TranscriptionsInstance) => any),
-    callback?: (error: Error | null, items: TranscriptionsInstance) => any
+    callback?: (error: Error | null, items: TranscriptionsInstance) => any,
   ): Promise<TranscriptionsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -897,13 +901,13 @@ export function TranscriptionsListInstance(
         new TranscriptionsInstance(
           operationVersion,
           payload,
-          instance._solution.roomSid
-        )
+          instance._solution.roomSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -913,12 +917,12 @@ export function TranscriptionsListInstance(
       | TranscriptionsListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<TranscriptionsInstance>
+          items: ApiResponse<TranscriptionsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionsInstance>
-    ) => any
+      items: ApiResponse<TranscriptionsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -951,14 +955,14 @@ export function TranscriptionsListInstance(
           body: new TranscriptionsInstance(
             operationVersion,
             response.body,
-            instance._solution.roomSid
+            instance._solution.roomSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -967,7 +971,7 @@ export function TranscriptionsListInstance(
     params?:
       | TranscriptionsListInstancePageOptions
       | ((error: Error | null, items: TranscriptionsPage) => any),
-    callback?: (error: Error | null, items: TranscriptionsPage) => any
+    callback?: (error: Error | null, items: TranscriptionsPage) => any,
   ): Promise<TranscriptionsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -996,12 +1000,12 @@ export function TranscriptionsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TranscriptionsPage(operationVersion, payload, instance._solution)
+        new TranscriptionsPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1010,7 +1014,7 @@ export function TranscriptionsListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TranscriptionsPage) => any
+    callback?: (error: Error | null, items: TranscriptionsPage) => any,
   ): Promise<TranscriptionsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1018,7 +1022,7 @@ export function TranscriptionsListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new TranscriptionsPage(instance._version, payload, instance._solution)
+        new TranscriptionsPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1030,8 +1034,8 @@ export function TranscriptionsListInstance(
       | ((error: Error | null, items: ApiResponse<TranscriptionsPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionsPage>
-    ) => any
+      items: ApiResponse<TranscriptionsPage>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1062,14 +1066,14 @@ export function TranscriptionsListInstance(
           body: new TranscriptionsPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1082,8 +1086,8 @@ export function TranscriptionsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<TranscriptionsPage>
-    ) => any
+      items?: ApiResponse<TranscriptionsPage>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1098,9 +1102,9 @@ export function TranscriptionsListInstance(
         body: new TranscriptionsPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1112,7 +1116,7 @@ export function TranscriptionsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1136,7 +1140,7 @@ export class TranscriptionsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: TranscriptionsSolution
+    solution: TranscriptionsSolution,
   ) {
     super(version, response, solution);
   }
@@ -1150,7 +1154,7 @@ export class TranscriptionsPage extends Page<
     return new TranscriptionsInstance(
       this._version,
       payload,
-      this._solution.roomSid
+      this._solution.roomSid,
     );
   }
 

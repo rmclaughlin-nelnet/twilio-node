@@ -91,7 +91,7 @@ export interface IpAddressContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -102,7 +102,7 @@ export interface IpAddressContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -113,7 +113,7 @@ export interface IpAddressContext {
    * @returns Resolves to processed IpAddressInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance>;
 
   /**
@@ -126,8 +126,8 @@ export interface IpAddressContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>>;
 
   /**
@@ -138,7 +138,7 @@ export interface IpAddressContext {
    * @returns Resolves to processed IpAddressInstance
    */
   update(
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance>;
   /**
    * Update a IpAddressInstance
@@ -150,7 +150,7 @@ export interface IpAddressContext {
    */
   update(
     params: IpAddressContextUpdateOptions,
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance>;
 
   /**
@@ -163,8 +163,8 @@ export interface IpAddressContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>>;
   /**
    * Update a IpAddressInstance and return HTTP info
@@ -178,8 +178,8 @@ export interface IpAddressContext {
     params: IpAddressContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>>;
 
   /**
@@ -203,7 +203,7 @@ export class IpAddressContextImpl implements IpAddressContext {
     protected _version: V2010,
     accountSid: string,
     ipAccessControlListSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -222,7 +222,7 @@ export class IpAddressContextImpl implements IpAddressContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -236,13 +236,13 @@ export class IpAddressContextImpl implements IpAddressContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -255,18 +255,18 @@ export class IpAddressContextImpl implements IpAddressContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -286,13 +286,13 @@ export class IpAddressContextImpl implements IpAddressContext {
           payload,
           instance._solution.accountSid,
           instance._solution.ipAccessControlListSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -300,8 +300,8 @@ export class IpAddressContextImpl implements IpAddressContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -323,14 +323,14 @@ export class IpAddressContextImpl implements IpAddressContext {
             response.body,
             instance._solution.accountSid,
             instance._solution.ipAccessControlListSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -339,7 +339,7 @@ export class IpAddressContextImpl implements IpAddressContext {
     params?:
       | IpAddressContextUpdateOptions
       | ((error: Error | null, item?: IpAddressInstance) => any),
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -377,13 +377,13 @@ export class IpAddressContextImpl implements IpAddressContext {
           payload,
           instance._solution.accountSid,
           instance._solution.ipAccessControlListSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -394,8 +394,8 @@ export class IpAddressContextImpl implements IpAddressContext {
       | ((error: Error | null, item?: ApiResponse<IpAddressInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -435,14 +435,14 @@ export class IpAddressContextImpl implements IpAddressContext {
             response.body,
             instance._solution.accountSid,
             instance._solution.ipAccessControlListSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -486,7 +486,7 @@ export class IpAddressInstance {
     payload: IpAddressResource,
     accountSid: string,
     ipAccessControlListSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -549,7 +549,7 @@ export class IpAddressInstance {
         this._version,
         this._solution.accountSid,
         this._solution.ipAccessControlListSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -562,7 +562,7 @@ export class IpAddressInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -575,7 +575,7 @@ export class IpAddressInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -588,7 +588,7 @@ export class IpAddressInstance {
    * @returns Resolves to processed IpAddressInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance> {
     return this._proxy.fetch(callback);
   }
@@ -603,8 +603,8 @@ export class IpAddressInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -617,7 +617,7 @@ export class IpAddressInstance {
    * @returns Resolves to processed IpAddressInstance
    */
   update(
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance>;
   /**
    * Update a IpAddressInstance
@@ -629,12 +629,12 @@ export class IpAddressInstance {
    */
   update(
     params: IpAddressContextUpdateOptions,
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance> {
     return this._proxy.update(params, callback);
   }
@@ -649,8 +649,8 @@ export class IpAddressInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>>;
   /**
    * Update a IpAddressInstance and return HTTP info
@@ -664,16 +664,16 @@ export class IpAddressInstance {
     params: IpAddressContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -725,7 +725,7 @@ export interface IpAddressListInstance {
    */
   create(
     params: IpAddressListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, item?: IpAddressInstance) => any,
   ): Promise<IpAddressInstance>;
 
   /**
@@ -740,8 +740,8 @@ export interface IpAddressListInstance {
     params: IpAddressListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAddressInstance>
-    ) => any
+      item?: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>>;
 
   /**
@@ -760,11 +760,11 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
+    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: IpAddressListInstanceEachOptions,
-    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
+    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams IpAddressInstance records from the API with HTTP metadata captured per page.
@@ -782,11 +782,11 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
+    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: IpAddressListInstanceEachOptions,
-    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
+    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of IpAddressInstance records from the API.
@@ -798,7 +798,7 @@ export interface IpAddressListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: IpAddressPage) => any
+    callback?: (error: Error | null, items: IpAddressPage) => any,
   ): Promise<IpAddressPage>;
   /**
    * Retrieve a single target page of IpAddressInstance records from the API with HTTP metadata.
@@ -810,7 +810,7 @@ export interface IpAddressListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<IpAddressPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<IpAddressPage>) => any,
   ): Promise<ApiResponse<IpAddressPage>>;
   /**
    * Lists IpAddressInstance records from the API as a list.
@@ -822,11 +822,11 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: IpAddressInstance[]) => any
+    callback?: (error: Error | null, items: IpAddressInstance[]) => any,
   ): Promise<IpAddressInstance[]>;
   list(
     params: IpAddressListInstanceOptions,
-    callback?: (error: Error | null, items: IpAddressInstance[]) => any
+    callback?: (error: Error | null, items: IpAddressInstance[]) => any,
   ): Promise<IpAddressInstance[]>;
   /**
    * Lists IpAddressInstance records from the API as a list with HTTP metadata.
@@ -842,15 +842,15 @@ export interface IpAddressListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAddressInstance[]>
-    ) => any
+      items: ApiResponse<IpAddressInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance[]>>;
   listWithHttpInfo(
     params: IpAddressListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAddressInstance[]>
-    ) => any
+      items: ApiResponse<IpAddressInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance[]>>;
   /**
    * Retrieve a single page of IpAddressInstance records from the API.
@@ -864,11 +864,11 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: IpAddressPage) => any
+    callback?: (error: Error | null, items: IpAddressPage) => any,
   ): Promise<IpAddressPage>;
   page(
     params: IpAddressListInstancePageOptions,
-    callback?: (error: Error | null, items: IpAddressPage) => any
+    callback?: (error: Error | null, items: IpAddressPage) => any,
   ): Promise<IpAddressPage>;
   /**
    * Retrieve a single page of IpAddressInstance records from the API with HTTP metadata.
@@ -882,11 +882,11 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<IpAddressPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<IpAddressPage>) => any,
   ): Promise<ApiResponse<IpAddressPage>>;
   pageWithHttpInfo(
     params: IpAddressListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<IpAddressPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<IpAddressPage>) => any,
   ): Promise<ApiResponse<IpAddressPage>>;
 
   /**
@@ -899,7 +899,7 @@ export interface IpAddressListInstance {
 export function IpAddressListInstance(
   version: V2010,
   accountSid: string,
-  ipAccessControlListSid: string
+  ipAccessControlListSid: string,
 ): IpAddressListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -916,7 +916,7 @@ export function IpAddressListInstance(
       version,
       accountSid,
       ipAccessControlListSid,
-      sid
+      sid,
     );
   };
 
@@ -926,7 +926,7 @@ export function IpAddressListInstance(
 
   instance.create = function create(
     params: IpAddressListInstanceCreateOptions,
-    callback?: (error: Error | null, items: IpAddressInstance) => any
+    callback?: (error: Error | null, items: IpAddressInstance) => any,
   ): Promise<IpAddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -969,13 +969,13 @@ export function IpAddressListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.ipAccessControlListSid
-        )
+          instance._solution.ipAccessControlListSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -984,8 +984,8 @@ export function IpAddressListInstance(
     params: IpAddressListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAddressInstance>
-    ) => any
+      items: ApiResponse<IpAddressInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAddressInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1030,14 +1030,14 @@ export function IpAddressListInstance(
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.ipAccessControlListSid
+            instance._solution.ipAccessControlListSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1046,7 +1046,7 @@ export function IpAddressListInstance(
     params?:
       | IpAddressListInstancePageOptions
       | ((error: Error | null, items: IpAddressPage) => any),
-    callback?: (error: Error | null, items: IpAddressPage) => any
+    callback?: (error: Error | null, items: IpAddressPage) => any,
   ): Promise<IpAddressPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1075,12 +1075,12 @@ export function IpAddressListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpAddressPage(operationVersion, payload, instance._solution)
+        new IpAddressPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1089,7 +1089,7 @@ export function IpAddressListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: IpAddressPage) => any
+    callback?: (error: Error | null, items: IpAddressPage) => any,
   ): Promise<IpAddressPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1097,7 +1097,7 @@ export function IpAddressListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new IpAddressPage(instance._version, payload, instance._solution)
+        new IpAddressPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1107,7 +1107,7 @@ export function IpAddressListInstance(
     params?:
       | IpAddressListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<IpAddressPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<IpAddressPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<IpAddressPage>) => any,
   ): Promise<ApiResponse<IpAddressPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1138,14 +1138,14 @@ export function IpAddressListInstance(
           body: new IpAddressPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1156,7 +1156,7 @@ export function IpAddressListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<IpAddressPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<IpAddressPage>) => any,
   ): Promise<ApiResponse<IpAddressPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1171,9 +1171,9 @@ export function IpAddressListInstance(
         body: new IpAddressPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1185,7 +1185,7 @@ export function IpAddressListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1209,7 +1209,7 @@ export class IpAddressPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: IpAddressSolution
+    solution: IpAddressSolution,
   ) {
     super(version, response, solution);
   }
@@ -1224,7 +1224,7 @@ export class IpAddressPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.ipAccessControlListSid
+      this._solution.ipAccessControlListSid,
     );
   }
 

@@ -133,11 +133,11 @@ export interface RecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: RecordInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: RecordListInstanceEachOptions,
-    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: RecordInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams RecordInstance records from the API with HTTP metadata captured per page.
@@ -155,11 +155,11 @@ export interface RecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: RecordInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: RecordListInstanceEachOptions,
-    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
+    callback?: (item: RecordInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of RecordInstance records from the API.
@@ -171,7 +171,7 @@ export interface RecordListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RecordPage) => any
+    callback?: (error: Error | null, items: RecordPage) => any,
   ): Promise<RecordPage>;
   /**
    * Retrieve a single target page of RecordInstance records from the API with HTTP metadata.
@@ -183,7 +183,7 @@ export interface RecordListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any,
   ): Promise<ApiResponse<RecordPage>>;
   /**
    * Lists RecordInstance records from the API as a list.
@@ -195,11 +195,11 @@ export interface RecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: RecordInstance[]) => any
+    callback?: (error: Error | null, items: RecordInstance[]) => any,
   ): Promise<RecordInstance[]>;
   list(
     params: RecordListInstanceOptions,
-    callback?: (error: Error | null, items: RecordInstance[]) => any
+    callback?: (error: Error | null, items: RecordInstance[]) => any,
   ): Promise<RecordInstance[]>;
   /**
    * Lists RecordInstance records from the API as a list with HTTP metadata.
@@ -215,15 +215,15 @@ export interface RecordListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<RecordInstance[]>
-    ) => any
+      items: ApiResponse<RecordInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<RecordInstance[]>>;
   listWithHttpInfo(
     params: RecordListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<RecordInstance[]>
-    ) => any
+      items: ApiResponse<RecordInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<RecordInstance[]>>;
   /**
    * Retrieve a single page of RecordInstance records from the API.
@@ -237,11 +237,11 @@ export interface RecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: RecordPage) => any
+    callback?: (error: Error | null, items: RecordPage) => any,
   ): Promise<RecordPage>;
   page(
     params: RecordListInstancePageOptions,
-    callback?: (error: Error | null, items: RecordPage) => any
+    callback?: (error: Error | null, items: RecordPage) => any,
   ): Promise<RecordPage>;
   /**
    * Retrieve a single page of RecordInstance records from the API with HTTP metadata.
@@ -255,11 +255,11 @@ export interface RecordListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any,
   ): Promise<ApiResponse<RecordPage>>;
   pageWithHttpInfo(
     params: RecordListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any,
   ): Promise<ApiResponse<RecordPage>>;
 
   /**
@@ -271,7 +271,7 @@ export interface RecordListInstance {
 
 export function RecordListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): RecordListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -288,7 +288,7 @@ export function RecordListInstance(
       if (!instance._allTime) {
         instance._allTime = AllTimeListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._allTime;
@@ -300,7 +300,7 @@ export function RecordListInstance(
       if (!instance._daily) {
         instance._daily = DailyListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._daily;
@@ -312,7 +312,7 @@ export function RecordListInstance(
       if (!instance._lastMonth) {
         instance._lastMonth = LastMonthListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._lastMonth;
@@ -324,7 +324,7 @@ export function RecordListInstance(
       if (!instance._monthly) {
         instance._monthly = MonthlyListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._monthly;
@@ -336,7 +336,7 @@ export function RecordListInstance(
       if (!instance._thisMonth) {
         instance._thisMonth = ThisMonthListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._thisMonth;
@@ -348,7 +348,7 @@ export function RecordListInstance(
       if (!instance._today) {
         instance._today = TodayListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._today;
@@ -360,7 +360,7 @@ export function RecordListInstance(
       if (!instance._yearly) {
         instance._yearly = YearlyListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._yearly;
@@ -372,7 +372,7 @@ export function RecordListInstance(
       if (!instance._yesterday) {
         instance._yesterday = YesterdayListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._yesterday;
@@ -383,7 +383,7 @@ export function RecordListInstance(
     params?:
       | RecordListInstancePageOptions
       | ((error: Error | null, items: RecordPage) => any),
-    callback?: (error: Error | null, items: RecordPage) => any
+    callback?: (error: Error | null, items: RecordPage) => any,
   ): Promise<RecordPage> {
     if (params instanceof Function) {
       callback = params;
@@ -418,12 +418,13 @@ export function RecordListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RecordPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new RecordPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -432,7 +433,7 @@ export function RecordListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RecordPage) => any
+    callback?: (error: Error | null, items: RecordPage) => any,
   ): Promise<RecordPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -440,7 +441,7 @@ export function RecordListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new RecordPage(instance._version, payload, instance._solution)
+        new RecordPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -450,7 +451,7 @@ export function RecordListInstance(
     params?:
       | RecordListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<RecordPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any,
   ): Promise<ApiResponse<RecordPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -486,12 +487,12 @@ export function RecordListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new RecordPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -502,7 +503,7 @@ export function RecordListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<RecordPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<RecordPage>) => any,
   ): Promise<ApiResponse<RecordPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -515,7 +516,7 @@ export function RecordListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new RecordPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -527,7 +528,7 @@ export function RecordListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -561,7 +562,7 @@ export class RecordInstance {
   constructor(
     protected _version: V2010,
     payload: RecordResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -687,7 +688,7 @@ export class RecordPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: RecordSolution
+    solution: RecordSolution,
   ) {
     super(version, response, solution);
   }
@@ -701,7 +702,7 @@ export class RecordPage extends Page<
     return new RecordInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

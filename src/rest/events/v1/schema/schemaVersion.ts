@@ -68,7 +68,7 @@ export interface SchemaVersionContext {
    * @returns Resolves to processed SchemaVersionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SchemaVersionInstance) => any
+    callback?: (error: Error | null, item?: SchemaVersionInstance) => any,
   ): Promise<SchemaVersionInstance>;
 
   /**
@@ -81,8 +81,8 @@ export interface SchemaVersionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SchemaVersionInstance>
-    ) => any
+      item?: ApiResponse<SchemaVersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionInstance>>;
 
   /**
@@ -101,7 +101,11 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
   protected _solution: SchemaVersionContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, id: string, schemaVersion: number) {
+  constructor(
+    protected _version: V1,
+    id: string,
+    schemaVersion: number,
+  ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -115,7 +119,7 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SchemaVersionInstance) => any
+    callback?: (error: Error | null, item?: SchemaVersionInstance) => any,
   ): Promise<SchemaVersionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -134,13 +138,13 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
           operationVersion,
           payload,
           instance._solution.id,
-          instance._solution.schemaVersion
-        )
+          instance._solution.schemaVersion,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -148,8 +152,8 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SchemaVersionInstance>
-    ) => any
+      item?: ApiResponse<SchemaVersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -170,14 +174,14 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
             operationVersion,
             response.body,
             instance._solution.id,
-            instance._solution.schemaVersion
+            instance._solution.schemaVersion,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -216,7 +220,7 @@ export class SchemaVersionInstance {
     protected _version: V1,
     payload: SchemaVersionResource,
     id: string,
-    schemaVersion?: number
+    schemaVersion?: number,
   ) {
     this.id = payload.id;
     this.schemaVersion = deserialize.integer(payload.schema_version);
@@ -251,7 +255,7 @@ export class SchemaVersionInstance {
       new SchemaVersionContextImpl(
         this._version,
         this._solution.id,
-        this._solution.schemaVersion
+        this._solution.schemaVersion,
       );
     return this._context;
   }
@@ -264,7 +268,7 @@ export class SchemaVersionInstance {
    * @returns Resolves to processed SchemaVersionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SchemaVersionInstance) => any
+    callback?: (error: Error | null, item?: SchemaVersionInstance) => any,
   ): Promise<SchemaVersionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -279,8 +283,8 @@ export class SchemaVersionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SchemaVersionInstance>
-    ) => any
+      item?: ApiResponse<SchemaVersionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -335,15 +339,15 @@ export interface SchemaVersionListInstance {
   each(
     callback?: (
       item: SchemaVersionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: SchemaVersionListInstanceEachOptions,
     callback?: (
       item: SchemaVersionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams SchemaVersionInstance records from the API with HTTP metadata captured per page.
@@ -363,15 +367,15 @@ export interface SchemaVersionListInstance {
   eachWithHttpInfo(
     callback?: (
       item: SchemaVersionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: SchemaVersionListInstanceEachOptions,
     callback?: (
       item: SchemaVersionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of SchemaVersionInstance records from the API.
@@ -383,7 +387,7 @@ export interface SchemaVersionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SchemaVersionPage) => any
+    callback?: (error: Error | null, items: SchemaVersionPage) => any,
   ): Promise<SchemaVersionPage>;
   /**
    * Retrieve a single target page of SchemaVersionInstance records from the API with HTTP metadata.
@@ -397,8 +401,8 @@ export interface SchemaVersionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SchemaVersionPage>
-    ) => any
+      items: ApiResponse<SchemaVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionPage>>;
   /**
    * Lists SchemaVersionInstance records from the API as a list.
@@ -410,11 +414,11 @@ export interface SchemaVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SchemaVersionInstance[]) => any
+    callback?: (error: Error | null, items: SchemaVersionInstance[]) => any,
   ): Promise<SchemaVersionInstance[]>;
   list(
     params: SchemaVersionListInstanceOptions,
-    callback?: (error: Error | null, items: SchemaVersionInstance[]) => any
+    callback?: (error: Error | null, items: SchemaVersionInstance[]) => any,
   ): Promise<SchemaVersionInstance[]>;
   /**
    * Lists SchemaVersionInstance records from the API as a list with HTTP metadata.
@@ -430,15 +434,15 @@ export interface SchemaVersionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SchemaVersionInstance[]>
-    ) => any
+      items: ApiResponse<SchemaVersionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionInstance[]>>;
   listWithHttpInfo(
     params: SchemaVersionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SchemaVersionInstance[]>
-    ) => any
+      items: ApiResponse<SchemaVersionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionInstance[]>>;
   /**
    * Retrieve a single page of SchemaVersionInstance records from the API.
@@ -452,11 +456,11 @@ export interface SchemaVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SchemaVersionPage) => any
+    callback?: (error: Error | null, items: SchemaVersionPage) => any,
   ): Promise<SchemaVersionPage>;
   page(
     params: SchemaVersionListInstancePageOptions,
-    callback?: (error: Error | null, items: SchemaVersionPage) => any
+    callback?: (error: Error | null, items: SchemaVersionPage) => any,
   ): Promise<SchemaVersionPage>;
   /**
    * Retrieve a single page of SchemaVersionInstance records from the API with HTTP metadata.
@@ -472,15 +476,15 @@ export interface SchemaVersionListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SchemaVersionPage>
-    ) => any
+      items: ApiResponse<SchemaVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionPage>>;
   pageWithHttpInfo(
     params: SchemaVersionListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SchemaVersionPage>
-    ) => any
+      items: ApiResponse<SchemaVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionPage>>;
 
   /**
@@ -492,7 +496,7 @@ export interface SchemaVersionListInstance {
 
 export function SchemaVersionListInstance(
   version: V1,
-  id: string
+  id: string,
 ): SchemaVersionListInstance {
   if (!isValidPathParam(id)) {
     throw new Error("Parameter 'id' is not valid.");
@@ -513,7 +517,7 @@ export function SchemaVersionListInstance(
     params?:
       | SchemaVersionListInstancePageOptions
       | ((error: Error | null, items: SchemaVersionPage) => any),
-    callback?: (error: Error | null, items: SchemaVersionPage) => any
+    callback?: (error: Error | null, items: SchemaVersionPage) => any,
   ): Promise<SchemaVersionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -542,12 +546,12 @@ export function SchemaVersionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SchemaVersionPage(operationVersion, payload, instance._solution)
+        new SchemaVersionPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -556,7 +560,7 @@ export function SchemaVersionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SchemaVersionPage) => any
+    callback?: (error: Error | null, items: SchemaVersionPage) => any,
   ): Promise<SchemaVersionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -564,7 +568,7 @@ export function SchemaVersionListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new SchemaVersionPage(instance._version, payload, instance._solution)
+        new SchemaVersionPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -576,8 +580,8 @@ export function SchemaVersionListInstance(
       | ((error: Error | null, items: ApiResponse<SchemaVersionPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SchemaVersionPage>
-    ) => any
+      items: ApiResponse<SchemaVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -608,14 +612,14 @@ export function SchemaVersionListInstance(
           body: new SchemaVersionPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -628,8 +632,8 @@ export function SchemaVersionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<SchemaVersionPage>
-    ) => any
+      items?: ApiResponse<SchemaVersionPage>,
+    ) => any,
   ): Promise<ApiResponse<SchemaVersionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -644,9 +648,9 @@ export function SchemaVersionListInstance(
         body: new SchemaVersionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -658,7 +662,7 @@ export function SchemaVersionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -682,7 +686,7 @@ export class SchemaVersionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: SchemaVersionSolution
+    solution: SchemaVersionSolution,
   ) {
     super(version, response, solution);
   }

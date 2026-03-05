@@ -63,7 +63,7 @@ export interface SupportingDocumentListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SupportingDocumentInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -103,7 +103,7 @@ export interface SupportingDocumentContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -114,7 +114,7 @@ export interface SupportingDocumentContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -125,7 +125,7 @@ export interface SupportingDocumentContext {
    * @returns Resolves to processed SupportingDocumentInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance>;
 
   /**
@@ -138,8 +138,8 @@ export interface SupportingDocumentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>>;
 
   /**
@@ -150,7 +150,7 @@ export interface SupportingDocumentContext {
    * @returns Resolves to processed SupportingDocumentInstance
    */
   update(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance>;
   /**
    * Update a SupportingDocumentInstance
@@ -162,7 +162,7 @@ export interface SupportingDocumentContext {
    */
   update(
     params: SupportingDocumentContextUpdateOptions,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance>;
 
   /**
@@ -175,8 +175,8 @@ export interface SupportingDocumentContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>>;
   /**
    * Update a SupportingDocumentInstance and return HTTP info
@@ -190,8 +190,8 @@ export interface SupportingDocumentContext {
     params: SupportingDocumentContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>>;
 
   /**
@@ -205,13 +205,14 @@ export interface SupportingDocumentContextSolution {
   sid: string;
 }
 
-export class SupportingDocumentContextImpl
-  implements SupportingDocumentContext
-{
+export class SupportingDocumentContextImpl implements SupportingDocumentContext {
   protected _solution: SupportingDocumentContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -221,7 +222,7 @@ export class SupportingDocumentContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -235,13 +236,13 @@ export class SupportingDocumentContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -254,18 +255,18 @@ export class SupportingDocumentContextImpl
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -283,13 +284,13 @@ export class SupportingDocumentContextImpl
         new SupportingDocumentInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -297,8 +298,8 @@ export class SupportingDocumentContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -318,14 +319,14 @@ export class SupportingDocumentContextImpl
           body: new SupportingDocumentInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -334,7 +335,7 @@ export class SupportingDocumentContextImpl
     params?:
       | SupportingDocumentContextUpdateOptions
       | ((error: Error | null, item?: SupportingDocumentInstance) => any),
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -368,13 +369,13 @@ export class SupportingDocumentContextImpl
         new SupportingDocumentInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -384,12 +385,12 @@ export class SupportingDocumentContextImpl
       | SupportingDocumentContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<SupportingDocumentInstance>
+          item?: ApiResponse<SupportingDocumentInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -425,14 +426,14 @@ export class SupportingDocumentContextImpl
           body: new SupportingDocumentInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -475,7 +476,7 @@ export class SupportingDocumentInstance {
   constructor(
     protected _version: V1,
     payload: SupportingDocumentResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -544,7 +545,7 @@ export class SupportingDocumentInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -557,7 +558,7 @@ export class SupportingDocumentInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -570,7 +571,7 @@ export class SupportingDocumentInstance {
    * @returns Resolves to processed SupportingDocumentInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance> {
     return this._proxy.fetch(callback);
   }
@@ -585,8 +586,8 @@ export class SupportingDocumentInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -599,7 +600,7 @@ export class SupportingDocumentInstance {
    * @returns Resolves to processed SupportingDocumentInstance
    */
   update(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance>;
   /**
    * Update a SupportingDocumentInstance
@@ -611,12 +612,12 @@ export class SupportingDocumentInstance {
    */
   update(
     params: SupportingDocumentContextUpdateOptions,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance> {
     return this._proxy.update(params, callback);
   }
@@ -631,8 +632,8 @@ export class SupportingDocumentInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>>;
   /**
    * Update a SupportingDocumentInstance and return HTTP info
@@ -646,16 +647,16 @@ export class SupportingDocumentInstance {
     params: SupportingDocumentContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -705,7 +706,7 @@ export interface SupportingDocumentListInstance {
    */
   create(
     params: SupportingDocumentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance>;
 
   /**
@@ -720,8 +721,8 @@ export interface SupportingDocumentListInstance {
     params: SupportingDocumentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>>;
 
   /**
@@ -742,15 +743,15 @@ export interface SupportingDocumentListInstance {
   each(
     callback?: (
       item: SupportingDocumentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: SupportingDocumentListInstanceEachOptions,
     callback?: (
       item: SupportingDocumentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams SupportingDocumentInstance records from the API with HTTP metadata captured per page.
@@ -770,15 +771,15 @@ export interface SupportingDocumentListInstance {
   eachWithHttpInfo(
     callback?: (
       item: SupportingDocumentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: SupportingDocumentListInstanceEachOptions,
     callback?: (
       item: SupportingDocumentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of SupportingDocumentInstance records from the API.
@@ -790,7 +791,7 @@ export interface SupportingDocumentListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
+    callback?: (error: Error | null, items: SupportingDocumentPage) => any,
   ): Promise<SupportingDocumentPage>;
   /**
    * Retrieve a single target page of SupportingDocumentInstance records from the API with HTTP metadata.
@@ -804,8 +805,8 @@ export interface SupportingDocumentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentPage>
-    ) => any
+      items: ApiResponse<SupportingDocumentPage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentPage>>;
   /**
    * Lists SupportingDocumentInstance records from the API as a list.
@@ -817,11 +818,17 @@ export interface SupportingDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SupportingDocumentInstance[]) => any
+    callback?: (
+      error: Error | null,
+      items: SupportingDocumentInstance[],
+    ) => any,
   ): Promise<SupportingDocumentInstance[]>;
   list(
     params: SupportingDocumentListInstanceOptions,
-    callback?: (error: Error | null, items: SupportingDocumentInstance[]) => any
+    callback?: (
+      error: Error | null,
+      items: SupportingDocumentInstance[],
+    ) => any,
   ): Promise<SupportingDocumentInstance[]>;
   /**
    * Lists SupportingDocumentInstance records from the API as a list with HTTP metadata.
@@ -837,15 +844,15 @@ export interface SupportingDocumentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentInstance[]>
-    ) => any
+      items: ApiResponse<SupportingDocumentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance[]>>;
   listWithHttpInfo(
     params: SupportingDocumentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentInstance[]>
-    ) => any
+      items: ApiResponse<SupportingDocumentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance[]>>;
   /**
    * Retrieve a single page of SupportingDocumentInstance records from the API.
@@ -859,11 +866,11 @@ export interface SupportingDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
+    callback?: (error: Error | null, items: SupportingDocumentPage) => any,
   ): Promise<SupportingDocumentPage>;
   page(
     params: SupportingDocumentListInstancePageOptions,
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
+    callback?: (error: Error | null, items: SupportingDocumentPage) => any,
   ): Promise<SupportingDocumentPage>;
   /**
    * Retrieve a single page of SupportingDocumentInstance records from the API with HTTP metadata.
@@ -879,15 +886,15 @@ export interface SupportingDocumentListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentPage>
-    ) => any
+      items: ApiResponse<SupportingDocumentPage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentPage>>;
   pageWithHttpInfo(
     params: SupportingDocumentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentPage>
-    ) => any
+      items: ApiResponse<SupportingDocumentPage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentPage>>;
 
   /**
@@ -898,7 +905,7 @@ export interface SupportingDocumentListInstance {
 }
 
 export function SupportingDocumentListInstance(
-  version: V1
+  version: V1,
 ): SupportingDocumentListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as SupportingDocumentListInstance;
@@ -913,7 +920,7 @@ export function SupportingDocumentListInstance(
 
   instance.create = function create(
     params: SupportingDocumentListInstanceCreateOptions,
-    callback?: (error: Error | null, items: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, items: SupportingDocumentInstance) => any,
   ): Promise<SupportingDocumentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -951,12 +958,12 @@ export function SupportingDocumentListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SupportingDocumentInstance(operationVersion, payload)
+      (payload) => new SupportingDocumentInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -965,8 +972,8 @@ export function SupportingDocumentListInstance(
     params: SupportingDocumentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentInstance>
-    ) => any
+      items: ApiResponse<SupportingDocumentInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1008,12 +1015,12 @@ export function SupportingDocumentListInstance(
         (response): ApiResponse<SupportingDocumentInstance> => ({
           ...response,
           body: new SupportingDocumentInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1022,7 +1029,7 @@ export function SupportingDocumentListInstance(
     params?:
       | SupportingDocumentListInstancePageOptions
       | ((error: Error | null, items: SupportingDocumentPage) => any),
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
+    callback?: (error: Error | null, items: SupportingDocumentPage) => any,
   ): Promise<SupportingDocumentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1054,13 +1061,13 @@ export function SupportingDocumentListInstance(
         new SupportingDocumentPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1069,7 +1076,7 @@ export function SupportingDocumentListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
+    callback?: (error: Error | null, items: SupportingDocumentPage) => any,
   ): Promise<SupportingDocumentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1080,8 +1087,8 @@ export function SupportingDocumentListInstance(
         new SupportingDocumentPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1092,12 +1099,12 @@ export function SupportingDocumentListInstance(
       | SupportingDocumentListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<SupportingDocumentPage>
+          items: ApiResponse<SupportingDocumentPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentPage>
-    ) => any
+      items: ApiResponse<SupportingDocumentPage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1128,14 +1135,14 @@ export function SupportingDocumentListInstance(
           body: new SupportingDocumentPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1148,8 +1155,8 @@ export function SupportingDocumentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<SupportingDocumentPage>
-    ) => any
+      items?: ApiResponse<SupportingDocumentPage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1164,9 +1171,9 @@ export function SupportingDocumentListInstance(
         body: new SupportingDocumentPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1178,7 +1185,7 @@ export function SupportingDocumentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1202,7 +1209,7 @@ export class SupportingDocumentPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: SupportingDocumentSolution
+    solution: SupportingDocumentSolution,
   ) {
     super(version, response, solution);
   }

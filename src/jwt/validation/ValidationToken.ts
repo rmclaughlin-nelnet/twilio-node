@@ -67,7 +67,7 @@ export class ValidationToken {
     if (!ValidationToken.ALGORITHMS.includes(algorithm)) {
       throw new Error(
         "Algorithm not supported. Allowed values are " +
-          ValidationToken.ALGORITHMS.join(", ")
+          ValidationToken.ALGORITHMS.join(", "),
       );
     }
 
@@ -111,7 +111,7 @@ export class ValidationToken {
       url.pathname,
       queryParams,
       requestBody,
-      signedHeaders
+      signedHeaders,
     );
   }
 

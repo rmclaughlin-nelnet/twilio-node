@@ -89,7 +89,7 @@ export interface TranscriptionContext {
    */
   update(
     params: TranscriptionContextUpdateOptions,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
   ): Promise<TranscriptionInstance>;
 
   /**
@@ -104,8 +104,8 @@ export interface TranscriptionContext {
     params: TranscriptionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
@@ -129,7 +129,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     protected _version: V2010,
     accountSid: string,
     callSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -149,7 +149,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
 
   update(
     params: TranscriptionContextUpdateOptions,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
   ): Promise<TranscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -183,13 +183,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
           payload,
           instance._solution.accountSid,
           instance._solution.callSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -198,8 +198,8 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     params: TranscriptionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -235,14 +235,14 @@ export class TranscriptionContextImpl implements TranscriptionContext {
             response.body,
             instance._solution.accountSid,
             instance._solution.callSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -282,7 +282,7 @@ export class TranscriptionInstance {
     payload: TranscriptionResource,
     accountSid: string,
     callSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -325,7 +325,7 @@ export class TranscriptionInstance {
         this._version,
         this._solution.accountSid,
         this._solution.callSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -340,12 +340,12 @@ export class TranscriptionInstance {
    */
   update(
     params: TranscriptionContextUpdateOptions,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
   ): Promise<TranscriptionInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
   ): Promise<TranscriptionInstance> {
     return this._proxy.update(params, callback);
   }
@@ -362,16 +362,16 @@ export class TranscriptionInstance {
     params: TranscriptionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -419,7 +419,7 @@ export interface TranscriptionListInstance {
    * @returns Resolves to processed TranscriptionInstance
    */
   create(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
   ): Promise<TranscriptionInstance>;
   /**
    * Create a TranscriptionInstance
@@ -431,7 +431,7 @@ export interface TranscriptionListInstance {
    */
   create(
     params: TranscriptionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
   ): Promise<TranscriptionInstance>;
 
   /**
@@ -444,8 +444,8 @@ export interface TranscriptionListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionInstance>>;
   /**
    * Create a TranscriptionInstance and return HTTP info
@@ -459,8 +459,8 @@ export interface TranscriptionListInstance {
     params: TranscriptionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
+      item?: ApiResponse<TranscriptionInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
@@ -473,7 +473,7 @@ export interface TranscriptionListInstance {
 export function TranscriptionListInstance(
   version: V2010,
   accountSid: string,
-  callSid: string
+  callSid: string,
 ): TranscriptionListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -497,7 +497,7 @@ export function TranscriptionListInstance(
     params?:
       | TranscriptionListInstanceCreateOptions
       | ((error: Error | null, items: TranscriptionInstance) => any),
-    callback?: (error: Error | null, items: TranscriptionInstance) => any
+    callback?: (error: Error | null, items: TranscriptionInstance) => any,
   ): Promise<TranscriptionInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -531,7 +531,7 @@ export function TranscriptionListInstance(
     if (params["hints"] !== undefined) data["Hints"] = params["hints"];
     if (params["enableAutomaticPunctuation"] !== undefined)
       data["EnableAutomaticPunctuation"] = serialize.bool(
-        params["enableAutomaticPunctuation"]
+        params["enableAutomaticPunctuation"],
       );
     if (params["intelligenceService"] !== undefined)
       data["IntelligenceService"] = params["intelligenceService"];
@@ -556,13 +556,13 @@ export function TranscriptionListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -572,12 +572,12 @@ export function TranscriptionListInstance(
       | TranscriptionListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<TranscriptionInstance>
+          items: ApiResponse<TranscriptionInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionInstance>
-    ) => any
+      items: ApiResponse<TranscriptionInstance>,
+    ) => any,
   ): Promise<ApiResponse<TranscriptionInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -611,7 +611,7 @@ export function TranscriptionListInstance(
     if (params["hints"] !== undefined) data["Hints"] = params["hints"];
     if (params["enableAutomaticPunctuation"] !== undefined)
       data["EnableAutomaticPunctuation"] = serialize.bool(
-        params["enableAutomaticPunctuation"]
+        params["enableAutomaticPunctuation"],
       );
     if (params["intelligenceService"] !== undefined)
       data["IntelligenceService"] = params["intelligenceService"];
@@ -638,14 +638,14 @@ export function TranscriptionListInstance(
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.callSid
+            instance._solution.callSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -656,7 +656,7 @@ export function TranscriptionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -24,7 +24,8 @@ export class RestException extends Error implements RestExceptionError {
     if (body !== null) {
       this.message = body.message;
       this.code = body.code;
-      this.moreInfo = body.more_info;this.details = body.details;
+      this.moreInfo = body.more_info;
+      this.details = body.details;
     } else {
       this.message =
         "[HTTP " + response.statusCode + "] Failed to execute request";

@@ -86,7 +86,7 @@ export interface NewVerifyFactorListInstance {
   update(
     params: VerifyPasskeysFactorRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: NewVerifyFactorInstance) => any
+    callback?: (error: Error | null, item?: NewVerifyFactorInstance) => any,
   ): Promise<NewVerifyFactorInstance>;
 
   /**
@@ -103,8 +103,8 @@ export interface NewVerifyFactorListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewVerifyFactorInstance>
-    ) => any
+      item?: ApiResponse<NewVerifyFactorInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewVerifyFactorInstance>>;
 
   /**
@@ -116,7 +116,7 @@ export interface NewVerifyFactorListInstance {
 
 export function NewVerifyFactorListInstance(
   version: V2,
-  serviceSid: string
+  serviceSid: string,
 ): NewVerifyFactorListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -131,7 +131,7 @@ export function NewVerifyFactorListInstance(
   instance.update = function update(
     params: VerifyPasskeysFactorRequest,
     headers?: any,
-    callback?: (error: Error | null, items: NewVerifyFactorInstance) => any
+    callback?: (error: Error | null, items: NewVerifyFactorInstance) => any,
   ): Promise<NewVerifyFactorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -161,13 +161,13 @@ export function NewVerifyFactorListInstance(
         new NewVerifyFactorInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -177,8 +177,8 @@ export function NewVerifyFactorListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NewVerifyFactorInstance>
-    ) => any
+      items: ApiResponse<NewVerifyFactorInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewVerifyFactorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -210,14 +210,14 @@ export function NewVerifyFactorListInstance(
           body: new NewVerifyFactorInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -228,7 +228,7 @@ export function NewVerifyFactorListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -258,7 +258,7 @@ export class NewVerifyFactorInstance {
   constructor(
     protected _version: V2,
     payload: NewVerifyFactorResource,
-    serviceSid: string
+    serviceSid: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

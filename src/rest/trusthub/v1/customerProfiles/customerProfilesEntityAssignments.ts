@@ -40,7 +40,7 @@ export interface CustomerProfilesEntityAssignmentsListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: CustomerProfilesEntityAssignmentsInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -84,7 +84,7 @@ export interface CustomerProfilesEntityAssignmentsContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -95,7 +95,7 @@ export interface CustomerProfilesEntityAssignmentsContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -108,8 +108,8 @@ export interface CustomerProfilesEntityAssignmentsContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEntityAssignmentsInstance
-    ) => any
+      item?: CustomerProfilesEntityAssignmentsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsInstance>;
 
   /**
@@ -122,8 +122,8 @@ export interface CustomerProfilesEntityAssignmentsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesEntityAssignmentsInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesEntityAssignmentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsInstance>>;
 
   /**
@@ -138,13 +138,15 @@ export interface CustomerProfilesEntityAssignmentsContextSolution {
   sid: string;
 }
 
-export class CustomerProfilesEntityAssignmentsContextImpl
-  implements CustomerProfilesEntityAssignmentsContext
-{
+export class CustomerProfilesEntityAssignmentsContextImpl implements CustomerProfilesEntityAssignmentsContext {
   protected _solution: CustomerProfilesEntityAssignmentsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    customerProfileSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(customerProfileSid)) {
       throw new Error("Parameter 'customerProfileSid' is not valid.");
     }
@@ -158,7 +160,7 @@ export class CustomerProfilesEntityAssignmentsContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -172,13 +174,13 @@ export class CustomerProfilesEntityAssignmentsContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -191,12 +193,12 @@ export class CustomerProfilesEntityAssignmentsContextImpl
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -204,8 +206,8 @@ export class CustomerProfilesEntityAssignmentsContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEntityAssignmentsInstance
-    ) => any
+      item?: CustomerProfilesEntityAssignmentsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -224,13 +226,13 @@ export class CustomerProfilesEntityAssignmentsContextImpl
           operationVersion,
           payload,
           instance._solution.customerProfileSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -238,8 +240,8 @@ export class CustomerProfilesEntityAssignmentsContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesEntityAssignmentsInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesEntityAssignmentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -260,14 +262,14 @@ export class CustomerProfilesEntityAssignmentsContextImpl
             operationVersion,
             response.body,
             instance._solution.customerProfileSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -286,8 +288,7 @@ export class CustomerProfilesEntityAssignmentsContextImpl
   }
 }
 
-interface CustomerProfilesEntityAssignmentsPayload
-  extends TwilioResponsePayload {
+interface CustomerProfilesEntityAssignmentsPayload extends TwilioResponsePayload {
   results: CustomerProfilesEntityAssignmentsResource[];
 }
 
@@ -308,7 +309,7 @@ export class CustomerProfilesEntityAssignmentsInstance {
     protected _version: V1,
     payload: CustomerProfilesEntityAssignmentsResource,
     customerProfileSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.customerProfileSid = payload.customer_profile_sid;
@@ -351,7 +352,7 @@ export class CustomerProfilesEntityAssignmentsInstance {
       new CustomerProfilesEntityAssignmentsContextImpl(
         this._version,
         this._solution.customerProfileSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -364,7 +365,7 @@ export class CustomerProfilesEntityAssignmentsInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -377,7 +378,7 @@ export class CustomerProfilesEntityAssignmentsInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -392,8 +393,8 @@ export class CustomerProfilesEntityAssignmentsInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEntityAssignmentsInstance
-    ) => any
+      item?: CustomerProfilesEntityAssignmentsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -408,8 +409,8 @@ export class CustomerProfilesEntityAssignmentsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesEntityAssignmentsInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesEntityAssignmentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -459,8 +460,8 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
     params: CustomerProfilesEntityAssignmentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEntityAssignmentsInstance
-    ) => any
+      item?: CustomerProfilesEntityAssignmentsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsInstance>;
 
   /**
@@ -475,8 +476,8 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
     params: CustomerProfilesEntityAssignmentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesEntityAssignmentsInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesEntityAssignmentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsInstance>>;
 
   /**
@@ -497,15 +498,15 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
   each(
     callback?: (
       item: CustomerProfilesEntityAssignmentsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: CustomerProfilesEntityAssignmentsListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesEntityAssignmentsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams CustomerProfilesEntityAssignmentsInstance records from the API with HTTP metadata captured per page.
@@ -525,15 +526,15 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
   eachWithHttpInfo(
     callback?: (
       item: CustomerProfilesEntityAssignmentsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: CustomerProfilesEntityAssignmentsListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesEntityAssignmentsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of CustomerProfilesEntityAssignmentsInstance records from the API.
@@ -547,8 +548,8 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsPage
-    ) => any
+      items: CustomerProfilesEntityAssignmentsPage,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsPage>;
   /**
    * Retrieve a single target page of CustomerProfilesEntityAssignmentsInstance records from the API with HTTP metadata.
@@ -562,8 +563,8 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEntityAssignmentsPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesEntityAssignmentsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsPage>>;
   /**
    * Lists CustomerProfilesEntityAssignmentsInstance records from the API as a list.
@@ -577,15 +578,15 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsInstance[]
-    ) => any
+      items: CustomerProfilesEntityAssignmentsInstance[],
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsInstance[]>;
   list(
     params: CustomerProfilesEntityAssignmentsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsInstance[]
-    ) => any
+      items: CustomerProfilesEntityAssignmentsInstance[],
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsInstance[]>;
   /**
    * Lists CustomerProfilesEntityAssignmentsInstance records from the API as a list with HTTP metadata.
@@ -601,15 +602,15 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEntityAssignmentsInstance[]>
-    ) => any
+      items: ApiResponse<CustomerProfilesEntityAssignmentsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsInstance[]>>;
   listWithHttpInfo(
     params: CustomerProfilesEntityAssignmentsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEntityAssignmentsInstance[]>
-    ) => any
+      items: ApiResponse<CustomerProfilesEntityAssignmentsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsInstance[]>>;
   /**
    * Retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API.
@@ -625,15 +626,15 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsPage
-    ) => any
+      items: CustomerProfilesEntityAssignmentsPage,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsPage>;
   page(
     params: CustomerProfilesEntityAssignmentsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsPage
-    ) => any
+      items: CustomerProfilesEntityAssignmentsPage,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsPage>;
   /**
    * Retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API with HTTP metadata.
@@ -649,15 +650,15 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEntityAssignmentsPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesEntityAssignmentsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsPage>>;
   pageWithHttpInfo(
     params: CustomerProfilesEntityAssignmentsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEntityAssignmentsPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesEntityAssignmentsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsPage>>;
 
   /**
@@ -669,7 +670,7 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
 
 export function CustomerProfilesEntityAssignmentsListInstance(
   version: V1,
-  customerProfileSid: string
+  customerProfileSid: string,
 ): CustomerProfilesEntityAssignmentsListInstance {
   if (!isValidPathParam(customerProfileSid)) {
     throw new Error("Parameter 'customerProfileSid' is not valid.");
@@ -682,7 +683,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
     return new CustomerProfilesEntityAssignmentsContextImpl(
       version,
       customerProfileSid,
-      sid
+      sid,
     );
   };
 
@@ -694,8 +695,8 @@ export function CustomerProfilesEntityAssignmentsListInstance(
     params: CustomerProfilesEntityAssignmentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsInstance
-    ) => any
+      items: CustomerProfilesEntityAssignmentsInstance,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -726,13 +727,13 @@ export function CustomerProfilesEntityAssignmentsListInstance(
         new CustomerProfilesEntityAssignmentsInstance(
           operationVersion,
           payload,
-          instance._solution.customerProfileSid
-        )
+          instance._solution.customerProfileSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -741,8 +742,8 @@ export function CustomerProfilesEntityAssignmentsListInstance(
     params: CustomerProfilesEntityAssignmentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEntityAssignmentsInstance>
-    ) => any
+      items: ApiResponse<CustomerProfilesEntityAssignmentsInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -775,14 +776,14 @@ export function CustomerProfilesEntityAssignmentsListInstance(
           body: new CustomerProfilesEntityAssignmentsInstance(
             operationVersion,
             response.body,
-            instance._solution.customerProfileSid
+            instance._solution.customerProfileSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -792,12 +793,12 @@ export function CustomerProfilesEntityAssignmentsListInstance(
       | CustomerProfilesEntityAssignmentsListInstancePageOptions
       | ((
           error: Error | null,
-          items: CustomerProfilesEntityAssignmentsPage
+          items: CustomerProfilesEntityAssignmentsPage,
         ) => any),
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsPage
-    ) => any
+      items: CustomerProfilesEntityAssignmentsPage,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -831,13 +832,13 @@ export function CustomerProfilesEntityAssignmentsListInstance(
         new CustomerProfilesEntityAssignmentsPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -848,8 +849,8 @@ export function CustomerProfilesEntityAssignmentsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsPage
-    ) => any
+      items: CustomerProfilesEntityAssignmentsPage,
+    ) => any,
   ): Promise<CustomerProfilesEntityAssignmentsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -860,8 +861,8 @@ export function CustomerProfilesEntityAssignmentsListInstance(
         new CustomerProfilesEntityAssignmentsPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -872,12 +873,12 @@ export function CustomerProfilesEntityAssignmentsListInstance(
       | CustomerProfilesEntityAssignmentsListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<CustomerProfilesEntityAssignmentsPage>
+          items: ApiResponse<CustomerProfilesEntityAssignmentsPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesEntityAssignmentsPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesEntityAssignmentsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -910,14 +911,14 @@ export function CustomerProfilesEntityAssignmentsListInstance(
           body: new CustomerProfilesEntityAssignmentsPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -930,8 +931,8 @@ export function CustomerProfilesEntityAssignmentsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CustomerProfilesEntityAssignmentsPage>
-    ) => any
+      items?: ApiResponse<CustomerProfilesEntityAssignmentsPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesEntityAssignmentsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -946,9 +947,9 @@ export function CustomerProfilesEntityAssignmentsListInstance(
         body: new CustomerProfilesEntityAssignmentsPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -960,7 +961,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -984,7 +985,7 @@ export class CustomerProfilesEntityAssignmentsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: CustomerProfilesEntityAssignmentsSolution
+    solution: CustomerProfilesEntityAssignmentsSolution,
   ) {
     super(version, response, solution);
   }
@@ -995,12 +996,12 @@ export class CustomerProfilesEntityAssignmentsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: CustomerProfilesEntityAssignmentsResource
+    payload: CustomerProfilesEntityAssignmentsResource,
   ): CustomerProfilesEntityAssignmentsInstance {
     return new CustomerProfilesEntityAssignmentsInstance(
       this._version,
       payload,
-      this._solution.customerProfileSid
+      this._solution.customerProfileSid,
     );
   }
 

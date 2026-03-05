@@ -1,4 +1,3 @@
-
 export interface ValidationClientOptions {
   accountSid: string;
   credentialSid: string;

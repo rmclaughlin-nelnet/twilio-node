@@ -108,11 +108,11 @@ export interface DailyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: DailyInstance, done: (err?: Error) => void) => void
+    callback?: (item: DailyInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: DailyListInstanceEachOptions,
-    callback?: (item: DailyInstance, done: (err?: Error) => void) => void
+    callback?: (item: DailyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams DailyInstance records from the API with HTTP metadata captured per page.
@@ -130,11 +130,11 @@ export interface DailyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: DailyInstance, done: (err?: Error) => void) => void
+    callback?: (item: DailyInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: DailyListInstanceEachOptions,
-    callback?: (item: DailyInstance, done: (err?: Error) => void) => void
+    callback?: (item: DailyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of DailyInstance records from the API.
@@ -146,7 +146,7 @@ export interface DailyListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DailyPage) => any
+    callback?: (error: Error | null, items: DailyPage) => any,
   ): Promise<DailyPage>;
   /**
    * Retrieve a single target page of DailyInstance records from the API with HTTP metadata.
@@ -158,7 +158,7 @@ export interface DailyListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<DailyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DailyPage>) => any,
   ): Promise<ApiResponse<DailyPage>>;
   /**
    * Lists DailyInstance records from the API as a list.
@@ -170,11 +170,11 @@ export interface DailyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: DailyInstance[]) => any
+    callback?: (error: Error | null, items: DailyInstance[]) => any,
   ): Promise<DailyInstance[]>;
   list(
     params: DailyListInstanceOptions,
-    callback?: (error: Error | null, items: DailyInstance[]) => any
+    callback?: (error: Error | null, items: DailyInstance[]) => any,
   ): Promise<DailyInstance[]>;
   /**
    * Lists DailyInstance records from the API as a list with HTTP metadata.
@@ -188,11 +188,17 @@ export interface DailyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DailyInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DailyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DailyInstance[]>>;
   listWithHttpInfo(
     params: DailyListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<DailyInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<DailyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DailyInstance[]>>;
   /**
    * Retrieve a single page of DailyInstance records from the API.
@@ -206,11 +212,11 @@ export interface DailyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: DailyPage) => any
+    callback?: (error: Error | null, items: DailyPage) => any,
   ): Promise<DailyPage>;
   page(
     params: DailyListInstancePageOptions,
-    callback?: (error: Error | null, items: DailyPage) => any
+    callback?: (error: Error | null, items: DailyPage) => any,
   ): Promise<DailyPage>;
   /**
    * Retrieve a single page of DailyInstance records from the API with HTTP metadata.
@@ -224,11 +230,11 @@ export interface DailyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DailyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DailyPage>) => any,
   ): Promise<ApiResponse<DailyPage>>;
   pageWithHttpInfo(
     params: DailyListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<DailyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DailyPage>) => any,
   ): Promise<ApiResponse<DailyPage>>;
 
   /**
@@ -240,7 +246,7 @@ export interface DailyListInstance {
 
 export function DailyListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): DailyListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -256,7 +262,7 @@ export function DailyListInstance(
     params?:
       | DailyListInstancePageOptions
       | ((error: Error | null, items: DailyPage) => any),
-    callback?: (error: Error | null, items: DailyPage) => any
+    callback?: (error: Error | null, items: DailyPage) => any,
   ): Promise<DailyPage> {
     if (params instanceof Function) {
       callback = params;
@@ -291,12 +297,12 @@ export function DailyListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DailyPage(operationVersion, payload, instance._solution)
+      (payload) => new DailyPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -305,14 +311,15 @@ export function DailyListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DailyPage) => any
+    callback?: (error: Error | null, items: DailyPage) => any,
   ): Promise<DailyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new DailyPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new DailyPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -322,7 +329,7 @@ export function DailyListInstance(
     params?:
       | DailyListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<DailyPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<DailyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DailyPage>) => any,
   ): Promise<ApiResponse<DailyPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -358,12 +365,12 @@ export function DailyListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new DailyPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -374,7 +381,7 @@ export function DailyListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<DailyPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<DailyPage>) => any,
   ): Promise<ApiResponse<DailyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -387,7 +394,7 @@ export function DailyListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new DailyPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -399,7 +406,7 @@ export function DailyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -433,7 +440,7 @@ export class DailyInstance {
   constructor(
     protected _version: V2010,
     payload: DailyResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -559,7 +566,7 @@ export class DailyPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: DailySolution
+    solution: DailySolution,
   ) {
     super(version, response, solution);
   }

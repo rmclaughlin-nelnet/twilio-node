@@ -2,8 +2,11 @@ import { HttpMethod } from "../interfaces.js";
 import * as fs from "node:fs";
 import * as https from "node:https";
 import { Response } from "../http/response.js";
-import { Request, Headers,
-  RequestOptions as LastRequestOptions, } from "../http/request.js";
+import {
+  Request,
+  Headers,
+  RequestOptions as LastRequestOptions,
+} from "../http/request.js";
 import { AuthStrategy } from "../auth_strategy/AuthStrategy.js";
 import { ValidationToken } from "../jwt/validation/ValidationToken.js";
 import { ValidationClientOptions } from "./ValidationClient.js";
@@ -18,15 +21,12 @@ function stringifyParams(obj: Record<string, any>): string {
   return Object.entries(obj)
     .flatMap(([k, v]) =>
       Array.isArray(v)
-        ? v.map(
-            (val) =>
-              `${encodeURIComponent(k)}=${encodeURIComponent(val)}`
-          )
+        ? v.map((val) => `${encodeURIComponent(k)}=${encodeURIComponent(val)}`)
         : [
             `${encodeURIComponent(k)}=${encodeURIComponent(
-              v == null ? "" : v
+              v == null ? "" : v,
             )}`,
-          ]
+          ],
     )
     .join("&");
 }
@@ -83,9 +83,7 @@ class RequestClient {
    * @param opts.forever - Set to true to use the forever-agent
    * @param opts.logLevel - Show debug logs
    */
-  async request<TData>(
-    opts: RequestOptions<TData>
-  ): Promise<Response<TData>> {
+  async request<TData>(opts: RequestOptions<TData>): Promise<Response<TData>> {
     if (!opts.method) {
       throw new Error("http method is required");
     }
@@ -115,7 +113,7 @@ class RequestClient {
 
     if (opts.username && opts.password) {
       auth = Buffer.from(opts.username + ":" + opts.password).toString(
-        "base64"
+        "base64",
       );
       headers.Authorization = "Basic " + auth;
     } else if (opts.authStrategy) {
@@ -155,7 +153,7 @@ class RequestClient {
       };
       try {
         headers["Twilio-Client-Validation"] = new ValidationToken(
-          this.validationClient
+          this.validationClient,
         ).fromHttpRequest(validationRequest);
       } catch (err) {
         console.log("Error creating Twilio-Client-Validation header:", err);
@@ -191,7 +189,7 @@ class RequestClient {
         redirect,
       },
       timeout,
-      0
+      0,
     );
 
     const responseHeaders: Record<string, string> = {};
@@ -220,7 +218,7 @@ class RequestClient {
     this.lastResponse = new Response(
       fetchResponse.status,
       responseBody,
-      responseHeaders
+      responseHeaders,
     );
     return {
       statusCode: fetchResponse.status,
@@ -233,7 +231,7 @@ class RequestClient {
     url: string,
     init: RequestInit,
     timeout: number,
-    retryCount: number
+    retryCount: number,
   ): Promise<globalThis.Response> {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
@@ -252,7 +250,7 @@ class RequestClient {
         const nextRetry = retryCount + 1;
         const baseDelay = Math.min(
           this.maxRetryDelay,
-          DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS * Math.pow(2, nextRetry)
+          DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS * Math.pow(2, nextRetry),
         );
         const delay = Math.floor(baseDelay * Math.random());
         await new Promise((resolve) => setTimeout(resolve, delay));
@@ -283,10 +281,10 @@ class RequestClient {
     if (options.headers) {
       console.log("Headers:");
       const filteredHeaderKeys = this.filterLoggingHeaders(
-        options.headers as Headers
+        options.headers as Headers,
       );
       filteredHeaderKeys.forEach((header) =>
-        console.log(`${header}: ${options.headers?.header}`)
+        console.log(`${header}: ${options.headers?.header}`),
       );
     }
 

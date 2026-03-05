@@ -44,7 +44,7 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstanceEachOption
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: CustomerProfilesChannelEndpointAssignmentInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -92,7 +92,7 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -103,7 +103,7 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -116,8 +116,8 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesChannelEndpointAssignmentInstance
-    ) => any
+      item?: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance>;
 
   /**
@@ -130,8 +130,8 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>>;
 
   /**
@@ -146,13 +146,15 @@ export interface CustomerProfilesChannelEndpointAssignmentContextSolution {
   sid: string;
 }
 
-export class CustomerProfilesChannelEndpointAssignmentContextImpl
-  implements CustomerProfilesChannelEndpointAssignmentContext
-{
+export class CustomerProfilesChannelEndpointAssignmentContextImpl implements CustomerProfilesChannelEndpointAssignmentContext {
   protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    customerProfileSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(customerProfileSid)) {
       throw new Error("Parameter 'customerProfileSid' is not valid.");
     }
@@ -166,7 +168,7 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -180,13 +182,13 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -199,12 +201,12 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -212,8 +214,8 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesChannelEndpointAssignmentInstance
-    ) => any
+      item?: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -232,13 +234,13 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
           operationVersion,
           payload,
           instance._solution.customerProfileSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -246,8 +248,8 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -257,25 +259,25 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
     // CREATE, FETCH, UPDATE operations
     let operationPromise = operationVersion
       .fetchWithResponseInfo<CustomerProfilesChannelEndpointAssignmentResource>(
-        { uri: instance._uri, method: "get", headers }
+        { uri: instance._uri, method: "get", headers },
       )
       .then(
         (
-          response
+          response,
         ): ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance> => ({
           ...response,
           body: new CustomerProfilesChannelEndpointAssignmentInstance(
             operationVersion,
             response.body,
             instance._solution.customerProfileSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -294,8 +296,7 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   }
 }
 
-interface CustomerProfilesChannelEndpointAssignmentPayload
-  extends TwilioResponsePayload {
+interface CustomerProfilesChannelEndpointAssignmentPayload extends TwilioResponsePayload {
   results: CustomerProfilesChannelEndpointAssignmentResource[];
 }
 
@@ -317,7 +318,7 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
     protected _version: V1,
     payload: CustomerProfilesChannelEndpointAssignmentResource,
     customerProfileSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.customerProfileSid = payload.customer_profile_sid;
@@ -365,7 +366,7 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
       new CustomerProfilesChannelEndpointAssignmentContextImpl(
         this._version,
         this._solution.customerProfileSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -378,7 +379,7 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -391,7 +392,7 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -406,8 +407,8 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesChannelEndpointAssignmentInstance
-    ) => any
+      item?: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     return this._proxy.fetch(callback);
   }
@@ -422,8 +423,8 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -474,8 +475,8 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
     params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesChannelEndpointAssignmentInstance
-    ) => any
+      item?: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance>;
 
   /**
@@ -490,8 +491,8 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
     params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>
-    ) => any
+      item?: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>>;
 
   /**
@@ -512,15 +513,15 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   each(
     callback?: (
       item: CustomerProfilesChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams CustomerProfilesChannelEndpointAssignmentInstance records from the API with HTTP metadata captured per page.
@@ -540,15 +541,15 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   eachWithHttpInfo(
     callback?: (
       item: CustomerProfilesChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
@@ -562,8 +563,8 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentPage
-    ) => any
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
   /**
    * Retrieve a single target page of CustomerProfilesChannelEndpointAssignmentInstance records from the API with HTTP metadata.
@@ -577,8 +578,8 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
   /**
    * Lists CustomerProfilesChannelEndpointAssignmentInstance records from the API as a list.
@@ -592,15 +593,15 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentInstance[]
-    ) => any
+      items: CustomerProfilesChannelEndpointAssignmentInstance[],
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
   list(
     params: CustomerProfilesChannelEndpointAssignmentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentInstance[]
-    ) => any
+      items: CustomerProfilesChannelEndpointAssignmentInstance[],
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
   /**
    * Lists CustomerProfilesChannelEndpointAssignmentInstance records from the API as a list with HTTP metadata.
@@ -616,15 +617,15 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>
-    ) => any
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>>;
   listWithHttpInfo(
     params: CustomerProfilesChannelEndpointAssignmentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>
-    ) => any
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance[]>>;
   /**
    * Retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
@@ -640,15 +641,15 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentPage
-    ) => any
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
   page(
     params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentPage
-    ) => any
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
   /**
    * Retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API with HTTP metadata.
@@ -664,15 +665,15 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
   pageWithHttpInfo(
     params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>>;
 
   /**
@@ -684,7 +685,7 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
 
 export function CustomerProfilesChannelEndpointAssignmentListInstance(
   version: V1,
-  customerProfileSid: string
+  customerProfileSid: string,
 ): CustomerProfilesChannelEndpointAssignmentListInstance {
   if (!isValidPathParam(customerProfileSid)) {
     throw new Error("Parameter 'customerProfileSid' is not valid.");
@@ -694,12 +695,12 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     instance.get(sid)) as CustomerProfilesChannelEndpointAssignmentListInstance;
 
   instance.get = function get(
-    sid
+    sid,
   ): CustomerProfilesChannelEndpointAssignmentContext {
     return new CustomerProfilesChannelEndpointAssignmentContextImpl(
       version,
       customerProfileSid,
-      sid
+      sid,
     );
   };
 
@@ -711,8 +712,8 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentInstance
-    ) => any
+      items: CustomerProfilesChannelEndpointAssignmentInstance,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -723,7 +724,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       params["channelEndpointType"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['channelEndpointType']\" missing."
+        "Required parameter \"params['channelEndpointType']\" missing.",
       );
     }
 
@@ -732,7 +733,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       params["channelEndpointSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['channelEndpointSid']\" missing."
+        "Required parameter \"params['channelEndpointSid']\" missing.",
       );
     }
 
@@ -759,13 +760,13 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
         new CustomerProfilesChannelEndpointAssignmentInstance(
           operationVersion,
           payload,
-          instance._solution.customerProfileSid
-        )
+          instance._solution.customerProfileSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -774,8 +775,8 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>
-    ) => any
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -786,7 +787,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       params["channelEndpointType"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['channelEndpointType']\" missing."
+        "Required parameter \"params['channelEndpointType']\" missing.",
       );
     }
 
@@ -795,7 +796,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       params["channelEndpointSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['channelEndpointSid']\" missing."
+        "Required parameter \"params['channelEndpointSid']\" missing.",
       );
     }
 
@@ -813,24 +814,24 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     // CREATE, FETCH, UPDATE operations
     let operationPromise = operationVersion
       .createWithResponseInfo<CustomerProfilesChannelEndpointAssignmentResource>(
-        { uri: instance._uri, method: "post", data, headers }
+        { uri: instance._uri, method: "post", data, headers },
       )
       .then(
         (
-          response
+          response,
         ): ApiResponse<CustomerProfilesChannelEndpointAssignmentInstance> => ({
           ...response,
           body: new CustomerProfilesChannelEndpointAssignmentInstance(
             operationVersion,
             response.body,
-            instance._solution.customerProfileSid
+            instance._solution.customerProfileSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -840,12 +841,12 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       | CustomerProfilesChannelEndpointAssignmentListInstancePageOptions
       | ((
           error: Error | null,
-          items: CustomerProfilesChannelEndpointAssignmentPage
+          items: CustomerProfilesChannelEndpointAssignmentPage,
         ) => any),
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentPage
-    ) => any
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -881,13 +882,13 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
         new CustomerProfilesChannelEndpointAssignmentPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -898,8 +899,8 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentPage
-    ) => any
+      items: CustomerProfilesChannelEndpointAssignmentPage,
+    ) => any,
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -910,8 +911,8 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
         new CustomerProfilesChannelEndpointAssignmentPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -922,12 +923,12 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       | CustomerProfilesChannelEndpointAssignmentListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>
+          items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>
-    ) => any
+      items: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -957,21 +958,21 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       .page({ uri: instance._uri, method: "get", params: data, headers })
       .then(
         (
-          response
+          response,
         ): ApiResponse<CustomerProfilesChannelEndpointAssignmentPage> => ({
           statusCode: response.statusCode,
           headers: response.headers,
           body: new CustomerProfilesChannelEndpointAssignmentPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -984,8 +985,8 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>
-    ) => any
+      items?: ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>,
+    ) => any,
   ): Promise<ApiResponse<CustomerProfilesChannelEndpointAssignmentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -995,16 +996,16 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
 
     let pagePromise = operationPromise.then(
       (
-        response
+        response,
       ): ApiResponse<CustomerProfilesChannelEndpointAssignmentPage> => ({
         statusCode: response.statusCode,
         headers: response.headers,
         body: new CustomerProfilesChannelEndpointAssignmentPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1016,7 +1017,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1040,7 +1041,7 @@ export class CustomerProfilesChannelEndpointAssignmentPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: CustomerProfilesChannelEndpointAssignmentSolution
+    solution: CustomerProfilesChannelEndpointAssignmentSolution,
   ) {
     super(version, response, solution);
   }
@@ -1051,12 +1052,12 @@ export class CustomerProfilesChannelEndpointAssignmentPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: CustomerProfilesChannelEndpointAssignmentResource
+    payload: CustomerProfilesChannelEndpointAssignmentResource,
   ): CustomerProfilesChannelEndpointAssignmentInstance {
     return new CustomerProfilesChannelEndpointAssignmentInstance(
       this._version,
       payload,
-      this._solution.customerProfileSid
+      this._solution.customerProfileSid,
     );
   }
 

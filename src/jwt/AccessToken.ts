@@ -26,7 +26,7 @@ export class AccessToken implements AccessTokenOptions {
     accountSid: string,
     keySid: string,
     secret: string,
-    options: AccessTokenOptions
+    options: AccessTokenOptions,
   ) {
     if (!accountSid) {
       throw new Error("accountSid is required");
@@ -60,7 +60,7 @@ export class AccessToken implements AccessTokenOptions {
     if (!AccessToken.ALGORITHMS.includes(algorithm)) {
       throw new Error(
         "Algorithm not supported. Allowed values are " +
-          AccessToken.ALGORITHMS.join(", ")
+          AccessToken.ALGORITHMS.join(", "),
       );
     }
 

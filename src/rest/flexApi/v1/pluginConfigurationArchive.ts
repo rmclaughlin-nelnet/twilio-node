@@ -38,8 +38,8 @@ export interface PluginConfigurationArchiveContext {
   update(
     callback?: (
       error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
+      item?: PluginConfigurationArchiveInstance,
+    ) => any,
   ): Promise<PluginConfigurationArchiveInstance>;
   /**
    * Update a PluginConfigurationArchiveInstance
@@ -53,8 +53,8 @@ export interface PluginConfigurationArchiveContext {
     params: PluginConfigurationArchiveContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
+      item?: PluginConfigurationArchiveInstance,
+    ) => any,
   ): Promise<PluginConfigurationArchiveInstance>;
 
   /**
@@ -67,8 +67,8 @@ export interface PluginConfigurationArchiveContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationArchiveInstance>
-    ) => any
+      item?: ApiResponse<PluginConfigurationArchiveInstance>,
+    ) => any,
   ): Promise<ApiResponse<PluginConfigurationArchiveInstance>>;
   /**
    * Update a PluginConfigurationArchiveInstance and return HTTP info
@@ -82,8 +82,8 @@ export interface PluginConfigurationArchiveContext {
     params: PluginConfigurationArchiveContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationArchiveInstance>
-    ) => any
+      item?: ApiResponse<PluginConfigurationArchiveInstance>,
+    ) => any,
   ): Promise<ApiResponse<PluginConfigurationArchiveInstance>>;
 
   /**
@@ -97,13 +97,14 @@ export interface PluginConfigurationArchiveContextSolution {
   sid: string;
 }
 
-export class PluginConfigurationArchiveContextImpl
-  implements PluginConfigurationArchiveContext
-{
+export class PluginConfigurationArchiveContextImpl implements PluginConfigurationArchiveContext {
   protected _solution: PluginConfigurationArchiveContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -117,12 +118,12 @@ export class PluginConfigurationArchiveContextImpl
       | PluginConfigurationArchiveContextUpdateOptions
       | ((
           error: Error | null,
-          item?: PluginConfigurationArchiveInstance
+          item?: PluginConfigurationArchiveInstance,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
+      item?: PluginConfigurationArchiveInstance,
+    ) => any,
   ): Promise<PluginConfigurationArchiveInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -152,13 +153,13 @@ export class PluginConfigurationArchiveContextImpl
         new PluginConfigurationArchiveInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -168,12 +169,12 @@ export class PluginConfigurationArchiveContextImpl
       | PluginConfigurationArchiveContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<PluginConfigurationArchiveInstance>
+          item?: ApiResponse<PluginConfigurationArchiveInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationArchiveInstance>
-    ) => any
+      item?: ApiResponse<PluginConfigurationArchiveInstance>,
+    ) => any,
   ): Promise<ApiResponse<PluginConfigurationArchiveInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -205,14 +206,14 @@ export class PluginConfigurationArchiveContextImpl
           body: new PluginConfigurationArchiveInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -231,8 +232,7 @@ export class PluginConfigurationArchiveContextImpl
   }
 }
 
-interface PluginConfigurationArchivePayload
-  extends PluginConfigurationArchiveResource {}
+interface PluginConfigurationArchivePayload extends PluginConfigurationArchiveResource {}
 
 interface PluginConfigurationArchiveResource {
   sid: string;
@@ -251,7 +251,7 @@ export class PluginConfigurationArchiveInstance {
   constructor(
     protected _version: V1,
     payload: PluginConfigurationArchiveResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -298,7 +298,7 @@ export class PluginConfigurationArchiveInstance {
       this._context ||
       new PluginConfigurationArchiveContextImpl(
         this._version,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -313,8 +313,8 @@ export class PluginConfigurationArchiveInstance {
   update(
     callback?: (
       error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
+      item?: PluginConfigurationArchiveInstance,
+    ) => any,
   ): Promise<PluginConfigurationArchiveInstance>;
   /**
    * Update a PluginConfigurationArchiveInstance
@@ -328,16 +328,16 @@ export class PluginConfigurationArchiveInstance {
     params: PluginConfigurationArchiveContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
+      item?: PluginConfigurationArchiveInstance,
+    ) => any,
   ): Promise<PluginConfigurationArchiveInstance>;
 
   update(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
+      item?: PluginConfigurationArchiveInstance,
+    ) => any,
   ): Promise<PluginConfigurationArchiveInstance> {
     return this._proxy.update(params, callback);
   }
@@ -352,8 +352,8 @@ export class PluginConfigurationArchiveInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationArchiveInstance>
-    ) => any
+      item?: ApiResponse<PluginConfigurationArchiveInstance>,
+    ) => any,
   ): Promise<ApiResponse<PluginConfigurationArchiveInstance>>;
   /**
    * Update a PluginConfigurationArchiveInstance and return HTTP info
@@ -367,16 +367,16 @@ export class PluginConfigurationArchiveInstance {
     params: PluginConfigurationArchiveContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationArchiveInstance>
-    ) => any
+      item?: ApiResponse<PluginConfigurationArchiveInstance>,
+    ) => any,
   ): Promise<ApiResponse<PluginConfigurationArchiveInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationArchiveInstance>
-    ) => any
+      item?: ApiResponse<PluginConfigurationArchiveInstance>,
+    ) => any,
   ): Promise<ApiResponse<PluginConfigurationArchiveInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -421,7 +421,7 @@ export interface PluginConfigurationArchiveListInstance {
 }
 
 export function PluginConfigurationArchiveListInstance(
-  version: V1
+  version: V1,
 ): PluginConfigurationArchiveListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as PluginConfigurationArchiveListInstance;
@@ -440,7 +440,7 @@ export function PluginConfigurationArchiveListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -77,7 +77,7 @@ export interface MemberContext {
    * @returns Resolves to processed MemberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
 
   /**
@@ -88,7 +88,7 @@ export interface MemberContext {
    * @returns Resolves to processed MemberInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
 
   /**
@@ -101,7 +101,7 @@ export interface MemberContext {
    */
   update(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
 
   /**
@@ -114,7 +114,7 @@ export interface MemberContext {
    */
   updateWithHttpInfo(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
 
   /**
@@ -138,7 +138,7 @@ export class MemberContextImpl implements MemberContext {
     protected _version: V2010,
     accountSid: string,
     queueSid: string,
-    callSid: string
+    callSid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -157,7 +157,7 @@ export class MemberContextImpl implements MemberContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -177,19 +177,19 @@ export class MemberContextImpl implements MemberContext {
           payload,
           instance._solution.accountSid,
           instance._solution.queueSid,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -211,21 +211,21 @@ export class MemberContextImpl implements MemberContext {
             response.body,
             instance._solution.accountSid,
             instance._solution.queueSid,
-            instance._solution.callSid
+            instance._solution.callSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -260,20 +260,20 @@ export class MemberContextImpl implements MemberContext {
           payload,
           instance._solution.accountSid,
           instance._solution.queueSid,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   updateWithHttpInfo(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -310,14 +310,14 @@ export class MemberContextImpl implements MemberContext {
             response.body,
             instance._solution.accountSid,
             instance._solution.queueSid,
-            instance._solution.callSid
+            instance._solution.callSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -358,7 +358,7 @@ export class MemberInstance {
     payload: MemberResource,
     accountSid: string,
     queueSid: string,
-    callSid?: string
+    callSid?: string,
   ) {
     this.callSid = payload.call_sid;
     this.dateEnqueued = deserialize.rfc2822DateTime(payload.date_enqueued);
@@ -402,7 +402,7 @@ export class MemberInstance {
         this._version,
         this._solution.accountSid,
         this._solution.queueSid,
-        this._solution.callSid
+        this._solution.callSid,
       );
     return this._context;
   }
@@ -415,7 +415,7 @@ export class MemberInstance {
    * @returns Resolves to processed MemberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance> {
     return this._proxy.fetch(callback);
   }
@@ -428,7 +428,7 @@ export class MemberInstance {
    * @returns Resolves to processed MemberInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -443,12 +443,12 @@ export class MemberInstance {
    */
   update(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, item?: MemberInstance) => any,
   ): Promise<MemberInstance> {
     return this._proxy.update(params, callback);
   }
@@ -463,12 +463,12 @@ export class MemberInstance {
    */
   updateWithHttpInfo(
     params: MemberContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<MemberInstance>) => any,
   ): Promise<ApiResponse<MemberInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -523,11 +523,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: MemberListInstanceEachOptions,
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams MemberInstance records from the API with HTTP metadata captured per page.
@@ -545,11 +545,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: MemberListInstanceEachOptions,
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of MemberInstance records from the API.
@@ -561,7 +561,7 @@ export interface MemberListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage>;
   /**
    * Retrieve a single target page of MemberInstance records from the API with HTTP metadata.
@@ -573,7 +573,7 @@ export interface MemberListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>>;
   /**
    * Lists MemberInstance records from the API as a list.
@@ -585,11 +585,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: MemberInstance[]) => any
+    callback?: (error: Error | null, items: MemberInstance[]) => any,
   ): Promise<MemberInstance[]>;
   list(
     params: MemberListInstanceOptions,
-    callback?: (error: Error | null, items: MemberInstance[]) => any
+    callback?: (error: Error | null, items: MemberInstance[]) => any,
   ): Promise<MemberInstance[]>;
   /**
    * Lists MemberInstance records from the API as a list with HTTP metadata.
@@ -605,15 +605,15 @@ export interface MemberListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<MemberInstance[]>
-    ) => any
+      items: ApiResponse<MemberInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<MemberInstance[]>>;
   listWithHttpInfo(
     params: MemberListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MemberInstance[]>
-    ) => any
+      items: ApiResponse<MemberInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<MemberInstance[]>>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
@@ -627,11 +627,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage>;
   page(
     params: MemberListInstancePageOptions,
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage>;
   /**
    * Retrieve a single page of MemberInstance records from the API with HTTP metadata.
@@ -645,11 +645,11 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>>;
   pageWithHttpInfo(
     params: MemberListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>>;
 
   /**
@@ -662,7 +662,7 @@ export interface MemberListInstance {
 export function MemberListInstance(
   version: V2010,
   accountSid: string,
-  queueSid: string
+  queueSid: string,
 ): MemberListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -686,7 +686,7 @@ export function MemberListInstance(
     params?:
       | MemberListInstancePageOptions
       | ((error: Error | null, items: MemberPage) => any),
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage> {
     if (params instanceof Function) {
       callback = params;
@@ -714,12 +714,13 @@ export function MemberListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MemberPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new MemberPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -728,7 +729,7 @@ export function MemberListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MemberPage) => any
+    callback?: (error: Error | null, items: MemberPage) => any,
   ): Promise<MemberPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -736,7 +737,7 @@ export function MemberListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new MemberPage(instance._version, payload, instance._solution)
+        new MemberPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -746,7 +747,7 @@ export function MemberListInstance(
     params?:
       | MemberListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<MemberPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -775,12 +776,12 @@ export function MemberListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new MemberPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -791,7 +792,7 @@ export function MemberListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<MemberPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<MemberPage>) => any,
   ): Promise<ApiResponse<MemberPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -804,7 +805,7 @@ export function MemberListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new MemberPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -816,7 +817,7 @@ export function MemberListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -840,7 +841,7 @@ export class MemberPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: MemberSolution
+    solution: MemberSolution,
   ) {
     super(version, response, solution);
   }
@@ -855,7 +856,7 @@ export class MemberPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.queueSid
+      this._solution.queueSid,
     );
   }
 

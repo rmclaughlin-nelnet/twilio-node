@@ -38,7 +38,7 @@ export interface ApiKeyContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -49,7 +49,7 @@ export interface ApiKeyContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -60,7 +60,7 @@ export interface ApiKeyContext {
    * @returns Resolves to processed ApiKeyInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance>;
 
   /**
@@ -71,7 +71,7 @@ export interface ApiKeyContext {
    * @returns Resolves to processed ApiKeyInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>>;
 
   /**
@@ -82,7 +82,7 @@ export interface ApiKeyContext {
    * @returns Resolves to processed ApiKeyInstance
    */
   update(
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance>;
   /**
    * Update a ApiKeyInstance
@@ -94,7 +94,7 @@ export interface ApiKeyContext {
    */
   update(
     params: ApiKeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance>;
 
   /**
@@ -105,7 +105,7 @@ export interface ApiKeyContext {
    * @returns Resolves to processed ApiKeyInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>>;
   /**
    * Update a ApiKeyInstance and return HTTP info
@@ -117,7 +117,7 @@ export interface ApiKeyContext {
    */
   updateWithHttpInfo(
     params: ApiKeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>>;
 
   /**
@@ -135,7 +135,10 @@ export class ApiKeyContextImpl implements ApiKeyContext {
   protected _solution: ApiKeyContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -145,7 +148,7 @@ export class ApiKeyContextImpl implements ApiKeyContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -159,13 +162,13 @@ export class ApiKeyContextImpl implements ApiKeyContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -178,18 +181,18 @@ export class ApiKeyContextImpl implements ApiKeyContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -204,18 +207,18 @@ export class ApiKeyContextImpl implements ApiKeyContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ApiKeyInstance(operationVersion, payload, instance._solution.sid)
+        new ApiKeyInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -235,14 +238,14 @@ export class ApiKeyContextImpl implements ApiKeyContext {
           body: new ApiKeyInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -251,7 +254,7 @@ export class ApiKeyContextImpl implements ApiKeyContext {
     params?:
       | ApiKeyContextUpdateOptions
       | ((error: Error | null, item?: ApiKeyInstance) => any),
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -282,12 +285,12 @@ export class ApiKeyContextImpl implements ApiKeyContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ApiKeyInstance(operationVersion, payload, instance._solution.sid)
+        new ApiKeyInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -296,7 +299,7 @@ export class ApiKeyContextImpl implements ApiKeyContext {
     params?:
       | ApiKeyContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -332,14 +335,14 @@ export class ApiKeyContextImpl implements ApiKeyContext {
           body: new ApiKeyInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -372,7 +375,11 @@ export class ApiKeyInstance {
   protected _solution: ApiKeyContextSolution;
   protected _context?: ApiKeyContext;
 
-  constructor(protected _version: V1, payload: ApiKeyResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ApiKeyResource,
+    sid?: string,
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -417,7 +424,7 @@ export class ApiKeyInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -430,7 +437,7 @@ export class ApiKeyInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -443,7 +450,7 @@ export class ApiKeyInstance {
    * @returns Resolves to processed ApiKeyInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance> {
     return this._proxy.fetch(callback);
   }
@@ -456,7 +463,7 @@ export class ApiKeyInstance {
    * @returns Resolves to processed ApiKeyInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -469,7 +476,7 @@ export class ApiKeyInstance {
    * @returns Resolves to processed ApiKeyInstance
    */
   update(
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance>;
   /**
    * Update a ApiKeyInstance
@@ -481,12 +488,12 @@ export class ApiKeyInstance {
    */
   update(
     params: ApiKeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any,
   ): Promise<ApiKeyInstance> {
     return this._proxy.update(params, callback);
   }
@@ -499,7 +506,7 @@ export class ApiKeyInstance {
    * @returns Resolves to processed ApiKeyInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>>;
   /**
    * Update a ApiKeyInstance and return HTTP info
@@ -511,12 +518,12 @@ export class ApiKeyInstance {
    */
   updateWithHttpInfo(
     params: ApiKeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ApiKeyInstance>) => any,
   ): Promise<ApiResponse<ApiKeyInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -575,7 +582,7 @@ export function ApiKeyListInstance(version: V1): ApiKeyListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

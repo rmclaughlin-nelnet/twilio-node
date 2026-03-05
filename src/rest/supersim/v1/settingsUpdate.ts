@@ -44,7 +44,7 @@ export interface SettingsUpdateListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SettingsUpdateInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -108,15 +108,15 @@ export interface SettingsUpdateListInstance {
   each(
     callback?: (
       item: SettingsUpdateInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: SettingsUpdateListInstanceEachOptions,
     callback?: (
       item: SettingsUpdateInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams SettingsUpdateInstance records from the API with HTTP metadata captured per page.
@@ -136,15 +136,15 @@ export interface SettingsUpdateListInstance {
   eachWithHttpInfo(
     callback?: (
       item: SettingsUpdateInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: SettingsUpdateListInstanceEachOptions,
     callback?: (
       item: SettingsUpdateInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of SettingsUpdateInstance records from the API.
@@ -156,7 +156,7 @@ export interface SettingsUpdateListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any,
   ): Promise<SettingsUpdatePage>;
   /**
    * Retrieve a single target page of SettingsUpdateInstance records from the API with HTTP metadata.
@@ -170,8 +170,8 @@ export interface SettingsUpdateListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SettingsUpdatePage>
-    ) => any
+      items: ApiResponse<SettingsUpdatePage>,
+    ) => any,
   ): Promise<ApiResponse<SettingsUpdatePage>>;
   /**
    * Lists SettingsUpdateInstance records from the API as a list.
@@ -183,11 +183,11 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
+    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any,
   ): Promise<SettingsUpdateInstance[]>;
   list(
     params: SettingsUpdateListInstanceOptions,
-    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
+    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any,
   ): Promise<SettingsUpdateInstance[]>;
   /**
    * Lists SettingsUpdateInstance records from the API as a list with HTTP metadata.
@@ -203,15 +203,15 @@ export interface SettingsUpdateListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SettingsUpdateInstance[]>
-    ) => any
+      items: ApiResponse<SettingsUpdateInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SettingsUpdateInstance[]>>;
   listWithHttpInfo(
     params: SettingsUpdateListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SettingsUpdateInstance[]>
-    ) => any
+      items: ApiResponse<SettingsUpdateInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SettingsUpdateInstance[]>>;
   /**
    * Retrieve a single page of SettingsUpdateInstance records from the API.
@@ -225,11 +225,11 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any,
   ): Promise<SettingsUpdatePage>;
   page(
     params: SettingsUpdateListInstancePageOptions,
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any,
   ): Promise<SettingsUpdatePage>;
   /**
    * Retrieve a single page of SettingsUpdateInstance records from the API with HTTP metadata.
@@ -245,15 +245,15 @@ export interface SettingsUpdateListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SettingsUpdatePage>
-    ) => any
+      items: ApiResponse<SettingsUpdatePage>,
+    ) => any,
   ): Promise<ApiResponse<SettingsUpdatePage>>;
   pageWithHttpInfo(
     params: SettingsUpdateListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SettingsUpdatePage>
-    ) => any
+      items: ApiResponse<SettingsUpdatePage>,
+    ) => any,
   ): Promise<ApiResponse<SettingsUpdatePage>>;
 
   /**
@@ -264,7 +264,7 @@ export interface SettingsUpdateListInstance {
 }
 
 export function SettingsUpdateListInstance(
-  version: V1
+  version: V1,
 ): SettingsUpdateListInstance {
   const instance = {} as SettingsUpdateListInstance;
 
@@ -276,7 +276,7 @@ export function SettingsUpdateListInstance(
     params?:
       | SettingsUpdateListInstancePageOptions
       | ((error: Error | null, items: SettingsUpdatePage) => any),
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any,
   ): Promise<SettingsUpdatePage> {
     if (params instanceof Function) {
       callback = params;
@@ -307,12 +307,12 @@ export function SettingsUpdateListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SettingsUpdatePage(operationVersion, payload, instance._solution)
+        new SettingsUpdatePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -321,7 +321,7 @@ export function SettingsUpdateListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any,
   ): Promise<SettingsUpdatePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -329,7 +329,7 @@ export function SettingsUpdateListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new SettingsUpdatePage(instance._version, payload, instance._solution)
+        new SettingsUpdatePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -341,8 +341,8 @@ export function SettingsUpdateListInstance(
       | ((error: Error | null, items: ApiResponse<SettingsUpdatePage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SettingsUpdatePage>
-    ) => any
+      items: ApiResponse<SettingsUpdatePage>,
+    ) => any,
   ): Promise<ApiResponse<SettingsUpdatePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -375,14 +375,14 @@ export function SettingsUpdateListInstance(
           body: new SettingsUpdatePage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -395,8 +395,8 @@ export function SettingsUpdateListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<SettingsUpdatePage>
-    ) => any
+      items?: ApiResponse<SettingsUpdatePage>,
+    ) => any,
   ): Promise<ApiResponse<SettingsUpdatePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -411,9 +411,9 @@ export function SettingsUpdateListInstance(
         body: new SettingsUpdatePage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -425,7 +425,7 @@ export function SettingsUpdateListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -449,7 +449,10 @@ interface SettingsUpdateResource {
 }
 
 export class SettingsUpdateInstance {
-  constructor(protected _version: V1, payload: SettingsUpdateResource) {
+  constructor(
+    protected _version: V1,
+    payload: SettingsUpdateResource,
+  ) {
     this.sid = payload.sid;
     this.iccid = payload.iccid;
     this.simSid = payload.sim_sid;
@@ -529,7 +532,7 @@ export class SettingsUpdatePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: SettingsUpdateSolution
+    solution: SettingsUpdateSolution,
   ) {
     super(version, response, solution);
   }

@@ -52,7 +52,7 @@ export interface NewApiKeyListInstance {
    */
   create(
     params: NewApiKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewApiKeyInstance) => any
+    callback?: (error: Error | null, item?: NewApiKeyInstance) => any,
   ): Promise<NewApiKeyInstance>;
 
   /**
@@ -67,8 +67,8 @@ export interface NewApiKeyListInstance {
     params: NewApiKeyListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewApiKeyInstance>
-    ) => any
+      item?: ApiResponse<NewApiKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewApiKeyInstance>>;
 
   /**
@@ -87,7 +87,7 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
 
   instance.create = function create(
     params: NewApiKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, items: NewApiKeyInstance) => any
+    callback?: (error: Error | null, items: NewApiKeyInstance) => any,
   ): Promise<NewApiKeyInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -119,12 +119,12 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new NewApiKeyInstance(operationVersion, payload)
+      (payload) => new NewApiKeyInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -133,8 +133,8 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
     params: NewApiKeyListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NewApiKeyInstance>
-    ) => any
+      items: ApiResponse<NewApiKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewApiKeyInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -170,12 +170,12 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
         (response): ApiResponse<NewApiKeyInstance> => ({
           ...response,
           body: new NewApiKeyInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -186,7 +186,7 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -206,7 +206,10 @@ interface NewApiKeyResource {
 }
 
 export class NewApiKeyInstance {
-  constructor(protected _version: V1, payload: NewApiKeyResource) {
+  constructor(
+    protected _version: V1,
+    payload: NewApiKeyResource,
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);

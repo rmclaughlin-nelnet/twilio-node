@@ -30,8 +30,8 @@ export interface FunctionVersionContentContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: FunctionVersionContentInstance
-    ) => any
+      item?: FunctionVersionContentInstance,
+    ) => any,
   ): Promise<FunctionVersionContentInstance>;
 
   /**
@@ -44,8 +44,8 @@ export interface FunctionVersionContentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionVersionContentInstance>
-    ) => any
+      item?: ApiResponse<FunctionVersionContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionContentInstance>>;
 
   /**
@@ -61,9 +61,7 @@ export interface FunctionVersionContentContextSolution {
   sid: string;
 }
 
-export class FunctionVersionContentContextImpl
-  implements FunctionVersionContentContext
-{
+export class FunctionVersionContentContextImpl implements FunctionVersionContentContext {
   protected _solution: FunctionVersionContentContextSolution;
   protected _uri: string;
 
@@ -71,7 +69,7 @@ export class FunctionVersionContentContextImpl
     protected _version: V1,
     serviceSid: string,
     functionSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -92,8 +90,8 @@ export class FunctionVersionContentContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: FunctionVersionContentInstance
-    ) => any
+      item?: FunctionVersionContentInstance,
+    ) => any,
   ): Promise<FunctionVersionContentInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -113,13 +111,13 @@ export class FunctionVersionContentContextImpl
           payload,
           instance._solution.serviceSid,
           instance._solution.functionSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -127,8 +125,8 @@ export class FunctionVersionContentContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionVersionContentInstance>
-    ) => any
+      item?: ApiResponse<FunctionVersionContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionContentInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -150,14 +148,14 @@ export class FunctionVersionContentContextImpl
             response.body,
             instance._solution.serviceSid,
             instance._solution.functionSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -176,8 +174,7 @@ export class FunctionVersionContentContextImpl
   }
 }
 
-interface FunctionVersionContentPayload
-  extends FunctionVersionContentResource {}
+interface FunctionVersionContentPayload extends FunctionVersionContentResource {}
 
 interface FunctionVersionContentResource {
   sid: string;
@@ -197,7 +194,7 @@ export class FunctionVersionContentInstance {
     payload: FunctionVersionContentResource,
     serviceSid: string,
     functionSid: string,
-    sid: string
+    sid: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -238,7 +235,7 @@ export class FunctionVersionContentInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.functionSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -253,8 +250,8 @@ export class FunctionVersionContentInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: FunctionVersionContentInstance
-    ) => any
+      item?: FunctionVersionContentInstance,
+    ) => any,
   ): Promise<FunctionVersionContentInstance> {
     return this._proxy.fetch(callback);
   }
@@ -269,8 +266,8 @@ export class FunctionVersionContentInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionVersionContentInstance>
-    ) => any
+      item?: ApiResponse<FunctionVersionContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionVersionContentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -321,7 +318,7 @@ export function FunctionVersionContentListInstance(
   version: V1,
   serviceSid: string,
   functionSid: string,
-  sid: string
+  sid: string,
 ): FunctionVersionContentListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -342,7 +339,7 @@ export function FunctionVersionContentListInstance(
       version,
       serviceSid,
       functionSid,
-      sid
+      sid,
     );
   };
 
@@ -356,7 +353,7 @@ export function FunctionVersionContentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

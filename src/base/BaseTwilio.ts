@@ -15,7 +15,9 @@ let _pkgVersion: string | undefined;
 function getPkgVersion(): string {
   if (!_pkgVersion) {
     const dir = dirname(fileURLToPath(import.meta.url));
-    const pkg = JSON.parse(readFileSync(join(dir, "../../package.json"), "utf-8"));
+    const pkg = JSON.parse(
+      readFileSync(join(dir, "../../package.json"), "utf-8"),
+    );
     _pkgVersion = pkg.version;
   }
   return _pkgVersion;
@@ -60,9 +62,10 @@ export interface RequestOpts {
   timeout?: number;
   allowRedirects?: boolean;
   logLevel?: string;
-}/**
+}
+/**
  * Parent class for Twilio Client that implements request & validation logic
- */export class Client {
+ */ export class Client {
   username?: string;
   password?: string;
   accountSid: string;
@@ -90,7 +93,8 @@ export interface RequestOpts {
   ca?: string | Buffer;
 
   userAgentExtensions?: string[];
-  _httpClient?: RequestClient;/**
+  _httpClient?: RequestClient;
+  /**
    * Create a BaseTwilio instance
    *
    * @param username -
@@ -102,16 +106,14 @@ export interface RequestOpts {
    * @param opts - The options argument
    *
    * @returns A new instance of BaseTwilio
-   */constructor(username?: string, password?: string, opts?: ClientOpts) {
+   */ constructor(username?: string, password?: string, opts?: ClientOpts) {
     this.setOpts(opts);
     this.username =
       username ??
       this.env?.TWILIO_ACCOUNT_SID ??
       process.env.TWILIO_ACCOUNT_SID;
     this.password =
-      password ??
-      this.env?.TWILIO_AUTH_TOKEN ??
-      process.env.TWILIO_AUTH_TOKEN;
+      password ?? this.env?.TWILIO_AUTH_TOKEN ?? process.env.TWILIO_AUTH_TOKEN;
     this.accountSid = "";
     this.setAccountSid(this.opts?.accountSid || this.username);
     this.invalidateOAuth();
@@ -194,12 +196,13 @@ export interface RequestOpts {
       });
     }
     return this._httpClient;
-  }/**
+  }
+  /**
    * Makes a request to the Twilio API using the configured http client.
    * Authentication information is automatically added if none is provided.
    *
    * @param opts - The options argument
-   */request(opts: RequestOpts): Promise<any> {
+   */ request(opts: RequestOpts): Promise<any> {
     opts = opts || {};
 
     if (!opts.method) {
@@ -241,7 +244,7 @@ export interface RequestOpts {
       pkgVersion,
       osName,
       osArch,
-      nodeVersion
+      nodeVersion,
     );
     this.userAgentExtensions?.forEach((extension) => {
       headers["User-Agent"] += ` ${extension}`;
@@ -276,16 +279,17 @@ export interface RequestOpts {
       // use the Twilio client's log-level if the httpClient's log-level is unspecified
       logLevel: opts.logLevel || this.opts?.logLevel,
     });
-  }/**
+  }
+  /**
    * Adds a region and/or edge to a given hostname
    *
    * @param hostname - A URI hostname (e.g. api.twilio.com)
    * @param targetEdge - The targeted edge location (e.g. sydney)
    * @param targetRegion - The targeted region location (e.g. au1)
-   */getHostname(
+   */ getHostname(
     hostname: string,
     targetEdge: string | undefined,
-    targetRegion: string | undefined
+    targetRegion: string | undefined,
   ) {
     const defaultRegion = "us1";
 
@@ -304,13 +308,14 @@ export interface RequestOpts {
     edge = targetEdge || edge;
 
     return [product, edge, region, domain].filter((part) => part).join(".");
-  }/**
+  }
+  /**
    * Test if your environment is impacted by a TLS or certificate
    * change is by sending an HTTP request to the test endpoint
    *
    * @throws RestException if the request fails
    *
-   */validateSslCert() {
+   */ validateSslCert() {
     return this.httpClient
       ?.request({
         method: "get",

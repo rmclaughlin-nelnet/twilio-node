@@ -45,7 +45,7 @@ export interface NumberContext {
    * @returns Resolves to processed NumberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
+    callback?: (error: Error | null, item?: NumberInstance) => any,
   ): Promise<NumberInstance>;
 
   /**
@@ -56,7 +56,7 @@ export interface NumberContext {
    * @returns Resolves to processed NumberInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
   ): Promise<ApiResponse<NumberInstance>>;
 
   /**
@@ -74,7 +74,10 @@ export class NumberContextImpl implements NumberContext {
   protected _solution: NumberContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, number: string) {
+  constructor(
+    protected _version: V1,
+    number: string,
+  ) {
     if (!isValidPathParam(number)) {
       throw new Error("Parameter 'number' is not valid.");
     }
@@ -84,7 +87,7 @@ export class NumberContextImpl implements NumberContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
+    callback?: (error: Error | null, item?: NumberInstance) => any,
   ): Promise<NumberInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -99,18 +102,22 @@ export class NumberContextImpl implements NumberContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NumberInstance(operationVersion, payload, instance._solution.number)
+        new NumberInstance(
+          operationVersion,
+          payload,
+          instance._solution.number,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
   ): Promise<ApiResponse<NumberInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -130,14 +137,14 @@ export class NumberContextImpl implements NumberContext {
           body: new NumberInstance(
             operationVersion,
             response.body,
-            instance._solution.number
+            instance._solution.number,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -175,7 +182,7 @@ export class NumberInstance {
   constructor(
     protected _version: V1,
     payload: NumberResource,
-    number?: string
+    number?: string,
   ) {
     this.number = payload.number;
     this.country = payload.country;
@@ -226,7 +233,7 @@ export class NumberInstance {
    * @returns Resolves to processed NumberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
+    callback?: (error: Error | null, item?: NumberInstance) => any,
   ): Promise<NumberInstance> {
     return this._proxy.fetch(callback);
   }
@@ -239,7 +246,7 @@ export class NumberInstance {
    * @returns Resolves to processed NumberInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
   ): Promise<ApiResponse<NumberInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -300,7 +307,7 @@ export function NumberListInstance(version: V1): NumberListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

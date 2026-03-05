@@ -38,7 +38,7 @@ export interface UsageContext {
    * @returns Resolves to processed UsageInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UsageInstance) => any
+    callback?: (error: Error | null, item?: UsageInstance) => any,
   ): Promise<UsageInstance>;
   /**
    * Fetch a UsageInstance
@@ -50,7 +50,7 @@ export interface UsageContext {
    */
   fetch(
     params: UsageContextFetchOptions,
-    callback?: (error: Error | null, item?: UsageInstance) => any
+    callback?: (error: Error | null, item?: UsageInstance) => any,
   ): Promise<UsageInstance>;
 
   /**
@@ -61,7 +61,7 @@ export interface UsageContext {
    * @returns Resolves to processed UsageInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
   ): Promise<ApiResponse<UsageInstance>>;
   /**
    * Fetch a UsageInstance and return HTTP info
@@ -73,7 +73,7 @@ export interface UsageContext {
    */
   fetchWithHttpInfo(
     params: UsageContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
   ): Promise<ApiResponse<UsageInstance>>;
 
   /**
@@ -91,7 +91,10 @@ export class UsageContextImpl implements UsageContext {
   protected _solution: UsageContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: Wireless, simSid: string) {
+  constructor(
+    protected _version: Wireless,
+    simSid: string,
+  ) {
     if (!isValidPathParam(simSid)) {
       throw new Error("Parameter 'simSid' is not valid.");
     }
@@ -104,7 +107,7 @@ export class UsageContextImpl implements UsageContext {
     params?:
       | UsageContextFetchOptions
       | ((error: Error | null, item?: UsageInstance) => any),
-    callback?: (error: Error | null, item?: UsageInstance) => any
+    callback?: (error: Error | null, item?: UsageInstance) => any,
   ): Promise<UsageInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -132,12 +135,12 @@ export class UsageContextImpl implements UsageContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsageInstance(operationVersion, payload, instance._solution.simSid)
+        new UsageInstance(operationVersion, payload, instance._solution.simSid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -146,7 +149,7 @@ export class UsageContextImpl implements UsageContext {
     params?:
       | UsageContextFetchOptions
       | ((error: Error | null, item?: ApiResponse<UsageInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
   ): Promise<ApiResponse<UsageInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -179,14 +182,14 @@ export class UsageContextImpl implements UsageContext {
           body: new UsageInstance(
             operationVersion,
             response.body,
-            instance._solution.simSid
+            instance._solution.simSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -226,7 +229,7 @@ export class UsageInstance {
   constructor(
     protected _version: Wireless,
     payload: UsageResource,
-    simSid: string
+    simSid: string,
   ) {
     this.simSid = payload.sim_sid;
     this.simUniqueName = payload.sim_unique_name;
@@ -266,7 +269,7 @@ export class UsageInstance {
    * @returns Resolves to processed UsageInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UsageInstance) => any
+    callback?: (error: Error | null, item?: UsageInstance) => any,
   ): Promise<UsageInstance>;
   /**
    * Fetch a UsageInstance
@@ -278,12 +281,12 @@ export class UsageInstance {
    */
   fetch(
     params: UsageContextFetchOptions,
-    callback?: (error: Error | null, item?: UsageInstance) => any
+    callback?: (error: Error | null, item?: UsageInstance) => any,
   ): Promise<UsageInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: UsageInstance) => any
+    callback?: (error: Error | null, item?: UsageInstance) => any,
   ): Promise<UsageInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -296,7 +299,7 @@ export class UsageInstance {
    * @returns Resolves to processed UsageInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
   ): Promise<ApiResponse<UsageInstance>>;
   /**
    * Fetch a UsageInstance and return HTTP info
@@ -308,12 +311,12 @@ export class UsageInstance {
    */
   fetchWithHttpInfo(
     params: UsageContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
   ): Promise<ApiResponse<UsageInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<UsageInstance>) => any,
   ): Promise<ApiResponse<UsageInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -363,7 +366,7 @@ export interface UsageListInstance {
 
 export function UsageListInstance(
   version: Wireless,
-  simSid: string
+  simSid: string,
 ): UsageListInstance {
   if (!isValidPathParam(simSid)) {
     throw new Error("Parameter 'simSid' is not valid.");
@@ -385,7 +388,7 @@ export function UsageListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

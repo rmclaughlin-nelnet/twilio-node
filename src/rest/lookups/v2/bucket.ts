@@ -50,7 +50,7 @@ export interface BucketContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -61,7 +61,7 @@ export interface BucketContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -72,7 +72,7 @@ export interface BucketContext {
    * @returns Resolves to processed BucketInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance>;
 
   /**
@@ -83,7 +83,7 @@ export interface BucketContext {
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>>;
 
   /**
@@ -94,7 +94,7 @@ export interface BucketContext {
    * @returns Resolves to processed BucketInstance
    */
   update(
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance>;
   /**
    * Update a BucketInstance
@@ -108,7 +108,7 @@ export interface BucketContext {
   update(
     params: RateLimitRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance>;
 
   /**
@@ -119,7 +119,7 @@ export interface BucketContext {
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>>;
   /**
    * Update a BucketInstance and return HTTP info
@@ -133,7 +133,7 @@ export interface BucketContext {
   updateWithHttpInfo(
     params: RateLimitRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>>;
 
   /**
@@ -152,7 +152,11 @@ export class BucketContextImpl implements BucketContext {
   protected _solution: BucketContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, field: string, bucket: string) {
+  constructor(
+    protected _version: V2,
+    field: string,
+    bucket: string,
+  ) {
     if (!isValidPathParam(field)) {
       throw new Error("Parameter 'field' is not valid.");
     }
@@ -166,7 +170,7 @@ export class BucketContextImpl implements BucketContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -180,13 +184,13 @@ export class BucketContextImpl implements BucketContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -199,18 +203,18 @@ export class BucketContextImpl implements BucketContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -229,19 +233,19 @@ export class BucketContextImpl implements BucketContext {
           operationVersion,
           payload,
           instance._solution.field,
-          instance._solution.bucket
-        )
+          instance._solution.bucket,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -262,14 +266,14 @@ export class BucketContextImpl implements BucketContext {
             operationVersion,
             response.body,
             instance._solution.field,
-            instance._solution.bucket
+            instance._solution.bucket,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -279,7 +283,7 @@ export class BucketContextImpl implements BucketContext {
       | RateLimitRequest
       | ((error: Error | null, item?: BucketInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -314,13 +318,13 @@ export class BucketContextImpl implements BucketContext {
           operationVersion,
           payload,
           instance._solution.field,
-          instance._solution.bucket
-        )
+          instance._solution.bucket,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -330,7 +334,7 @@ export class BucketContextImpl implements BucketContext {
       | RateLimitRequest
       | ((error: Error | null, item?: ApiResponse<BucketInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -367,14 +371,14 @@ export class BucketContextImpl implements BucketContext {
             operationVersion,
             response.body,
             instance._solution.field,
-            instance._solution.bucket
+            instance._solution.bucket,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -415,7 +419,7 @@ export class BucketInstance {
     protected _version: V2,
     payload: BucketResource,
     field?: string,
-    bucket?: string
+    bucket?: string,
   ) {
     this.code = payload.code;
     this.message = payload.message;
@@ -476,7 +480,7 @@ export class BucketInstance {
       new BucketContextImpl(
         this._version,
         this._solution.field,
-        this._solution.bucket
+        this._solution.bucket,
       );
     return this._context;
   }
@@ -489,7 +493,7 @@ export class BucketInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -502,7 +506,7 @@ export class BucketInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -515,7 +519,7 @@ export class BucketInstance {
    * @returns Resolves to processed BucketInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance> {
     return this._proxy.fetch(callback);
   }
@@ -528,7 +532,7 @@ export class BucketInstance {
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -541,7 +545,7 @@ export class BucketInstance {
    * @returns Resolves to processed BucketInstance
    */
   update(
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance>;
   /**
    * Update a BucketInstance
@@ -555,12 +559,12 @@ export class BucketInstance {
   update(
     params: RateLimitRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, item?: BucketInstance) => any,
   ): Promise<BucketInstance> {
     return this._proxy.update(params, callback);
   }
@@ -573,7 +577,7 @@ export class BucketInstance {
    * @returns Resolves to processed BucketInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>>;
   /**
    * Update a BucketInstance and return HTTP info
@@ -587,12 +591,12 @@ export class BucketInstance {
   updateWithHttpInfo(
     params: RateLimitRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<BucketInstance>) => any,
   ): Promise<ApiResponse<BucketInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -656,7 +660,7 @@ export function BucketListInstance(version: V2): BucketListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

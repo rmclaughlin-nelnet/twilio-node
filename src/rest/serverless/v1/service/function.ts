@@ -86,7 +86,7 @@ export interface FunctionContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -97,7 +97,7 @@ export interface FunctionContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -108,7 +108,7 @@ export interface FunctionContext {
    * @returns Resolves to processed FunctionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, item?: FunctionInstance) => any,
   ): Promise<FunctionInstance>;
 
   /**
@@ -121,8 +121,8 @@ export interface FunctionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionInstance>
-    ) => any
+      item?: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>>;
 
   /**
@@ -135,7 +135,7 @@ export interface FunctionContext {
    */
   update(
     params: FunctionContextUpdateOptions,
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, item?: FunctionInstance) => any,
   ): Promise<FunctionInstance>;
 
   /**
@@ -150,8 +150,8 @@ export interface FunctionContext {
     params: FunctionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionInstance>
-    ) => any
+      item?: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>>;
 
   /**
@@ -172,7 +172,11 @@ export class FunctionContextImpl implements FunctionContext {
 
   protected _functionVersions?: FunctionVersionListInstance;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -191,13 +195,13 @@ export class FunctionContextImpl implements FunctionContext {
       FunctionVersionListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._functionVersions;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -211,13 +215,13 @@ export class FunctionContextImpl implements FunctionContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -230,18 +234,18 @@ export class FunctionContextImpl implements FunctionContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, item?: FunctionInstance) => any,
   ): Promise<FunctionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -260,13 +264,13 @@ export class FunctionContextImpl implements FunctionContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -274,8 +278,8 @@ export class FunctionContextImpl implements FunctionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionInstance>
-    ) => any
+      item?: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -296,21 +300,21 @@ export class FunctionContextImpl implements FunctionContext {
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: FunctionContextUpdateOptions,
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, item?: FunctionInstance) => any,
   ): Promise<FunctionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -346,13 +350,13 @@ export class FunctionContextImpl implements FunctionContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -361,8 +365,8 @@ export class FunctionContextImpl implements FunctionContext {
     params: FunctionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionInstance>
-    ) => any
+      item?: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -400,14 +404,14 @@ export class FunctionContextImpl implements FunctionContext {
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -449,7 +453,7 @@ export class FunctionInstance {
     protected _version: V1,
     payload: FunctionResource,
     serviceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -502,7 +506,7 @@ export class FunctionInstance {
       new FunctionContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -515,7 +519,7 @@ export class FunctionInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -528,7 +532,7 @@ export class FunctionInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -541,7 +545,7 @@ export class FunctionInstance {
    * @returns Resolves to processed FunctionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, item?: FunctionInstance) => any,
   ): Promise<FunctionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -556,8 +560,8 @@ export class FunctionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionInstance>
-    ) => any
+      item?: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -572,12 +576,12 @@ export class FunctionInstance {
    */
   update(
     params: FunctionContextUpdateOptions,
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, item?: FunctionInstance) => any,
   ): Promise<FunctionInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, item?: FunctionInstance) => any,
   ): Promise<FunctionInstance> {
     return this._proxy.update(params, callback);
   }
@@ -594,16 +598,16 @@ export class FunctionInstance {
     params: FunctionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionInstance>
-    ) => any
+      item?: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionInstance>
-    ) => any
+      item?: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -660,7 +664,7 @@ export interface FunctionListInstance {
    */
   create(
     params: FunctionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, item?: FunctionInstance) => any,
   ): Promise<FunctionInstance>;
 
   /**
@@ -675,8 +679,8 @@ export interface FunctionListInstance {
     params: FunctionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FunctionInstance>
-    ) => any
+      item?: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>>;
 
   /**
@@ -695,11 +699,11 @@ export interface FunctionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
+    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: FunctionListInstanceEachOptions,
-    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
+    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams FunctionInstance records from the API with HTTP metadata captured per page.
@@ -717,11 +721,11 @@ export interface FunctionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
+    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: FunctionListInstanceEachOptions,
-    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void
+    callback?: (item: FunctionInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of FunctionInstance records from the API.
@@ -733,7 +737,7 @@ export interface FunctionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: FunctionPage) => any
+    callback?: (error: Error | null, items: FunctionPage) => any,
   ): Promise<FunctionPage>;
   /**
    * Retrieve a single target page of FunctionInstance records from the API with HTTP metadata.
@@ -745,7 +749,7 @@ export interface FunctionListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any,
   ): Promise<ApiResponse<FunctionPage>>;
   /**
    * Lists FunctionInstance records from the API as a list.
@@ -757,11 +761,11 @@ export interface FunctionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: FunctionInstance[]) => any
+    callback?: (error: Error | null, items: FunctionInstance[]) => any,
   ): Promise<FunctionInstance[]>;
   list(
     params: FunctionListInstanceOptions,
-    callback?: (error: Error | null, items: FunctionInstance[]) => any
+    callback?: (error: Error | null, items: FunctionInstance[]) => any,
   ): Promise<FunctionInstance[]>;
   /**
    * Lists FunctionInstance records from the API as a list with HTTP metadata.
@@ -777,15 +781,15 @@ export interface FunctionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionInstance[]>
-    ) => any
+      items: ApiResponse<FunctionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance[]>>;
   listWithHttpInfo(
     params: FunctionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionInstance[]>
-    ) => any
+      items: ApiResponse<FunctionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance[]>>;
   /**
    * Retrieve a single page of FunctionInstance records from the API.
@@ -799,11 +803,11 @@ export interface FunctionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: FunctionPage) => any
+    callback?: (error: Error | null, items: FunctionPage) => any,
   ): Promise<FunctionPage>;
   page(
     params: FunctionListInstancePageOptions,
-    callback?: (error: Error | null, items: FunctionPage) => any
+    callback?: (error: Error | null, items: FunctionPage) => any,
   ): Promise<FunctionPage>;
   /**
    * Retrieve a single page of FunctionInstance records from the API with HTTP metadata.
@@ -817,11 +821,11 @@ export interface FunctionListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any,
   ): Promise<ApiResponse<FunctionPage>>;
   pageWithHttpInfo(
     params: FunctionListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any,
   ): Promise<ApiResponse<FunctionPage>>;
 
   /**
@@ -833,7 +837,7 @@ export interface FunctionListInstance {
 
 export function FunctionListInstance(
   version: V1,
-  serviceSid: string
+  serviceSid: string,
 ): FunctionListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -851,7 +855,7 @@ export function FunctionListInstance(
 
   instance.create = function create(
     params: FunctionListInstanceCreateOptions,
-    callback?: (error: Error | null, items: FunctionInstance) => any
+    callback?: (error: Error | null, items: FunctionInstance) => any,
   ): Promise<FunctionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -885,13 +889,13 @@ export function FunctionListInstance(
         new FunctionInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -900,8 +904,8 @@ export function FunctionListInstance(
     params: FunctionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<FunctionInstance>
-    ) => any
+      items: ApiResponse<FunctionInstance>,
+    ) => any,
   ): Promise<ApiResponse<FunctionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -937,14 +941,14 @@ export function FunctionListInstance(
           body: new FunctionInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -953,7 +957,7 @@ export function FunctionListInstance(
     params?:
       | FunctionListInstancePageOptions
       | ((error: Error | null, items: FunctionPage) => any),
-    callback?: (error: Error | null, items: FunctionPage) => any
+    callback?: (error: Error | null, items: FunctionPage) => any,
   ): Promise<FunctionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -982,12 +986,12 @@ export function FunctionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FunctionPage(operationVersion, payload, instance._solution)
+        new FunctionPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -996,7 +1000,7 @@ export function FunctionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: FunctionPage) => any
+    callback?: (error: Error | null, items: FunctionPage) => any,
   ): Promise<FunctionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1004,7 +1008,7 @@ export function FunctionListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new FunctionPage(instance._version, payload, instance._solution)
+        new FunctionPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1014,7 +1018,7 @@ export function FunctionListInstance(
     params?:
       | FunctionListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<FunctionPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FunctionPage>) => any,
   ): Promise<ApiResponse<FunctionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1045,14 +1049,14 @@ export function FunctionListInstance(
           body: new FunctionPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1063,7 +1067,7 @@ export function FunctionListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<FunctionPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<FunctionPage>) => any,
   ): Promise<ApiResponse<FunctionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1076,7 +1080,7 @@ export function FunctionListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new FunctionPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1088,7 +1092,7 @@ export function FunctionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1112,7 +1116,7 @@ export class FunctionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: FunctionSolution
+    solution: FunctionSolution,
   ) {
     super(version, response, solution);
   }
@@ -1126,7 +1130,7 @@ export class FunctionPage extends Page<
     return new FunctionInstance(
       this._version,
       payload,
-      this._solution.serviceSid
+      this._solution.serviceSid,
     );
   }
 

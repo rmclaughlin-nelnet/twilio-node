@@ -149,7 +149,7 @@ export interface ApplicationContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -160,7 +160,7 @@ export interface ApplicationContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -171,7 +171,7 @@ export interface ApplicationContext {
    * @returns Resolves to processed ApplicationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance>;
 
   /**
@@ -184,8 +184,8 @@ export interface ApplicationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>>;
 
   /**
@@ -196,7 +196,7 @@ export interface ApplicationContext {
    * @returns Resolves to processed ApplicationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance>;
   /**
    * Update a ApplicationInstance
@@ -208,7 +208,7 @@ export interface ApplicationContext {
    */
   update(
     params: ApplicationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance>;
 
   /**
@@ -221,8 +221,8 @@ export interface ApplicationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>>;
   /**
    * Update a ApplicationInstance and return HTTP info
@@ -236,8 +236,8 @@ export interface ApplicationContext {
     params: ApplicationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>>;
 
   /**
@@ -256,7 +256,11 @@ export class ApplicationContextImpl implements ApplicationContext {
   protected _solution: ApplicationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -270,7 +274,7 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -284,13 +288,13 @@ export class ApplicationContextImpl implements ApplicationContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -303,18 +307,18 @@ export class ApplicationContextImpl implements ApplicationContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -333,13 +337,13 @@ export class ApplicationContextImpl implements ApplicationContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -347,8 +351,8 @@ export class ApplicationContextImpl implements ApplicationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -369,14 +373,14 @@ export class ApplicationContextImpl implements ApplicationContext {
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -385,7 +389,7 @@ export class ApplicationContextImpl implements ApplicationContext {
     params?:
       | ApplicationContextUpdateOptions
       | ((error: Error | null, item?: ApplicationInstance) => any),
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -413,7 +417,7 @@ export class ApplicationContextImpl implements ApplicationContext {
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceCallerIdLookup"] !== undefined)
       data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
+        params["voiceCallerIdLookup"],
       );
     if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
@@ -428,7 +432,7 @@ export class ApplicationContextImpl implements ApplicationContext {
       data["MessageStatusCallback"] = params["messageStatusCallback"];
     if (params["publicApplicationConnectEnabled"] !== undefined)
       data["PublicApplicationConnectEnabled"] = serialize.bool(
-        params["publicApplicationConnectEnabled"]
+        params["publicApplicationConnectEnabled"],
       );
 
     const headers: any = {};
@@ -450,13 +454,13 @@ export class ApplicationContextImpl implements ApplicationContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -467,8 +471,8 @@ export class ApplicationContextImpl implements ApplicationContext {
       | ((error: Error | null, item?: ApiResponse<ApplicationInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -496,7 +500,7 @@ export class ApplicationContextImpl implements ApplicationContext {
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceCallerIdLookup"] !== undefined)
       data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
+        params["voiceCallerIdLookup"],
       );
     if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
@@ -511,7 +515,7 @@ export class ApplicationContextImpl implements ApplicationContext {
       data["MessageStatusCallback"] = params["messageStatusCallback"];
     if (params["publicApplicationConnectEnabled"] !== undefined)
       data["PublicApplicationConnectEnabled"] = serialize.bool(
-        params["publicApplicationConnectEnabled"]
+        params["publicApplicationConnectEnabled"],
       );
 
     const headers: any = {};
@@ -535,14 +539,14 @@ export class ApplicationContextImpl implements ApplicationContext {
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -597,7 +601,7 @@ export class ApplicationInstance {
     protected _version: V2010,
     payload: ApplicationResource,
     accountSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -716,7 +720,7 @@ export class ApplicationInstance {
       new ApplicationContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -729,7 +733,7 @@ export class ApplicationInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -742,7 +746,7 @@ export class ApplicationInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -755,7 +759,7 @@ export class ApplicationInstance {
    * @returns Resolves to processed ApplicationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -770,8 +774,8 @@ export class ApplicationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -784,7 +788,7 @@ export class ApplicationInstance {
    * @returns Resolves to processed ApplicationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance>;
   /**
    * Update a ApplicationInstance
@@ -796,12 +800,12 @@ export class ApplicationInstance {
    */
   update(
     params: ApplicationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -816,8 +820,8 @@ export class ApplicationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>>;
   /**
    * Update a ApplicationInstance and return HTTP info
@@ -831,16 +835,16 @@ export class ApplicationInstance {
     params: ApplicationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -901,7 +905,7 @@ export interface ApplicationListInstance {
    * @returns Resolves to processed ApplicationInstance
    */
   create(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance>;
   /**
    * Create a ApplicationInstance
@@ -913,7 +917,7 @@ export interface ApplicationListInstance {
    */
   create(
     params: ApplicationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApplicationInstance) => any
+    callback?: (error: Error | null, item?: ApplicationInstance) => any,
   ): Promise<ApplicationInstance>;
 
   /**
@@ -926,8 +930,8 @@ export interface ApplicationListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>>;
   /**
    * Create a ApplicationInstance and return HTTP info
@@ -941,8 +945,8 @@ export interface ApplicationListInstance {
     params: ApplicationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>
-    ) => any
+      item?: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>>;
 
   /**
@@ -961,11 +965,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ApplicationListInstanceEachOptions,
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ApplicationInstance records from the API with HTTP metadata captured per page.
@@ -983,11 +987,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ApplicationListInstanceEachOptions,
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API.
@@ -999,7 +1003,7 @@ export interface ApplicationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApplicationPage) => any
+    callback?: (error: Error | null, items: ApplicationPage) => any,
   ): Promise<ApplicationPage>;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API with HTTP metadata.
@@ -1011,7 +1015,10 @@ export interface ApplicationListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationPage>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationPage>>;
   /**
    * Lists ApplicationInstance records from the API as a list.
@@ -1023,11 +1030,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ApplicationInstance[]) => any
+    callback?: (error: Error | null, items: ApplicationInstance[]) => any,
   ): Promise<ApplicationInstance[]>;
   list(
     params: ApplicationListInstanceOptions,
-    callback?: (error: Error | null, items: ApplicationInstance[]) => any
+    callback?: (error: Error | null, items: ApplicationInstance[]) => any,
   ): Promise<ApplicationInstance[]>;
   /**
    * Lists ApplicationInstance records from the API as a list with HTTP metadata.
@@ -1043,15 +1050,15 @@ export interface ApplicationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ApplicationInstance[]>
-    ) => any
+      items: ApiResponse<ApplicationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance[]>>;
   listWithHttpInfo(
     params: ApplicationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ApplicationInstance[]>
-    ) => any
+      items: ApiResponse<ApplicationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance[]>>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
@@ -1065,11 +1072,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ApplicationPage) => any
+    callback?: (error: Error | null, items: ApplicationPage) => any,
   ): Promise<ApplicationPage>;
   page(
     params: ApplicationListInstancePageOptions,
-    callback?: (error: Error | null, items: ApplicationPage) => any
+    callback?: (error: Error | null, items: ApplicationPage) => any,
   ): Promise<ApplicationPage>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API with HTTP metadata.
@@ -1083,11 +1090,17 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationPage>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationPage>>;
   pageWithHttpInfo(
     params: ApplicationListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationPage>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationPage>>;
 
   /**
@@ -1099,7 +1112,7 @@ export interface ApplicationListInstance {
 
 export function ApplicationListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): ApplicationListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -1119,7 +1132,7 @@ export function ApplicationListInstance(
     params?:
       | ApplicationListInstanceCreateOptions
       | ((error: Error | null, items: ApplicationInstance) => any),
-    callback?: (error: Error | null, items: ApplicationInstance) => any
+    callback?: (error: Error | null, items: ApplicationInstance) => any,
   ): Promise<ApplicationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -1145,7 +1158,7 @@ export function ApplicationListInstance(
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceCallerIdLookup"] !== undefined)
       data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
+        params["voiceCallerIdLookup"],
       );
     if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
@@ -1162,7 +1175,7 @@ export function ApplicationListInstance(
       data["FriendlyName"] = params["friendlyName"];
     if (params["publicApplicationConnectEnabled"] !== undefined)
       data["PublicApplicationConnectEnabled"] = serialize.bool(
-        params["publicApplicationConnectEnabled"]
+        params["publicApplicationConnectEnabled"],
       );
 
     const headers: any = {};
@@ -1182,13 +1195,13 @@ export function ApplicationListInstance(
         new ApplicationInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1199,8 +1212,8 @@ export function ApplicationListInstance(
       | ((error: Error | null, items: ApiResponse<ApplicationInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ApplicationInstance>
-    ) => any
+      items: ApiResponse<ApplicationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -1226,7 +1239,7 @@ export function ApplicationListInstance(
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceCallerIdLookup"] !== undefined)
       data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
+        params["voiceCallerIdLookup"],
       );
     if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
@@ -1243,7 +1256,7 @@ export function ApplicationListInstance(
       data["FriendlyName"] = params["friendlyName"];
     if (params["publicApplicationConnectEnabled"] !== undefined)
       data["PublicApplicationConnectEnabled"] = serialize.bool(
-        params["publicApplicationConnectEnabled"]
+        params["publicApplicationConnectEnabled"],
       );
 
     const headers: any = {};
@@ -1265,14 +1278,14 @@ export function ApplicationListInstance(
           body: new ApplicationInstance(
             operationVersion,
             response.body,
-            instance._solution.accountSid
+            instance._solution.accountSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1281,7 +1294,7 @@ export function ApplicationListInstance(
     params?:
       | ApplicationListInstancePageOptions
       | ((error: Error | null, items: ApplicationPage) => any),
-    callback?: (error: Error | null, items: ApplicationPage) => any
+    callback?: (error: Error | null, items: ApplicationPage) => any,
   ): Promise<ApplicationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1312,12 +1325,12 @@ export function ApplicationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ApplicationPage(operationVersion, payload, instance._solution)
+        new ApplicationPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1326,7 +1339,7 @@ export function ApplicationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApplicationPage) => any
+    callback?: (error: Error | null, items: ApplicationPage) => any,
   ): Promise<ApplicationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1334,7 +1347,7 @@ export function ApplicationListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ApplicationPage(instance._version, payload, instance._solution)
+        new ApplicationPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1344,7 +1357,10 @@ export function ApplicationListInstance(
     params?:
       | ApplicationListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ApplicationPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApplicationPage>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1377,14 +1393,14 @@ export function ApplicationListInstance(
           body: new ApplicationPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1397,8 +1413,8 @@ export function ApplicationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ApplicationPage>
-    ) => any
+      items?: ApiResponse<ApplicationPage>,
+    ) => any,
   ): Promise<ApiResponse<ApplicationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1413,9 +1429,9 @@ export function ApplicationListInstance(
         body: new ApplicationPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1427,7 +1443,7 @@ export function ApplicationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1451,7 +1467,7 @@ export class ApplicationPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: ApplicationSolution
+    solution: ApplicationSolution,
   ) {
     super(version, response, solution);
   }
@@ -1465,7 +1481,7 @@ export class ApplicationPage extends Page<
     return new ApplicationInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

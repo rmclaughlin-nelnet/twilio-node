@@ -42,7 +42,7 @@ export interface DestinationAlphaSenderListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: DestinationAlphaSenderInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -86,7 +86,7 @@ export interface DestinationAlphaSenderContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -97,7 +97,7 @@ export interface DestinationAlphaSenderContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -110,8 +110,8 @@ export interface DestinationAlphaSenderContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: DestinationAlphaSenderInstance
-    ) => any
+      item?: DestinationAlphaSenderInstance,
+    ) => any,
   ): Promise<DestinationAlphaSenderInstance>;
 
   /**
@@ -124,8 +124,8 @@ export interface DestinationAlphaSenderContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DestinationAlphaSenderInstance>
-    ) => any
+      item?: ApiResponse<DestinationAlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderInstance>>;
 
   /**
@@ -140,13 +140,15 @@ export interface DestinationAlphaSenderContextSolution {
   sid: string;
 }
 
-export class DestinationAlphaSenderContextImpl
-  implements DestinationAlphaSenderContext
-{
+export class DestinationAlphaSenderContextImpl implements DestinationAlphaSenderContext {
   protected _solution: DestinationAlphaSenderContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -160,7 +162,7 @@ export class DestinationAlphaSenderContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -174,13 +176,13 @@ export class DestinationAlphaSenderContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -193,12 +195,12 @@ export class DestinationAlphaSenderContextImpl
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -206,8 +208,8 @@ export class DestinationAlphaSenderContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: DestinationAlphaSenderInstance
-    ) => any
+      item?: DestinationAlphaSenderInstance,
+    ) => any,
   ): Promise<DestinationAlphaSenderInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -226,13 +228,13 @@ export class DestinationAlphaSenderContextImpl
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -240,8 +242,8 @@ export class DestinationAlphaSenderContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DestinationAlphaSenderInstance>
-    ) => any
+      item?: ApiResponse<DestinationAlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -262,14 +264,14 @@ export class DestinationAlphaSenderContextImpl
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -312,7 +314,7 @@ export class DestinationAlphaSenderInstance {
     protected _version: V1,
     payload: DestinationAlphaSenderResource,
     serviceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -370,7 +372,7 @@ export class DestinationAlphaSenderInstance {
       new DestinationAlphaSenderContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -383,7 +385,7 @@ export class DestinationAlphaSenderInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -396,7 +398,7 @@ export class DestinationAlphaSenderInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -411,8 +413,8 @@ export class DestinationAlphaSenderInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: DestinationAlphaSenderInstance
-    ) => any
+      item?: DestinationAlphaSenderInstance,
+    ) => any,
   ): Promise<DestinationAlphaSenderInstance> {
     return this._proxy.fetch(callback);
   }
@@ -427,8 +429,8 @@ export class DestinationAlphaSenderInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DestinationAlphaSenderInstance>
-    ) => any
+      item?: ApiResponse<DestinationAlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -481,8 +483,8 @@ export interface DestinationAlphaSenderListInstance {
     params: DestinationAlphaSenderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: DestinationAlphaSenderInstance
-    ) => any
+      item?: DestinationAlphaSenderInstance,
+    ) => any,
   ): Promise<DestinationAlphaSenderInstance>;
 
   /**
@@ -497,8 +499,8 @@ export interface DestinationAlphaSenderListInstance {
     params: DestinationAlphaSenderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DestinationAlphaSenderInstance>
-    ) => any
+      item?: ApiResponse<DestinationAlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderInstance>>;
 
   /**
@@ -519,15 +521,15 @@ export interface DestinationAlphaSenderListInstance {
   each(
     callback?: (
       item: DestinationAlphaSenderInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: DestinationAlphaSenderListInstanceEachOptions,
     callback?: (
       item: DestinationAlphaSenderInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams DestinationAlphaSenderInstance records from the API with HTTP metadata captured per page.
@@ -547,15 +549,15 @@ export interface DestinationAlphaSenderListInstance {
   eachWithHttpInfo(
     callback?: (
       item: DestinationAlphaSenderInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: DestinationAlphaSenderListInstanceEachOptions,
     callback?: (
       item: DestinationAlphaSenderInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of DestinationAlphaSenderInstance records from the API.
@@ -567,7 +569,7 @@ export interface DestinationAlphaSenderListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any
+    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any,
   ): Promise<DestinationAlphaSenderPage>;
   /**
    * Retrieve a single target page of DestinationAlphaSenderInstance records from the API with HTTP metadata.
@@ -581,8 +583,8 @@ export interface DestinationAlphaSenderListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DestinationAlphaSenderPage>
-    ) => any
+      items: ApiResponse<DestinationAlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderPage>>;
   /**
    * Lists DestinationAlphaSenderInstance records from the API as a list.
@@ -596,15 +598,15 @@ export interface DestinationAlphaSenderListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: DestinationAlphaSenderInstance[]
-    ) => any
+      items: DestinationAlphaSenderInstance[],
+    ) => any,
   ): Promise<DestinationAlphaSenderInstance[]>;
   list(
     params: DestinationAlphaSenderListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: DestinationAlphaSenderInstance[]
-    ) => any
+      items: DestinationAlphaSenderInstance[],
+    ) => any,
   ): Promise<DestinationAlphaSenderInstance[]>;
   /**
    * Lists DestinationAlphaSenderInstance records from the API as a list with HTTP metadata.
@@ -620,15 +622,15 @@ export interface DestinationAlphaSenderListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DestinationAlphaSenderInstance[]>
-    ) => any
+      items: ApiResponse<DestinationAlphaSenderInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderInstance[]>>;
   listWithHttpInfo(
     params: DestinationAlphaSenderListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DestinationAlphaSenderInstance[]>
-    ) => any
+      items: ApiResponse<DestinationAlphaSenderInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderInstance[]>>;
   /**
    * Retrieve a single page of DestinationAlphaSenderInstance records from the API.
@@ -642,11 +644,11 @@ export interface DestinationAlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any
+    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any,
   ): Promise<DestinationAlphaSenderPage>;
   page(
     params: DestinationAlphaSenderListInstancePageOptions,
-    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any
+    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any,
   ): Promise<DestinationAlphaSenderPage>;
   /**
    * Retrieve a single page of DestinationAlphaSenderInstance records from the API with HTTP metadata.
@@ -662,15 +664,15 @@ export interface DestinationAlphaSenderListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DestinationAlphaSenderPage>
-    ) => any
+      items: ApiResponse<DestinationAlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderPage>>;
   pageWithHttpInfo(
     params: DestinationAlphaSenderListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DestinationAlphaSenderPage>
-    ) => any
+      items: ApiResponse<DestinationAlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderPage>>;
 
   /**
@@ -682,7 +684,7 @@ export interface DestinationAlphaSenderListInstance {
 
 export function DestinationAlphaSenderListInstance(
   version: V1,
-  serviceSid: string
+  serviceSid: string,
 ): DestinationAlphaSenderListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -703,8 +705,8 @@ export function DestinationAlphaSenderListInstance(
     params: DestinationAlphaSenderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: DestinationAlphaSenderInstance
-    ) => any
+      items: DestinationAlphaSenderInstance,
+    ) => any,
   ): Promise<DestinationAlphaSenderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -737,13 +739,13 @@ export function DestinationAlphaSenderListInstance(
         new DestinationAlphaSenderInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -752,8 +754,8 @@ export function DestinationAlphaSenderListInstance(
     params: DestinationAlphaSenderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DestinationAlphaSenderInstance>
-    ) => any
+      items: ApiResponse<DestinationAlphaSenderInstance>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -788,14 +790,14 @@ export function DestinationAlphaSenderListInstance(
           body: new DestinationAlphaSenderInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -804,7 +806,7 @@ export function DestinationAlphaSenderListInstance(
     params?:
       | DestinationAlphaSenderListInstancePageOptions
       | ((error: Error | null, items: DestinationAlphaSenderPage) => any),
-    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any
+    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any,
   ): Promise<DestinationAlphaSenderPage> {
     if (params instanceof Function) {
       callback = params;
@@ -838,13 +840,13 @@ export function DestinationAlphaSenderListInstance(
         new DestinationAlphaSenderPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -853,7 +855,7 @@ export function DestinationAlphaSenderListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any
+    callback?: (error: Error | null, items: DestinationAlphaSenderPage) => any,
   ): Promise<DestinationAlphaSenderPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -864,8 +866,8 @@ export function DestinationAlphaSenderListInstance(
         new DestinationAlphaSenderPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -876,12 +878,12 @@ export function DestinationAlphaSenderListInstance(
       | DestinationAlphaSenderListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<DestinationAlphaSenderPage>
+          items: ApiResponse<DestinationAlphaSenderPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<DestinationAlphaSenderPage>
-    ) => any
+      items: ApiResponse<DestinationAlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -914,14 +916,14 @@ export function DestinationAlphaSenderListInstance(
           body: new DestinationAlphaSenderPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -934,8 +936,8 @@ export function DestinationAlphaSenderListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<DestinationAlphaSenderPage>
-    ) => any
+      items?: ApiResponse<DestinationAlphaSenderPage>,
+    ) => any,
   ): Promise<ApiResponse<DestinationAlphaSenderPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -950,9 +952,9 @@ export function DestinationAlphaSenderListInstance(
         body: new DestinationAlphaSenderPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -964,7 +966,7 @@ export function DestinationAlphaSenderListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -988,7 +990,7 @@ export class DestinationAlphaSenderPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: DestinationAlphaSenderSolution
+    solution: DestinationAlphaSenderSolution,
   ) {
     super(version, response, solution);
   }
@@ -999,12 +1001,12 @@ export class DestinationAlphaSenderPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: DestinationAlphaSenderResource
+    payload: DestinationAlphaSenderResource,
   ): DestinationAlphaSenderInstance {
     return new DestinationAlphaSenderInstance(
       this._version,
       payload,
-      this._solution.serviceSid
+      this._solution.serviceSid,
     );
   }
 
