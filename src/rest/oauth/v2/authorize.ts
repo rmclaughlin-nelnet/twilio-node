@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2 from "../V2";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V2 } from "../V2.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to fetch a AuthorizeInstance
@@ -50,7 +50,7 @@ export interface AuthorizeListInstance {
    * @returns Resolves to processed AuthorizeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AuthorizeInstance) => any
+    callback?: (error: Error | null, item?: AuthorizeInstance) => any,
   ): Promise<AuthorizeInstance>;
   /**
    * Fetch a AuthorizeInstance
@@ -62,7 +62,7 @@ export interface AuthorizeListInstance {
    */
   fetch(
     params: AuthorizeListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: AuthorizeInstance) => any
+    callback?: (error: Error | null, item?: AuthorizeInstance) => any,
   ): Promise<AuthorizeInstance>;
 
   /**
@@ -75,8 +75,8 @@ export interface AuthorizeListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizeInstance>
-    ) => any
+      item?: ApiResponse<AuthorizeInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthorizeInstance>>;
   /**
    * Fetch a AuthorizeInstance and return HTTP info
@@ -90,8 +90,8 @@ export interface AuthorizeListInstance {
     params: AuthorizeListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizeInstance>
-    ) => any
+      item?: ApiResponse<AuthorizeInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthorizeInstance>>;
 
   /**
@@ -112,7 +112,7 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
     params?:
       | AuthorizeListInstanceFetchOptions
       | ((error: Error | null, items: AuthorizeInstance) => any),
-    callback?: (error: Error | null, items: AuthorizeInstance) => any
+    callback?: (error: Error | null, items: AuthorizeInstance) => any,
   ): Promise<AuthorizeInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -144,12 +144,12 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AuthorizeInstance(operationVersion, payload)
+      (payload) => new AuthorizeInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -160,8 +160,8 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
       | ((error: Error | null, items: ApiResponse<AuthorizeInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthorizeInstance>
-    ) => any
+      items: ApiResponse<AuthorizeInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthorizeInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -197,12 +197,12 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
         (response): ApiResponse<AuthorizeInstance> => ({
           ...response,
           body: new AuthorizeInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -213,7 +213,7 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -228,7 +228,10 @@ interface AuthorizeResource {
 }
 
 export class AuthorizeInstance {
-  constructor(protected _version: V2, payload: AuthorizeResource) {
+  constructor(
+    protected _version: V2,
+    payload: AuthorizeResource,
+  ) {
     this.redirectTo = payload.redirect_to;
   }
 

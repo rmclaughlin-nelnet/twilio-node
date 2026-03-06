@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V1 from "../../../V1";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V1 } from "../../../V1.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to update a VariableInstance
@@ -87,7 +87,7 @@ export interface VariableContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -98,7 +98,7 @@ export interface VariableContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -109,7 +109,7 @@ export interface VariableContext {
    * @returns Resolves to processed VariableInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance>;
 
   /**
@@ -122,8 +122,8 @@ export interface VariableContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>>;
 
   /**
@@ -134,7 +134,7 @@ export interface VariableContext {
    * @returns Resolves to processed VariableInstance
    */
   update(
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance>;
   /**
    * Update a VariableInstance
@@ -146,7 +146,7 @@ export interface VariableContext {
    */
   update(
     params: VariableContextUpdateOptions,
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance>;
 
   /**
@@ -159,8 +159,8 @@ export interface VariableContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>>;
   /**
    * Update a VariableInstance and return HTTP info
@@ -174,8 +174,8 @@ export interface VariableContext {
     params: VariableContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>>;
 
   /**
@@ -199,7 +199,7 @@ export class VariableContextImpl implements VariableContext {
     protected _version: V1,
     serviceSid: string,
     environmentSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -218,7 +218,7 @@ export class VariableContextImpl implements VariableContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -232,13 +232,13 @@ export class VariableContextImpl implements VariableContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -251,18 +251,18 @@ export class VariableContextImpl implements VariableContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -282,13 +282,13 @@ export class VariableContextImpl implements VariableContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.environmentSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -296,8 +296,8 @@ export class VariableContextImpl implements VariableContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -319,14 +319,14 @@ export class VariableContextImpl implements VariableContext {
             response.body,
             instance._solution.serviceSid,
             instance._solution.environmentSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -335,7 +335,7 @@ export class VariableContextImpl implements VariableContext {
     params?:
       | VariableContextUpdateOptions
       | ((error: Error | null, item?: VariableInstance) => any),
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -369,13 +369,13 @@ export class VariableContextImpl implements VariableContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.environmentSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -386,8 +386,8 @@ export class VariableContextImpl implements VariableContext {
       | ((error: Error | null, item?: ApiResponse<VariableInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -423,14 +423,14 @@ export class VariableContextImpl implements VariableContext {
             response.body,
             instance._solution.serviceSid,
             instance._solution.environmentSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -474,7 +474,7 @@ export class VariableInstance {
     payload: VariableResource,
     serviceSid: string,
     environmentSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -533,7 +533,7 @@ export class VariableInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.environmentSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -546,7 +546,7 @@ export class VariableInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -559,7 +559,7 @@ export class VariableInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -572,7 +572,7 @@ export class VariableInstance {
    * @returns Resolves to processed VariableInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance> {
     return this._proxy.fetch(callback);
   }
@@ -587,8 +587,8 @@ export class VariableInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -601,7 +601,7 @@ export class VariableInstance {
    * @returns Resolves to processed VariableInstance
    */
   update(
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance>;
   /**
    * Update a VariableInstance
@@ -613,12 +613,12 @@ export class VariableInstance {
    */
   update(
     params: VariableContextUpdateOptions,
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance> {
     return this._proxy.update(params, callback);
   }
@@ -633,8 +633,8 @@ export class VariableInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>>;
   /**
    * Update a VariableInstance and return HTTP info
@@ -648,16 +648,16 @@ export class VariableInstance {
     params: VariableContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -709,7 +709,7 @@ export interface VariableListInstance {
    */
   create(
     params: VariableListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, item?: VariableInstance) => any,
   ): Promise<VariableInstance>;
 
   /**
@@ -724,8 +724,8 @@ export interface VariableListInstance {
     params: VariableListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<VariableInstance>
-    ) => any
+      item?: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>>;
 
   /**
@@ -744,11 +744,11 @@ export interface VariableListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: VariableInstance, done: (err?: Error) => void) => void
+    callback?: (item: VariableInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: VariableListInstanceEachOptions,
-    callback?: (item: VariableInstance, done: (err?: Error) => void) => void
+    callback?: (item: VariableInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams VariableInstance records from the API with HTTP metadata captured per page.
@@ -766,11 +766,11 @@ export interface VariableListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: VariableInstance, done: (err?: Error) => void) => void
+    callback?: (item: VariableInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: VariableListInstanceEachOptions,
-    callback?: (item: VariableInstance, done: (err?: Error) => void) => void
+    callback?: (item: VariableInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of VariableInstance records from the API.
@@ -782,7 +782,7 @@ export interface VariableListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VariablePage) => any
+    callback?: (error: Error | null, items: VariablePage) => any,
   ): Promise<VariablePage>;
   /**
    * Retrieve a single target page of VariableInstance records from the API with HTTP metadata.
@@ -794,7 +794,7 @@ export interface VariableListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<VariablePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VariablePage>) => any,
   ): Promise<ApiResponse<VariablePage>>;
   /**
    * Lists VariableInstance records from the API as a list.
@@ -806,11 +806,11 @@ export interface VariableListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: VariableInstance[]) => any
+    callback?: (error: Error | null, items: VariableInstance[]) => any,
   ): Promise<VariableInstance[]>;
   list(
     params: VariableListInstanceOptions,
-    callback?: (error: Error | null, items: VariableInstance[]) => any
+    callback?: (error: Error | null, items: VariableInstance[]) => any,
   ): Promise<VariableInstance[]>;
   /**
    * Lists VariableInstance records from the API as a list with HTTP metadata.
@@ -826,15 +826,15 @@ export interface VariableListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<VariableInstance[]>
-    ) => any
+      items: ApiResponse<VariableInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance[]>>;
   listWithHttpInfo(
     params: VariableListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<VariableInstance[]>
-    ) => any
+      items: ApiResponse<VariableInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance[]>>;
   /**
    * Retrieve a single page of VariableInstance records from the API.
@@ -848,11 +848,11 @@ export interface VariableListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: VariablePage) => any
+    callback?: (error: Error | null, items: VariablePage) => any,
   ): Promise<VariablePage>;
   page(
     params: VariableListInstancePageOptions,
-    callback?: (error: Error | null, items: VariablePage) => any
+    callback?: (error: Error | null, items: VariablePage) => any,
   ): Promise<VariablePage>;
   /**
    * Retrieve a single page of VariableInstance records from the API with HTTP metadata.
@@ -866,11 +866,11 @@ export interface VariableListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<VariablePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VariablePage>) => any,
   ): Promise<ApiResponse<VariablePage>>;
   pageWithHttpInfo(
     params: VariableListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<VariablePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VariablePage>) => any,
   ): Promise<ApiResponse<VariablePage>>;
 
   /**
@@ -883,7 +883,7 @@ export interface VariableListInstance {
 export function VariableListInstance(
   version: V1,
   serviceSid: string,
-  environmentSid: string
+  environmentSid: string,
 ): VariableListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -905,7 +905,7 @@ export function VariableListInstance(
 
   instance.create = function create(
     params: VariableListInstanceCreateOptions,
-    callback?: (error: Error | null, items: VariableInstance) => any
+    callback?: (error: Error | null, items: VariableInstance) => any,
   ): Promise<VariableInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -943,13 +943,13 @@ export function VariableListInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.environmentSid
-        )
+          instance._solution.environmentSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -958,8 +958,8 @@ export function VariableListInstance(
     params: VariableListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<VariableInstance>
-    ) => any
+      items: ApiResponse<VariableInstance>,
+    ) => any,
   ): Promise<ApiResponse<VariableInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -999,14 +999,14 @@ export function VariableListInstance(
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.environmentSid
+            instance._solution.environmentSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1015,7 +1015,7 @@ export function VariableListInstance(
     params?:
       | VariableListInstancePageOptions
       | ((error: Error | null, items: VariablePage) => any),
-    callback?: (error: Error | null, items: VariablePage) => any
+    callback?: (error: Error | null, items: VariablePage) => any,
   ): Promise<VariablePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1044,12 +1044,12 @@ export function VariableListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new VariablePage(operationVersion, payload, instance._solution)
+        new VariablePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1058,7 +1058,7 @@ export function VariableListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VariablePage) => any
+    callback?: (error: Error | null, items: VariablePage) => any,
   ): Promise<VariablePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1066,7 +1066,7 @@ export function VariableListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new VariablePage(instance._version, payload, instance._solution)
+        new VariablePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1076,7 +1076,7 @@ export function VariableListInstance(
     params?:
       | VariableListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<VariablePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<VariablePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VariablePage>) => any,
   ): Promise<ApiResponse<VariablePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1107,14 +1107,14 @@ export function VariableListInstance(
           body: new VariablePage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1125,7 +1125,7 @@ export function VariableListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<VariablePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<VariablePage>) => any,
   ): Promise<ApiResponse<VariablePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1138,7 +1138,7 @@ export function VariableListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new VariablePage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1150,7 +1150,7 @@ export function VariableListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1174,7 +1174,7 @@ export class VariablePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: VariableSolution
+    solution: VariableSolution,
   ) {
     super(version, response, solution);
   }
@@ -1189,7 +1189,7 @@ export class VariablePage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.environmentSid
+      this._solution.environmentSid,
     );
   }
 

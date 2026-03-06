@@ -1,13 +1,11 @@
-import twilio from "../src/";
-import nock from "nock";
-import { jest } from "@jest/globals";
-
+import { vi } from "vitest";
+import { Twilio as twilio } from "../src/rest/Twilio";
 var accountSid = "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 var token = "token";
 
 describe("twilio", function () {
   it("should set the account sid and auth token", function () {
-    var client = twilio(accountSid, token);
+    var client = new twilio(accountSid, token);
     expect(client.username).toBe(accountSid);
     expect(client.password).toBe(token);
     expect(client.accountSid).toBe(accountSid);
@@ -28,18 +26,18 @@ describe("twilio", function () {
   });
 
   it("should provide each for integration", function () {
-    var client = new twilio.Twilio(accountSid, token);
+    var client = new twilio(accountSid, token);
     expect(client.api.v2010.account.calls.each).toBeTruthy();
   });
 
   it("should disable HTTP client auto-retry with exponential backoff by default", function () {
-    var client = new twilio.Twilio(accountSid, token);
+    var client = new twilio(accountSid, token);
     expect(client.autoRetry).toBe(false);
     expect(client.httpClient.autoRetry).toBe(false);
   });
 
   it("should set Twilio and HTTP client auto-retry with exponential backoff properties", function () {
-    var client = new twilio.Twilio(accountSid, token, {
+    var client = new twilio(accountSid, token, {
       autoRetry: true,
       maxRetries: 5,
     });
@@ -51,50 +49,59 @@ describe("twilio", function () {
 
   describe("logging", function () {
     let consoleSpy;
+    let fetchSpy;
 
     beforeEach(() => {
-      consoleSpy = jest.spyOn(console, "log").mockImplementation();
+      consoleSpy = vi.spyOn(console, "log").mockImplementation();
     });
 
     afterEach(() => {
       consoleSpy.mockRestore();
+      fetchSpy?.mockRestore();
     });
 
     it("should use the log-level during http requests", async function () {
-      const scope = nock("https://api.twilio.com")
-        .get(`/2010-04-01/Accounts/${accountSid}/Messages.json?PageSize=1`)
-        .reply(200, {
-          first_page_uri: `/2010-04-01/Accounts/${accountSid}/Usage/Records/Daily.json?Category=sms-outbound&PageSize=1&Page=0`,
-          end: 0,
-          previous_page_uri: null,
-          uri: "/2010-04-01/Accounts/${accountSid}/Usage/Records/Daily.json?Category=sms-outbound&PageSize=1&Page=0",
-          page_size: 1,
-          start: 0,
-          usage_records: [],
-          next_page_uri: null,
-          page: 0,
-        });
+      fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            first_page_uri: `/2010-04-01/Accounts/${accountSid}/Usage/Records/Daily.json?Category=sms-outbound&PageSize=1&Page=0`,
+            end: 0,
+            previous_page_uri: null,
+            uri: `/2010-04-01/Accounts/${accountSid}/Usage/Records/Daily.json?Category=sms-outbound&PageSize=1&Page=0`,
+            page_size: 1,
+            start: 0,
+            usage_records: [],
+            next_page_uri: null,
+            page: 0,
+          }),
+          {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+      );
 
-      const client = new twilio.Twilio(accountSid, token, {
+      const client = new twilio(accountSid, token, {
         logLevel: "debug",
       });
 
       await client.messages.list({ limit: 1 });
-      expect(consoleSpy.mock.calls.map((a) => a[0]).join("\n")).toBe(
-        "-- BEGIN Twilio API Request --\n" +
-          `get https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json\n` +
-          "Querystring:\n" +
-          "[object Object]\n" +
-          "Headers:\n" +
-          "Accept: undefined\n" +
-          "User-Agent: undefined\n" +
-          "Accept-Charset: undefined\n" +
-          "Connection: undefined\n" +
-          "-- END Twilio API Request --\n" +
-          "response.statusCode: 200\n" +
-          'response.headers: {"content-type":"application/json"}'
+      const logOutput = consoleSpy.mock.calls.map((a) => a[0]).join("\n");
+      expect(logOutput).toMatch(
+        new RegExp(
+          "-- BEGIN Twilio API Request --\n" +
+            `get https://api\\.twilio\\.com/2010-04-01/Accounts/${accountSid}/Messages\\.json\n` +
+            "Querystring:\n" +
+            "\\[object Object\\]\n" +
+            "Headers:\n" +
+            "Accept: application/json\n" +
+            "User-Agent: twilio-node/.+\n" +
+            "Accept-Charset: utf-8\n" +
+            "-- END Twilio API Request --\n" +
+            "response\\.statusCode: 200\n" +
+            'response\\.headers: \\{"content-type":"application/json"\\}'
+        )
       );
-      scope.done();
     });
   });
 });

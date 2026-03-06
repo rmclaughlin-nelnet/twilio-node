@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 export class IamV1AccountVendorOauthAppCreateRequest {
   "type"?: string;
@@ -84,7 +84,7 @@ export interface OAuthAppContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -95,7 +95,7 @@ export interface OAuthAppContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -110,7 +110,7 @@ export interface OAuthAppContext {
   update(
     params: IamV1AccountVendorOauthAppUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: OAuthAppInstance) => any
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
   ): Promise<OAuthAppInstance>;
 
   /**
@@ -127,8 +127,8 @@ export interface OAuthAppContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OAuthAppInstance>
-    ) => any
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
   ): Promise<ApiResponse<OAuthAppInstance>>;
 
   /**
@@ -146,7 +146,10 @@ export class OAuthAppContextImpl implements OAuthAppContext {
   protected _solution: OAuthAppContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -156,7 +159,7 @@ export class OAuthAppContextImpl implements OAuthAppContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -170,13 +173,13 @@ export class OAuthAppContextImpl implements OAuthAppContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -189,12 +192,12 @@ export class OAuthAppContextImpl implements OAuthAppContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -202,7 +205,7 @@ export class OAuthAppContextImpl implements OAuthAppContext {
   update(
     params: IamV1AccountVendorOauthAppUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: OAuthAppInstance) => any
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
   ): Promise<OAuthAppInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -230,12 +233,12 @@ export class OAuthAppContextImpl implements OAuthAppContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new OAuthAppInstance(operationVersion, payload, instance._solution.sid)
+        new OAuthAppInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -245,8 +248,8 @@ export class OAuthAppContextImpl implements OAuthAppContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OAuthAppInstance>
-    ) => any
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
   ): Promise<ApiResponse<OAuthAppInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -279,14 +282,14 @@ export class OAuthAppContextImpl implements OAuthAppContext {
           body: new OAuthAppInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -327,7 +330,11 @@ export class OAuthAppInstance {
   protected _solution: OAuthAppContextSolution;
   protected _context?: OAuthAppContext;
 
-  constructor(protected _version: V1, payload: OAuthAppResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: OAuthAppResource,
+    sid?: string,
+  ) {
     this.type = payload.type;
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -383,7 +390,7 @@ export class OAuthAppInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -396,7 +403,7 @@ export class OAuthAppInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -413,12 +420,12 @@ export class OAuthAppInstance {
   update(
     params: IamV1AccountVendorOauthAppUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: OAuthAppInstance) => any
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
   ): Promise<OAuthAppInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: OAuthAppInstance) => any
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
   ): Promise<OAuthAppInstance> {
     return this._proxy.update(params, callback);
   }
@@ -437,16 +444,16 @@ export class OAuthAppInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OAuthAppInstance>
-    ) => any
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
   ): Promise<ApiResponse<OAuthAppInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OAuthAppInstance>
-    ) => any
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
   ): Promise<ApiResponse<OAuthAppInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -501,7 +508,7 @@ export interface OAuthAppListInstance {
   create(
     params: IamV1AccountVendorOauthAppCreateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: OAuthAppInstance) => any
+    callback?: (error: Error | null, item?: OAuthAppInstance) => any,
   ): Promise<OAuthAppInstance>;
 
   /**
@@ -518,8 +525,8 @@ export interface OAuthAppListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OAuthAppInstance>
-    ) => any
+      item?: ApiResponse<OAuthAppInstance>,
+    ) => any,
   ): Promise<ApiResponse<OAuthAppInstance>>;
 
   /**
@@ -543,7 +550,7 @@ export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
   instance.create = function create(
     params: IamV1AccountVendorOauthAppCreateRequest,
     headers?: any,
-    callback?: (error: Error | null, items: OAuthAppInstance) => any
+    callback?: (error: Error | null, items: OAuthAppInstance) => any,
   ): Promise<OAuthAppInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -569,12 +576,12 @@ export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new OAuthAppInstance(operationVersion, payload)
+      (payload) => new OAuthAppInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -584,8 +591,8 @@ export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OAuthAppInstance>
-    ) => any
+      items: ApiResponse<OAuthAppInstance>,
+    ) => any,
   ): Promise<ApiResponse<OAuthAppInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -615,12 +622,12 @@ export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
         (response): ApiResponse<OAuthAppInstance> => ({
           ...response,
           body: new OAuthAppInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -631,7 +638,7 @@ export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

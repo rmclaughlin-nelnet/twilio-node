@@ -1,12 +1,12 @@
-import { ArchivedCallListInstance } from "./voice/v1/archivedCall";
-import { ByocTrunkListInstance } from "./voice/v1/byocTrunk";
-import { ConnectionPolicyListInstance } from "./voice/v1/connectionPolicy";
-import { DialingPermissionsListInstance } from "./voice/v1/dialingPermissions";
-import { IpRecordListInstance } from "./voice/v1/ipRecord";
-import { SourceIpMappingListInstance } from "./voice/v1/sourceIpMapping";
-import VoiceBase from "./VoiceBase";
+import { ArchivedCallListInstance } from "./voice/v1/archivedCall.js";
+import { ByocTrunkListInstance } from "./voice/v1/byocTrunk.js";
+import { ConnectionPolicyListInstance } from "./voice/v1/connectionPolicy.js";
+import { DialingPermissionsListInstance } from "./voice/v1/dialingPermissions.js";
+import { IpRecordListInstance } from "./voice/v1/ipRecord.js";
+import { SourceIpMappingListInstance } from "./voice/v1/sourceIpMapping.js";
+import { VoiceBase } from "./VoiceBase.js";
 
-class Voice extends VoiceBase {
+export class Voice extends VoiceBase {
   /**
    * @deprecated - Use v1.archivedCalls instead
    */
@@ -28,7 +28,7 @@ class Voice extends VoiceBase {
    */
   get connectionPolicies(): ConnectionPolicyListInstance {
     console.warn(
-      "connectionPolicies is deprecated. Use v1.connectionPolicies instead."
+      "connectionPolicies is deprecated. Use v1.connectionPolicies instead.",
     );
     return this.v1.connectionPolicies;
   }
@@ -38,7 +38,7 @@ class Voice extends VoiceBase {
    */
   get dialingPermissions(): DialingPermissionsListInstance {
     console.warn(
-      "dialingPermissions is deprecated. Use v1.dialingPermissions instead."
+      "dialingPermissions is deprecated. Use v1.dialingPermissions instead.",
     );
     return this.v1.dialingPermissions;
   }
@@ -56,10 +56,8 @@ class Voice extends VoiceBase {
    */
   get sourceIpMappings(): SourceIpMappingListInstance {
     console.warn(
-      "sourceIpMappings is deprecated. Use v1.sourceIpMappings instead."
+      "sourceIpMappings is deprecated. Use v1.sourceIpMappings instead.",
     );
     return this.v1.sourceIpMappings;
   }
 }
-
-export = Voice;

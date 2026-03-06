@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2010 from "../../V2010";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V2010 } from "../../V2010.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export interface BalanceSolution {
   accountSid: string;
@@ -36,7 +36,7 @@ export interface BalanceListInstance {
    * @returns Resolves to processed BalanceInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BalanceInstance) => any
+    callback?: (error: Error | null, item?: BalanceInstance) => any,
   ): Promise<BalanceInstance>;
 
   /**
@@ -47,7 +47,10 @@ export interface BalanceListInstance {
    * @returns Resolves to processed BalanceInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BalanceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<BalanceInstance>,
+    ) => any,
   ): Promise<ApiResponse<BalanceInstance>>;
 
   /**
@@ -59,7 +62,7 @@ export interface BalanceListInstance {
 
 export function BalanceListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): BalanceListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -72,7 +75,7 @@ export function BalanceListInstance(
   instance._uri = `/Accounts/${accountSid}/Balance.json`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: BalanceInstance) => any
+    callback?: (error: Error | null, items: BalanceInstance) => any,
   ): Promise<BalanceInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -89,19 +92,22 @@ export function BalanceListInstance(
         new BalanceInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<BalanceInstance>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<BalanceInstance>,
+    ) => any,
   ): Promise<ApiResponse<BalanceInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -120,14 +126,14 @@ export function BalanceListInstance(
           body: new BalanceInstance(
             operationVersion,
             response.body,
-            instance._solution.accountSid
+            instance._solution.accountSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -138,7 +144,7 @@ export function BalanceListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -158,7 +164,7 @@ export class BalanceInstance {
   constructor(
     protected _version: V2010,
     payload: BalanceResource,
-    accountSid: string
+    accountSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.balance = payload.balance;

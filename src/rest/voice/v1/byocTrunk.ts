@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to update a ByocTrunkInstance
@@ -119,7 +119,7 @@ export interface ByocTrunkContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -130,7 +130,7 @@ export interface ByocTrunkContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -141,7 +141,7 @@ export interface ByocTrunkContext {
    * @returns Resolves to processed ByocTrunkInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance>;
 
   /**
@@ -154,8 +154,8 @@ export interface ByocTrunkContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>>;
 
   /**
@@ -166,7 +166,7 @@ export interface ByocTrunkContext {
    * @returns Resolves to processed ByocTrunkInstance
    */
   update(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance>;
   /**
    * Update a ByocTrunkInstance
@@ -178,7 +178,7 @@ export interface ByocTrunkContext {
    */
   update(
     params: ByocTrunkContextUpdateOptions,
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance>;
 
   /**
@@ -191,8 +191,8 @@ export interface ByocTrunkContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>>;
   /**
    * Update a ByocTrunkInstance and return HTTP info
@@ -206,8 +206,8 @@ export interface ByocTrunkContext {
     params: ByocTrunkContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>>;
 
   /**
@@ -225,7 +225,10 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
   protected _solution: ByocTrunkContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -235,7 +238,7 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -249,13 +252,13 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -268,18 +271,18 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -294,12 +297,16 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ByocTrunkInstance(operationVersion, payload, instance._solution.sid)
+        new ByocTrunkInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -307,8 +314,8 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -328,14 +335,14 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
           body: new ByocTrunkInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -344,7 +351,7 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
     params?:
       | ByocTrunkContextUpdateOptions
       | ((error: Error | null, item?: ByocTrunkInstance) => any),
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -390,12 +397,16 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ByocTrunkInstance(operationVersion, payload, instance._solution.sid)
+        new ByocTrunkInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -406,8 +417,8 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
       | ((error: Error | null, item?: ApiResponse<ByocTrunkInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -458,14 +469,14 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
           body: new ByocTrunkInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -513,7 +524,7 @@ export class ByocTrunkInstance {
   constructor(
     protected _version: V1,
     payload: ByocTrunkResource,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
@@ -610,7 +621,7 @@ export class ByocTrunkInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -623,7 +634,7 @@ export class ByocTrunkInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -636,7 +647,7 @@ export class ByocTrunkInstance {
    * @returns Resolves to processed ByocTrunkInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance> {
     return this._proxy.fetch(callback);
   }
@@ -651,8 +662,8 @@ export class ByocTrunkInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -665,7 +676,7 @@ export class ByocTrunkInstance {
    * @returns Resolves to processed ByocTrunkInstance
    */
   update(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance>;
   /**
    * Update a ByocTrunkInstance
@@ -677,12 +688,12 @@ export class ByocTrunkInstance {
    */
   update(
     params: ByocTrunkContextUpdateOptions,
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance> {
     return this._proxy.update(params, callback);
   }
@@ -697,8 +708,8 @@ export class ByocTrunkInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>>;
   /**
    * Update a ByocTrunkInstance and return HTTP info
@@ -712,16 +723,16 @@ export class ByocTrunkInstance {
     params: ByocTrunkContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -774,7 +785,7 @@ export interface ByocTrunkListInstance {
    * @returns Resolves to processed ByocTrunkInstance
    */
   create(
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance>;
   /**
    * Create a ByocTrunkInstance
@@ -786,7 +797,7 @@ export interface ByocTrunkListInstance {
    */
   create(
     params: ByocTrunkListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+    callback?: (error: Error | null, item?: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance>;
 
   /**
@@ -799,8 +810,8 @@ export interface ByocTrunkListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>>;
   /**
    * Create a ByocTrunkInstance and return HTTP info
@@ -814,8 +825,8 @@ export interface ByocTrunkListInstance {
     params: ByocTrunkListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ByocTrunkInstance>
-    ) => any
+      item?: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>>;
 
   /**
@@ -834,11 +845,11 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void
+    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ByocTrunkListInstanceEachOptions,
-    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void
+    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ByocTrunkInstance records from the API with HTTP metadata captured per page.
@@ -856,11 +867,11 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void
+    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ByocTrunkListInstanceEachOptions,
-    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void
+    callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ByocTrunkInstance records from the API.
@@ -872,7 +883,7 @@ export interface ByocTrunkListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ByocTrunkPage) => any
+    callback?: (error: Error | null, items: ByocTrunkPage) => any,
   ): Promise<ByocTrunkPage>;
   /**
    * Retrieve a single target page of ByocTrunkInstance records from the API with HTTP metadata.
@@ -884,7 +895,7 @@ export interface ByocTrunkListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ByocTrunkPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ByocTrunkPage>) => any,
   ): Promise<ApiResponse<ByocTrunkPage>>;
   /**
    * Lists ByocTrunkInstance records from the API as a list.
@@ -896,11 +907,11 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ByocTrunkInstance[]) => any
+    callback?: (error: Error | null, items: ByocTrunkInstance[]) => any,
   ): Promise<ByocTrunkInstance[]>;
   list(
     params: ByocTrunkListInstanceOptions,
-    callback?: (error: Error | null, items: ByocTrunkInstance[]) => any
+    callback?: (error: Error | null, items: ByocTrunkInstance[]) => any,
   ): Promise<ByocTrunkInstance[]>;
   /**
    * Lists ByocTrunkInstance records from the API as a list with HTTP metadata.
@@ -916,15 +927,15 @@ export interface ByocTrunkListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ByocTrunkInstance[]>
-    ) => any
+      items: ApiResponse<ByocTrunkInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance[]>>;
   listWithHttpInfo(
     params: ByocTrunkListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ByocTrunkInstance[]>
-    ) => any
+      items: ApiResponse<ByocTrunkInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance[]>>;
   /**
    * Retrieve a single page of ByocTrunkInstance records from the API.
@@ -938,11 +949,11 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ByocTrunkPage) => any
+    callback?: (error: Error | null, items: ByocTrunkPage) => any,
   ): Promise<ByocTrunkPage>;
   page(
     params: ByocTrunkListInstancePageOptions,
-    callback?: (error: Error | null, items: ByocTrunkPage) => any
+    callback?: (error: Error | null, items: ByocTrunkPage) => any,
   ): Promise<ByocTrunkPage>;
   /**
    * Retrieve a single page of ByocTrunkInstance records from the API with HTTP metadata.
@@ -956,11 +967,11 @@ export interface ByocTrunkListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ByocTrunkPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ByocTrunkPage>) => any,
   ): Promise<ApiResponse<ByocTrunkPage>>;
   pageWithHttpInfo(
     params: ByocTrunkListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ByocTrunkPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ByocTrunkPage>) => any,
   ): Promise<ApiResponse<ByocTrunkPage>>;
 
   /**
@@ -985,7 +996,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
     params?:
       | ByocTrunkListInstanceCreateOptions
       | ((error: Error | null, items: ByocTrunkInstance) => any),
-    callback?: (error: Error | null, items: ByocTrunkInstance) => any
+    callback?: (error: Error | null, items: ByocTrunkInstance) => any,
   ): Promise<ByocTrunkInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -1029,12 +1040,12 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ByocTrunkInstance(operationVersion, payload)
+      (payload) => new ByocTrunkInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1045,8 +1056,8 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
       | ((error: Error | null, items: ApiResponse<ByocTrunkInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ByocTrunkInstance>
-    ) => any
+      items: ApiResponse<ByocTrunkInstance>,
+    ) => any,
   ): Promise<ApiResponse<ByocTrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -1094,12 +1105,12 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
         (response): ApiResponse<ByocTrunkInstance> => ({
           ...response,
           body: new ByocTrunkInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1108,7 +1119,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
     params?:
       | ByocTrunkListInstancePageOptions
       | ((error: Error | null, items: ByocTrunkPage) => any),
-    callback?: (error: Error | null, items: ByocTrunkPage) => any
+    callback?: (error: Error | null, items: ByocTrunkPage) => any,
   ): Promise<ByocTrunkPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1137,12 +1148,12 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ByocTrunkPage(operationVersion, payload, instance._solution)
+        new ByocTrunkPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1151,7 +1162,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ByocTrunkPage) => any
+    callback?: (error: Error | null, items: ByocTrunkPage) => any,
   ): Promise<ByocTrunkPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1159,7 +1170,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ByocTrunkPage(instance._version, payload, instance._solution)
+        new ByocTrunkPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1169,7 +1180,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
     params?:
       | ByocTrunkListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ByocTrunkPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ByocTrunkPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ByocTrunkPage>) => any,
   ): Promise<ApiResponse<ByocTrunkPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1200,14 +1211,14 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
           body: new ByocTrunkPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1218,7 +1229,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ByocTrunkPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<ByocTrunkPage>) => any,
   ): Promise<ApiResponse<ByocTrunkPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1233,9 +1244,9 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
         body: new ByocTrunkPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1247,7 +1258,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1271,7 +1282,7 @@ export class ByocTrunkPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ByocTrunkSolution
+    solution: ByocTrunkSolution,
   ) {
     super(version, response, solution);
   }

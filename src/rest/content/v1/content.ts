@@ -14,15 +14,15 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { ApprovalCreateListInstance } from "./content/approvalCreate";
-import { ApprovalFetchListInstance } from "./content/approvalFetch";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { ApprovalCreateListInstance } from "./content/approvalCreate.js";
+import { ApprovalFetchListInstance } from "./content/approvalFetch.js";
 
 export class AuthenticationAction {
   "type": AuthenticationActionType;
@@ -377,7 +377,7 @@ export interface ContentContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -388,7 +388,7 @@ export interface ContentContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -399,7 +399,7 @@ export interface ContentContext {
    * @returns Resolves to processed ContentInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ContentInstance) => any
+    callback?: (error: Error | null, item?: ContentInstance) => any,
   ): Promise<ContentInstance>;
 
   /**
@@ -410,7 +410,10 @@ export interface ContentContext {
    * @returns Resolves to processed ContentInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>>;
 
   /**
@@ -425,7 +428,7 @@ export interface ContentContext {
   update(
     params: ContentUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ContentInstance) => any
+    callback?: (error: Error | null, item?: ContentInstance) => any,
   ): Promise<ContentInstance>;
 
   /**
@@ -440,7 +443,10 @@ export interface ContentContext {
   updateWithHttpInfo(
     params: ContentUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>>;
 
   /**
@@ -461,7 +467,10 @@ export class ContentContextImpl implements ContentContext {
   protected _approvalCreate?: ApprovalCreateListInstance;
   protected _approvalFetch?: ApprovalFetchListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -485,7 +494,7 @@ export class ContentContextImpl implements ContentContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -499,13 +508,13 @@ export class ContentContextImpl implements ContentContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -518,18 +527,18 @@ export class ContentContextImpl implements ContentContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ContentInstance) => any
+    callback?: (error: Error | null, item?: ContentInstance) => any,
   ): Promise<ContentInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -544,18 +553,21 @@ export class ContentContextImpl implements ContentContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ContentInstance(operationVersion, payload, instance._solution.sid)
+        new ContentInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -575,14 +587,14 @@ export class ContentContextImpl implements ContentContext {
           body: new ContentInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -590,7 +602,7 @@ export class ContentContextImpl implements ContentContext {
   update(
     params: ContentUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ContentInstance) => any
+    callback?: (error: Error | null, item?: ContentInstance) => any,
   ): Promise<ContentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -618,12 +630,12 @@ export class ContentContextImpl implements ContentContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ContentInstance(operationVersion, payload, instance._solution.sid)
+        new ContentInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -631,7 +643,10 @@ export class ContentContextImpl implements ContentContext {
   updateWithHttpInfo(
     params: ContentUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -664,14 +679,14 @@ export class ContentContextImpl implements ContentContext {
           body: new ContentInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -711,7 +726,11 @@ export class ContentInstance {
   protected _solution: ContentContextSolution;
   protected _context?: ContentContext;
 
-  constructor(protected _version: V1, payload: ContentResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ContentResource,
+    sid?: string,
+  ) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.sid = payload.sid;
@@ -782,7 +801,7 @@ export class ContentInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -795,7 +814,7 @@ export class ContentInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -808,7 +827,7 @@ export class ContentInstance {
    * @returns Resolves to processed ContentInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ContentInstance) => any
+    callback?: (error: Error | null, item?: ContentInstance) => any,
   ): Promise<ContentInstance> {
     return this._proxy.fetch(callback);
   }
@@ -821,7 +840,10 @@ export class ContentInstance {
    * @returns Resolves to processed ContentInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -838,12 +860,12 @@ export class ContentInstance {
   update(
     params: ContentUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ContentInstance) => any
+    callback?: (error: Error | null, item?: ContentInstance) => any,
   ): Promise<ContentInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ContentInstance) => any
+    callback?: (error: Error | null, item?: ContentInstance) => any,
   ): Promise<ContentInstance> {
     return this._proxy.update(params, callback);
   }
@@ -860,12 +882,18 @@ export class ContentInstance {
   updateWithHttpInfo(
     params: ContentUpdateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -931,7 +959,7 @@ export interface ContentListInstance {
   create(
     params: ContentCreateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ContentInstance) => any
+    callback?: (error: Error | null, item?: ContentInstance) => any,
   ): Promise<ContentInstance>;
 
   /**
@@ -946,7 +974,10 @@ export interface ContentListInstance {
   createWithHttpInfo(
     params: ContentCreateRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>>;
 
   /**
@@ -965,11 +996,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ContentListInstanceEachOptions,
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ContentInstance records from the API with HTTP metadata captured per page.
@@ -987,11 +1018,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ContentListInstanceEachOptions,
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ContentInstance records from the API.
@@ -1003,7 +1034,7 @@ export interface ContentListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ContentPage) => any
+    callback?: (error: Error | null, items: ContentPage) => any,
   ): Promise<ContentPage>;
   /**
    * Retrieve a single target page of ContentInstance records from the API with HTTP metadata.
@@ -1015,7 +1046,7 @@ export interface ContentListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
   ): Promise<ApiResponse<ContentPage>>;
   /**
    * Lists ContentInstance records from the API as a list.
@@ -1027,11 +1058,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ContentInstance[]) => any
+    callback?: (error: Error | null, items: ContentInstance[]) => any,
   ): Promise<ContentInstance[]>;
   list(
     params: ContentListInstanceOptions,
-    callback?: (error: Error | null, items: ContentInstance[]) => any
+    callback?: (error: Error | null, items: ContentInstance[]) => any,
   ): Promise<ContentInstance[]>;
   /**
    * Lists ContentInstance records from the API as a list with HTTP metadata.
@@ -1047,15 +1078,15 @@ export interface ContentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentInstance[]>
-    ) => any
+      items: ApiResponse<ContentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance[]>>;
   listWithHttpInfo(
     params: ContentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentInstance[]>
-    ) => any
+      items: ApiResponse<ContentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance[]>>;
   /**
    * Retrieve a single page of ContentInstance records from the API.
@@ -1069,11 +1100,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ContentPage) => any
+    callback?: (error: Error | null, items: ContentPage) => any,
   ): Promise<ContentPage>;
   page(
     params: ContentListInstancePageOptions,
-    callback?: (error: Error | null, items: ContentPage) => any
+    callback?: (error: Error | null, items: ContentPage) => any,
   ): Promise<ContentPage>;
   /**
    * Retrieve a single page of ContentInstance records from the API with HTTP metadata.
@@ -1087,11 +1118,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
   ): Promise<ApiResponse<ContentPage>>;
   pageWithHttpInfo(
     params: ContentListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
   ): Promise<ApiResponse<ContentPage>>;
 
   /**
@@ -1115,7 +1146,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance.create = function create(
     params: ContentCreateRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ContentInstance) => any
+    callback?: (error: Error | null, items: ContentInstance) => any,
   ): Promise<ContentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1141,12 +1172,12 @@ export function ContentListInstance(version: V1): ContentListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ContentInstance(operationVersion, payload)
+      (payload) => new ContentInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1154,7 +1185,10 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: ContentCreateRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<ContentInstance>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ContentInstance>,
+    ) => any,
   ): Promise<ApiResponse<ContentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1184,12 +1218,12 @@ export function ContentListInstance(version: V1): ContentListInstance {
         (response): ApiResponse<ContentInstance> => ({
           ...response,
           body: new ContentInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1198,7 +1232,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
     params?:
       | ContentListInstancePageOptions
       | ((error: Error | null, items: ContentPage) => any),
-    callback?: (error: Error | null, items: ContentPage) => any
+    callback?: (error: Error | null, items: ContentPage) => any,
   ): Promise<ContentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1227,12 +1261,12 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ContentPage(operationVersion, payload, instance._solution)
+        new ContentPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1241,7 +1275,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ContentPage) => any
+    callback?: (error: Error | null, items: ContentPage) => any,
   ): Promise<ContentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1249,7 +1283,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ContentPage(instance._version, payload, instance._solution)
+        new ContentPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1259,7 +1293,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
     params?:
       | ContentListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ContentPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
   ): Promise<ApiResponse<ContentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1288,12 +1322,12 @@ export function ContentListInstance(version: V1): ContentListInstance {
           statusCode: response.statusCode,
           headers: response.headers,
           body: new ContentPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1304,7 +1338,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ContentPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<ContentPage>) => any,
   ): Promise<ApiResponse<ContentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1317,7 +1351,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new ContentPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1329,7 +1363,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1353,7 +1387,7 @@ export class ContentPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ContentSolution
+    solution: ContentSolution,
   ) {
     super(version, response, solution);
   }

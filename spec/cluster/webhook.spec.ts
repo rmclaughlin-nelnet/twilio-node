@@ -1,15 +1,16 @@
 import { FlowInstance } from "twilio/lib/rest/studio/v2/flow";
-jest.setTimeout(15000);
+import { vi } from "vitest";
+vi.setConfig({ testTimeout: 15000 });
 
-const twilio = require("twilio");
-const localtunnel = require("localtunnel");
-const http = require("http");
+import { Twilio, validateRequest } from "twilio";
+import localtunnel from "localtunnel";
+import http from "node:http";
 
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const apiKey = process.env.TWILIO_API_KEY;
 const apiSecret = process.env.TWILIO_API_SECRET;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const testClient = twilio(apiKey, apiSecret, { accountSid });
+const testClient = new Twilio(apiKey, apiSecret, { accountSid });
 
 describe("Validating Incoming Twilio Request", () => {
   let tunnel;
@@ -35,7 +36,7 @@ describe("Validating Incoming Twilio Request", () => {
       req.on("end", () => {
         let params = new URLSearchParams(body);
         let paramObject = Object.fromEntries(params.entries());
-        let requestIsValid = twilio.validateRequest(
+        let requestIsValid = validateRequest(
           authToken,
           signatureHeader,
           url,

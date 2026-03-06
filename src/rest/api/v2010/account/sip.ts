@@ -13,14 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2010 from "../../V2010";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { CredentialListListInstance } from "./sip/credentialList";
-import { DomainListInstance } from "./sip/domain";
-import { IpAccessControlListListInstance } from "./sip/ipAccessControlList";
+import { V2010 } from "../../V2010.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { CredentialListListInstance } from "./sip/credentialList.js";
+import { DomainListInstance } from "./sip/domain.js";
+import { IpAccessControlListListInstance } from "./sip/ipAccessControlList.js";
 
 export interface SipSolution {
   accountSid: string;
@@ -47,7 +47,7 @@ export interface SipListInstance {
 
 export function SipListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): SipListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -64,7 +64,7 @@ export function SipListInstance(
       if (!instance._credentialLists) {
         instance._credentialLists = CredentialListListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._credentialLists;
@@ -76,7 +76,7 @@ export function SipListInstance(
       if (!instance._domains) {
         instance._domains = DomainListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._domains;
@@ -88,7 +88,7 @@ export function SipListInstance(
       if (!instance._ipAccessControlLists) {
         instance._ipAccessControlLists = IpAccessControlListListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._ipAccessControlLists;
@@ -101,7 +101,7 @@ export function SipListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

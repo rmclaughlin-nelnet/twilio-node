@@ -13,13 +13,13 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2010 from "../../../../V2010";
-const deserialize = require("../../../../../../base/deserialize");
-const serialize = require("../../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../../base/utility";
-import { ApiResponse } from "../../../../../../base/ApiResponse";
-import { AuthTypeCallsListInstance } from "./authTypes/authTypeCalls";
-import { AuthTypeRegistrationsListInstance } from "./authTypes/authTypeRegistrations";
+import { V2010 } from "../../../../V2010.js";
+import * as deserialize from "../../../../../../base/deserialize.js";
+import * as serialize from "../../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../../base/ApiResponse.js";
+import { AuthTypeCallsListInstance } from "./authTypes/authTypeCalls.js";
+import { AuthTypeRegistrationsListInstance } from "./authTypes/authTypeRegistrations.js";
 
 export interface AuthTypesSolution {
   accountSid: string;
@@ -46,7 +46,7 @@ export interface AuthTypesListInstance {
 export function AuthTypesListInstance(
   version: V2010,
   accountSid: string,
-  domainSid: string
+  domainSid: string,
 ): AuthTypesListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -68,7 +68,7 @@ export function AuthTypesListInstance(
         instance._calls = AuthTypeCallsListInstance(
           instance._version,
           instance._solution.accountSid,
-          instance._solution.domainSid
+          instance._solution.domainSid,
         );
       }
       return instance._calls;
@@ -81,7 +81,7 @@ export function AuthTypesListInstance(
         instance._registrations = AuthTypeRegistrationsListInstance(
           instance._version,
           instance._solution.accountSid,
-          instance._solution.domainSid
+          instance._solution.domainSid,
         );
       }
       return instance._registrations;
@@ -94,7 +94,7 @@ export function AuthTypesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to create a IpAccessControlListInstance
@@ -38,7 +38,7 @@ export interface IpAccessControlListListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: IpAccessControlListInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -78,7 +78,7 @@ export interface IpAccessControlListContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -89,7 +89,7 @@ export interface IpAccessControlListContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -100,7 +100,7 @@ export interface IpAccessControlListContext {
    * @returns Resolves to processed IpAccessControlListInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any,
   ): Promise<IpAccessControlListInstance>;
 
   /**
@@ -113,8 +113,8 @@ export interface IpAccessControlListContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAccessControlListInstance>
-    ) => any
+      item?: ApiResponse<IpAccessControlListInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListInstance>>;
 
   /**
@@ -129,13 +129,15 @@ export interface IpAccessControlListContextSolution {
   sid: string;
 }
 
-export class IpAccessControlListContextImpl
-  implements IpAccessControlListContext
-{
+export class IpAccessControlListContextImpl implements IpAccessControlListContext {
   protected _solution: IpAccessControlListContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, trunkSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    trunkSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(trunkSid)) {
       throw new Error("Parameter 'trunkSid' is not valid.");
     }
@@ -149,7 +151,7 @@ export class IpAccessControlListContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -163,13 +165,13 @@ export class IpAccessControlListContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -182,18 +184,18 @@ export class IpAccessControlListContextImpl
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any,
   ): Promise<IpAccessControlListInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -212,13 +214,13 @@ export class IpAccessControlListContextImpl
           operationVersion,
           payload,
           instance._solution.trunkSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -226,8 +228,8 @@ export class IpAccessControlListContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAccessControlListInstance>
-    ) => any
+      item?: ApiResponse<IpAccessControlListInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -248,14 +250,14 @@ export class IpAccessControlListContextImpl
             operationVersion,
             response.body,
             instance._solution.trunkSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -296,7 +298,7 @@ export class IpAccessControlListInstance {
     protected _version: V1,
     payload: IpAccessControlListResource,
     trunkSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
@@ -344,7 +346,7 @@ export class IpAccessControlListInstance {
       new IpAccessControlListContextImpl(
         this._version,
         this._solution.trunkSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -357,7 +359,7 @@ export class IpAccessControlListInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -370,7 +372,7 @@ export class IpAccessControlListInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -383,7 +385,7 @@ export class IpAccessControlListInstance {
    * @returns Resolves to processed IpAccessControlListInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any,
   ): Promise<IpAccessControlListInstance> {
     return this._proxy.fetch(callback);
   }
@@ -398,8 +400,8 @@ export class IpAccessControlListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAccessControlListInstance>
-    ) => any
+      item?: ApiResponse<IpAccessControlListInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -448,7 +450,7 @@ export interface IpAccessControlListListInstance {
    */
   create(
     params: IpAccessControlListListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any,
   ): Promise<IpAccessControlListInstance>;
 
   /**
@@ -463,8 +465,8 @@ export interface IpAccessControlListListInstance {
     params: IpAccessControlListListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpAccessControlListInstance>
-    ) => any
+      item?: ApiResponse<IpAccessControlListInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListInstance>>;
 
   /**
@@ -485,15 +487,15 @@ export interface IpAccessControlListListInstance {
   each(
     callback?: (
       item: IpAccessControlListInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: IpAccessControlListListInstanceEachOptions,
     callback?: (
       item: IpAccessControlListInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams IpAccessControlListInstance records from the API with HTTP metadata captured per page.
@@ -513,15 +515,15 @@ export interface IpAccessControlListListInstance {
   eachWithHttpInfo(
     callback?: (
       item: IpAccessControlListInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: IpAccessControlListListInstanceEachOptions,
     callback?: (
       item: IpAccessControlListInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of IpAccessControlListInstance records from the API.
@@ -533,7 +535,7 @@ export interface IpAccessControlListListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: IpAccessControlListPage) => any
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any,
   ): Promise<IpAccessControlListPage>;
   /**
    * Retrieve a single target page of IpAccessControlListInstance records from the API with HTTP metadata.
@@ -547,8 +549,8 @@ export interface IpAccessControlListListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAccessControlListPage>
-    ) => any
+      items: ApiResponse<IpAccessControlListPage>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListPage>>;
   /**
    * Lists IpAccessControlListInstance records from the API as a list.
@@ -562,15 +564,15 @@ export interface IpAccessControlListListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: IpAccessControlListInstance[]
-    ) => any
+      items: IpAccessControlListInstance[],
+    ) => any,
   ): Promise<IpAccessControlListInstance[]>;
   list(
     params: IpAccessControlListListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: IpAccessControlListInstance[]
-    ) => any
+      items: IpAccessControlListInstance[],
+    ) => any,
   ): Promise<IpAccessControlListInstance[]>;
   /**
    * Lists IpAccessControlListInstance records from the API as a list with HTTP metadata.
@@ -586,15 +588,15 @@ export interface IpAccessControlListListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAccessControlListInstance[]>
-    ) => any
+      items: ApiResponse<IpAccessControlListInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListInstance[]>>;
   listWithHttpInfo(
     params: IpAccessControlListListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAccessControlListInstance[]>
-    ) => any
+      items: ApiResponse<IpAccessControlListInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListInstance[]>>;
   /**
    * Retrieve a single page of IpAccessControlListInstance records from the API.
@@ -608,11 +610,11 @@ export interface IpAccessControlListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: IpAccessControlListPage) => any
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any,
   ): Promise<IpAccessControlListPage>;
   page(
     params: IpAccessControlListListInstancePageOptions,
-    callback?: (error: Error | null, items: IpAccessControlListPage) => any
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any,
   ): Promise<IpAccessControlListPage>;
   /**
    * Retrieve a single page of IpAccessControlListInstance records from the API with HTTP metadata.
@@ -628,15 +630,15 @@ export interface IpAccessControlListListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAccessControlListPage>
-    ) => any
+      items: ApiResponse<IpAccessControlListPage>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListPage>>;
   pageWithHttpInfo(
     params: IpAccessControlListListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAccessControlListPage>
-    ) => any
+      items: ApiResponse<IpAccessControlListPage>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListPage>>;
 
   /**
@@ -648,7 +650,7 @@ export interface IpAccessControlListListInstance {
 
 export function IpAccessControlListListInstance(
   version: V1,
-  trunkSid: string
+  trunkSid: string,
 ): IpAccessControlListListInstance {
   if (!isValidPathParam(trunkSid)) {
     throw new Error("Parameter 'trunkSid' is not valid.");
@@ -667,7 +669,7 @@ export function IpAccessControlListListInstance(
 
   instance.create = function create(
     params: IpAccessControlListListInstanceCreateOptions,
-    callback?: (error: Error | null, items: IpAccessControlListInstance) => any
+    callback?: (error: Error | null, items: IpAccessControlListInstance) => any,
   ): Promise<IpAccessControlListInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -678,7 +680,7 @@ export function IpAccessControlListListInstance(
       params["ipAccessControlListSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['ipAccessControlListSid']\" missing."
+        "Required parameter \"params['ipAccessControlListSid']\" missing.",
       );
     }
 
@@ -703,13 +705,13 @@ export function IpAccessControlListListInstance(
         new IpAccessControlListInstance(
           operationVersion,
           payload,
-          instance._solution.trunkSid
-        )
+          instance._solution.trunkSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -718,8 +720,8 @@ export function IpAccessControlListListInstance(
     params: IpAccessControlListListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAccessControlListInstance>
-    ) => any
+      items: ApiResponse<IpAccessControlListInstance>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -730,7 +732,7 @@ export function IpAccessControlListListInstance(
       params["ipAccessControlListSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['ipAccessControlListSid']\" missing."
+        "Required parameter \"params['ipAccessControlListSid']\" missing.",
       );
     }
 
@@ -757,14 +759,14 @@ export function IpAccessControlListListInstance(
           body: new IpAccessControlListInstance(
             operationVersion,
             response.body,
-            instance._solution.trunkSid
+            instance._solution.trunkSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -773,7 +775,7 @@ export function IpAccessControlListListInstance(
     params?:
       | IpAccessControlListListInstancePageOptions
       | ((error: Error | null, items: IpAccessControlListPage) => any),
-    callback?: (error: Error | null, items: IpAccessControlListPage) => any
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any,
   ): Promise<IpAccessControlListPage> {
     if (params instanceof Function) {
       callback = params;
@@ -805,13 +807,13 @@ export function IpAccessControlListListInstance(
         new IpAccessControlListPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -820,7 +822,7 @@ export function IpAccessControlListListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: IpAccessControlListPage) => any
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any,
   ): Promise<IpAccessControlListPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -831,8 +833,8 @@ export function IpAccessControlListListInstance(
         new IpAccessControlListPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -843,12 +845,12 @@ export function IpAccessControlListListInstance(
       | IpAccessControlListListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<IpAccessControlListPage>
+          items: ApiResponse<IpAccessControlListPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpAccessControlListPage>
-    ) => any
+      items: ApiResponse<IpAccessControlListPage>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -879,14 +881,14 @@ export function IpAccessControlListListInstance(
           body: new IpAccessControlListPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -899,8 +901,8 @@ export function IpAccessControlListListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<IpAccessControlListPage>
-    ) => any
+      items?: ApiResponse<IpAccessControlListPage>,
+    ) => any,
   ): Promise<ApiResponse<IpAccessControlListPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -915,9 +917,9 @@ export function IpAccessControlListListInstance(
         body: new IpAccessControlListPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -929,7 +931,7 @@ export function IpAccessControlListListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -953,7 +955,7 @@ export class IpAccessControlListPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: IpAccessControlListSolution
+    solution: IpAccessControlListSolution,
   ) {
     super(version, response, solution);
   }
@@ -964,12 +966,12 @@ export class IpAccessControlListPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: IpAccessControlListResource
+    payload: IpAccessControlListResource,
   ): IpAccessControlListInstance {
     return new IpAccessControlListInstance(
       this._version,
       payload,
-      this._solution.trunkSid
+      this._solution.trunkSid,
     );
   }
 

@@ -13,13 +13,13 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2010 from "../../V2010";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { RecordListInstance } from "./usage/record";
-import { TriggerListInstance } from "./usage/trigger";
+import { V2010 } from "../../V2010.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { RecordListInstance } from "./usage/record.js";
+import { TriggerListInstance } from "./usage/trigger.js";
 
 export interface UsageSolution {
   accountSid: string;
@@ -44,7 +44,7 @@ export interface UsageListInstance {
 
 export function UsageListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): UsageListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -61,7 +61,7 @@ export function UsageListInstance(
       if (!instance._records) {
         instance._records = RecordListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._records;
@@ -73,7 +73,7 @@ export function UsageListInstance(
       if (!instance._triggers) {
         instance._triggers = TriggerListInstance(
           instance._version,
-          instance._solution.accountSid
+          instance._solution.accountSid,
         );
       }
       return instance._triggers;
@@ -86,7 +86,7 @@ export function UsageListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

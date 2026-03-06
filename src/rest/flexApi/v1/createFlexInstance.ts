@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 export class CreateInstanceRequestBody {
   "conversation"?: CreateInstanceRequestBodyConversation;
@@ -47,7 +47,7 @@ export interface CreateFlexInstanceContext {
    * @returns Resolves to processed CreateFlexInstanceInstance
    */
   create(
-    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any
+    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any,
   ): Promise<CreateFlexInstanceInstance>;
   /**
    * Create a CreateFlexInstanceInstance
@@ -61,7 +61,7 @@ export interface CreateFlexInstanceContext {
   create(
     params: CreateInstanceRequestBody,
     headers?: any,
-    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any
+    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any,
   ): Promise<CreateFlexInstanceInstance>;
 
   /**
@@ -74,8 +74,8 @@ export interface CreateFlexInstanceContext {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CreateFlexInstanceInstance>
-    ) => any
+      item?: ApiResponse<CreateFlexInstanceInstance>,
+    ) => any,
   ): Promise<ApiResponse<CreateFlexInstanceInstance>>;
   /**
    * Create a CreateFlexInstanceInstance and return HTTP info
@@ -91,8 +91,8 @@ export interface CreateFlexInstanceContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CreateFlexInstanceInstance>
-    ) => any
+      item?: ApiResponse<CreateFlexInstanceInstance>,
+    ) => any,
   ): Promise<ApiResponse<CreateFlexInstanceInstance>>;
 
   /**
@@ -104,9 +104,7 @@ export interface CreateFlexInstanceContext {
 
 export interface CreateFlexInstanceContextSolution {}
 
-export class CreateFlexInstanceContextImpl
-  implements CreateFlexInstanceContext
-{
+export class CreateFlexInstanceContextImpl implements CreateFlexInstanceContext {
   protected _solution: CreateFlexInstanceContextSolution;
   protected _uri: string;
 
@@ -120,7 +118,7 @@ export class CreateFlexInstanceContextImpl
       | CreateInstanceRequestBody
       | ((error: Error | null, item?: CreateFlexInstanceInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any
+    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any,
   ): Promise<CreateFlexInstanceInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -150,12 +148,12 @@ export class CreateFlexInstanceContextImpl
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CreateFlexInstanceInstance(operationVersion, payload)
+      (payload) => new CreateFlexInstanceInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -165,13 +163,13 @@ export class CreateFlexInstanceContextImpl
       | CreateInstanceRequestBody
       | ((
           error: Error | null,
-          item?: ApiResponse<CreateFlexInstanceInstance>
+          item?: ApiResponse<CreateFlexInstanceInstance>,
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CreateFlexInstanceInstance>
-    ) => any
+      item?: ApiResponse<CreateFlexInstanceInstance>,
+    ) => any,
   ): Promise<ApiResponse<CreateFlexInstanceInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -205,12 +203,12 @@ export class CreateFlexInstanceContextImpl
         (response): ApiResponse<CreateFlexInstanceInstance> => ({
           ...response,
           body: new CreateFlexInstanceInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -243,7 +241,10 @@ export class CreateFlexInstanceInstance {
   protected _solution: CreateFlexInstanceContextSolution;
   protected _context?: CreateFlexInstanceContext;
 
-  constructor(protected _version: V1, payload: CreateFlexInstanceResource) {
+  constructor(
+    protected _version: V1,
+    payload: CreateFlexInstanceResource,
+  ) {
     this.flexInstanceSid = payload.flex_instance_sid;
     this.accountSid = payload.account_sid;
     this.status = payload.status;
@@ -273,7 +274,7 @@ export class CreateFlexInstanceInstance {
    * @returns Resolves to processed CreateFlexInstanceInstance
    */
   create(
-    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any
+    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any,
   ): Promise<CreateFlexInstanceInstance>;
   /**
    * Create a CreateFlexInstanceInstance
@@ -287,12 +288,12 @@ export class CreateFlexInstanceInstance {
   create(
     params: CreateInstanceRequestBody,
     headers?: any,
-    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any
+    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any,
   ): Promise<CreateFlexInstanceInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any
+    callback?: (error: Error | null, item?: CreateFlexInstanceInstance) => any,
   ): Promise<CreateFlexInstanceInstance> {
     return this._proxy.create(params, callback);
   }
@@ -307,8 +308,8 @@ export class CreateFlexInstanceInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CreateFlexInstanceInstance>
-    ) => any
+      item?: ApiResponse<CreateFlexInstanceInstance>,
+    ) => any,
   ): Promise<ApiResponse<CreateFlexInstanceInstance>>;
   /**
    * Create a CreateFlexInstanceInstance and return HTTP info
@@ -324,16 +325,16 @@ export class CreateFlexInstanceInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CreateFlexInstanceInstance>
-    ) => any
+      item?: ApiResponse<CreateFlexInstanceInstance>,
+    ) => any,
   ): Promise<ApiResponse<CreateFlexInstanceInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CreateFlexInstanceInstance>
-    ) => any
+      item?: ApiResponse<CreateFlexInstanceInstance>,
+    ) => any,
   ): Promise<ApiResponse<CreateFlexInstanceInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -376,7 +377,7 @@ export interface CreateFlexInstanceListInstance {
 }
 
 export function CreateFlexInstanceListInstance(
-  version: V1
+  version: V1,
 ): CreateFlexInstanceListInstance {
   const instance = (() => instance.get()) as CreateFlexInstanceListInstance;
 
@@ -394,7 +395,7 @@ export function CreateFlexInstanceListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -14,14 +14,14 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V2010 from "../../../V2010";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V2010 } from "../../../V2010.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
+import { PhoneNumberCapabilities } from "../../../../../interfaces.js";
 
 /**
  * Options to pass to each
@@ -68,7 +68,7 @@ export interface MachineToMachineListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: MachineToMachineInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -199,15 +199,15 @@ export interface MachineToMachineListInstance {
   each(
     callback?: (
       item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: MachineToMachineListInstanceEachOptions,
     callback?: (
       item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams MachineToMachineInstance records from the API with HTTP metadata captured per page.
@@ -227,15 +227,15 @@ export interface MachineToMachineListInstance {
   eachWithHttpInfo(
     callback?: (
       item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: MachineToMachineListInstanceEachOptions,
     callback?: (
       item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of MachineToMachineInstance records from the API.
@@ -247,7 +247,7 @@ export interface MachineToMachineListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
+    callback?: (error: Error | null, items: MachineToMachinePage) => any,
   ): Promise<MachineToMachinePage>;
   /**
    * Retrieve a single target page of MachineToMachineInstance records from the API with HTTP metadata.
@@ -261,8 +261,8 @@ export interface MachineToMachineListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MachineToMachinePage>
-    ) => any
+      items: ApiResponse<MachineToMachinePage>,
+    ) => any,
   ): Promise<ApiResponse<MachineToMachinePage>>;
   /**
    * Lists MachineToMachineInstance records from the API as a list.
@@ -274,11 +274,11 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
+    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any,
   ): Promise<MachineToMachineInstance[]>;
   list(
     params: MachineToMachineListInstanceOptions,
-    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
+    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any,
   ): Promise<MachineToMachineInstance[]>;
   /**
    * Lists MachineToMachineInstance records from the API as a list with HTTP metadata.
@@ -294,15 +294,15 @@ export interface MachineToMachineListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<MachineToMachineInstance[]>
-    ) => any
+      items: ApiResponse<MachineToMachineInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<MachineToMachineInstance[]>>;
   listWithHttpInfo(
     params: MachineToMachineListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MachineToMachineInstance[]>
-    ) => any
+      items: ApiResponse<MachineToMachineInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<MachineToMachineInstance[]>>;
   /**
    * Retrieve a single page of MachineToMachineInstance records from the API.
@@ -316,11 +316,11 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
+    callback?: (error: Error | null, items: MachineToMachinePage) => any,
   ): Promise<MachineToMachinePage>;
   page(
     params: MachineToMachineListInstancePageOptions,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
+    callback?: (error: Error | null, items: MachineToMachinePage) => any,
   ): Promise<MachineToMachinePage>;
   /**
    * Retrieve a single page of MachineToMachineInstance records from the API with HTTP metadata.
@@ -336,15 +336,15 @@ export interface MachineToMachineListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<MachineToMachinePage>
-    ) => any
+      items: ApiResponse<MachineToMachinePage>,
+    ) => any,
   ): Promise<ApiResponse<MachineToMachinePage>>;
   pageWithHttpInfo(
     params: MachineToMachineListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MachineToMachinePage>
-    ) => any
+      items: ApiResponse<MachineToMachinePage>,
+    ) => any,
   ): Promise<ApiResponse<MachineToMachinePage>>;
 
   /**
@@ -357,7 +357,7 @@ export interface MachineToMachineListInstance {
 export function MachineToMachineListInstance(
   version: V2010,
   accountSid: string,
-  countryCode: string
+  countryCode: string,
 ): MachineToMachineListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -377,7 +377,7 @@ export function MachineToMachineListInstance(
     params?:
       | MachineToMachineListInstancePageOptions
       | ((error: Error | null, items: MachineToMachinePage) => any),
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
+    callback?: (error: Error | null, items: MachineToMachinePage) => any,
   ): Promise<MachineToMachinePage> {
     if (params instanceof Function) {
       callback = params;
@@ -398,15 +398,15 @@ export function MachineToMachineListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
+        params["excludeAllAddressRequired"],
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
+        params["excludeLocalAddressRequired"],
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
+        params["excludeForeignAddressRequired"],
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -443,12 +443,12 @@ export function MachineToMachineListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MachineToMachinePage(operationVersion, payload, instance._solution)
+        new MachineToMachinePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -457,7 +457,7 @@ export function MachineToMachineListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
+    callback?: (error: Error | null, items: MachineToMachinePage) => any,
   ): Promise<MachineToMachinePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -465,7 +465,11 @@ export function MachineToMachineListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new MachineToMachinePage(instance._version, payload, instance._solution)
+        new MachineToMachinePage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -476,12 +480,12 @@ export function MachineToMachineListInstance(
       | MachineToMachineListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<MachineToMachinePage>
+          items: ApiResponse<MachineToMachinePage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<MachineToMachinePage>
-    ) => any
+      items: ApiResponse<MachineToMachinePage>,
+    ) => any,
   ): Promise<ApiResponse<MachineToMachinePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -502,15 +506,15 @@ export function MachineToMachineListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
+        params["excludeAllAddressRequired"],
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
+        params["excludeLocalAddressRequired"],
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
+        params["excludeForeignAddressRequired"],
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -549,14 +553,14 @@ export function MachineToMachineListInstance(
           body: new MachineToMachinePage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -569,8 +573,8 @@ export function MachineToMachineListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<MachineToMachinePage>
-    ) => any
+      items?: ApiResponse<MachineToMachinePage>,
+    ) => any,
   ): Promise<ApiResponse<MachineToMachinePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -585,9 +589,9 @@ export function MachineToMachineListInstance(
         body: new MachineToMachinePage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -599,7 +603,7 @@ export function MachineToMachineListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -632,7 +636,7 @@ export class MachineToMachineInstance {
     protected _version: V2010,
     payload: MachineToMachineResource,
     accountSid: string,
-    countryCode: string
+    countryCode: string,
   ) {
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;
@@ -743,7 +747,7 @@ export class MachineToMachinePage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: MachineToMachineSolution
+    solution: MachineToMachineSolution,
   ) {
     super(version, response, solution);
   }
@@ -758,7 +762,7 @@ export class MachineToMachinePage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.countryCode
+      this._solution.countryCode,
     );
   }
 

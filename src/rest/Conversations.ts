@@ -1,14 +1,14 @@
-import { AddressConfigurationListInstance } from "./conversations/v1/addressConfiguration";
-import { ConfigurationListInstance } from "./conversations/v1/configuration";
-import { ConversationListInstance } from "./conversations/v1/conversation";
-import { CredentialListInstance } from "./conversations/v1/credential";
-import { ParticipantConversationListInstance } from "./conversations/v1/participantConversation";
-import { RoleListInstance } from "./conversations/v1/role";
-import { ServiceListInstance } from "./conversations/v1/service";
-import { UserListInstance } from "./conversations/v1/user";
-import ConversationsBase from "./ConversationsBase";
+import { AddressConfigurationListInstance } from "./conversations/v1/addressConfiguration.js";
+import { ConfigurationListInstance } from "./conversations/v1/configuration.js";
+import { ConversationListInstance } from "./conversations/v1/conversation.js";
+import { CredentialListInstance } from "./conversations/v1/credential.js";
+import { ParticipantConversationListInstance } from "./conversations/v1/participantConversation.js";
+import { RoleListInstance } from "./conversations/v1/role.js";
+import { ServiceListInstance } from "./conversations/v1/service.js";
+import { UserListInstance } from "./conversations/v1/user.js";
+import { ConversationsBase } from "./ConversationsBase.js";
 
-class Conversations extends ConversationsBase {
+export class Conversations extends ConversationsBase {
   /**
    * @deprecated - Use v1.configuration instead
    */
@@ -22,7 +22,7 @@ class Conversations extends ConversationsBase {
    */
   get addressConfigurations(): AddressConfigurationListInstance {
     console.warn(
-      "addressConfigurations is deprecated. Use v1.addressConfigurations instead."
+      "addressConfigurations is deprecated. Use v1.addressConfigurations instead.",
     );
     return this.v1.addressConfigurations;
   }
@@ -48,7 +48,7 @@ class Conversations extends ConversationsBase {
    */
   get participantConversations(): ParticipantConversationListInstance {
     console.warn(
-      "participantConversations is deprecated. Use v1.participantConversations instead."
+      "participantConversations is deprecated. Use v1.participantConversations instead.",
     );
     return this.v1.participantConversations;
   }
@@ -77,5 +77,3 @@ class Conversations extends ConversationsBase {
     return this.v1.users;
   }
 }
-
-export = Conversations;

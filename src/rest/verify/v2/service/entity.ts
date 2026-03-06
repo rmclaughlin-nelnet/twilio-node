@@ -14,16 +14,16 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V2 from "../../V2";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { ChallengeListInstance } from "./entity/challenge";
-import { FactorListInstance } from "./entity/factor";
-import { NewFactorListInstance } from "./entity/newFactor";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V2 } from "../../V2.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { ChallengeListInstance } from "./entity/challenge.js";
+import { FactorListInstance } from "./entity/factor.js";
+import { NewFactorListInstance } from "./entity/newFactor.js";
 
 /**
  * Options to pass to create a EntityInstance
@@ -82,7 +82,7 @@ export interface EntityContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -93,7 +93,7 @@ export interface EntityContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -104,7 +104,7 @@ export interface EntityContext {
    * @returns Resolves to processed EntityInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EntityInstance) => any
+    callback?: (error: Error | null, item?: EntityInstance) => any,
   ): Promise<EntityInstance>;
 
   /**
@@ -115,7 +115,7 @@ export interface EntityContext {
    * @returns Resolves to processed EntityInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<EntityInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<EntityInstance>) => any,
   ): Promise<ApiResponse<EntityInstance>>;
 
   /**
@@ -138,7 +138,11 @@ export class EntityContextImpl implements EntityContext {
   protected _factors?: FactorListInstance;
   protected _newFactors?: NewFactorListInstance;
 
-  constructor(protected _version: V2, serviceSid: string, identity: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    identity: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -157,7 +161,7 @@ export class EntityContextImpl implements EntityContext {
       ChallengeListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.identity
+        this._solution.identity,
       );
     return this._challenges;
   }
@@ -168,7 +172,7 @@ export class EntityContextImpl implements EntityContext {
       FactorListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.identity
+        this._solution.identity,
       );
     return this._factors;
   }
@@ -179,13 +183,13 @@ export class EntityContextImpl implements EntityContext {
       NewFactorListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.identity
+        this._solution.identity,
       );
     return this._newFactors;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -199,13 +203,13 @@ export class EntityContextImpl implements EntityContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -218,18 +222,18 @@ export class EntityContextImpl implements EntityContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EntityInstance) => any
+    callback?: (error: Error | null, item?: EntityInstance) => any,
   ): Promise<EntityInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -248,19 +252,19 @@ export class EntityContextImpl implements EntityContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.identity
-        )
+          instance._solution.identity,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<EntityInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<EntityInstance>) => any,
   ): Promise<ApiResponse<EntityInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -281,14 +285,14 @@ export class EntityContextImpl implements EntityContext {
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.identity
+            instance._solution.identity,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -330,7 +334,7 @@ export class EntityInstance {
     protected _version: V2,
     payload: EntityResource,
     serviceSid: string,
-    identity?: string
+    identity?: string,
   ) {
     this.sid = payload.sid;
     this.identity = payload.identity;
@@ -383,7 +387,7 @@ export class EntityInstance {
       new EntityContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.identity
+        this._solution.identity,
       );
     return this._context;
   }
@@ -396,7 +400,7 @@ export class EntityInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -409,7 +413,7 @@ export class EntityInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -422,7 +426,7 @@ export class EntityInstance {
    * @returns Resolves to processed EntityInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EntityInstance) => any
+    callback?: (error: Error | null, item?: EntityInstance) => any,
   ): Promise<EntityInstance> {
     return this._proxy.fetch(callback);
   }
@@ -435,7 +439,7 @@ export class EntityInstance {
    * @returns Resolves to processed EntityInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<EntityInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<EntityInstance>) => any,
   ): Promise<ApiResponse<EntityInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -506,7 +510,7 @@ export interface EntityListInstance {
    */
   create(
     params: EntityListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EntityInstance) => any
+    callback?: (error: Error | null, item?: EntityInstance) => any,
   ): Promise<EntityInstance>;
 
   /**
@@ -519,7 +523,7 @@ export interface EntityListInstance {
    */
   createWithHttpInfo(
     params: EntityListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<EntityInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<EntityInstance>) => any,
   ): Promise<ApiResponse<EntityInstance>>;
 
   /**
@@ -538,11 +542,11 @@ export interface EntityListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: EntityInstance, done: (err?: Error) => void) => void
+    callback?: (item: EntityInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: EntityListInstanceEachOptions,
-    callback?: (item: EntityInstance, done: (err?: Error) => void) => void
+    callback?: (item: EntityInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams EntityInstance records from the API with HTTP metadata captured per page.
@@ -560,11 +564,11 @@ export interface EntityListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: EntityInstance, done: (err?: Error) => void) => void
+    callback?: (item: EntityInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: EntityListInstanceEachOptions,
-    callback?: (item: EntityInstance, done: (err?: Error) => void) => void
+    callback?: (item: EntityInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of EntityInstance records from the API.
@@ -576,7 +580,7 @@ export interface EntityListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EntityPage) => any
+    callback?: (error: Error | null, items: EntityPage) => any,
   ): Promise<EntityPage>;
   /**
    * Retrieve a single target page of EntityInstance records from the API with HTTP metadata.
@@ -588,7 +592,7 @@ export interface EntityListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<EntityPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EntityPage>) => any,
   ): Promise<ApiResponse<EntityPage>>;
   /**
    * Lists EntityInstance records from the API as a list.
@@ -600,11 +604,11 @@ export interface EntityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: EntityInstance[]) => any
+    callback?: (error: Error | null, items: EntityInstance[]) => any,
   ): Promise<EntityInstance[]>;
   list(
     params: EntityListInstanceOptions,
-    callback?: (error: Error | null, items: EntityInstance[]) => any
+    callback?: (error: Error | null, items: EntityInstance[]) => any,
   ): Promise<EntityInstance[]>;
   /**
    * Lists EntityInstance records from the API as a list with HTTP metadata.
@@ -620,15 +624,15 @@ export interface EntityListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EntityInstance[]>
-    ) => any
+      items: ApiResponse<EntityInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EntityInstance[]>>;
   listWithHttpInfo(
     params: EntityListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EntityInstance[]>
-    ) => any
+      items: ApiResponse<EntityInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EntityInstance[]>>;
   /**
    * Retrieve a single page of EntityInstance records from the API.
@@ -642,11 +646,11 @@ export interface EntityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: EntityPage) => any
+    callback?: (error: Error | null, items: EntityPage) => any,
   ): Promise<EntityPage>;
   page(
     params: EntityListInstancePageOptions,
-    callback?: (error: Error | null, items: EntityPage) => any
+    callback?: (error: Error | null, items: EntityPage) => any,
   ): Promise<EntityPage>;
   /**
    * Retrieve a single page of EntityInstance records from the API with HTTP metadata.
@@ -660,11 +664,11 @@ export interface EntityListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<EntityPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EntityPage>) => any,
   ): Promise<ApiResponse<EntityPage>>;
   pageWithHttpInfo(
     params: EntityListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<EntityPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EntityPage>) => any,
   ): Promise<ApiResponse<EntityPage>>;
 
   /**
@@ -676,7 +680,7 @@ export interface EntityListInstance {
 
 export function EntityListInstance(
   version: V2,
-  serviceSid: string
+  serviceSid: string,
 ): EntityListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -694,7 +698,7 @@ export function EntityListInstance(
 
   instance.create = function create(
     params: EntityListInstanceCreateOptions,
-    callback?: (error: Error | null, items: EntityInstance) => any
+    callback?: (error: Error | null, items: EntityInstance) => any,
   ): Promise<EntityInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -725,20 +729,20 @@ export function EntityListInstance(
         new EntityInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: EntityListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<EntityInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<EntityInstance>) => any,
   ): Promise<ApiResponse<EntityInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -771,14 +775,14 @@ export function EntityListInstance(
           body: new EntityInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -787,7 +791,7 @@ export function EntityListInstance(
     params?:
       | EntityListInstancePageOptions
       | ((error: Error | null, items: EntityPage) => any),
-    callback?: (error: Error | null, items: EntityPage) => any
+    callback?: (error: Error | null, items: EntityPage) => any,
   ): Promise<EntityPage> {
     if (params instanceof Function) {
       callback = params;
@@ -815,12 +819,13 @@ export function EntityListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EntityPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new EntityPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -829,7 +834,7 @@ export function EntityListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EntityPage) => any
+    callback?: (error: Error | null, items: EntityPage) => any,
   ): Promise<EntityPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -837,7 +842,7 @@ export function EntityListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new EntityPage(instance._version, payload, instance._solution)
+        new EntityPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -847,7 +852,7 @@ export function EntityListInstance(
     params?:
       | EntityListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<EntityPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<EntityPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EntityPage>) => any,
   ): Promise<ApiResponse<EntityPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -876,12 +881,12 @@ export function EntityListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new EntityPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -892,7 +897,7 @@ export function EntityListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<EntityPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<EntityPage>) => any,
   ): Promise<ApiResponse<EntityPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -905,7 +910,7 @@ export function EntityListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new EntityPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -917,7 +922,7 @@ export function EntityListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -941,7 +946,7 @@ export class EntityPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: EntitySolution
+    solution: EntitySolution,
   ) {
     super(version, response, solution);
   }
@@ -955,7 +960,7 @@ export class EntityPage extends Page<
     return new EntityInstance(
       this._version,
       payload,
-      this._solution.serviceSid
+      this._solution.serviceSid,
     );
   }
 

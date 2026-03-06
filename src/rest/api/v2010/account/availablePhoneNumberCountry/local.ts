@@ -14,14 +14,14 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V2010 from "../../../V2010";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V2010 } from "../../../V2010.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
+import { PhoneNumberCapabilities } from "../../../../../interfaces.js";
 
 /**
  * Options to pass to each
@@ -194,11 +194,11 @@ export interface LocalListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: LocalListInstanceEachOptions,
-    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams LocalInstance records from the API with HTTP metadata captured per page.
@@ -216,11 +216,11 @@ export interface LocalListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: LocalListInstanceEachOptions,
-    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of LocalInstance records from the API.
@@ -232,7 +232,7 @@ export interface LocalListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LocalPage) => any
+    callback?: (error: Error | null, items: LocalPage) => any,
   ): Promise<LocalPage>;
   /**
    * Retrieve a single target page of LocalInstance records from the API with HTTP metadata.
@@ -244,7 +244,7 @@ export interface LocalListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<LocalPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<LocalPage>) => any,
   ): Promise<ApiResponse<LocalPage>>;
   /**
    * Lists LocalInstance records from the API as a list.
@@ -256,11 +256,11 @@ export interface LocalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: LocalInstance[]) => any
+    callback?: (error: Error | null, items: LocalInstance[]) => any,
   ): Promise<LocalInstance[]>;
   list(
     params: LocalListInstanceOptions,
-    callback?: (error: Error | null, items: LocalInstance[]) => any
+    callback?: (error: Error | null, items: LocalInstance[]) => any,
   ): Promise<LocalInstance[]>;
   /**
    * Lists LocalInstance records from the API as a list with HTTP metadata.
@@ -274,11 +274,17 @@ export interface LocalListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<LocalInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<LocalInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<LocalInstance[]>>;
   listWithHttpInfo(
     params: LocalListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<LocalInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<LocalInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<LocalInstance[]>>;
   /**
    * Retrieve a single page of LocalInstance records from the API.
@@ -292,11 +298,11 @@ export interface LocalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: LocalPage) => any
+    callback?: (error: Error | null, items: LocalPage) => any,
   ): Promise<LocalPage>;
   page(
     params: LocalListInstancePageOptions,
-    callback?: (error: Error | null, items: LocalPage) => any
+    callback?: (error: Error | null, items: LocalPage) => any,
   ): Promise<LocalPage>;
   /**
    * Retrieve a single page of LocalInstance records from the API with HTTP metadata.
@@ -310,11 +316,11 @@ export interface LocalListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<LocalPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<LocalPage>) => any,
   ): Promise<ApiResponse<LocalPage>>;
   pageWithHttpInfo(
     params: LocalListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<LocalPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<LocalPage>) => any,
   ): Promise<ApiResponse<LocalPage>>;
 
   /**
@@ -327,7 +333,7 @@ export interface LocalListInstance {
 export function LocalListInstance(
   version: V2010,
   accountSid: string,
-  countryCode: string
+  countryCode: string,
 ): LocalListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -347,7 +353,7 @@ export function LocalListInstance(
     params?:
       | LocalListInstancePageOptions
       | ((error: Error | null, items: LocalPage) => any),
-    callback?: (error: Error | null, items: LocalPage) => any
+    callback?: (error: Error | null, items: LocalPage) => any,
   ): Promise<LocalPage> {
     if (params instanceof Function) {
       callback = params;
@@ -368,15 +374,15 @@ export function LocalListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
+        params["excludeAllAddressRequired"],
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
+        params["excludeLocalAddressRequired"],
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
+        params["excludeForeignAddressRequired"],
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -412,12 +418,12 @@ export function LocalListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new LocalPage(operationVersion, payload, instance._solution)
+      (payload) => new LocalPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -426,14 +432,15 @@ export function LocalListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LocalPage) => any
+    callback?: (error: Error | null, items: LocalPage) => any,
   ): Promise<LocalPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new LocalPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new LocalPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -443,7 +450,7 @@ export function LocalListInstance(
     params?:
       | LocalListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<LocalPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<LocalPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<LocalPage>) => any,
   ): Promise<ApiResponse<LocalPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -464,15 +471,15 @@ export function LocalListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
+        params["excludeAllAddressRequired"],
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
+        params["excludeLocalAddressRequired"],
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
+        params["excludeForeignAddressRequired"],
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -509,12 +516,12 @@ export function LocalListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new LocalPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -525,7 +532,7 @@ export function LocalListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<LocalPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<LocalPage>) => any,
   ): Promise<ApiResponse<LocalPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -538,7 +545,7 @@ export function LocalListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new LocalPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -550,7 +557,7 @@ export function LocalListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -583,7 +590,7 @@ export class LocalInstance {
     protected _version: V2010,
     payload: LocalResource,
     accountSid: string,
-    countryCode: string
+    countryCode: string,
   ) {
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;
@@ -694,7 +701,7 @@ export class LocalPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: LocalSolution
+    solution: LocalSolution,
   ) {
     super(version, response, solution);
   }
@@ -709,7 +716,7 @@ export class LocalPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.countryCode
+      this._solution.countryCode,
     );
   }
 

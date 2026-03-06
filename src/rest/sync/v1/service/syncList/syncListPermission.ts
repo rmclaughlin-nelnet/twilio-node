@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V1 from "../../../V1";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V1 } from "../../../V1.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to update a SyncListPermissionInstance
@@ -42,7 +42,7 @@ export interface SyncListPermissionListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SyncListPermissionInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -82,7 +82,7 @@ export interface SyncListPermissionContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -93,7 +93,7 @@ export interface SyncListPermissionContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -104,7 +104,7 @@ export interface SyncListPermissionContext {
    * @returns Resolves to processed SyncListPermissionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any,
   ): Promise<SyncListPermissionInstance>;
 
   /**
@@ -117,8 +117,8 @@ export interface SyncListPermissionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListPermissionInstance>
-    ) => any
+      item?: ApiResponse<SyncListPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance>>;
 
   /**
@@ -131,7 +131,7 @@ export interface SyncListPermissionContext {
    */
   update(
     params: SyncListPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any,
   ): Promise<SyncListPermissionInstance>;
 
   /**
@@ -146,8 +146,8 @@ export interface SyncListPermissionContext {
     params: SyncListPermissionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListPermissionInstance>
-    ) => any
+      item?: ApiResponse<SyncListPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance>>;
 
   /**
@@ -163,9 +163,7 @@ export interface SyncListPermissionContextSolution {
   identity: string;
 }
 
-export class SyncListPermissionContextImpl
-  implements SyncListPermissionContext
-{
+export class SyncListPermissionContextImpl implements SyncListPermissionContext {
   protected _solution: SyncListPermissionContextSolution;
   protected _uri: string;
 
@@ -173,7 +171,7 @@ export class SyncListPermissionContextImpl
     protected _version: V1,
     serviceSid: string,
     listSid: string,
-    identity: string
+    identity: string,
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -192,7 +190,7 @@ export class SyncListPermissionContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -206,13 +204,13 @@ export class SyncListPermissionContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -225,18 +223,18 @@ export class SyncListPermissionContextImpl
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any,
   ): Promise<SyncListPermissionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -256,13 +254,13 @@ export class SyncListPermissionContextImpl
           payload,
           instance._solution.serviceSid,
           instance._solution.listSid,
-          instance._solution.identity
-        )
+          instance._solution.identity,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -270,8 +268,8 @@ export class SyncListPermissionContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListPermissionInstance>
-    ) => any
+      item?: ApiResponse<SyncListPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -293,21 +291,21 @@ export class SyncListPermissionContextImpl
             response.body,
             instance._solution.serviceSid,
             instance._solution.listSid,
-            instance._solution.identity
+            instance._solution.identity,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: SyncListPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any,
   ): Promise<SyncListPermissionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -353,13 +351,13 @@ export class SyncListPermissionContextImpl
           payload,
           instance._solution.serviceSid,
           instance._solution.listSid,
-          instance._solution.identity
-        )
+          instance._solution.identity,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -368,8 +366,8 @@ export class SyncListPermissionContextImpl
     params: SyncListPermissionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListPermissionInstance>
-    ) => any
+      item?: ApiResponse<SyncListPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -417,14 +415,14 @@ export class SyncListPermissionContextImpl
             response.body,
             instance._solution.serviceSid,
             instance._solution.listSid,
-            instance._solution.identity
+            instance._solution.identity,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -467,7 +465,7 @@ export class SyncListPermissionInstance {
     payload: SyncListPermissionResource,
     serviceSid: string,
     listSid: string,
-    identity?: string
+    identity?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.serviceSid = payload.service_sid;
@@ -525,7 +523,7 @@ export class SyncListPermissionInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.listSid,
-        this._solution.identity
+        this._solution.identity,
       );
     return this._context;
   }
@@ -538,7 +536,7 @@ export class SyncListPermissionInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -551,7 +549,7 @@ export class SyncListPermissionInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -564,7 +562,7 @@ export class SyncListPermissionInstance {
    * @returns Resolves to processed SyncListPermissionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any,
   ): Promise<SyncListPermissionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -579,8 +577,8 @@ export class SyncListPermissionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListPermissionInstance>
-    ) => any
+      item?: ApiResponse<SyncListPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -595,12 +593,12 @@ export class SyncListPermissionInstance {
    */
   update(
     params: SyncListPermissionContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any,
   ): Promise<SyncListPermissionInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any,
   ): Promise<SyncListPermissionInstance> {
     return this._proxy.update(params, callback);
   }
@@ -617,16 +615,16 @@ export class SyncListPermissionInstance {
     params: SyncListPermissionContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListPermissionInstance>
-    ) => any
+      item?: ApiResponse<SyncListPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListPermissionInstance>
-    ) => any
+      item?: ApiResponse<SyncListPermissionInstance>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -685,15 +683,15 @@ export interface SyncListPermissionListInstance {
   each(
     callback?: (
       item: SyncListPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: SyncListPermissionListInstanceEachOptions,
     callback?: (
       item: SyncListPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams SyncListPermissionInstance records from the API with HTTP metadata captured per page.
@@ -713,15 +711,15 @@ export interface SyncListPermissionListInstance {
   eachWithHttpInfo(
     callback?: (
       item: SyncListPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: SyncListPermissionListInstanceEachOptions,
     callback?: (
       item: SyncListPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of SyncListPermissionInstance records from the API.
@@ -733,7 +731,7 @@ export interface SyncListPermissionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any,
   ): Promise<SyncListPermissionPage>;
   /**
    * Retrieve a single target page of SyncListPermissionInstance records from the API with HTTP metadata.
@@ -747,8 +745,8 @@ export interface SyncListPermissionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListPermissionPage>
-    ) => any
+      items: ApiResponse<SyncListPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionPage>>;
   /**
    * Lists SyncListPermissionInstance records from the API as a list.
@@ -760,11 +758,17 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
+    callback?: (
+      error: Error | null,
+      items: SyncListPermissionInstance[],
+    ) => any,
   ): Promise<SyncListPermissionInstance[]>;
   list(
     params: SyncListPermissionListInstanceOptions,
-    callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
+    callback?: (
+      error: Error | null,
+      items: SyncListPermissionInstance[],
+    ) => any,
   ): Promise<SyncListPermissionInstance[]>;
   /**
    * Lists SyncListPermissionInstance records from the API as a list with HTTP metadata.
@@ -780,15 +784,15 @@ export interface SyncListPermissionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListPermissionInstance[]>
-    ) => any
+      items: ApiResponse<SyncListPermissionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance[]>>;
   listWithHttpInfo(
     params: SyncListPermissionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListPermissionInstance[]>
-    ) => any
+      items: ApiResponse<SyncListPermissionInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionInstance[]>>;
   /**
    * Retrieve a single page of SyncListPermissionInstance records from the API.
@@ -802,11 +806,11 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any,
   ): Promise<SyncListPermissionPage>;
   page(
     params: SyncListPermissionListInstancePageOptions,
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any,
   ): Promise<SyncListPermissionPage>;
   /**
    * Retrieve a single page of SyncListPermissionInstance records from the API with HTTP metadata.
@@ -822,15 +826,15 @@ export interface SyncListPermissionListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListPermissionPage>
-    ) => any
+      items: ApiResponse<SyncListPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionPage>>;
   pageWithHttpInfo(
     params: SyncListPermissionListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListPermissionPage>
-    ) => any
+      items: ApiResponse<SyncListPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionPage>>;
 
   /**
@@ -843,7 +847,7 @@ export interface SyncListPermissionListInstance {
 export function SyncListPermissionListInstance(
   version: V1,
   serviceSid: string,
-  listSid: string
+  listSid: string,
 ): SyncListPermissionListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -861,7 +865,7 @@ export function SyncListPermissionListInstance(
       version,
       serviceSid,
       listSid,
-      identity
+      identity,
     );
   };
 
@@ -873,7 +877,7 @@ export function SyncListPermissionListInstance(
     params?:
       | SyncListPermissionListInstancePageOptions
       | ((error: Error | null, items: SyncListPermissionPage) => any),
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any,
   ): Promise<SyncListPermissionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -905,13 +909,13 @@ export function SyncListPermissionListInstance(
         new SyncListPermissionPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -920,7 +924,7 @@ export function SyncListPermissionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any,
   ): Promise<SyncListPermissionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -931,8 +935,8 @@ export function SyncListPermissionListInstance(
         new SyncListPermissionPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -943,12 +947,12 @@ export function SyncListPermissionListInstance(
       | SyncListPermissionListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<SyncListPermissionPage>
+          items: ApiResponse<SyncListPermissionPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListPermissionPage>
-    ) => any
+      items: ApiResponse<SyncListPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -979,14 +983,14 @@ export function SyncListPermissionListInstance(
           body: new SyncListPermissionPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -999,8 +1003,8 @@ export function SyncListPermissionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<SyncListPermissionPage>
-    ) => any
+      items?: ApiResponse<SyncListPermissionPage>,
+    ) => any,
   ): Promise<ApiResponse<SyncListPermissionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1015,9 +1019,9 @@ export function SyncListPermissionListInstance(
         body: new SyncListPermissionPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1029,7 +1033,7 @@ export function SyncListPermissionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1053,7 +1057,7 @@ export class SyncListPermissionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: SyncListPermissionSolution
+    solution: SyncListPermissionSolution,
   ) {
     super(version, response, solution);
   }
@@ -1068,7 +1072,7 @@ export class SyncListPermissionPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.listSid
+      this._solution.listSid,
     );
   }
 

@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to fetch a ConfiguredPluginInstance
@@ -40,7 +40,7 @@ export interface ConfiguredPluginListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ConfiguredPluginInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -84,7 +84,7 @@ export interface ConfiguredPluginContext {
    * @returns Resolves to processed ConfiguredPluginInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
+    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any,
   ): Promise<ConfiguredPluginInstance>;
   /**
    * Fetch a ConfiguredPluginInstance
@@ -96,7 +96,7 @@ export interface ConfiguredPluginContext {
    */
   fetch(
     params: ConfiguredPluginContextFetchOptions,
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
+    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any,
   ): Promise<ConfiguredPluginInstance>;
 
   /**
@@ -109,8 +109,8 @@ export interface ConfiguredPluginContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfiguredPluginInstance>
-    ) => any
+      item?: ApiResponse<ConfiguredPluginInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginInstance>>;
   /**
    * Fetch a ConfiguredPluginInstance and return HTTP info
@@ -124,8 +124,8 @@ export interface ConfiguredPluginContext {
     params: ConfiguredPluginContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfiguredPluginInstance>
-    ) => any
+      item?: ApiResponse<ConfiguredPluginInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginInstance>>;
 
   /**
@@ -147,7 +147,7 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
   constructor(
     protected _version: V1,
     configurationSid: string,
-    pluginSid: string
+    pluginSid: string,
   ) {
     if (!isValidPathParam(configurationSid)) {
       throw new Error("Parameter 'configurationSid' is not valid.");
@@ -165,7 +165,7 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
     params?:
       | ConfiguredPluginContextFetchOptions
       | ((error: Error | null, item?: ConfiguredPluginInstance) => any),
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
+    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any,
   ): Promise<ConfiguredPluginInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -196,13 +196,13 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
           operationVersion,
           payload,
           instance._solution.configurationSid,
-          instance._solution.pluginSid
-        )
+          instance._solution.pluginSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -212,12 +212,12 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
       | ConfiguredPluginContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ConfiguredPluginInstance>
+          item?: ApiResponse<ConfiguredPluginInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfiguredPluginInstance>
-    ) => any
+      item?: ApiResponse<ConfiguredPluginInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -250,14 +250,14 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
             operationVersion,
             response.body,
             instance._solution.configurationSid,
-            instance._solution.pluginSid
+            instance._solution.pluginSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -307,7 +307,7 @@ export class ConfiguredPluginInstance {
     protected _version: V1,
     payload: ConfiguredPluginResource,
     configurationSid: string,
-    pluginSid?: string
+    pluginSid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.configurationSid = payload.configuration_sid;
@@ -403,7 +403,7 @@ export class ConfiguredPluginInstance {
       new ConfiguredPluginContextImpl(
         this._version,
         this._solution.configurationSid,
-        this._solution.pluginSid
+        this._solution.pluginSid,
       );
     return this._context;
   }
@@ -416,7 +416,7 @@ export class ConfiguredPluginInstance {
    * @returns Resolves to processed ConfiguredPluginInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
+    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any,
   ): Promise<ConfiguredPluginInstance>;
   /**
    * Fetch a ConfiguredPluginInstance
@@ -428,12 +428,12 @@ export class ConfiguredPluginInstance {
    */
   fetch(
     params: ConfiguredPluginContextFetchOptions,
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
+    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any,
   ): Promise<ConfiguredPluginInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
+    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any,
   ): Promise<ConfiguredPluginInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -448,8 +448,8 @@ export class ConfiguredPluginInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfiguredPluginInstance>
-    ) => any
+      item?: ApiResponse<ConfiguredPluginInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginInstance>>;
   /**
    * Fetch a ConfiguredPluginInstance and return HTTP info
@@ -463,16 +463,16 @@ export class ConfiguredPluginInstance {
     params: ConfiguredPluginContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfiguredPluginInstance>
-    ) => any
+      item?: ApiResponse<ConfiguredPluginInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfiguredPluginInstance>
-    ) => any
+      item?: ApiResponse<ConfiguredPluginInstance>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -538,15 +538,15 @@ export interface ConfiguredPluginListInstance {
   each(
     callback?: (
       item: ConfiguredPluginInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: ConfiguredPluginListInstanceEachOptions,
     callback?: (
       item: ConfiguredPluginInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams ConfiguredPluginInstance records from the API with HTTP metadata captured per page.
@@ -566,15 +566,15 @@ export interface ConfiguredPluginListInstance {
   eachWithHttpInfo(
     callback?: (
       item: ConfiguredPluginInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: ConfiguredPluginListInstanceEachOptions,
     callback?: (
       item: ConfiguredPluginInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of ConfiguredPluginInstance records from the API.
@@ -586,7 +586,7 @@ export interface ConfiguredPluginListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
+    callback?: (error: Error | null, items: ConfiguredPluginPage) => any,
   ): Promise<ConfiguredPluginPage>;
   /**
    * Retrieve a single target page of ConfiguredPluginInstance records from the API with HTTP metadata.
@@ -600,8 +600,8 @@ export interface ConfiguredPluginListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConfiguredPluginPage>
-    ) => any
+      items: ApiResponse<ConfiguredPluginPage>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginPage>>;
   /**
    * Lists ConfiguredPluginInstance records from the API as a list.
@@ -613,11 +613,11 @@ export interface ConfiguredPluginListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any
+    callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any,
   ): Promise<ConfiguredPluginInstance[]>;
   list(
     params: ConfiguredPluginListInstanceOptions,
-    callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any
+    callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any,
   ): Promise<ConfiguredPluginInstance[]>;
   /**
    * Lists ConfiguredPluginInstance records from the API as a list with HTTP metadata.
@@ -633,15 +633,15 @@ export interface ConfiguredPluginListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConfiguredPluginInstance[]>
-    ) => any
+      items: ApiResponse<ConfiguredPluginInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginInstance[]>>;
   listWithHttpInfo(
     params: ConfiguredPluginListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConfiguredPluginInstance[]>
-    ) => any
+      items: ApiResponse<ConfiguredPluginInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginInstance[]>>;
   /**
    * Retrieve a single page of ConfiguredPluginInstance records from the API.
@@ -655,11 +655,11 @@ export interface ConfiguredPluginListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
+    callback?: (error: Error | null, items: ConfiguredPluginPage) => any,
   ): Promise<ConfiguredPluginPage>;
   page(
     params: ConfiguredPluginListInstancePageOptions,
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
+    callback?: (error: Error | null, items: ConfiguredPluginPage) => any,
   ): Promise<ConfiguredPluginPage>;
   /**
    * Retrieve a single page of ConfiguredPluginInstance records from the API with HTTP metadata.
@@ -675,15 +675,15 @@ export interface ConfiguredPluginListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConfiguredPluginPage>
-    ) => any
+      items: ApiResponse<ConfiguredPluginPage>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginPage>>;
   pageWithHttpInfo(
     params: ConfiguredPluginListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConfiguredPluginPage>
-    ) => any
+      items: ApiResponse<ConfiguredPluginPage>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginPage>>;
 
   /**
@@ -695,7 +695,7 @@ export interface ConfiguredPluginListInstance {
 
 export function ConfiguredPluginListInstance(
   version: V1,
-  configurationSid: string
+  configurationSid: string,
 ): ConfiguredPluginListInstance {
   if (!isValidPathParam(configurationSid)) {
     throw new Error("Parameter 'configurationSid' is not valid.");
@@ -708,7 +708,7 @@ export function ConfiguredPluginListInstance(
     return new ConfiguredPluginContextImpl(
       version,
       configurationSid,
-      pluginSid
+      pluginSid,
     );
   };
 
@@ -720,7 +720,7 @@ export function ConfiguredPluginListInstance(
     params?:
       | ConfiguredPluginListInstancePageOptions
       | ((error: Error | null, items: ConfiguredPluginPage) => any),
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
+    callback?: (error: Error | null, items: ConfiguredPluginPage) => any,
   ): Promise<ConfiguredPluginPage> {
     if (params instanceof Function) {
       callback = params;
@@ -751,12 +751,12 @@ export function ConfiguredPluginListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ConfiguredPluginPage(operationVersion, payload, instance._solution)
+        new ConfiguredPluginPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -765,7 +765,7 @@ export function ConfiguredPluginListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
+    callback?: (error: Error | null, items: ConfiguredPluginPage) => any,
   ): Promise<ConfiguredPluginPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -773,7 +773,11 @@ export function ConfiguredPluginListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ConfiguredPluginPage(instance._version, payload, instance._solution)
+        new ConfiguredPluginPage(
+          instance._version,
+          payload,
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -784,12 +788,12 @@ export function ConfiguredPluginListInstance(
       | ConfiguredPluginListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<ConfiguredPluginPage>
+          items: ApiResponse<ConfiguredPluginPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConfiguredPluginPage>
-    ) => any
+      items: ApiResponse<ConfiguredPluginPage>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -822,14 +826,14 @@ export function ConfiguredPluginListInstance(
           body: new ConfiguredPluginPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -842,8 +846,8 @@ export function ConfiguredPluginListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ConfiguredPluginPage>
-    ) => any
+      items?: ApiResponse<ConfiguredPluginPage>,
+    ) => any,
   ): Promise<ApiResponse<ConfiguredPluginPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -858,9 +862,9 @@ export function ConfiguredPluginListInstance(
         body: new ConfiguredPluginPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -872,7 +876,7 @@ export function ConfiguredPluginListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -896,7 +900,7 @@ export class ConfiguredPluginPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ConfiguredPluginSolution
+    solution: ConfiguredPluginSolution,
   ) {
     super(version, response, solution);
   }
@@ -910,7 +914,7 @@ export class ConfiguredPluginPage extends Page<
     return new ConfiguredPluginInstance(
       this._version,
       payload,
-      this._solution.configurationSid
+      this._solution.configurationSid,
     );
   }
 

@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../../V1";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { V1 } from "../../../V1.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to fetch a WorkersStatisticsInstance
@@ -48,7 +48,7 @@ export interface WorkersStatisticsContext {
    * @returns Resolves to processed WorkersStatisticsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any,
   ): Promise<WorkersStatisticsInstance>;
   /**
    * Fetch a WorkersStatisticsInstance
@@ -60,7 +60,7 @@ export interface WorkersStatisticsContext {
    */
   fetch(
     params: WorkersStatisticsContextFetchOptions,
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any,
   ): Promise<WorkersStatisticsInstance>;
 
   /**
@@ -73,8 +73,8 @@ export interface WorkersStatisticsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersStatisticsInstance>>;
   /**
    * Fetch a WorkersStatisticsInstance and return HTTP info
@@ -88,8 +88,8 @@ export interface WorkersStatisticsContext {
     params: WorkersStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersStatisticsInstance>>;
 
   /**
@@ -107,7 +107,10 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
   protected _solution: WorkersStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, workspaceSid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+  ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -120,7 +123,7 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
     params?:
       | WorkersStatisticsContextFetchOptions
       | ((error: Error | null, item?: WorkersStatisticsInstance) => any),
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any,
   ): Promise<WorkersStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -162,13 +165,13 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
         new WorkersStatisticsInstance(
           operationVersion,
           payload,
-          instance._solution.workspaceSid
-        )
+          instance._solution.workspaceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -178,12 +181,12 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
       | WorkersStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<WorkersStatisticsInstance>
+          item?: ApiResponse<WorkersStatisticsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -227,14 +230,14 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
           body: new WorkersStatisticsInstance(
             operationVersion,
             response.body,
-            instance._solution.workspaceSid
+            instance._solution.workspaceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -270,7 +273,7 @@ export class WorkersStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: WorkersStatisticsResource,
-    workspaceSid: string
+    workspaceSid: string,
   ) {
     this.realtime = payload.realtime;
     this.cumulative = payload.cumulative;
@@ -307,7 +310,7 @@ export class WorkersStatisticsInstance {
       this._context ||
       new WorkersStatisticsContextImpl(
         this._version,
-        this._solution.workspaceSid
+        this._solution.workspaceSid,
       );
     return this._context;
   }
@@ -320,7 +323,7 @@ export class WorkersStatisticsInstance {
    * @returns Resolves to processed WorkersStatisticsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any,
   ): Promise<WorkersStatisticsInstance>;
   /**
    * Fetch a WorkersStatisticsInstance
@@ -332,12 +335,12 @@ export class WorkersStatisticsInstance {
    */
   fetch(
     params: WorkersStatisticsContextFetchOptions,
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any,
   ): Promise<WorkersStatisticsInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
+    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any,
   ): Promise<WorkersStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -352,8 +355,8 @@ export class WorkersStatisticsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersStatisticsInstance>>;
   /**
    * Fetch a WorkersStatisticsInstance and return HTTP info
@@ -367,16 +370,16 @@ export class WorkersStatisticsInstance {
     params: WorkersStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersStatisticsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkersStatisticsInstance>
-    ) => any
+      item?: ApiResponse<WorkersStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkersStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -422,7 +425,7 @@ export interface WorkersStatisticsListInstance {
 
 export function WorkersStatisticsListInstance(
   version: V1,
-  workspaceSid: string
+  workspaceSid: string,
 ): WorkersStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -444,7 +447,7 @@ export function WorkersStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

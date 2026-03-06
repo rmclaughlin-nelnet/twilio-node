@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2010 from "../../../V2010";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { V2010 } from "../../../V2010.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 /**
  * The status - one of `stopped`, `in-progress`
@@ -462,7 +462,7 @@ export interface SiprecContext {
    */
   update(
     params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
+    callback?: (error: Error | null, item?: SiprecInstance) => any,
   ): Promise<SiprecInstance>;
 
   /**
@@ -475,7 +475,7 @@ export interface SiprecContext {
    */
   updateWithHttpInfo(
     params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any,
   ): Promise<ApiResponse<SiprecInstance>>;
 
   /**
@@ -499,7 +499,7 @@ export class SiprecContextImpl implements SiprecContext {
     protected _version: V2010,
     accountSid: string,
     callSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -519,7 +519,7 @@ export class SiprecContextImpl implements SiprecContext {
 
   update(
     params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
+    callback?: (error: Error | null, item?: SiprecInstance) => any,
   ): Promise<SiprecInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -553,20 +553,20 @@ export class SiprecContextImpl implements SiprecContext {
           payload,
           instance._solution.accountSid,
           instance._solution.callSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   updateWithHttpInfo(
     params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any,
   ): Promise<ApiResponse<SiprecInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -602,14 +602,14 @@ export class SiprecContextImpl implements SiprecContext {
             response.body,
             instance._solution.accountSid,
             instance._solution.callSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -649,7 +649,7 @@ export class SiprecInstance {
     payload: SiprecResource,
     accountSid: string,
     callSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -695,7 +695,7 @@ export class SiprecInstance {
         this._version,
         this._solution.accountSid,
         this._solution.callSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -710,12 +710,12 @@ export class SiprecInstance {
    */
   update(
     params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
+    callback?: (error: Error | null, item?: SiprecInstance) => any,
   ): Promise<SiprecInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
+    callback?: (error: Error | null, item?: SiprecInstance) => any,
   ): Promise<SiprecInstance> {
     return this._proxy.update(params, callback);
   }
@@ -730,12 +730,12 @@ export class SiprecInstance {
    */
   updateWithHttpInfo(
     params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any,
   ): Promise<ApiResponse<SiprecInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any,
   ): Promise<ApiResponse<SiprecInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -783,7 +783,7 @@ export interface SiprecListInstance {
    * @returns Resolves to processed SiprecInstance
    */
   create(
-    callback?: (error: Error | null, item?: SiprecInstance) => any
+    callback?: (error: Error | null, item?: SiprecInstance) => any,
   ): Promise<SiprecInstance>;
   /**
    * Create a SiprecInstance
@@ -795,7 +795,7 @@ export interface SiprecListInstance {
    */
   create(
     params: SiprecListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
+    callback?: (error: Error | null, item?: SiprecInstance) => any,
   ): Promise<SiprecInstance>;
 
   /**
@@ -806,7 +806,7 @@ export interface SiprecListInstance {
    * @returns Resolves to processed SiprecInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any,
   ): Promise<ApiResponse<SiprecInstance>>;
   /**
    * Create a SiprecInstance and return HTTP info
@@ -818,7 +818,7 @@ export interface SiprecListInstance {
    */
   createWithHttpInfo(
     params: SiprecListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<SiprecInstance>) => any,
   ): Promise<ApiResponse<SiprecInstance>>;
 
   /**
@@ -831,7 +831,7 @@ export interface SiprecListInstance {
 export function SiprecListInstance(
   version: V2010,
   accountSid: string,
-  callSid: string
+  callSid: string,
 ): SiprecListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -855,7 +855,7 @@ export function SiprecListInstance(
     params?:
       | SiprecListInstanceCreateOptions
       | ((error: Error | null, items: SiprecInstance) => any),
-    callback?: (error: Error | null, items: SiprecInstance) => any
+    callback?: (error: Error | null, items: SiprecInstance) => any,
   ): Promise<SiprecInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -1289,13 +1289,13 @@ export function SiprecListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1304,7 +1304,7 @@ export function SiprecListInstance(
     params?:
       | SiprecListInstanceCreateOptions
       | ((error: Error | null, items: ApiResponse<SiprecInstance>) => any),
-    callback?: (error: Error | null, items: ApiResponse<SiprecInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<SiprecInstance>) => any,
   ): Promise<ApiResponse<SiprecInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -1740,14 +1740,14 @@ export function SiprecListInstance(
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.callSid
+            instance._solution.callSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1758,7 +1758,7 @@ export function SiprecListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to each
@@ -31,7 +31,7 @@ export interface SupportingDocumentTypeListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SupportingDocumentTypeInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -73,8 +73,8 @@ export interface SupportingDocumentTypeContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: SupportingDocumentTypeInstance
-    ) => any
+      item?: SupportingDocumentTypeInstance,
+    ) => any,
   ): Promise<SupportingDocumentTypeInstance>;
 
   /**
@@ -87,8 +87,8 @@ export interface SupportingDocumentTypeContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentTypeInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypeInstance>>;
 
   /**
@@ -102,13 +102,14 @@ export interface SupportingDocumentTypeContextSolution {
   sid: string;
 }
 
-export class SupportingDocumentTypeContextImpl
-  implements SupportingDocumentTypeContext
-{
+export class SupportingDocumentTypeContextImpl implements SupportingDocumentTypeContext {
   protected _solution: SupportingDocumentTypeContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -120,8 +121,8 @@ export class SupportingDocumentTypeContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: SupportingDocumentTypeInstance
-    ) => any
+      item?: SupportingDocumentTypeInstance,
+    ) => any,
   ): Promise<SupportingDocumentTypeInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -139,13 +140,13 @@ export class SupportingDocumentTypeContextImpl
         new SupportingDocumentTypeInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -153,8 +154,8 @@ export class SupportingDocumentTypeContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentTypeInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypeInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -174,14 +175,14 @@ export class SupportingDocumentTypeContextImpl
           body: new SupportingDocumentTypeInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -219,7 +220,7 @@ export class SupportingDocumentTypeInstance {
   constructor(
     protected _version: V1,
     payload: SupportingDocumentTypeResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -268,8 +269,8 @@ export class SupportingDocumentTypeInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: SupportingDocumentTypeInstance
-    ) => any
+      item?: SupportingDocumentTypeInstance,
+    ) => any,
   ): Promise<SupportingDocumentTypeInstance> {
     return this._proxy.fetch(callback);
   }
@@ -284,8 +285,8 @@ export class SupportingDocumentTypeInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SupportingDocumentTypeInstance>
-    ) => any
+      item?: ApiResponse<SupportingDocumentTypeInstance>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypeInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -338,15 +339,15 @@ export interface SupportingDocumentTypeListInstance {
   each(
     callback?: (
       item: SupportingDocumentTypeInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: SupportingDocumentTypeListInstanceEachOptions,
     callback?: (
       item: SupportingDocumentTypeInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams SupportingDocumentTypeInstance records from the API with HTTP metadata captured per page.
@@ -366,15 +367,15 @@ export interface SupportingDocumentTypeListInstance {
   eachWithHttpInfo(
     callback?: (
       item: SupportingDocumentTypeInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: SupportingDocumentTypeListInstanceEachOptions,
     callback?: (
       item: SupportingDocumentTypeInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of SupportingDocumentTypeInstance records from the API.
@@ -386,7 +387,7 @@ export interface SupportingDocumentTypeListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any,
   ): Promise<SupportingDocumentTypePage>;
   /**
    * Retrieve a single target page of SupportingDocumentTypeInstance records from the API with HTTP metadata.
@@ -400,8 +401,8 @@ export interface SupportingDocumentTypeListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentTypePage>
-    ) => any
+      items: ApiResponse<SupportingDocumentTypePage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypePage>>;
   /**
    * Lists SupportingDocumentTypeInstance records from the API as a list.
@@ -415,15 +416,15 @@ export interface SupportingDocumentTypeListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: SupportingDocumentTypeInstance[]
-    ) => any
+      items: SupportingDocumentTypeInstance[],
+    ) => any,
   ): Promise<SupportingDocumentTypeInstance[]>;
   list(
     params: SupportingDocumentTypeListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: SupportingDocumentTypeInstance[]
-    ) => any
+      items: SupportingDocumentTypeInstance[],
+    ) => any,
   ): Promise<SupportingDocumentTypeInstance[]>;
   /**
    * Lists SupportingDocumentTypeInstance records from the API as a list with HTTP metadata.
@@ -439,15 +440,15 @@ export interface SupportingDocumentTypeListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentTypeInstance[]>
-    ) => any
+      items: ApiResponse<SupportingDocumentTypeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypeInstance[]>>;
   listWithHttpInfo(
     params: SupportingDocumentTypeListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentTypeInstance[]>
-    ) => any
+      items: ApiResponse<SupportingDocumentTypeInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypeInstance[]>>;
   /**
    * Retrieve a single page of SupportingDocumentTypeInstance records from the API.
@@ -461,11 +462,11 @@ export interface SupportingDocumentTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any,
   ): Promise<SupportingDocumentTypePage>;
   page(
     params: SupportingDocumentTypeListInstancePageOptions,
-    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any,
   ): Promise<SupportingDocumentTypePage>;
   /**
    * Retrieve a single page of SupportingDocumentTypeInstance records from the API with HTTP metadata.
@@ -481,15 +482,15 @@ export interface SupportingDocumentTypeListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentTypePage>
-    ) => any
+      items: ApiResponse<SupportingDocumentTypePage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypePage>>;
   pageWithHttpInfo(
     params: SupportingDocumentTypeListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentTypePage>
-    ) => any
+      items: ApiResponse<SupportingDocumentTypePage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypePage>>;
 
   /**
@@ -500,7 +501,7 @@ export interface SupportingDocumentTypeListInstance {
 }
 
 export function SupportingDocumentTypeListInstance(
-  version: V1
+  version: V1,
 ): SupportingDocumentTypeListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as SupportingDocumentTypeListInstance;
@@ -517,7 +518,7 @@ export function SupportingDocumentTypeListInstance(
     params?:
       | SupportingDocumentTypeListInstancePageOptions
       | ((error: Error | null, items: SupportingDocumentTypePage) => any),
-    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any,
   ): Promise<SupportingDocumentTypePage> {
     if (params instanceof Function) {
       callback = params;
@@ -549,13 +550,13 @@ export function SupportingDocumentTypeListInstance(
         new SupportingDocumentTypePage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -564,7 +565,7 @@ export function SupportingDocumentTypeListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any,
   ): Promise<SupportingDocumentTypePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -575,8 +576,8 @@ export function SupportingDocumentTypeListInstance(
         new SupportingDocumentTypePage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -587,12 +588,12 @@ export function SupportingDocumentTypeListInstance(
       | SupportingDocumentTypeListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<SupportingDocumentTypePage>
+          items: ApiResponse<SupportingDocumentTypePage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SupportingDocumentTypePage>
-    ) => any
+      items: ApiResponse<SupportingDocumentTypePage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -623,14 +624,14 @@ export function SupportingDocumentTypeListInstance(
           body: new SupportingDocumentTypePage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -643,8 +644,8 @@ export function SupportingDocumentTypeListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<SupportingDocumentTypePage>
-    ) => any
+      items?: ApiResponse<SupportingDocumentTypePage>,
+    ) => any,
   ): Promise<ApiResponse<SupportingDocumentTypePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -659,9 +660,9 @@ export function SupportingDocumentTypeListInstance(
         body: new SupportingDocumentTypePage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -673,7 +674,7 @@ export function SupportingDocumentTypeListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -697,7 +698,7 @@ export class SupportingDocumentTypePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: SupportingDocumentTypeSolution
+    solution: SupportingDocumentTypeSolution,
   ) {
     super(version, response, solution);
   }
@@ -708,7 +709,7 @@ export class SupportingDocumentTypePage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: SupportingDocumentTypeResource
+    payload: SupportingDocumentTypeResource,
   ): SupportingDocumentTypeInstance {
     return new SupportingDocumentTypeInstance(this._version, payload);
   }

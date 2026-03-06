@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export class AssistantsV1ServiceAssistantSendMessageRequest {
   /**
@@ -71,7 +71,7 @@ export interface MessageListInstance {
   create(
     params: AssistantsV1ServiceAssistantSendMessageRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: MessageInstance) => any
+    callback?: (error: Error | null, item?: MessageInstance) => any,
   ): Promise<MessageInstance>;
 
   /**
@@ -86,7 +86,10 @@ export interface MessageListInstance {
   createWithHttpInfo(
     params: AssistantsV1ServiceAssistantSendMessageRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<MessageInstance>,
+    ) => any,
   ): Promise<ApiResponse<MessageInstance>>;
 
   /**
@@ -98,7 +101,7 @@ export interface MessageListInstance {
 
 export function MessageListInstance(
   version: V1,
-  id: string
+  id: string,
 ): MessageListInstance {
   if (!isValidPathParam(id)) {
     throw new Error("Parameter 'id' is not valid.");
@@ -113,7 +116,7 @@ export function MessageListInstance(
   instance.create = function create(
     params: AssistantsV1ServiceAssistantSendMessageRequest,
     headers?: any,
-    callback?: (error: Error | null, items: MessageInstance) => any
+    callback?: (error: Error | null, items: MessageInstance) => any,
   ): Promise<MessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -140,12 +143,12 @@ export function MessageListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MessageInstance(operationVersion, payload, instance._solution.id)
+        new MessageInstance(operationVersion, payload, instance._solution.id),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -153,7 +156,10 @@ export function MessageListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: AssistantsV1ServiceAssistantSendMessageRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<MessageInstance>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<MessageInstance>,
+    ) => any,
   ): Promise<ApiResponse<MessageInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -185,14 +191,14 @@ export function MessageListInstance(
           body: new MessageInstance(
             operationVersion,
             response.body,
-            instance._solution.id
+            instance._solution.id,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -203,7 +209,7 @@ export function MessageListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -224,7 +230,11 @@ interface MessageResource {
 }
 
 export class MessageInstance {
-  constructor(protected _version: V1, payload: MessageResource, id: string) {
+  constructor(
+    protected _version: V1,
+    payload: MessageResource,
+    id: string,
+  ) {
     this.status = payload.status;
     this.flagged = payload.flagged;
     this.aborted = payload.aborted;

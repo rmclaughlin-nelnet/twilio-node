@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
   /**
@@ -71,7 +71,7 @@ export interface InstalledAddOnUsageListInstance {
   create(
     params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     headers?: any,
-    callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any
+    callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any,
   ): Promise<InstalledAddOnUsageInstance>;
 
   /**
@@ -88,8 +88,8 @@ export interface InstalledAddOnUsageListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InstalledAddOnUsageInstance>
-    ) => any
+      item?: ApiResponse<InstalledAddOnUsageInstance>,
+    ) => any,
   ): Promise<ApiResponse<InstalledAddOnUsageInstance>>;
 
   /**
@@ -101,7 +101,7 @@ export interface InstalledAddOnUsageListInstance {
 
 export function InstalledAddOnUsageListInstance(
   version: V1,
-  installedAddOnSid: string
+  installedAddOnSid: string,
 ): InstalledAddOnUsageListInstance {
   if (!isValidPathParam(installedAddOnSid)) {
     throw new Error("Parameter 'installedAddOnSid' is not valid.");
@@ -116,7 +116,7 @@ export function InstalledAddOnUsageListInstance(
   instance.create = function create(
     params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     headers?: any,
-    callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any
+    callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any,
   ): Promise<InstalledAddOnUsageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -146,13 +146,13 @@ export function InstalledAddOnUsageListInstance(
         new InstalledAddOnUsageInstance(
           operationVersion,
           payload,
-          instance._solution.installedAddOnSid
-        )
+          instance._solution.installedAddOnSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -162,8 +162,8 @@ export function InstalledAddOnUsageListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InstalledAddOnUsageInstance>
-    ) => any
+      items: ApiResponse<InstalledAddOnUsageInstance>,
+    ) => any,
   ): Promise<ApiResponse<InstalledAddOnUsageInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -195,14 +195,14 @@ export function InstalledAddOnUsageListInstance(
           body: new InstalledAddOnUsageInstance(
             operationVersion,
             response.body,
-            instance._solution.installedAddOnSid
+            instance._solution.installedAddOnSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -213,7 +213,7 @@ export function InstalledAddOnUsageListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -232,7 +232,7 @@ export class InstalledAddOnUsageInstance {
   constructor(
     protected _version: V1,
     payload: InstalledAddOnUsageResource,
-    installedAddOnSid: string
+    installedAddOnSid: string,
   ) {
     this.totalSubmitted = payload.total_submitted;
     this.billableItems = payload.billable_items;

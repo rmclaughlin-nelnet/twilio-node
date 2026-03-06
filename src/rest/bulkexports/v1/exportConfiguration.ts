@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to update a ExportConfigurationInstance
@@ -40,7 +40,7 @@ export interface ExportConfigurationContext {
    * @returns Resolves to processed ExportConfigurationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance>;
 
   /**
@@ -53,8 +53,8 @@ export interface ExportConfigurationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>>;
 
   /**
@@ -65,7 +65,7 @@ export interface ExportConfigurationContext {
    * @returns Resolves to processed ExportConfigurationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance>;
   /**
    * Update a ExportConfigurationInstance
@@ -77,7 +77,7 @@ export interface ExportConfigurationContext {
    */
   update(
     params: ExportConfigurationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance>;
 
   /**
@@ -90,8 +90,8 @@ export interface ExportConfigurationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>>;
   /**
    * Update a ExportConfigurationInstance and return HTTP info
@@ -105,8 +105,8 @@ export interface ExportConfigurationContext {
     params: ExportConfigurationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>>;
 
   /**
@@ -120,13 +120,14 @@ export interface ExportConfigurationContextSolution {
   resourceType: string;
 }
 
-export class ExportConfigurationContextImpl
-  implements ExportConfigurationContext
-{
+export class ExportConfigurationContextImpl implements ExportConfigurationContext {
   protected _solution: ExportConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, resourceType: string) {
+  constructor(
+    protected _version: V1,
+    resourceType: string,
+  ) {
     if (!isValidPathParam(resourceType)) {
       throw new Error("Parameter 'resourceType' is not valid.");
     }
@@ -136,7 +137,7 @@ export class ExportConfigurationContextImpl
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -154,13 +155,13 @@ export class ExportConfigurationContextImpl
         new ExportConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.resourceType
-        )
+          instance._solution.resourceType,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -168,8 +169,8 @@ export class ExportConfigurationContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -189,14 +190,14 @@ export class ExportConfigurationContextImpl
           body: new ExportConfigurationInstance(
             operationVersion,
             response.body,
-            instance._solution.resourceType
+            instance._solution.resourceType,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -205,7 +206,7 @@ export class ExportConfigurationContextImpl
     params?:
       | ExportConfigurationContextUpdateOptions
       | ((error: Error | null, item?: ExportConfigurationInstance) => any),
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -241,13 +242,13 @@ export class ExportConfigurationContextImpl
         new ExportConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.resourceType
-        )
+          instance._solution.resourceType,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -257,12 +258,12 @@ export class ExportConfigurationContextImpl
       | ExportConfigurationContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ExportConfigurationInstance>
+          item?: ApiResponse<ExportConfigurationInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -300,14 +301,14 @@ export class ExportConfigurationContextImpl
           body: new ExportConfigurationInstance(
             operationVersion,
             response.body,
-            instance._solution.resourceType
+            instance._solution.resourceType,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -343,7 +344,7 @@ export class ExportConfigurationInstance {
   constructor(
     protected _version: V1,
     payload: ExportConfigurationResource,
-    resourceType?: string
+    resourceType?: string,
   ) {
     this.enabled = payload.enabled;
     this.webhookUrl = payload.webhook_url;
@@ -380,7 +381,7 @@ export class ExportConfigurationInstance {
       this._context ||
       new ExportConfigurationContextImpl(
         this._version,
-        this._solution.resourceType
+        this._solution.resourceType,
       );
     return this._context;
   }
@@ -393,7 +394,7 @@ export class ExportConfigurationInstance {
    * @returns Resolves to processed ExportConfigurationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -408,8 +409,8 @@ export class ExportConfigurationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -422,7 +423,7 @@ export class ExportConfigurationInstance {
    * @returns Resolves to processed ExportConfigurationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance>;
   /**
    * Update a ExportConfigurationInstance
@@ -434,12 +435,12 @@ export class ExportConfigurationInstance {
    */
   update(
     params: ExportConfigurationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any,
   ): Promise<ExportConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -454,8 +455,8 @@ export class ExportConfigurationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>>;
   /**
    * Update a ExportConfigurationInstance and return HTTP info
@@ -469,16 +470,16 @@ export class ExportConfigurationInstance {
     params: ExportConfigurationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportConfigurationInstance>
-    ) => any
+      item?: ApiResponse<ExportConfigurationInstance>,
+    ) => any,
   ): Promise<ApiResponse<ExportConfigurationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -521,7 +522,7 @@ export interface ExportConfigurationListInstance {
 }
 
 export function ExportConfigurationListInstance(
-  version: V1
+  version: V1,
 ): ExportConfigurationListInstance {
   const instance = ((resourceType) =>
     instance.get(resourceType)) as ExportConfigurationListInstance;
@@ -540,7 +541,7 @@ export function ExportConfigurationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

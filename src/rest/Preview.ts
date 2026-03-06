@@ -1,19 +1,19 @@
-import { AuthorizationDocumentListInstance } from "./preview/hosted_numbers/authorizationDocument";
-import { HostedNumberOrderListInstance } from "./preview/hosted_numbers/hostedNumberOrder";
-import { AvailableAddOnListInstance } from "./preview/marketplace/availableAddOn";
-import { InstalledAddOnListInstance } from "./preview/marketplace/installedAddOn";
-import { CommandListInstance } from "./preview/wireless/command";
-import { RatePlanListInstance } from "./preview/wireless/ratePlan";
-import { SimListInstance } from "./preview/wireless/sim";
-import PreviewBase from "./PreviewBase";
+import { AuthorizationDocumentListInstance } from "./preview/hosted_numbers/authorizationDocument.js";
+import { HostedNumberOrderListInstance } from "./preview/hosted_numbers/hostedNumberOrder.js";
+import { AvailableAddOnListInstance } from "./preview/marketplace/availableAddOn.js";
+import { InstalledAddOnListInstance } from "./preview/marketplace/installedAddOn.js";
+import { CommandListInstance } from "./preview/wireless/command.js";
+import { RatePlanListInstance } from "./preview/wireless/ratePlan.js";
+import { SimListInstance } from "./preview/wireless/sim.js";
+import { PreviewBase } from "./PreviewBase.js";
 
-class Preview extends PreviewBase {
+export class Preview extends PreviewBase {
   /**
    * @deprecated - Use hosted_numbers.authorizationDocuments instead
    */
   get authorizationDocuments(): AuthorizationDocumentListInstance {
     console.warn(
-      "authorizationDocuments is deprecated. Use hosted_numbers.authorizationDocuments instead."
+      "authorizationDocuments is deprecated. Use hosted_numbers.authorizationDocuments instead.",
     );
     return this.hosted_numbers.authorizationDocuments;
   }
@@ -23,7 +23,7 @@ class Preview extends PreviewBase {
    */
   get hostedNumberOrders(): HostedNumberOrderListInstance {
     console.warn(
-      "hostedNumberOrders is deprecated. Use hosted_numbers.hostedNumberOrders instead."
+      "hostedNumberOrders is deprecated. Use hosted_numbers.hostedNumberOrders instead.",
     );
     return this.hosted_numbers.hostedNumberOrders;
   }
@@ -33,7 +33,7 @@ class Preview extends PreviewBase {
    */
   get availableAddOns(): AvailableAddOnListInstance {
     console.warn(
-      "availableAddOns is deprecated. Use marketplace.availableAddOns instead."
+      "availableAddOns is deprecated. Use marketplace.availableAddOns instead.",
     );
     return this.marketplace.availableAddOns;
   }
@@ -43,7 +43,7 @@ class Preview extends PreviewBase {
    */
   get installedAddOns(): InstalledAddOnListInstance {
     console.warn(
-      "installedAddOns is deprecated. Use marketplace.installedAddOns instead."
+      "installedAddOns is deprecated. Use marketplace.installedAddOns instead.",
     );
     return this.marketplace.installedAddOns;
   }
@@ -72,5 +72,3 @@ class Preview extends PreviewBase {
     return this.wireless.sims;
   }
 }
-
-export = Preview;

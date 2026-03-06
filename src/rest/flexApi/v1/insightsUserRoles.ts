@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to fetch a InsightsUserRolesInstance
@@ -36,7 +36,7 @@ export interface InsightsUserRolesContext {
    * @returns Resolves to processed InsightsUserRolesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any,
   ): Promise<InsightsUserRolesInstance>;
   /**
    * Fetch a InsightsUserRolesInstance
@@ -48,7 +48,7 @@ export interface InsightsUserRolesContext {
    */
   fetch(
     params: InsightsUserRolesContextFetchOptions,
-    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any,
   ): Promise<InsightsUserRolesInstance>;
 
   /**
@@ -61,8 +61,8 @@ export interface InsightsUserRolesContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsUserRolesInstance>
-    ) => any
+      item?: ApiResponse<InsightsUserRolesInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsUserRolesInstance>>;
   /**
    * Fetch a InsightsUserRolesInstance and return HTTP info
@@ -76,8 +76,8 @@ export interface InsightsUserRolesContext {
     params: InsightsUserRolesContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsUserRolesInstance>
-    ) => any
+      item?: ApiResponse<InsightsUserRolesInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsUserRolesInstance>>;
 
   /**
@@ -102,7 +102,7 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
     params?:
       | InsightsUserRolesContextFetchOptions
       | ((error: Error | null, item?: InsightsUserRolesInstance) => any),
-    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any,
   ): Promise<InsightsUserRolesInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -128,12 +128,12 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new InsightsUserRolesInstance(operationVersion, payload)
+      (payload) => new InsightsUserRolesInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -143,12 +143,12 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
       | InsightsUserRolesContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<InsightsUserRolesInstance>
+          item?: ApiResponse<InsightsUserRolesInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsUserRolesInstance>
-    ) => any
+      item?: ApiResponse<InsightsUserRolesInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsUserRolesInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -178,12 +178,12 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
         (response): ApiResponse<InsightsUserRolesInstance> => ({
           ...response,
           body: new InsightsUserRolesInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -213,7 +213,10 @@ export class InsightsUserRolesInstance {
   protected _solution: InsightsUserRolesContextSolution;
   protected _context?: InsightsUserRolesContext;
 
-  constructor(protected _version: V1, payload: InsightsUserRolesResource) {
+  constructor(
+    protected _version: V1,
+    payload: InsightsUserRolesResource,
+  ) {
     this.roles = payload.roles;
     this.url = payload.url;
 
@@ -240,7 +243,7 @@ export class InsightsUserRolesInstance {
    * @returns Resolves to processed InsightsUserRolesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any,
   ): Promise<InsightsUserRolesInstance>;
   /**
    * Fetch a InsightsUserRolesInstance
@@ -252,12 +255,12 @@ export class InsightsUserRolesInstance {
    */
   fetch(
     params: InsightsUserRolesContextFetchOptions,
-    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any,
   ): Promise<InsightsUserRolesInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any,
   ): Promise<InsightsUserRolesInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -272,8 +275,8 @@ export class InsightsUserRolesInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsUserRolesInstance>
-    ) => any
+      item?: ApiResponse<InsightsUserRolesInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsUserRolesInstance>>;
   /**
    * Fetch a InsightsUserRolesInstance and return HTTP info
@@ -287,16 +290,16 @@ export class InsightsUserRolesInstance {
     params: InsightsUserRolesContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsUserRolesInstance>
-    ) => any
+      item?: ApiResponse<InsightsUserRolesInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsUserRolesInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsUserRolesInstance>
-    ) => any
+      item?: ApiResponse<InsightsUserRolesInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsUserRolesInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -336,7 +339,7 @@ export interface InsightsUserRolesListInstance {
 }
 
 export function InsightsUserRolesListInstance(
-  version: V1
+  version: V1,
 ): InsightsUserRolesListInstance {
   const instance = (() => instance.get()) as InsightsUserRolesListInstance;
 
@@ -354,7 +357,7 @@ export function InsightsUserRolesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

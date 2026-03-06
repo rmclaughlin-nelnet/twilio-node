@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../../V1";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { V1 } from "../../../V1.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
   "type"?: string;
@@ -54,7 +54,7 @@ export interface SubscribeRulesListInstance {
    * @returns Resolves to processed SubscribeRulesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
+    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any,
   ): Promise<SubscribeRulesInstance>;
 
   /**
@@ -67,8 +67,8 @@ export interface SubscribeRulesListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribeRulesInstance>
-    ) => any
+      item?: ApiResponse<SubscribeRulesInstance>,
+    ) => any,
   ): Promise<ApiResponse<SubscribeRulesInstance>>;
 
   /**
@@ -79,7 +79,7 @@ export interface SubscribeRulesListInstance {
    * @returns Resolves to processed SubscribeRulesInstance
    */
   update(
-    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
+    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any,
   ): Promise<SubscribeRulesInstance>;
   /**
    * Update a SubscribeRulesInstance
@@ -91,7 +91,7 @@ export interface SubscribeRulesListInstance {
    */
   update(
     params: SubscribeRulesListInstanceUpdateOptions,
-    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
+    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any,
   ): Promise<SubscribeRulesInstance>;
 
   /**
@@ -104,8 +104,8 @@ export interface SubscribeRulesListInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribeRulesInstance>
-    ) => any
+      item?: ApiResponse<SubscribeRulesInstance>,
+    ) => any,
   ): Promise<ApiResponse<SubscribeRulesInstance>>;
   /**
    * Update a SubscribeRulesInstance and return HTTP info
@@ -119,8 +119,8 @@ export interface SubscribeRulesListInstance {
     params: SubscribeRulesListInstanceUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribeRulesInstance>
-    ) => any
+      item?: ApiResponse<SubscribeRulesInstance>,
+    ) => any,
   ): Promise<ApiResponse<SubscribeRulesInstance>>;
 
   /**
@@ -133,7 +133,7 @@ export interface SubscribeRulesListInstance {
 export function SubscribeRulesListInstance(
   version: V1,
   roomSid: string,
-  participantSid: string
+  participantSid: string,
 ): SubscribeRulesListInstance {
   if (!isValidPathParam(roomSid)) {
     throw new Error("Parameter 'roomSid' is not valid.");
@@ -150,7 +150,7 @@ export function SubscribeRulesListInstance(
   instance._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribeRules`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: SubscribeRulesInstance) => any
+    callback?: (error: Error | null, items: SubscribeRulesInstance) => any,
   ): Promise<SubscribeRulesInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -168,13 +168,13 @@ export function SubscribeRulesListInstance(
           operationVersion,
           payload,
           instance._solution.roomSid,
-          instance._solution.participantSid
-        )
+          instance._solution.participantSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -182,8 +182,8 @@ export function SubscribeRulesListInstance(
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribeRulesInstance>
-    ) => any
+      items: ApiResponse<SubscribeRulesInstance>,
+    ) => any,
   ): Promise<ApiResponse<SubscribeRulesInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -203,14 +203,14 @@ export function SubscribeRulesListInstance(
             operationVersion,
             response.body,
             instance._solution.roomSid,
-            instance._solution.participantSid
+            instance._solution.participantSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -219,7 +219,7 @@ export function SubscribeRulesListInstance(
     params?:
       | SubscribeRulesListInstanceUpdateOptions
       | ((error: Error | null, items: SubscribeRulesInstance) => any),
-    callback?: (error: Error | null, items: SubscribeRulesInstance) => any
+    callback?: (error: Error | null, items: SubscribeRulesInstance) => any,
   ): Promise<SubscribeRulesInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -251,13 +251,13 @@ export function SubscribeRulesListInstance(
           operationVersion,
           payload,
           instance._solution.roomSid,
-          instance._solution.participantSid
-        )
+          instance._solution.participantSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -267,12 +267,12 @@ export function SubscribeRulesListInstance(
       | SubscribeRulesListInstanceUpdateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<SubscribeRulesInstance>
+          items: ApiResponse<SubscribeRulesInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribeRulesInstance>
-    ) => any
+      items: ApiResponse<SubscribeRulesInstance>,
+    ) => any,
   ): Promise<ApiResponse<SubscribeRulesInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -306,14 +306,14 @@ export function SubscribeRulesListInstance(
             operationVersion,
             response.body,
             instance._solution.roomSid,
-            instance._solution.participantSid
+            instance._solution.participantSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -324,7 +324,7 @@ export function SubscribeRulesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -347,7 +347,7 @@ export class SubscribeRulesInstance {
     protected _version: V1,
     payload: SubscribeRulesResource,
     roomSid: string,
-    participantSid: string
+    participantSid: string,
   ) {
     this.participantSid = payload.participant_sid;
     this.roomSid = payload.room_sid;

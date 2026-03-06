@@ -1,15 +1,15 @@
-import { AuthTokenPromotionListInstance } from "./accounts/v1/authTokenPromotion";
-import { CredentialListInstance } from "./accounts/v1/credential";
-import { SecondaryAuthTokenListInstance } from "./accounts/v1/secondaryAuthToken";
-import AccountsBase from "./AccountsBase";
+import { AuthTokenPromotionListInstance } from "./accounts/v1/authTokenPromotion.js";
+import { CredentialListInstance } from "./accounts/v1/credential.js";
+import { SecondaryAuthTokenListInstance } from "./accounts/v1/secondaryAuthToken.js";
+import { AccountsBase } from "./AccountsBase.js";
 
-class Accounts extends AccountsBase {
+export class Accounts extends AccountsBase {
   /**
    * @deprecated - Use v1.authTokenPromotion; instead
    */
   get authTokenPromotion(): AuthTokenPromotionListInstance {
     console.warn(
-      "authTokenPromotion is deprecated. Use v1.authTokenPromotion; instead."
+      "authTokenPromotion is deprecated. Use v1.authTokenPromotion; instead.",
     );
     return this.v1.authTokenPromotion;
   }
@@ -27,10 +27,8 @@ class Accounts extends AccountsBase {
    */
   get secondaryAuthToken(): SecondaryAuthTokenListInstance {
     console.warn(
-      "secondaryAuthToken is deprecated. Use v1.secondaryAuthToken; instead."
+      "secondaryAuthToken is deprecated. Use v1.secondaryAuthToken; instead.",
     );
     return this.v1.secondaryAuthToken;
   }
 }
-
-export = Accounts;

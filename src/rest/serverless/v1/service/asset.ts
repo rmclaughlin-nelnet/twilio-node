@@ -14,14 +14,14 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { AssetVersionListInstance } from "./asset/assetVersion";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { AssetVersionListInstance } from "./asset/assetVersion.js";
 
 /**
  * Options to pass to update a AssetInstance
@@ -86,7 +86,7 @@ export interface AssetContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -97,7 +97,7 @@ export interface AssetContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -108,7 +108,7 @@ export interface AssetContext {
    * @returns Resolves to processed AssetInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, item?: AssetInstance) => any,
   ): Promise<AssetInstance>;
 
   /**
@@ -119,7 +119,7 @@ export interface AssetContext {
    * @returns Resolves to processed AssetInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>>;
 
   /**
@@ -132,7 +132,7 @@ export interface AssetContext {
    */
   update(
     params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, item?: AssetInstance) => any,
   ): Promise<AssetInstance>;
 
   /**
@@ -145,7 +145,7 @@ export interface AssetContext {
    */
   updateWithHttpInfo(
     params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>>;
 
   /**
@@ -166,7 +166,11 @@ export class AssetContextImpl implements AssetContext {
 
   protected _assetVersions?: AssetVersionListInstance;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -185,13 +189,13 @@ export class AssetContextImpl implements AssetContext {
       AssetVersionListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._assetVersions;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -205,13 +209,13 @@ export class AssetContextImpl implements AssetContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -224,18 +228,18 @@ export class AssetContextImpl implements AssetContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, item?: AssetInstance) => any,
   ): Promise<AssetInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -254,19 +258,19 @@ export class AssetContextImpl implements AssetContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -287,21 +291,21 @@ export class AssetContextImpl implements AssetContext {
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   update(
     params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, item?: AssetInstance) => any,
   ): Promise<AssetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -337,20 +341,20 @@ export class AssetContextImpl implements AssetContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   updateWithHttpInfo(
     params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -388,14 +392,14 @@ export class AssetContextImpl implements AssetContext {
             operationVersion,
             response.body,
             instance._solution.serviceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -437,7 +441,7 @@ export class AssetInstance {
     protected _version: V1,
     payload: AssetResource,
     serviceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -490,7 +494,7 @@ export class AssetInstance {
       new AssetContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -503,7 +507,7 @@ export class AssetInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -516,7 +520,7 @@ export class AssetInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -529,7 +533,7 @@ export class AssetInstance {
    * @returns Resolves to processed AssetInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, item?: AssetInstance) => any,
   ): Promise<AssetInstance> {
     return this._proxy.fetch(callback);
   }
@@ -542,7 +546,7 @@ export class AssetInstance {
    * @returns Resolves to processed AssetInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -557,12 +561,12 @@ export class AssetInstance {
    */
   update(
     params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, item?: AssetInstance) => any,
   ): Promise<AssetInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, item?: AssetInstance) => any,
   ): Promise<AssetInstance> {
     return this._proxy.update(params, callback);
   }
@@ -577,12 +581,12 @@ export class AssetInstance {
    */
   updateWithHttpInfo(
     params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -639,7 +643,7 @@ export interface AssetListInstance {
    */
   create(
     params: AssetListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, item?: AssetInstance) => any,
   ): Promise<AssetInstance>;
 
   /**
@@ -652,7 +656,7 @@ export interface AssetListInstance {
    */
   createWithHttpInfo(
     params: AssetListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>>;
 
   /**
@@ -671,11 +675,11 @@ export interface AssetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
+    callback?: (item: AssetInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: AssetListInstanceEachOptions,
-    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
+    callback?: (item: AssetInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams AssetInstance records from the API with HTTP metadata captured per page.
@@ -693,11 +697,11 @@ export interface AssetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
+    callback?: (item: AssetInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: AssetListInstanceEachOptions,
-    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
+    callback?: (item: AssetInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of AssetInstance records from the API.
@@ -709,7 +713,7 @@ export interface AssetListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssetPage) => any
+    callback?: (error: Error | null, items: AssetPage) => any,
   ): Promise<AssetPage>;
   /**
    * Retrieve a single target page of AssetInstance records from the API with HTTP metadata.
@@ -721,7 +725,7 @@ export interface AssetListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<AssetPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssetPage>) => any,
   ): Promise<ApiResponse<AssetPage>>;
   /**
    * Lists AssetInstance records from the API as a list.
@@ -733,11 +737,11 @@ export interface AssetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AssetInstance[]) => any
+    callback?: (error: Error | null, items: AssetInstance[]) => any,
   ): Promise<AssetInstance[]>;
   list(
     params: AssetListInstanceOptions,
-    callback?: (error: Error | null, items: AssetInstance[]) => any
+    callback?: (error: Error | null, items: AssetInstance[]) => any,
   ): Promise<AssetInstance[]>;
   /**
    * Lists AssetInstance records from the API as a list with HTTP metadata.
@@ -751,11 +755,17 @@ export interface AssetListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<AssetInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssetInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AssetInstance[]>>;
   listWithHttpInfo(
     params: AssetListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<AssetInstance[]>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AssetInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AssetInstance[]>>;
   /**
    * Retrieve a single page of AssetInstance records from the API.
@@ -769,11 +779,11 @@ export interface AssetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AssetPage) => any
+    callback?: (error: Error | null, items: AssetPage) => any,
   ): Promise<AssetPage>;
   page(
     params: AssetListInstancePageOptions,
-    callback?: (error: Error | null, items: AssetPage) => any
+    callback?: (error: Error | null, items: AssetPage) => any,
   ): Promise<AssetPage>;
   /**
    * Retrieve a single page of AssetInstance records from the API with HTTP metadata.
@@ -787,11 +797,11 @@ export interface AssetListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<AssetPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssetPage>) => any,
   ): Promise<ApiResponse<AssetPage>>;
   pageWithHttpInfo(
     params: AssetListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<AssetPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssetPage>) => any,
   ): Promise<ApiResponse<AssetPage>>;
 
   /**
@@ -803,7 +813,7 @@ export interface AssetListInstance {
 
 export function AssetListInstance(
   version: V1,
-  serviceSid: string
+  serviceSid: string,
 ): AssetListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -821,7 +831,7 @@ export function AssetListInstance(
 
   instance.create = function create(
     params: AssetListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AssetInstance) => any
+    callback?: (error: Error | null, items: AssetInstance) => any,
   ): Promise<AssetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -855,20 +865,20 @@ export function AssetListInstance(
         new AssetInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: AssetListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<AssetInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssetInstance>) => any,
   ): Promise<ApiResponse<AssetInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -904,14 +914,14 @@ export function AssetListInstance(
           body: new AssetInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -920,7 +930,7 @@ export function AssetListInstance(
     params?:
       | AssetListInstancePageOptions
       | ((error: Error | null, items: AssetPage) => any),
-    callback?: (error: Error | null, items: AssetPage) => any
+    callback?: (error: Error | null, items: AssetPage) => any,
   ): Promise<AssetPage> {
     if (params instanceof Function) {
       callback = params;
@@ -948,12 +958,12 @@ export function AssetListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AssetPage(operationVersion, payload, instance._solution)
+      (payload) => new AssetPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -962,14 +972,15 @@ export function AssetListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssetPage) => any
+    callback?: (error: Error | null, items: AssetPage) => any,
   ): Promise<AssetPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new AssetPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new AssetPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -979,7 +990,7 @@ export function AssetListInstance(
     params?:
       | AssetListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AssetPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<AssetPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<AssetPage>) => any,
   ): Promise<ApiResponse<AssetPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1008,12 +1019,12 @@ export function AssetListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new AssetPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1024,7 +1035,7 @@ export function AssetListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<AssetPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<AssetPage>) => any,
   ): Promise<ApiResponse<AssetPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1037,7 +1048,7 @@ export function AssetListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new AssetPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1049,7 +1060,7 @@ export function AssetListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1073,7 +1084,7 @@ export class AssetPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: AssetSolution
+    solution: AssetSolution,
   ) {
     super(version, response, solution);
   }

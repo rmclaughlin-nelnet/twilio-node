@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export type CallSummaryAnsweredBy =
   | "unknown"
@@ -64,7 +64,7 @@ export interface CallSummaryContext {
    * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any,
   ): Promise<CallSummaryInstance>;
   /**
    * Fetch a CallSummaryInstance
@@ -76,7 +76,7 @@ export interface CallSummaryContext {
    */
   fetch(
     params: CallSummaryContextFetchOptions,
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any,
   ): Promise<CallSummaryInstance>;
 
   /**
@@ -89,8 +89,8 @@ export interface CallSummaryContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
+      item?: ApiResponse<CallSummaryInstance>,
+    ) => any,
   ): Promise<ApiResponse<CallSummaryInstance>>;
   /**
    * Fetch a CallSummaryInstance and return HTTP info
@@ -104,8 +104,8 @@ export interface CallSummaryContext {
     params: CallSummaryContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
+      item?: ApiResponse<CallSummaryInstance>,
+    ) => any,
   ): Promise<ApiResponse<CallSummaryInstance>>;
 
   /**
@@ -123,7 +123,10 @@ export class CallSummaryContextImpl implements CallSummaryContext {
   protected _solution: CallSummaryContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, callSid: string) {
+  constructor(
+    protected _version: V1,
+    callSid: string,
+  ) {
     if (!isValidPathParam(callSid)) {
       throw new Error("Parameter 'callSid' is not valid.");
     }
@@ -136,7 +139,7 @@ export class CallSummaryContextImpl implements CallSummaryContext {
     params?:
       | CallSummaryContextFetchOptions
       | ((error: Error | null, item?: CallSummaryInstance) => any),
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any,
   ): Promise<CallSummaryInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -167,13 +170,13 @@ export class CallSummaryContextImpl implements CallSummaryContext {
         new CallSummaryInstance(
           operationVersion,
           payload,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -184,8 +187,8 @@ export class CallSummaryContextImpl implements CallSummaryContext {
       | ((error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
+      item?: ApiResponse<CallSummaryInstance>,
+    ) => any,
   ): Promise<ApiResponse<CallSummaryInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -218,14 +221,14 @@ export class CallSummaryContextImpl implements CallSummaryContext {
           body: new CallSummaryInstance(
             operationVersion,
             response.body,
-            instance._solution.callSid
+            instance._solution.callSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -279,7 +282,7 @@ export class CallSummaryInstance {
   constructor(
     protected _version: V1,
     payload: CallSummaryResource,
-    callSid: string
+    callSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
@@ -404,7 +407,7 @@ export class CallSummaryInstance {
    * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any,
   ): Promise<CallSummaryInstance>;
   /**
    * Fetch a CallSummaryInstance
@@ -416,12 +419,12 @@ export class CallSummaryInstance {
    */
   fetch(
     params: CallSummaryContextFetchOptions,
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any,
   ): Promise<CallSummaryInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any,
   ): Promise<CallSummaryInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -436,8 +439,8 @@ export class CallSummaryInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
+      item?: ApiResponse<CallSummaryInstance>,
+    ) => any,
   ): Promise<ApiResponse<CallSummaryInstance>>;
   /**
    * Fetch a CallSummaryInstance and return HTTP info
@@ -451,16 +454,16 @@ export class CallSummaryInstance {
     params: CallSummaryContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
+      item?: ApiResponse<CallSummaryInstance>,
+    ) => any,
   ): Promise<ApiResponse<CallSummaryInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
+      item?: ApiResponse<CallSummaryInstance>,
+    ) => any,
   ): Promise<ApiResponse<CallSummaryInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -524,7 +527,7 @@ export interface CallSummaryListInstance {
 
 export function CallSummaryListInstance(
   version: V1,
-  callSid: string
+  callSid: string,
 ): CallSummaryListInstance {
   if (!isValidPathParam(callSid)) {
     throw new Error("Parameter 'callSid' is not valid.");
@@ -546,7 +549,7 @@ export function CallSummaryListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

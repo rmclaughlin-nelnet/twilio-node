@@ -14,14 +14,14 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V2010 from "../../../V2010";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V2010 } from "../../../V2010.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
+import { PhoneNumberCapabilities } from "../../../../../interfaces.js";
 
 /**
  * Options to pass to each
@@ -194,11 +194,11 @@ export interface VoipListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: VoipListInstanceEachOptions,
-    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams VoipInstance records from the API with HTTP metadata captured per page.
@@ -216,11 +216,11 @@ export interface VoipListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: VoipListInstanceEachOptions,
-    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of VoipInstance records from the API.
@@ -232,7 +232,7 @@ export interface VoipListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VoipPage) => any
+    callback?: (error: Error | null, items: VoipPage) => any,
   ): Promise<VoipPage>;
   /**
    * Retrieve a single target page of VoipInstance records from the API with HTTP metadata.
@@ -244,7 +244,7 @@ export interface VoipListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any,
   ): Promise<ApiResponse<VoipPage>>;
   /**
    * Lists VoipInstance records from the API as a list.
@@ -256,11 +256,11 @@ export interface VoipListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: VoipInstance[]) => any
+    callback?: (error: Error | null, items: VoipInstance[]) => any,
   ): Promise<VoipInstance[]>;
   list(
     params: VoipListInstanceOptions,
-    callback?: (error: Error | null, items: VoipInstance[]) => any
+    callback?: (error: Error | null, items: VoipInstance[]) => any,
   ): Promise<VoipInstance[]>;
   /**
    * Lists VoipInstance records from the API as a list with HTTP metadata.
@@ -274,11 +274,11 @@ export interface VoipListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<VoipInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<VoipInstance[]>) => any,
   ): Promise<ApiResponse<VoipInstance[]>>;
   listWithHttpInfo(
     params: VoipListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<VoipInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<VoipInstance[]>) => any,
   ): Promise<ApiResponse<VoipInstance[]>>;
   /**
    * Retrieve a single page of VoipInstance records from the API.
@@ -292,11 +292,11 @@ export interface VoipListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: VoipPage) => any
+    callback?: (error: Error | null, items: VoipPage) => any,
   ): Promise<VoipPage>;
   page(
     params: VoipListInstancePageOptions,
-    callback?: (error: Error | null, items: VoipPage) => any
+    callback?: (error: Error | null, items: VoipPage) => any,
   ): Promise<VoipPage>;
   /**
    * Retrieve a single page of VoipInstance records from the API with HTTP metadata.
@@ -310,11 +310,11 @@ export interface VoipListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any,
   ): Promise<ApiResponse<VoipPage>>;
   pageWithHttpInfo(
     params: VoipListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any,
   ): Promise<ApiResponse<VoipPage>>;
 
   /**
@@ -327,7 +327,7 @@ export interface VoipListInstance {
 export function VoipListInstance(
   version: V2010,
   accountSid: string,
-  countryCode: string
+  countryCode: string,
 ): VoipListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -347,7 +347,7 @@ export function VoipListInstance(
     params?:
       | VoipListInstancePageOptions
       | ((error: Error | null, items: VoipPage) => any),
-    callback?: (error: Error | null, items: VoipPage) => any
+    callback?: (error: Error | null, items: VoipPage) => any,
   ): Promise<VoipPage> {
     if (params instanceof Function) {
       callback = params;
@@ -368,15 +368,15 @@ export function VoipListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
+        params["excludeAllAddressRequired"],
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
+        params["excludeLocalAddressRequired"],
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
+        params["excludeForeignAddressRequired"],
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -412,12 +412,12 @@ export function VoipListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new VoipPage(operationVersion, payload, instance._solution)
+      (payload) => new VoipPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -426,14 +426,14 @@ export function VoipListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VoipPage) => any
+    callback?: (error: Error | null, items: VoipPage) => any,
   ): Promise<VoipPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new VoipPage(instance._version, payload, instance._solution)
+      (payload) => new VoipPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -443,7 +443,7 @@ export function VoipListInstance(
     params?:
       | VoipListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<VoipPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<VoipPage>) => any,
   ): Promise<ApiResponse<VoipPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -464,15 +464,15 @@ export function VoipListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
+        params["excludeAllAddressRequired"],
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
+        params["excludeLocalAddressRequired"],
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
+        params["excludeForeignAddressRequired"],
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -509,12 +509,12 @@ export function VoipListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new VoipPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -525,7 +525,7 @@ export function VoipListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<VoipPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<VoipPage>) => any,
   ): Promise<ApiResponse<VoipPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -538,7 +538,7 @@ export function VoipListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new VoipPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -550,7 +550,7 @@ export function VoipListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -583,7 +583,7 @@ export class VoipInstance {
     protected _version: V2010,
     payload: VoipResource,
     accountSid: string,
-    countryCode: string
+    countryCode: string,
   ) {
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;
@@ -694,7 +694,7 @@ export class VoipPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: VoipSolution
+    solution: VoipSolution,
   ) {
     super(version, response, solution);
   }
@@ -709,7 +709,7 @@ export class VoipPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.countryCode
+      this._solution.countryCode,
     );
   }
 

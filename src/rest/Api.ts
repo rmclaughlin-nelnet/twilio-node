@@ -1,31 +1,31 @@
-import { AccountContext, AccountListInstance } from "./api/v2010/account";
-import { AddressListInstance } from "./api/v2010/account/address";
-import { ApplicationListInstance } from "./api/v2010/account/application";
-import { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp";
-import { AvailablePhoneNumberCountryListInstance } from "./api/v2010/account/availablePhoneNumberCountry";
-import { BalanceListInstance } from "./api/v2010/account/balance";
-import { CallListInstance } from "./api/v2010/account/call";
-import { ConferenceListInstance } from "./api/v2010/account/conference";
-import { ConnectAppListInstance } from "./api/v2010/account/connectApp";
-import { IncomingPhoneNumberListInstance } from "./api/v2010/account/incomingPhoneNumber";
-import { KeyListInstance } from "./api/v2010/account/key";
-import { MessageListInstance } from "./api/v2010/account/message";
-import { NewKeyListInstance } from "./api/v2010/account/newKey";
-import { NewSigningKeyListInstance } from "./api/v2010/account/newSigningKey";
-import { NotificationListInstance } from "./api/v2010/account/notification";
-import { OutgoingCallerIdListInstance } from "./api/v2010/account/outgoingCallerId";
-import { QueueListInstance } from "./api/v2010/account/queue";
-import { RecordingListInstance } from "./api/v2010/account/recording";
-import { ShortCodeListInstance } from "./api/v2010/account/shortCode";
-import { SigningKeyListInstance } from "./api/v2010/account/signingKey";
-import { SipListInstance } from "./api/v2010/account/sip";
-import { TokenListInstance } from "./api/v2010/account/token";
-import { TranscriptionListInstance } from "./api/v2010/account/transcription";
-import { UsageListInstance } from "./api/v2010/account/usage";
-import { ValidationRequestListInstance } from "./api/v2010/account/validationRequest";
-import ApiBase from "./ApiBase";
+import { AccountContext, AccountListInstance } from "./api/v2010/account.js";
+import { AddressListInstance } from "./api/v2010/account/address.js";
+import { ApplicationListInstance } from "./api/v2010/account/application.js";
+import { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp.js";
+import { AvailablePhoneNumberCountryListInstance } from "./api/v2010/account/availablePhoneNumberCountry.js";
+import { BalanceListInstance } from "./api/v2010/account/balance.js";
+import { CallListInstance } from "./api/v2010/account/call.js";
+import { ConferenceListInstance } from "./api/v2010/account/conference.js";
+import { ConnectAppListInstance } from "./api/v2010/account/connectApp.js";
+import { IncomingPhoneNumberListInstance } from "./api/v2010/account/incomingPhoneNumber.js";
+import { KeyListInstance } from "./api/v2010/account/key.js";
+import { MessageListInstance } from "./api/v2010/account/message.js";
+import { NewKeyListInstance } from "./api/v2010/account/newKey.js";
+import { NewSigningKeyListInstance } from "./api/v2010/account/newSigningKey.js";
+import { NotificationListInstance } from "./api/v2010/account/notification.js";
+import { OutgoingCallerIdListInstance } from "./api/v2010/account/outgoingCallerId.js";
+import { QueueListInstance } from "./api/v2010/account/queue.js";
+import { RecordingListInstance } from "./api/v2010/account/recording.js";
+import { ShortCodeListInstance } from "./api/v2010/account/shortCode.js";
+import { SigningKeyListInstance } from "./api/v2010/account/signingKey.js";
+import { SipListInstance } from "./api/v2010/account/sip.js";
+import { TokenListInstance } from "./api/v2010/account/token.js";
+import { TranscriptionListInstance } from "./api/v2010/account/transcription.js";
+import { UsageListInstance } from "./api/v2010/account/usage.js";
+import { ValidationRequestListInstance } from "./api/v2010/account/validationRequest.js";
+import { ApiBase } from "./ApiBase.js";
 
-class Api extends ApiBase {
+export class Api extends ApiBase {
   get account(): AccountContext {
     return this.v2010.account;
   }
@@ -47,7 +47,7 @@ class Api extends ApiBase {
    */
   get applications(): ApplicationListInstance {
     console.warn(
-      "applications is deprecated. Use account.applications instead."
+      "applications is deprecated. Use account.applications instead.",
     );
     return this.account.applications;
   }
@@ -57,7 +57,7 @@ class Api extends ApiBase {
    */
   get authorizedConnectApps(): AuthorizedConnectAppListInstance {
     console.warn(
-      "authorizedConnectApps is deprecated. Use account.authorizedConnectApps instead."
+      "authorizedConnectApps is deprecated. Use account.authorizedConnectApps instead.",
     );
     return this.account.authorizedConnectApps;
   }
@@ -67,7 +67,7 @@ class Api extends ApiBase {
    */
   get availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
     console.warn(
-      "availablePhoneNumbers is deprecated. Use account.availablePhoneNumbers instead."
+      "availablePhoneNumbers is deprecated. Use account.availablePhoneNumbers instead.",
     );
     return this.account.availablePhoneNumbers;
   }
@@ -109,7 +109,7 @@ class Api extends ApiBase {
    */
   get incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
     console.warn(
-      "incomingPhoneNumbers is deprecated. Use account.incomingPhoneNumbers instead."
+      "incomingPhoneNumbers is deprecated. Use account.incomingPhoneNumbers instead.",
     );
     return this.account.incomingPhoneNumbers;
   }
@@ -143,7 +143,7 @@ class Api extends ApiBase {
    */
   get newSigningKeys(): NewSigningKeyListInstance {
     console.warn(
-      "newSigningKeys is deprecated. Use account.newSigningKeys instead."
+      "newSigningKeys is deprecated. Use account.newSigningKeys instead.",
     );
     return this.account.newSigningKeys;
   }
@@ -153,7 +153,7 @@ class Api extends ApiBase {
    */
   get notifications(): NotificationListInstance {
     console.warn(
-      "notifications is deprecated. Use account.notifications instead."
+      "notifications is deprecated. Use account.notifications instead.",
     );
     return this.account.notifications;
   }
@@ -163,7 +163,7 @@ class Api extends ApiBase {
    */
   get outgoingCallerIds(): OutgoingCallerIdListInstance {
     console.warn(
-      "outgoingCallerIds is deprecated. Use account.outgoingCallerIds instead."
+      "outgoingCallerIds is deprecated. Use account.outgoingCallerIds instead.",
     );
     return this.account.outgoingCallerIds;
   }
@@ -221,7 +221,7 @@ class Api extends ApiBase {
    */
   get transcriptions(): TranscriptionListInstance {
     console.warn(
-      "transcriptions is deprecated. Use account.transcriptions instead."
+      "transcriptions is deprecated. Use account.transcriptions instead.",
     );
     return this.account.transcriptions;
   }
@@ -239,10 +239,8 @@ class Api extends ApiBase {
    */
   get validationRequests(): ValidationRequestListInstance {
     console.warn(
-      "validationRequests is deprecated. Use account.validationRequests instead."
+      "validationRequests is deprecated. Use account.validationRequests instead.",
     );
     return this.account.validationRequests;
   }
 }
-
-export = Api;

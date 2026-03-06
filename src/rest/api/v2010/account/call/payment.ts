@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2010 from "../../../V2010";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { V2010 } from "../../../V2010.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 /**
  * Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.
@@ -116,7 +116,7 @@ export interface PaymentContext {
    */
   update(
     params: PaymentContextUpdateOptions,
-    callback?: (error: Error | null, item?: PaymentInstance) => any
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
   ): Promise<PaymentInstance>;
 
   /**
@@ -129,7 +129,10 @@ export interface PaymentContext {
    */
   updateWithHttpInfo(
     params: PaymentContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<PaymentInstance>>;
 
   /**
@@ -153,7 +156,7 @@ export class PaymentContextImpl implements PaymentContext {
     protected _version: V2010,
     accountSid: string,
     callSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -173,7 +176,7 @@ export class PaymentContextImpl implements PaymentContext {
 
   update(
     params: PaymentContextUpdateOptions,
-    callback?: (error: Error | null, item?: PaymentInstance) => any
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
   ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -184,7 +187,7 @@ export class PaymentContextImpl implements PaymentContext {
       params["idempotencyKey"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['idempotencyKey']\" missing."
+        "Required parameter \"params['idempotencyKey']\" missing.",
       );
     }
 
@@ -193,7 +196,7 @@ export class PaymentContextImpl implements PaymentContext {
       params["statusCallback"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['statusCallback']\" missing."
+        "Required parameter \"params['statusCallback']\" missing.",
       );
     }
 
@@ -225,20 +228,23 @@ export class PaymentContextImpl implements PaymentContext {
           payload,
           instance._solution.accountSid,
           instance._solution.callSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   updateWithHttpInfo(
     params: PaymentContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<PaymentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -249,7 +255,7 @@ export class PaymentContextImpl implements PaymentContext {
       params["idempotencyKey"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['idempotencyKey']\" missing."
+        "Required parameter \"params['idempotencyKey']\" missing.",
       );
     }
 
@@ -258,7 +264,7 @@ export class PaymentContextImpl implements PaymentContext {
       params["statusCallback"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['statusCallback']\" missing."
+        "Required parameter \"params['statusCallback']\" missing.",
       );
     }
 
@@ -292,14 +298,14 @@ export class PaymentContextImpl implements PaymentContext {
             response.body,
             instance._solution.accountSid,
             instance._solution.callSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -338,7 +344,7 @@ export class PaymentInstance {
     payload: PaymentResource,
     accountSid: string,
     callSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
@@ -382,7 +388,7 @@ export class PaymentInstance {
         this._version,
         this._solution.accountSid,
         this._solution.callSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -397,12 +403,12 @@ export class PaymentInstance {
    */
   update(
     params: PaymentContextUpdateOptions,
-    callback?: (error: Error | null, item?: PaymentInstance) => any
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
   ): Promise<PaymentInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: PaymentInstance) => any
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
   ): Promise<PaymentInstance> {
     return this._proxy.update(params, callback);
   }
@@ -417,12 +423,18 @@ export class PaymentInstance {
    */
   updateWithHttpInfo(
     params: PaymentContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<PaymentInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<PaymentInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -471,7 +483,7 @@ export interface PaymentListInstance {
    */
   create(
     params: PaymentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: PaymentInstance) => any
+    callback?: (error: Error | null, item?: PaymentInstance) => any,
   ): Promise<PaymentInstance>;
 
   /**
@@ -484,7 +496,10 @@ export interface PaymentListInstance {
    */
   createWithHttpInfo(
     params: PaymentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PaymentInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<PaymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<PaymentInstance>>;
 
   /**
@@ -497,7 +512,7 @@ export interface PaymentListInstance {
 export function PaymentListInstance(
   version: V2010,
   accountSid: string,
-  callSid: string
+  callSid: string,
 ): PaymentListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -519,7 +534,7 @@ export function PaymentListInstance(
 
   instance.create = function create(
     params: PaymentListInstanceCreateOptions,
-    callback?: (error: Error | null, items: PaymentInstance) => any
+    callback?: (error: Error | null, items: PaymentInstance) => any,
   ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -530,7 +545,7 @@ export function PaymentListInstance(
       params["idempotencyKey"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['idempotencyKey']\" missing."
+        "Required parameter \"params['idempotencyKey']\" missing.",
       );
     }
 
@@ -539,7 +554,7 @@ export function PaymentListInstance(
       params["statusCallback"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['statusCallback']\" missing."
+        "Required parameter \"params['statusCallback']\" missing.",
       );
     }
 
@@ -592,20 +607,23 @@ export function PaymentListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: PaymentListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<PaymentInstance>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<PaymentInstance>,
+    ) => any,
   ): Promise<ApiResponse<PaymentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -616,7 +634,7 @@ export function PaymentListInstance(
       params["idempotencyKey"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['idempotencyKey']\" missing."
+        "Required parameter \"params['idempotencyKey']\" missing.",
       );
     }
 
@@ -625,7 +643,7 @@ export function PaymentListInstance(
       params["statusCallback"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['statusCallback']\" missing."
+        "Required parameter \"params['statusCallback']\" missing.",
       );
     }
 
@@ -680,14 +698,14 @@ export function PaymentListInstance(
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.callSid
+            instance._solution.callSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -698,7 +716,7 @@ export function PaymentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2 from "../../../V2";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { V2 } from "../../../V2.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 /**
  * The verification status of the Bundle resource.
@@ -57,7 +57,7 @@ export interface ReplaceItemsListInstance {
    */
   create(
     params: ReplaceItemsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ReplaceItemsInstance) => any
+    callback?: (error: Error | null, item?: ReplaceItemsInstance) => any,
   ): Promise<ReplaceItemsInstance>;
 
   /**
@@ -72,8 +72,8 @@ export interface ReplaceItemsListInstance {
     params: ReplaceItemsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReplaceItemsInstance>
-    ) => any
+      item?: ApiResponse<ReplaceItemsInstance>,
+    ) => any,
   ): Promise<ApiResponse<ReplaceItemsInstance>>;
 
   /**
@@ -85,7 +85,7 @@ export interface ReplaceItemsListInstance {
 
 export function ReplaceItemsListInstance(
   version: V2,
-  bundleSid: string
+  bundleSid: string,
 ): ReplaceItemsListInstance {
   if (!isValidPathParam(bundleSid)) {
     throw new Error("Parameter 'bundleSid' is not valid.");
@@ -99,7 +99,7 @@ export function ReplaceItemsListInstance(
 
   instance.create = function create(
     params: ReplaceItemsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ReplaceItemsInstance) => any
+    callback?: (error: Error | null, items: ReplaceItemsInstance) => any,
   ): Promise<ReplaceItemsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -110,7 +110,7 @@ export function ReplaceItemsListInstance(
       params["fromBundleSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['fromBundleSid']\" missing."
+        "Required parameter \"params['fromBundleSid']\" missing.",
       );
     }
 
@@ -135,13 +135,13 @@ export function ReplaceItemsListInstance(
         new ReplaceItemsInstance(
           operationVersion,
           payload,
-          instance._solution.bundleSid
-        )
+          instance._solution.bundleSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -150,8 +150,8 @@ export function ReplaceItemsListInstance(
     params: ReplaceItemsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ReplaceItemsInstance>
-    ) => any
+      items: ApiResponse<ReplaceItemsInstance>,
+    ) => any,
   ): Promise<ApiResponse<ReplaceItemsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -162,7 +162,7 @@ export function ReplaceItemsListInstance(
       params["fromBundleSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['fromBundleSid']\" missing."
+        "Required parameter \"params['fromBundleSid']\" missing.",
       );
     }
 
@@ -189,14 +189,14 @@ export function ReplaceItemsListInstance(
           body: new ReplaceItemsInstance(
             operationVersion,
             response.body,
-            instance._solution.bundleSid
+            instance._solution.bundleSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -207,7 +207,7 @@ export function ReplaceItemsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -234,7 +234,7 @@ export class ReplaceItemsInstance {
   constructor(
     protected _version: V2,
     payload: ReplaceItemsResource,
-    bundleSid: string
+    bundleSid: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

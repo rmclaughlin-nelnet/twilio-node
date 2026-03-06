@@ -1,6 +1,6 @@
-import crypto from "crypto";
+import crypto from "node:crypto";
 
-class RequestCanonicalizer {
+export class RequestCanonicalizer {
   method: string;
   uri: string;
   queryParams: Record<string, string>;
@@ -12,7 +12,7 @@ class RequestCanonicalizer {
     uri: string,
     queryParams: Record<string, string>,
     requestBody: any,
-    headers: Record<string, string>
+    headers: Record<string, string>,
   ) {
     this.method = method;
     this.uri = uri;
@@ -82,7 +82,7 @@ class RequestCanonicalizer {
 
   getCanonicalizedHashedHeaders(): string {
     const sortedHeaders = Object.keys(this.headers).sort((a, b) =>
-      this.ASCIICompare(a, b)
+      this.ASCIICompare(a, b),
     ); // forces ASCII sorting using custom compare
     return sortedHeaders.join(";");
   }
@@ -114,5 +114,3 @@ ${this.getCanonicalizedRequestBody()}`;
     return this.sha256Hex(this.getCanonicalizedRequestString());
   }
 }
-
-export default RequestCanonicalizer;

@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export class AssistantsV1ServiceCreateFeedbackRequest {
   /**
@@ -106,7 +106,7 @@ export interface FeedbackListInstance {
   create(
     params: AssistantsV1ServiceCreateFeedbackRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
+    callback?: (error: Error | null, item?: FeedbackInstance) => any,
   ): Promise<FeedbackInstance>;
 
   /**
@@ -123,8 +123,8 @@ export interface FeedbackListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FeedbackInstance>
-    ) => any
+      item?: ApiResponse<FeedbackInstance>,
+    ) => any,
   ): Promise<ApiResponse<FeedbackInstance>>;
 
   /**
@@ -143,11 +143,11 @@ export interface FeedbackListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void
+    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: FeedbackListInstanceEachOptions,
-    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void
+    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams FeedbackInstance records from the API with HTTP metadata captured per page.
@@ -165,11 +165,11 @@ export interface FeedbackListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void
+    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: FeedbackListInstanceEachOptions,
-    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void
+    callback?: (item: FeedbackInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of FeedbackInstance records from the API.
@@ -181,7 +181,7 @@ export interface FeedbackListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: FeedbackPage) => any
+    callback?: (error: Error | null, items: FeedbackPage) => any,
   ): Promise<FeedbackPage>;
   /**
    * Retrieve a single target page of FeedbackInstance records from the API with HTTP metadata.
@@ -193,7 +193,7 @@ export interface FeedbackListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any,
   ): Promise<ApiResponse<FeedbackPage>>;
   /**
    * Lists FeedbackInstance records from the API as a list.
@@ -205,11 +205,11 @@ export interface FeedbackListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: FeedbackInstance[]) => any
+    callback?: (error: Error | null, items: FeedbackInstance[]) => any,
   ): Promise<FeedbackInstance[]>;
   list(
     params: FeedbackListInstanceOptions,
-    callback?: (error: Error | null, items: FeedbackInstance[]) => any
+    callback?: (error: Error | null, items: FeedbackInstance[]) => any,
   ): Promise<FeedbackInstance[]>;
   /**
    * Lists FeedbackInstance records from the API as a list with HTTP metadata.
@@ -225,15 +225,15 @@ export interface FeedbackListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<FeedbackInstance[]>
-    ) => any
+      items: ApiResponse<FeedbackInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<FeedbackInstance[]>>;
   listWithHttpInfo(
     params: FeedbackListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<FeedbackInstance[]>
-    ) => any
+      items: ApiResponse<FeedbackInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<FeedbackInstance[]>>;
   /**
    * Retrieve a single page of FeedbackInstance records from the API.
@@ -247,11 +247,11 @@ export interface FeedbackListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: FeedbackPage) => any
+    callback?: (error: Error | null, items: FeedbackPage) => any,
   ): Promise<FeedbackPage>;
   page(
     params: FeedbackListInstancePageOptions,
-    callback?: (error: Error | null, items: FeedbackPage) => any
+    callback?: (error: Error | null, items: FeedbackPage) => any,
   ): Promise<FeedbackPage>;
   /**
    * Retrieve a single page of FeedbackInstance records from the API with HTTP metadata.
@@ -265,11 +265,11 @@ export interface FeedbackListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any,
   ): Promise<ApiResponse<FeedbackPage>>;
   pageWithHttpInfo(
     params: FeedbackListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any,
   ): Promise<ApiResponse<FeedbackPage>>;
 
   /**
@@ -281,7 +281,7 @@ export interface FeedbackListInstance {
 
 export function FeedbackListInstance(
   version: V1,
-  id: string
+  id: string,
 ): FeedbackListInstance {
   if (!isValidPathParam(id)) {
     throw new Error("Parameter 'id' is not valid.");
@@ -296,7 +296,7 @@ export function FeedbackListInstance(
   instance.create = function create(
     params: AssistantsV1ServiceCreateFeedbackRequest,
     headers?: any,
-    callback?: (error: Error | null, items: FeedbackInstance) => any
+    callback?: (error: Error | null, items: FeedbackInstance) => any,
   ): Promise<FeedbackInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -323,12 +323,12 @@ export function FeedbackListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FeedbackInstance(operationVersion, payload, instance._solution.id)
+        new FeedbackInstance(operationVersion, payload, instance._solution.id),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -338,8 +338,8 @@ export function FeedbackListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<FeedbackInstance>
-    ) => any
+      items: ApiResponse<FeedbackInstance>,
+    ) => any,
   ): Promise<ApiResponse<FeedbackInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -371,14 +371,14 @@ export function FeedbackListInstance(
           body: new FeedbackInstance(
             operationVersion,
             response.body,
-            instance._solution.id
+            instance._solution.id,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -387,7 +387,7 @@ export function FeedbackListInstance(
     params?:
       | FeedbackListInstancePageOptions
       | ((error: Error | null, items: FeedbackPage) => any),
-    callback?: (error: Error | null, items: FeedbackPage) => any
+    callback?: (error: Error | null, items: FeedbackPage) => any,
   ): Promise<FeedbackPage> {
     if (params instanceof Function) {
       callback = params;
@@ -416,12 +416,12 @@ export function FeedbackListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FeedbackPage(operationVersion, payload, instance._solution)
+        new FeedbackPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -430,7 +430,7 @@ export function FeedbackListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: FeedbackPage) => any
+    callback?: (error: Error | null, items: FeedbackPage) => any,
   ): Promise<FeedbackPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -438,7 +438,7 @@ export function FeedbackListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new FeedbackPage(instance._version, payload, instance._solution)
+        new FeedbackPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -448,7 +448,7 @@ export function FeedbackListInstance(
     params?:
       | FeedbackListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<FeedbackPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<FeedbackPage>) => any,
   ): Promise<ApiResponse<FeedbackPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -479,14 +479,14 @@ export function FeedbackListInstance(
           body: new FeedbackPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -497,7 +497,7 @@ export function FeedbackListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<FeedbackPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<FeedbackPage>) => any,
   ): Promise<ApiResponse<FeedbackPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -510,7 +510,7 @@ export function FeedbackListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new FeedbackPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -522,7 +522,7 @@ export function FeedbackListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -548,7 +548,11 @@ interface FeedbackResource {
 }
 
 export class FeedbackInstance {
-  constructor(protected _version: V1, payload: FeedbackResource, id: string) {
+  constructor(
+    protected _version: V1,
+    payload: FeedbackResource,
+    id: string,
+  ) {
     this.assistantId = payload.assistant_id;
     this.id = payload.id;
     this.accountSid = payload.account_sid;
@@ -643,7 +647,7 @@ export class FeedbackPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: FeedbackSolution
+    solution: FeedbackSolution,
   ) {
     super(version, response, solution);
   }

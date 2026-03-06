@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V2010 from "../../V2010";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V2010 } from "../../V2010.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to update a SigningKeyInstance
@@ -75,7 +75,7 @@ export interface SigningKeyContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -86,7 +86,7 @@ export interface SigningKeyContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -97,7 +97,7 @@ export interface SigningKeyContext {
    * @returns Resolves to processed SigningKeyInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance>;
 
   /**
@@ -110,8 +110,8 @@ export interface SigningKeyContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>>;
 
   /**
@@ -122,7 +122,7 @@ export interface SigningKeyContext {
    * @returns Resolves to processed SigningKeyInstance
    */
   update(
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance>;
   /**
    * Update a SigningKeyInstance
@@ -134,7 +134,7 @@ export interface SigningKeyContext {
    */
   update(
     params: SigningKeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance>;
 
   /**
@@ -147,8 +147,8 @@ export interface SigningKeyContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>>;
   /**
    * Update a SigningKeyInstance and return HTTP info
@@ -162,8 +162,8 @@ export interface SigningKeyContext {
     params: SigningKeyContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>>;
 
   /**
@@ -182,7 +182,11 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   protected _solution: SigningKeyContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -196,7 +200,7 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -210,13 +214,13 @@ export class SigningKeyContextImpl implements SigningKeyContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -229,18 +233,18 @@ export class SigningKeyContextImpl implements SigningKeyContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -259,13 +263,13 @@ export class SigningKeyContextImpl implements SigningKeyContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -273,8 +277,8 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -295,14 +299,14 @@ export class SigningKeyContextImpl implements SigningKeyContext {
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -311,7 +315,7 @@ export class SigningKeyContextImpl implements SigningKeyContext {
     params?:
       | SigningKeyContextUpdateOptions
       | ((error: Error | null, item?: SigningKeyInstance) => any),
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -344,13 +348,13 @@ export class SigningKeyContextImpl implements SigningKeyContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -361,8 +365,8 @@ export class SigningKeyContextImpl implements SigningKeyContext {
       | ((error: Error | null, item?: ApiResponse<SigningKeyInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -397,14 +401,14 @@ export class SigningKeyContextImpl implements SigningKeyContext {
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -442,7 +446,7 @@ export class SigningKeyInstance {
     protected _version: V2010,
     payload: SigningKeyResource,
     accountSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -463,7 +467,7 @@ export class SigningKeyInstance {
       new SigningKeyContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -476,7 +480,7 @@ export class SigningKeyInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -489,7 +493,7 @@ export class SigningKeyInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -502,7 +506,7 @@ export class SigningKeyInstance {
    * @returns Resolves to processed SigningKeyInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance> {
     return this._proxy.fetch(callback);
   }
@@ -517,8 +521,8 @@ export class SigningKeyInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -531,7 +535,7 @@ export class SigningKeyInstance {
    * @returns Resolves to processed SigningKeyInstance
    */
   update(
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance>;
   /**
    * Update a SigningKeyInstance
@@ -543,12 +547,12 @@ export class SigningKeyInstance {
    */
   update(
     params: SigningKeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any,
   ): Promise<SigningKeyInstance> {
     return this._proxy.update(params, callback);
   }
@@ -563,8 +567,8 @@ export class SigningKeyInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>>;
   /**
    * Update a SigningKeyInstance and return HTTP info
@@ -578,16 +582,16 @@ export class SigningKeyInstance {
     params: SigningKeyContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SigningKeyInstance>
-    ) => any
+      item?: ApiResponse<SigningKeyInstance>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -639,11 +643,11 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
+    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: SigningKeyListInstanceEachOptions,
-    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
+    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams SigningKeyInstance records from the API with HTTP metadata captured per page.
@@ -661,11 +665,11 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
+    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: SigningKeyListInstanceEachOptions,
-    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
+    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of SigningKeyInstance records from the API.
@@ -677,7 +681,7 @@ export interface SigningKeyListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SigningKeyPage) => any
+    callback?: (error: Error | null, items: SigningKeyPage) => any,
   ): Promise<SigningKeyPage>;
   /**
    * Retrieve a single target page of SigningKeyInstance records from the API with HTTP metadata.
@@ -689,7 +693,7 @@ export interface SigningKeyListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<SigningKeyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SigningKeyPage>) => any,
   ): Promise<ApiResponse<SigningKeyPage>>;
   /**
    * Lists SigningKeyInstance records from the API as a list.
@@ -701,11 +705,11 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SigningKeyInstance[]) => any
+    callback?: (error: Error | null, items: SigningKeyInstance[]) => any,
   ): Promise<SigningKeyInstance[]>;
   list(
     params: SigningKeyListInstanceOptions,
-    callback?: (error: Error | null, items: SigningKeyInstance[]) => any
+    callback?: (error: Error | null, items: SigningKeyInstance[]) => any,
   ): Promise<SigningKeyInstance[]>;
   /**
    * Lists SigningKeyInstance records from the API as a list with HTTP metadata.
@@ -721,15 +725,15 @@ export interface SigningKeyListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SigningKeyInstance[]>
-    ) => any
+      items: ApiResponse<SigningKeyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance[]>>;
   listWithHttpInfo(
     params: SigningKeyListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SigningKeyInstance[]>
-    ) => any
+      items: ApiResponse<SigningKeyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyInstance[]>>;
   /**
    * Retrieve a single page of SigningKeyInstance records from the API.
@@ -743,11 +747,11 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SigningKeyPage) => any
+    callback?: (error: Error | null, items: SigningKeyPage) => any,
   ): Promise<SigningKeyPage>;
   page(
     params: SigningKeyListInstancePageOptions,
-    callback?: (error: Error | null, items: SigningKeyPage) => any
+    callback?: (error: Error | null, items: SigningKeyPage) => any,
   ): Promise<SigningKeyPage>;
   /**
    * Retrieve a single page of SigningKeyInstance records from the API with HTTP metadata.
@@ -761,11 +765,11 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<SigningKeyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SigningKeyPage>) => any,
   ): Promise<ApiResponse<SigningKeyPage>>;
   pageWithHttpInfo(
     params: SigningKeyListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<SigningKeyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SigningKeyPage>) => any,
   ): Promise<ApiResponse<SigningKeyPage>>;
 
   /**
@@ -777,7 +781,7 @@ export interface SigningKeyListInstance {
 
 export function SigningKeyListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): SigningKeyListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -797,7 +801,7 @@ export function SigningKeyListInstance(
     params?:
       | SigningKeyListInstancePageOptions
       | ((error: Error | null, items: SigningKeyPage) => any),
-    callback?: (error: Error | null, items: SigningKeyPage) => any
+    callback?: (error: Error | null, items: SigningKeyPage) => any,
   ): Promise<SigningKeyPage> {
     if (params instanceof Function) {
       callback = params;
@@ -826,12 +830,12 @@ export function SigningKeyListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SigningKeyPage(operationVersion, payload, instance._solution)
+        new SigningKeyPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -840,7 +844,7 @@ export function SigningKeyListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SigningKeyPage) => any
+    callback?: (error: Error | null, items: SigningKeyPage) => any,
   ): Promise<SigningKeyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -848,7 +852,7 @@ export function SigningKeyListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new SigningKeyPage(instance._version, payload, instance._solution)
+        new SigningKeyPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -858,7 +862,7 @@ export function SigningKeyListInstance(
     params?:
       | SigningKeyListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<SigningKeyPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<SigningKeyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<SigningKeyPage>) => any,
   ): Promise<ApiResponse<SigningKeyPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -889,14 +893,14 @@ export function SigningKeyListInstance(
           body: new SigningKeyPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -907,7 +911,10 @@ export function SigningKeyListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<SigningKeyPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<SigningKeyPage>,
+    ) => any,
   ): Promise<ApiResponse<SigningKeyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -922,9 +929,9 @@ export function SigningKeyListInstance(
         body: new SigningKeyPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -936,7 +943,7 @@ export function SigningKeyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -960,7 +967,7 @@ export class SigningKeyPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: SigningKeySolution
+    solution: SigningKeySolution,
   ) {
     super(version, response, solution);
   }
@@ -974,7 +981,7 @@ export class SigningKeyPage extends Page<
     return new SigningKeyInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

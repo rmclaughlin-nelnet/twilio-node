@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to each
@@ -84,15 +84,15 @@ export interface LegacyContentListInstance {
   each(
     callback?: (
       item: LegacyContentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: LegacyContentListInstanceEachOptions,
     callback?: (
       item: LegacyContentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams LegacyContentInstance records from the API with HTTP metadata captured per page.
@@ -112,15 +112,15 @@ export interface LegacyContentListInstance {
   eachWithHttpInfo(
     callback?: (
       item: LegacyContentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: LegacyContentListInstanceEachOptions,
     callback?: (
       item: LegacyContentInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of LegacyContentInstance records from the API.
@@ -132,7 +132,7 @@ export interface LegacyContentListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LegacyContentPage) => any
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
   ): Promise<LegacyContentPage>;
   /**
    * Retrieve a single target page of LegacyContentInstance records from the API with HTTP metadata.
@@ -146,8 +146,8 @@ export interface LegacyContentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<LegacyContentPage>
-    ) => any
+      items: ApiResponse<LegacyContentPage>,
+    ) => any,
   ): Promise<ApiResponse<LegacyContentPage>>;
   /**
    * Lists LegacyContentInstance records from the API as a list.
@@ -159,11 +159,11 @@ export interface LegacyContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: LegacyContentInstance[]) => any
+    callback?: (error: Error | null, items: LegacyContentInstance[]) => any,
   ): Promise<LegacyContentInstance[]>;
   list(
     params: LegacyContentListInstanceOptions,
-    callback?: (error: Error | null, items: LegacyContentInstance[]) => any
+    callback?: (error: Error | null, items: LegacyContentInstance[]) => any,
   ): Promise<LegacyContentInstance[]>;
   /**
    * Lists LegacyContentInstance records from the API as a list with HTTP metadata.
@@ -179,15 +179,15 @@ export interface LegacyContentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<LegacyContentInstance[]>
-    ) => any
+      items: ApiResponse<LegacyContentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<LegacyContentInstance[]>>;
   listWithHttpInfo(
     params: LegacyContentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<LegacyContentInstance[]>
-    ) => any
+      items: ApiResponse<LegacyContentInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<LegacyContentInstance[]>>;
   /**
    * Retrieve a single page of LegacyContentInstance records from the API.
@@ -201,11 +201,11 @@ export interface LegacyContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: LegacyContentPage) => any
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
   ): Promise<LegacyContentPage>;
   page(
     params: LegacyContentListInstancePageOptions,
-    callback?: (error: Error | null, items: LegacyContentPage) => any
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
   ): Promise<LegacyContentPage>;
   /**
    * Retrieve a single page of LegacyContentInstance records from the API with HTTP metadata.
@@ -221,15 +221,15 @@ export interface LegacyContentListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<LegacyContentPage>
-    ) => any
+      items: ApiResponse<LegacyContentPage>,
+    ) => any,
   ): Promise<ApiResponse<LegacyContentPage>>;
   pageWithHttpInfo(
     params: LegacyContentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<LegacyContentPage>
-    ) => any
+      items: ApiResponse<LegacyContentPage>,
+    ) => any,
   ): Promise<ApiResponse<LegacyContentPage>>;
 
   /**
@@ -240,7 +240,7 @@ export interface LegacyContentListInstance {
 }
 
 export function LegacyContentListInstance(
-  version: V1
+  version: V1,
 ): LegacyContentListInstance {
   const instance = {} as LegacyContentListInstance;
 
@@ -252,7 +252,7 @@ export function LegacyContentListInstance(
     params?:
       | LegacyContentListInstancePageOptions
       | ((error: Error | null, items: LegacyContentPage) => any),
-    callback?: (error: Error | null, items: LegacyContentPage) => any
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
   ): Promise<LegacyContentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -281,12 +281,12 @@ export function LegacyContentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new LegacyContentPage(operationVersion, payload, instance._solution)
+        new LegacyContentPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -295,7 +295,7 @@ export function LegacyContentListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LegacyContentPage) => any
+    callback?: (error: Error | null, items: LegacyContentPage) => any,
   ): Promise<LegacyContentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -303,7 +303,7 @@ export function LegacyContentListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new LegacyContentPage(instance._version, payload, instance._solution)
+        new LegacyContentPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -315,8 +315,8 @@ export function LegacyContentListInstance(
       | ((error: Error | null, items: ApiResponse<LegacyContentPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<LegacyContentPage>
-    ) => any
+      items: ApiResponse<LegacyContentPage>,
+    ) => any,
   ): Promise<ApiResponse<LegacyContentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -347,14 +347,14 @@ export function LegacyContentListInstance(
           body: new LegacyContentPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -367,8 +367,8 @@ export function LegacyContentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<LegacyContentPage>
-    ) => any
+      items?: ApiResponse<LegacyContentPage>,
+    ) => any,
   ): Promise<ApiResponse<LegacyContentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -383,9 +383,9 @@ export function LegacyContentListInstance(
         body: new LegacyContentPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -397,7 +397,7 @@ export function LegacyContentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -424,7 +424,10 @@ interface LegacyContentResource {
 }
 
 export class LegacyContentInstance {
-  constructor(protected _version: V1, payload: LegacyContentResource) {
+  constructor(
+    protected _version: V1,
+    payload: LegacyContentResource,
+  ) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.sid = payload.sid;
@@ -525,7 +528,7 @@ export class LegacyContentPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: LegacyContentSolution
+    solution: LegacyContentSolution,
   ) {
     super(version, response, solution);
   }

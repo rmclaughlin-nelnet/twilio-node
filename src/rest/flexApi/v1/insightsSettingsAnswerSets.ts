@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to fetch a InsightsSettingsAnswerSetsInstance
@@ -44,8 +44,8 @@ export interface InsightsSettingsAnswerSetsListInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: InsightsSettingsAnswerSetsInstance
-    ) => any
+      item?: InsightsSettingsAnswerSetsInstance,
+    ) => any,
   ): Promise<InsightsSettingsAnswerSetsInstance>;
   /**
    * Fetch a InsightsSettingsAnswerSetsInstance
@@ -59,8 +59,8 @@ export interface InsightsSettingsAnswerSetsListInstance {
     params: InsightsSettingsAnswerSetsListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: InsightsSettingsAnswerSetsInstance
-    ) => any
+      item?: InsightsSettingsAnswerSetsInstance,
+    ) => any,
   ): Promise<InsightsSettingsAnswerSetsInstance>;
 
   /**
@@ -73,8 +73,8 @@ export interface InsightsSettingsAnswerSetsListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSettingsAnswerSetsInstance>
-    ) => any
+      item?: ApiResponse<InsightsSettingsAnswerSetsInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>>;
   /**
    * Fetch a InsightsSettingsAnswerSetsInstance and return HTTP info
@@ -88,8 +88,8 @@ export interface InsightsSettingsAnswerSetsListInstance {
     params: InsightsSettingsAnswerSetsListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSettingsAnswerSetsInstance>
-    ) => any
+      item?: ApiResponse<InsightsSettingsAnswerSetsInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>>;
 
   /**
@@ -100,7 +100,7 @@ export interface InsightsSettingsAnswerSetsListInstance {
 }
 
 export function InsightsSettingsAnswerSetsListInstance(
-  version: V1
+  version: V1,
 ): InsightsSettingsAnswerSetsListInstance {
   const instance = {} as InsightsSettingsAnswerSetsListInstance;
 
@@ -113,12 +113,12 @@ export function InsightsSettingsAnswerSetsListInstance(
       | InsightsSettingsAnswerSetsListInstanceFetchOptions
       | ((
           error: Error | null,
-          items: InsightsSettingsAnswerSetsInstance
+          items: InsightsSettingsAnswerSetsInstance,
         ) => any),
     callback?: (
       error: Error | null,
-      items: InsightsSettingsAnswerSetsInstance
-    ) => any
+      items: InsightsSettingsAnswerSetsInstance,
+    ) => any,
   ): Promise<InsightsSettingsAnswerSetsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -144,12 +144,12 @@ export function InsightsSettingsAnswerSetsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InsightsSettingsAnswerSetsInstance(operationVersion, payload)
+        new InsightsSettingsAnswerSetsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -159,12 +159,12 @@ export function InsightsSettingsAnswerSetsListInstance(
       | InsightsSettingsAnswerSetsListInstanceFetchOptions
       | ((
           error: Error | null,
-          items: ApiResponse<InsightsSettingsAnswerSetsInstance>
+          items: ApiResponse<InsightsSettingsAnswerSetsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsSettingsAnswerSetsInstance>
-    ) => any
+      items: ApiResponse<InsightsSettingsAnswerSetsInstance>,
+    ) => any,
   ): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -194,14 +194,14 @@ export function InsightsSettingsAnswerSetsListInstance(
           ...response,
           body: new InsightsSettingsAnswerSetsInstance(
             operationVersion,
-            response.body
+            response.body,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -212,7 +212,7 @@ export function InsightsSettingsAnswerSetsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -220,8 +220,7 @@ export function InsightsSettingsAnswerSetsListInstance(
   return instance;
 }
 
-interface InsightsSettingsAnswerSetsPayload
-  extends InsightsSettingsAnswerSetsResource {}
+interface InsightsSettingsAnswerSetsPayload extends InsightsSettingsAnswerSetsResource {}
 
 interface InsightsSettingsAnswerSetsResource {
   account_sid: string;
@@ -234,7 +233,7 @@ interface InsightsSettingsAnswerSetsResource {
 export class InsightsSettingsAnswerSetsInstance {
   constructor(
     protected _version: V1,
-    payload: InsightsSettingsAnswerSetsResource
+    payload: InsightsSettingsAnswerSetsResource,
   ) {
     this.accountSid = payload.account_sid;
     this.answerSets = payload.answer_sets;

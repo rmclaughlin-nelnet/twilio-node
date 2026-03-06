@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to each
@@ -31,7 +31,7 @@ export interface ContentAndApprovalsListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ContentAndApprovalsInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -87,15 +87,15 @@ export interface ContentAndApprovalsListInstance {
   each(
     callback?: (
       item: ContentAndApprovalsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: ContentAndApprovalsListInstanceEachOptions,
     callback?: (
       item: ContentAndApprovalsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams ContentAndApprovalsInstance records from the API with HTTP metadata captured per page.
@@ -115,15 +115,15 @@ export interface ContentAndApprovalsListInstance {
   eachWithHttpInfo(
     callback?: (
       item: ContentAndApprovalsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: ContentAndApprovalsListInstanceEachOptions,
     callback?: (
       item: ContentAndApprovalsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of ContentAndApprovalsInstance records from the API.
@@ -135,7 +135,7 @@ export interface ContentAndApprovalsListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
   ): Promise<ContentAndApprovalsPage>;
   /**
    * Retrieve a single target page of ContentAndApprovalsInstance records from the API with HTTP metadata.
@@ -149,8 +149,8 @@ export interface ContentAndApprovalsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentAndApprovalsPage>
-    ) => any
+      items: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
   ): Promise<ApiResponse<ContentAndApprovalsPage>>;
   /**
    * Lists ContentAndApprovalsInstance records from the API as a list.
@@ -164,15 +164,15 @@ export interface ContentAndApprovalsListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: ContentAndApprovalsInstance[]
-    ) => any
+      items: ContentAndApprovalsInstance[],
+    ) => any,
   ): Promise<ContentAndApprovalsInstance[]>;
   list(
     params: ContentAndApprovalsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ContentAndApprovalsInstance[]
-    ) => any
+      items: ContentAndApprovalsInstance[],
+    ) => any,
   ): Promise<ContentAndApprovalsInstance[]>;
   /**
    * Lists ContentAndApprovalsInstance records from the API as a list with HTTP metadata.
@@ -188,15 +188,15 @@ export interface ContentAndApprovalsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentAndApprovalsInstance[]>
-    ) => any
+      items: ApiResponse<ContentAndApprovalsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ContentAndApprovalsInstance[]>>;
   listWithHttpInfo(
     params: ContentAndApprovalsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentAndApprovalsInstance[]>
-    ) => any
+      items: ApiResponse<ContentAndApprovalsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ContentAndApprovalsInstance[]>>;
   /**
    * Retrieve a single page of ContentAndApprovalsInstance records from the API.
@@ -210,11 +210,11 @@ export interface ContentAndApprovalsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
   ): Promise<ContentAndApprovalsPage>;
   page(
     params: ContentAndApprovalsListInstancePageOptions,
-    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
   ): Promise<ContentAndApprovalsPage>;
   /**
    * Retrieve a single page of ContentAndApprovalsInstance records from the API with HTTP metadata.
@@ -230,15 +230,15 @@ export interface ContentAndApprovalsListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentAndApprovalsPage>
-    ) => any
+      items: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
   ): Promise<ApiResponse<ContentAndApprovalsPage>>;
   pageWithHttpInfo(
     params: ContentAndApprovalsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentAndApprovalsPage>
-    ) => any
+      items: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
   ): Promise<ApiResponse<ContentAndApprovalsPage>>;
 
   /**
@@ -249,7 +249,7 @@ export interface ContentAndApprovalsListInstance {
 }
 
 export function ContentAndApprovalsListInstance(
-  version: V1
+  version: V1,
 ): ContentAndApprovalsListInstance {
   const instance = {} as ContentAndApprovalsListInstance;
 
@@ -261,7 +261,7 @@ export function ContentAndApprovalsListInstance(
     params?:
       | ContentAndApprovalsListInstancePageOptions
       | ((error: Error | null, items: ContentAndApprovalsPage) => any),
-    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
   ): Promise<ContentAndApprovalsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -293,13 +293,13 @@ export function ContentAndApprovalsListInstance(
         new ContentAndApprovalsPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -308,7 +308,7 @@ export function ContentAndApprovalsListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any
+    callback?: (error: Error | null, items: ContentAndApprovalsPage) => any,
   ): Promise<ContentAndApprovalsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -319,8 +319,8 @@ export function ContentAndApprovalsListInstance(
         new ContentAndApprovalsPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -331,12 +331,12 @@ export function ContentAndApprovalsListInstance(
       | ContentAndApprovalsListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<ContentAndApprovalsPage>
+          items: ApiResponse<ContentAndApprovalsPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentAndApprovalsPage>
-    ) => any
+      items: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
   ): Promise<ApiResponse<ContentAndApprovalsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -367,14 +367,14 @@ export function ContentAndApprovalsListInstance(
           body: new ContentAndApprovalsPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -387,8 +387,8 @@ export function ContentAndApprovalsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ContentAndApprovalsPage>
-    ) => any
+      items?: ApiResponse<ContentAndApprovalsPage>,
+    ) => any,
   ): Promise<ApiResponse<ContentAndApprovalsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -403,9 +403,9 @@ export function ContentAndApprovalsListInstance(
         body: new ContentAndApprovalsPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -417,7 +417,7 @@ export function ContentAndApprovalsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -442,7 +442,10 @@ interface ContentAndApprovalsResource {
 }
 
 export class ContentAndApprovalsInstance {
-  constructor(protected _version: V1, payload: ContentAndApprovalsResource) {
+  constructor(
+    protected _version: V1,
+    payload: ContentAndApprovalsResource,
+  ) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.sid = payload.sid;
@@ -531,7 +534,7 @@ export class ContentAndApprovalsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ContentAndApprovalsSolution
+    solution: ContentAndApprovalsSolution,
   ) {
     super(version, response, solution);
   }
@@ -542,7 +545,7 @@ export class ContentAndApprovalsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: ContentAndApprovalsResource
+    payload: ContentAndApprovalsResource,
   ): ContentAndApprovalsInstance {
     return new ContentAndApprovalsInstance(this._version, payload);
   }

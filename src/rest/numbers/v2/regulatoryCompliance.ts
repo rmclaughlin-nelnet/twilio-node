@@ -13,17 +13,17 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2 from "../V2";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { BundleListInstance } from "./regulatoryCompliance/bundle";
-import { EndUserListInstance } from "./regulatoryCompliance/endUser";
-import { EndUserTypeListInstance } from "./regulatoryCompliance/endUserType";
-import { RegulationListInstance } from "./regulatoryCompliance/regulation";
-import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
-import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
+import { V2 } from "../V2.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { BundleListInstance } from "./regulatoryCompliance/bundle.js";
+import { EndUserListInstance } from "./regulatoryCompliance/endUser.js";
+import { EndUserTypeListInstance } from "./regulatoryCompliance/endUserType.js";
+import { RegulationListInstance } from "./regulatoryCompliance/regulation.js";
+import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument.js";
+import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType.js";
 
 /**
  * The type of End User the regulation requires - can be `individual` or `business`.
@@ -58,7 +58,7 @@ export interface RegulatoryComplianceListInstance {
 }
 
 export function RegulatoryComplianceListInstance(
-  version: V2
+  version: V2,
 ): RegulatoryComplianceListInstance {
   const instance = {} as RegulatoryComplianceListInstance;
 
@@ -106,7 +106,7 @@ export function RegulatoryComplianceListInstance(
     get: function supportingDocuments() {
       if (!instance._supportingDocuments) {
         instance._supportingDocuments = SupportingDocumentListInstance(
-          instance._version
+          instance._version,
         );
       }
       return instance._supportingDocuments;
@@ -117,7 +117,7 @@ export function RegulatoryComplianceListInstance(
     get: function supportingDocumentTypes() {
       if (!instance._supportingDocumentTypes) {
         instance._supportingDocumentTypes = SupportingDocumentTypeListInstance(
-          instance._version
+          instance._version,
         );
       }
       return instance._supportingDocumentTypes;
@@ -130,7 +130,7 @@ export function RegulatoryComplianceListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

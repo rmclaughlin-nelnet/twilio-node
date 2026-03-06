@@ -14,16 +14,16 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { WorkflowCumulativeStatisticsListInstance } from "./workflow/workflowCumulativeStatistics";
-import { WorkflowRealTimeStatisticsListInstance } from "./workflow/workflowRealTimeStatistics";
-import { WorkflowStatisticsListInstance } from "./workflow/workflowStatistics";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { WorkflowCumulativeStatisticsListInstance } from "./workflow/workflowCumulativeStatistics.js";
+import { WorkflowRealTimeStatisticsListInstance } from "./workflow/workflowRealTimeStatistics.js";
+import { WorkflowStatisticsListInstance } from "./workflow/workflowStatistics.js";
 
 /**
  * Options to pass to update a WorkflowInstance
@@ -114,7 +114,7 @@ export interface WorkflowContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -125,7 +125,7 @@ export interface WorkflowContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -136,7 +136,7 @@ export interface WorkflowContext {
    * @returns Resolves to processed WorkflowInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance>;
 
   /**
@@ -149,8 +149,8 @@ export interface WorkflowContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>>;
 
   /**
@@ -161,7 +161,7 @@ export interface WorkflowContext {
    * @returns Resolves to processed WorkflowInstance
    */
   update(
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance>;
   /**
    * Update a WorkflowInstance
@@ -173,7 +173,7 @@ export interface WorkflowContext {
    */
   update(
     params: WorkflowContextUpdateOptions,
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance>;
 
   /**
@@ -186,8 +186,8 @@ export interface WorkflowContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>>;
   /**
    * Update a WorkflowInstance and return HTTP info
@@ -201,8 +201,8 @@ export interface WorkflowContext {
     params: WorkflowContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>>;
 
   /**
@@ -225,7 +225,11 @@ export class WorkflowContextImpl implements WorkflowContext {
   protected _realTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
   protected _statistics?: WorkflowStatisticsListInstance;
 
-  constructor(protected _version: V1, workspaceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -244,7 +248,7 @@ export class WorkflowContextImpl implements WorkflowContext {
       WorkflowCumulativeStatisticsListInstance(
         this._version,
         this._solution.workspaceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._cumulativeStatistics;
   }
@@ -255,7 +259,7 @@ export class WorkflowContextImpl implements WorkflowContext {
       WorkflowRealTimeStatisticsListInstance(
         this._version,
         this._solution.workspaceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._realTimeStatistics;
   }
@@ -266,13 +270,13 @@ export class WorkflowContextImpl implements WorkflowContext {
       WorkflowStatisticsListInstance(
         this._version,
         this._solution.workspaceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._statistics;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -286,13 +290,13 @@ export class WorkflowContextImpl implements WorkflowContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -305,18 +309,18 @@ export class WorkflowContextImpl implements WorkflowContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -335,13 +339,13 @@ export class WorkflowContextImpl implements WorkflowContext {
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -349,8 +353,8 @@ export class WorkflowContextImpl implements WorkflowContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -371,14 +375,14 @@ export class WorkflowContextImpl implements WorkflowContext {
             operationVersion,
             response.body,
             instance._solution.workspaceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -387,7 +391,7 @@ export class WorkflowContextImpl implements WorkflowContext {
     params?:
       | WorkflowContextUpdateOptions
       | ((error: Error | null, item?: WorkflowInstance) => any),
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -431,13 +435,13 @@ export class WorkflowContextImpl implements WorkflowContext {
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -448,8 +452,8 @@ export class WorkflowContextImpl implements WorkflowContext {
       | ((error: Error | null, item?: ApiResponse<WorkflowInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -495,14 +499,14 @@ export class WorkflowContextImpl implements WorkflowContext {
             operationVersion,
             response.body,
             instance._solution.workspaceSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -549,7 +553,7 @@ export class WorkflowInstance {
     protected _version: V1,
     payload: WorkflowResource,
     workspaceSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.assignmentCallbackUrl = payload.assignment_callback_url;
@@ -562,7 +566,7 @@ export class WorkflowInstance {
     this.friendlyName = payload.friendly_name;
     this.sid = payload.sid;
     this.taskReservationTimeout = deserialize.integer(
-      payload.task_reservation_timeout
+      payload.task_reservation_timeout,
     );
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
@@ -630,7 +634,7 @@ export class WorkflowInstance {
       new WorkflowContextImpl(
         this._version,
         this._solution.workspaceSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -643,7 +647,7 @@ export class WorkflowInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -656,7 +660,7 @@ export class WorkflowInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -669,7 +673,7 @@ export class WorkflowInstance {
    * @returns Resolves to processed WorkflowInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance> {
     return this._proxy.fetch(callback);
   }
@@ -684,8 +688,8 @@ export class WorkflowInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -698,7 +702,7 @@ export class WorkflowInstance {
    * @returns Resolves to processed WorkflowInstance
    */
   update(
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance>;
   /**
    * Update a WorkflowInstance
@@ -710,12 +714,12 @@ export class WorkflowInstance {
    */
   update(
     params: WorkflowContextUpdateOptions,
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance> {
     return this._proxy.update(params, callback);
   }
@@ -730,8 +734,8 @@ export class WorkflowInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>>;
   /**
    * Update a WorkflowInstance and return HTTP info
@@ -745,16 +749,16 @@ export class WorkflowInstance {
     params: WorkflowContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -830,7 +834,7 @@ export interface WorkflowListInstance {
    */
   create(
     params: WorkflowListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, item?: WorkflowInstance) => any,
   ): Promise<WorkflowInstance>;
 
   /**
@@ -845,8 +849,8 @@ export interface WorkflowListInstance {
     params: WorkflowListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkflowInstance>
-    ) => any
+      item?: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>>;
 
   /**
@@ -865,11 +869,11 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
+    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: WorkflowListInstanceEachOptions,
-    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
+    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams WorkflowInstance records from the API with HTTP metadata captured per page.
@@ -887,11 +891,11 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
+    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: WorkflowListInstanceEachOptions,
-    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
+    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of WorkflowInstance records from the API.
@@ -903,7 +907,7 @@ export interface WorkflowListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: WorkflowPage) => any
+    callback?: (error: Error | null, items: WorkflowPage) => any,
   ): Promise<WorkflowPage>;
   /**
    * Retrieve a single target page of WorkflowInstance records from the API with HTTP metadata.
@@ -915,7 +919,7 @@ export interface WorkflowListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any,
   ): Promise<ApiResponse<WorkflowPage>>;
   /**
    * Lists WorkflowInstance records from the API as a list.
@@ -927,11 +931,11 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: WorkflowInstance[]) => any
+    callback?: (error: Error | null, items: WorkflowInstance[]) => any,
   ): Promise<WorkflowInstance[]>;
   list(
     params: WorkflowListInstanceOptions,
-    callback?: (error: Error | null, items: WorkflowInstance[]) => any
+    callback?: (error: Error | null, items: WorkflowInstance[]) => any,
   ): Promise<WorkflowInstance[]>;
   /**
    * Lists WorkflowInstance records from the API as a list with HTTP metadata.
@@ -947,15 +951,15 @@ export interface WorkflowListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkflowInstance[]>
-    ) => any
+      items: ApiResponse<WorkflowInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance[]>>;
   listWithHttpInfo(
     params: WorkflowListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkflowInstance[]>
-    ) => any
+      items: ApiResponse<WorkflowInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance[]>>;
   /**
    * Retrieve a single page of WorkflowInstance records from the API.
@@ -969,11 +973,11 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: WorkflowPage) => any
+    callback?: (error: Error | null, items: WorkflowPage) => any,
   ): Promise<WorkflowPage>;
   page(
     params: WorkflowListInstancePageOptions,
-    callback?: (error: Error | null, items: WorkflowPage) => any
+    callback?: (error: Error | null, items: WorkflowPage) => any,
   ): Promise<WorkflowPage>;
   /**
    * Retrieve a single page of WorkflowInstance records from the API with HTTP metadata.
@@ -987,11 +991,11 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any,
   ): Promise<ApiResponse<WorkflowPage>>;
   pageWithHttpInfo(
     params: WorkflowListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any,
   ): Promise<ApiResponse<WorkflowPage>>;
 
   /**
@@ -1003,7 +1007,7 @@ export interface WorkflowListInstance {
 
 export function WorkflowListInstance(
   version: V1,
-  workspaceSid: string
+  workspaceSid: string,
 ): WorkflowListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -1021,7 +1025,7 @@ export function WorkflowListInstance(
 
   instance.create = function create(
     params: WorkflowListInstanceCreateOptions,
-    callback?: (error: Error | null, items: WorkflowInstance) => any
+    callback?: (error: Error | null, items: WorkflowInstance) => any,
   ): Promise<WorkflowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1039,7 +1043,7 @@ export function WorkflowListInstance(
       params["configuration"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['configuration']\" missing."
+        "Required parameter \"params['configuration']\" missing.",
       );
     }
 
@@ -1073,13 +1077,13 @@ export function WorkflowListInstance(
         new WorkflowInstance(
           operationVersion,
           payload,
-          instance._solution.workspaceSid
-        )
+          instance._solution.workspaceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1088,8 +1092,8 @@ export function WorkflowListInstance(
     params: WorkflowListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkflowInstance>
-    ) => any
+      items: ApiResponse<WorkflowInstance>,
+    ) => any,
   ): Promise<ApiResponse<WorkflowInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1107,7 +1111,7 @@ export function WorkflowListInstance(
       params["configuration"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['configuration']\" missing."
+        "Required parameter \"params['configuration']\" missing.",
       );
     }
 
@@ -1143,14 +1147,14 @@ export function WorkflowListInstance(
           body: new WorkflowInstance(
             operationVersion,
             response.body,
-            instance._solution.workspaceSid
+            instance._solution.workspaceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1159,7 +1163,7 @@ export function WorkflowListInstance(
     params?:
       | WorkflowListInstancePageOptions
       | ((error: Error | null, items: WorkflowPage) => any),
-    callback?: (error: Error | null, items: WorkflowPage) => any
+    callback?: (error: Error | null, items: WorkflowPage) => any,
   ): Promise<WorkflowPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1190,12 +1194,12 @@ export function WorkflowListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkflowPage(operationVersion, payload, instance._solution)
+        new WorkflowPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1204,7 +1208,7 @@ export function WorkflowListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: WorkflowPage) => any
+    callback?: (error: Error | null, items: WorkflowPage) => any,
   ): Promise<WorkflowPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1212,7 +1216,7 @@ export function WorkflowListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new WorkflowPage(instance._version, payload, instance._solution)
+        new WorkflowPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1222,7 +1226,7 @@ export function WorkflowListInstance(
     params?:
       | WorkflowListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<WorkflowPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<WorkflowPage>) => any,
   ): Promise<ApiResponse<WorkflowPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1255,14 +1259,14 @@ export function WorkflowListInstance(
           body: new WorkflowPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1273,7 +1277,7 @@ export function WorkflowListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<WorkflowPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<WorkflowPage>) => any,
   ): Promise<ApiResponse<WorkflowPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1286,7 +1290,7 @@ export function WorkflowListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new WorkflowPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1298,7 +1302,7 @@ export function WorkflowListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1322,7 +1326,7 @@ export class WorkflowPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: WorkflowSolution
+    solution: WorkflowSolution,
   ) {
     super(version, response, solution);
   }
@@ -1336,7 +1340,7 @@ export class WorkflowPage extends Page<
     return new WorkflowInstance(
       this._version,
       payload,
-      this._solution.workspaceSid
+      this._solution.workspaceSid,
     );
   }
 

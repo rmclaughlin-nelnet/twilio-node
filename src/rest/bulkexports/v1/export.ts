@@ -13,14 +13,14 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { DayListInstance } from "./export/day";
-import { ExportCustomJobListInstance } from "./export/exportCustomJob";
-import { JobListInstance } from "./export/job";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { DayListInstance } from "./export/day.js";
+import { ExportCustomJobListInstance } from "./export/exportCustomJob.js";
+import { JobListInstance } from "./export/job.js";
 
 export interface ExportContext {
   days: DayListInstance;
@@ -34,7 +34,7 @@ export interface ExportContext {
    * @returns Resolves to processed ExportInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExportInstance) => any
+    callback?: (error: Error | null, item?: ExportInstance) => any,
   ): Promise<ExportInstance>;
 
   /**
@@ -45,7 +45,7 @@ export interface ExportContext {
    * @returns Resolves to processed ExportInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any,
   ): Promise<ApiResponse<ExportInstance>>;
 
   /**
@@ -66,7 +66,10 @@ export class ExportContextImpl implements ExportContext {
   protected _days?: DayListInstance;
   protected _exportCustomJobs?: ExportCustomJobListInstance;
 
-  constructor(protected _version: V1, resourceType: string) {
+  constructor(
+    protected _version: V1,
+    resourceType: string,
+  ) {
     if (!isValidPathParam(resourceType)) {
       throw new Error("Parameter 'resourceType' is not valid.");
     }
@@ -89,7 +92,7 @@ export class ExportContextImpl implements ExportContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ExportInstance) => any
+    callback?: (error: Error | null, item?: ExportInstance) => any,
   ): Promise<ExportInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -107,19 +110,19 @@ export class ExportContextImpl implements ExportContext {
         new ExportInstance(
           operationVersion,
           payload,
-          instance._solution.resourceType
-        )
+          instance._solution.resourceType,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any,
   ): Promise<ApiResponse<ExportInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -139,14 +142,14 @@ export class ExportContextImpl implements ExportContext {
           body: new ExportInstance(
             operationVersion,
             response.body,
-            instance._solution.resourceType
+            instance._solution.resourceType,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -180,7 +183,7 @@ export class ExportInstance {
   constructor(
     protected _version: V1,
     payload: ExportResource,
-    resourceType?: string
+    resourceType?: string,
   ) {
     this.resourceType = payload.resource_type;
     this.url = payload.url;
@@ -217,7 +220,7 @@ export class ExportInstance {
    * @returns Resolves to processed ExportInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExportInstance) => any
+    callback?: (error: Error | null, item?: ExportInstance) => any,
   ): Promise<ExportInstance> {
     return this._proxy.fetch(callback);
   }
@@ -230,7 +233,7 @@ export class ExportInstance {
    * @returns Resolves to processed ExportInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<ExportInstance>) => any,
   ): Promise<ApiResponse<ExportInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -314,7 +317,7 @@ export function ExportListInstance(version: V1): ExportListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -14,16 +14,16 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V2010 from "../../../V2010";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
-import { AuthTypesListInstance } from "./domain/authTypes";
-import { CredentialListMappingListInstance } from "./domain/credentialListMapping";
-import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControlListMapping";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V2010 } from "../../../V2010.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
+import { AuthTypesListInstance } from "./domain/authTypes.js";
+import { CredentialListMappingListInstance } from "./domain/credentialListMapping.js";
+import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControlListMapping.js";
 
 /**
  * Options to pass to update a DomainInstance
@@ -138,7 +138,7 @@ export interface DomainContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -149,7 +149,7 @@ export interface DomainContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -160,7 +160,7 @@ export interface DomainContext {
    * @returns Resolves to processed DomainInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance>;
 
   /**
@@ -171,7 +171,7 @@ export interface DomainContext {
    * @returns Resolves to processed DomainInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>>;
 
   /**
@@ -182,7 +182,7 @@ export interface DomainContext {
    * @returns Resolves to processed DomainInstance
    */
   update(
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance>;
   /**
    * Update a DomainInstance
@@ -194,7 +194,7 @@ export interface DomainContext {
    */
   update(
     params: DomainContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance>;
 
   /**
@@ -205,7 +205,7 @@ export interface DomainContext {
    * @returns Resolves to processed DomainInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>>;
   /**
    * Update a DomainInstance and return HTTP info
@@ -217,7 +217,7 @@ export interface DomainContext {
    */
   updateWithHttpInfo(
     params: DomainContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>>;
 
   /**
@@ -240,7 +240,11 @@ export class DomainContextImpl implements DomainContext {
   protected _credentialListMappings?: CredentialListMappingListInstance;
   protected _ipAccessControlListMappings?: IpAccessControlListMappingListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -259,7 +263,7 @@ export class DomainContextImpl implements DomainContext {
       AuthTypesListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._auth;
   }
@@ -270,7 +274,7 @@ export class DomainContextImpl implements DomainContext {
       CredentialListMappingListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._credentialListMappings;
   }
@@ -281,13 +285,13 @@ export class DomainContextImpl implements DomainContext {
       IpAccessControlListMappingListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._ipAccessControlListMappings;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -301,13 +305,13 @@ export class DomainContextImpl implements DomainContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -320,18 +324,18 @@ export class DomainContextImpl implements DomainContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -350,19 +354,19 @@ export class DomainContextImpl implements DomainContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -383,14 +387,14 @@ export class DomainContextImpl implements DomainContext {
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -399,7 +403,7 @@ export class DomainContextImpl implements DomainContext {
     params?:
       | DomainContextUpdateOptions
       | ((error: Error | null, item?: DomainInstance) => any),
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -429,7 +433,7 @@ export class DomainContextImpl implements DomainContext {
       data["DomainName"] = params["domainName"];
     if (params["emergencyCallingEnabled"] !== undefined)
       data["EmergencyCallingEnabled"] = serialize.bool(
-        params["emergencyCallingEnabled"]
+        params["emergencyCallingEnabled"],
       );
     if (params["secure"] !== undefined)
       data["Secure"] = serialize.bool(params["secure"]);
@@ -457,13 +461,13 @@ export class DomainContextImpl implements DomainContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -472,7 +476,7 @@ export class DomainContextImpl implements DomainContext {
     params?:
       | DomainContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<DomainInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -502,7 +506,7 @@ export class DomainContextImpl implements DomainContext {
       data["DomainName"] = params["domainName"];
     if (params["emergencyCallingEnabled"] !== undefined)
       data["EmergencyCallingEnabled"] = serialize.bool(
-        params["emergencyCallingEnabled"]
+        params["emergencyCallingEnabled"],
       );
     if (params["secure"] !== undefined)
       data["Secure"] = serialize.bool(params["secure"]);
@@ -532,14 +536,14 @@ export class DomainContextImpl implements DomainContext {
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -594,7 +598,7 @@ export class DomainInstance {
     protected _version: V2010,
     payload: DomainResource,
     accountSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -712,7 +716,7 @@ export class DomainInstance {
       new DomainContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -725,7 +729,7 @@ export class DomainInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -738,7 +742,7 @@ export class DomainInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -751,7 +755,7 @@ export class DomainInstance {
    * @returns Resolves to processed DomainInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance> {
     return this._proxy.fetch(callback);
   }
@@ -764,7 +768,7 @@ export class DomainInstance {
    * @returns Resolves to processed DomainInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -777,7 +781,7 @@ export class DomainInstance {
    * @returns Resolves to processed DomainInstance
    */
   update(
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance>;
   /**
    * Update a DomainInstance
@@ -789,12 +793,12 @@ export class DomainInstance {
    */
   update(
     params: DomainContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance> {
     return this._proxy.update(params, callback);
   }
@@ -807,7 +811,7 @@ export class DomainInstance {
    * @returns Resolves to processed DomainInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>>;
   /**
    * Update a DomainInstance and return HTTP info
@@ -819,12 +823,12 @@ export class DomainInstance {
    */
   updateWithHttpInfo(
     params: DomainContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -908,7 +912,7 @@ export interface DomainListInstance {
    */
   create(
     params: DomainListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, item?: DomainInstance) => any,
   ): Promise<DomainInstance>;
 
   /**
@@ -921,7 +925,7 @@ export interface DomainListInstance {
    */
   createWithHttpInfo(
     params: DomainListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>>;
 
   /**
@@ -940,11 +944,11 @@ export interface DomainListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: DomainListInstanceEachOptions,
-    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams DomainInstance records from the API with HTTP metadata captured per page.
@@ -962,11 +966,11 @@ export interface DomainListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: DomainListInstanceEachOptions,
-    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of DomainInstance records from the API.
@@ -978,7 +982,7 @@ export interface DomainListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DomainPage) => any
+    callback?: (error: Error | null, items: DomainPage) => any,
   ): Promise<DomainPage>;
   /**
    * Retrieve a single target page of DomainInstance records from the API with HTTP metadata.
@@ -990,7 +994,7 @@ export interface DomainListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any,
   ): Promise<ApiResponse<DomainPage>>;
   /**
    * Lists DomainInstance records from the API as a list.
@@ -1002,11 +1006,11 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: DomainInstance[]) => any
+    callback?: (error: Error | null, items: DomainInstance[]) => any,
   ): Promise<DomainInstance[]>;
   list(
     params: DomainListInstanceOptions,
-    callback?: (error: Error | null, items: DomainInstance[]) => any
+    callback?: (error: Error | null, items: DomainInstance[]) => any,
   ): Promise<DomainInstance[]>;
   /**
    * Lists DomainInstance records from the API as a list with HTTP metadata.
@@ -1022,15 +1026,15 @@ export interface DomainListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DomainInstance[]>
-    ) => any
+      items: ApiResponse<DomainInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DomainInstance[]>>;
   listWithHttpInfo(
     params: DomainListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DomainInstance[]>
-    ) => any
+      items: ApiResponse<DomainInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<DomainInstance[]>>;
   /**
    * Retrieve a single page of DomainInstance records from the API.
@@ -1044,11 +1048,11 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: DomainPage) => any
+    callback?: (error: Error | null, items: DomainPage) => any,
   ): Promise<DomainPage>;
   page(
     params: DomainListInstancePageOptions,
-    callback?: (error: Error | null, items: DomainPage) => any
+    callback?: (error: Error | null, items: DomainPage) => any,
   ): Promise<DomainPage>;
   /**
    * Retrieve a single page of DomainInstance records from the API with HTTP metadata.
@@ -1062,11 +1066,11 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any,
   ): Promise<ApiResponse<DomainPage>>;
   pageWithHttpInfo(
     params: DomainListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any,
   ): Promise<ApiResponse<DomainPage>>;
 
   /**
@@ -1078,7 +1082,7 @@ export interface DomainListInstance {
 
 export function DomainListInstance(
   version: V2010,
-  accountSid: string
+  accountSid: string,
 ): DomainListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -1096,7 +1100,7 @@ export function DomainListInstance(
 
   instance.create = function create(
     params: DomainListInstanceCreateOptions,
-    callback?: (error: Error | null, items: DomainInstance) => any
+    callback?: (error: Error | null, items: DomainInstance) => any,
   ): Promise<DomainInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1126,7 +1130,7 @@ export function DomainListInstance(
       data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
     if (params["emergencyCallingEnabled"] !== undefined)
       data["EmergencyCallingEnabled"] = serialize.bool(
-        params["emergencyCallingEnabled"]
+        params["emergencyCallingEnabled"],
       );
     if (params["secure"] !== undefined)
       data["Secure"] = serialize.bool(params["secure"]);
@@ -1152,20 +1156,20 @@ export function DomainListInstance(
         new DomainInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid
-        )
+          instance._solution.accountSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: DomainListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<DomainInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<DomainInstance>) => any,
   ): Promise<ApiResponse<DomainInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1195,7 +1199,7 @@ export function DomainListInstance(
       data["SipRegistration"] = serialize.bool(params["sipRegistration"]);
     if (params["emergencyCallingEnabled"] !== undefined)
       data["EmergencyCallingEnabled"] = serialize.bool(
-        params["emergencyCallingEnabled"]
+        params["emergencyCallingEnabled"],
       );
     if (params["secure"] !== undefined)
       data["Secure"] = serialize.bool(params["secure"]);
@@ -1223,14 +1227,14 @@ export function DomainListInstance(
           body: new DomainInstance(
             operationVersion,
             response.body,
-            instance._solution.accountSid
+            instance._solution.accountSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1239,7 +1243,7 @@ export function DomainListInstance(
     params?:
       | DomainListInstancePageOptions
       | ((error: Error | null, items: DomainPage) => any),
-    callback?: (error: Error | null, items: DomainPage) => any
+    callback?: (error: Error | null, items: DomainPage) => any,
   ): Promise<DomainPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1267,12 +1271,13 @@ export function DomainListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DomainPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new DomainPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1281,7 +1286,7 @@ export function DomainListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DomainPage) => any
+    callback?: (error: Error | null, items: DomainPage) => any,
   ): Promise<DomainPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1289,7 +1294,7 @@ export function DomainListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new DomainPage(instance._version, payload, instance._solution)
+        new DomainPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1299,7 +1304,7 @@ export function DomainListInstance(
     params?:
       | DomainListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<DomainPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<DomainPage>) => any,
   ): Promise<ApiResponse<DomainPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1328,12 +1333,12 @@ export function DomainListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new DomainPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1344,7 +1349,7 @@ export function DomainListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<DomainPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<DomainPage>) => any,
   ): Promise<ApiResponse<DomainPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1357,7 +1362,7 @@ export function DomainListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new DomainPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1369,7 +1374,7 @@ export function DomainListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1393,7 +1398,7 @@ export class DomainPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: DomainSolution
+    solution: DomainSolution,
   ) {
     super(version, response, solution);
   }
@@ -1407,7 +1412,7 @@ export class DomainPage extends Page<
     return new DomainInstance(
       this._version,
       payload,
-      this._solution.accountSid
+      this._solution.accountSid,
     );
   }
 

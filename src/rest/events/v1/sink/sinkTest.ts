@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export interface SinkTestSolution {
   sid: string;
@@ -36,7 +36,7 @@ export interface SinkTestListInstance {
    * @returns Resolves to processed SinkTestInstance
    */
   create(
-    callback?: (error: Error | null, item?: SinkTestInstance) => any
+    callback?: (error: Error | null, item?: SinkTestInstance) => any,
   ): Promise<SinkTestInstance>;
 
   /**
@@ -49,8 +49,8 @@ export interface SinkTestListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SinkTestInstance>
-    ) => any
+      item?: ApiResponse<SinkTestInstance>,
+    ) => any,
   ): Promise<ApiResponse<SinkTestInstance>>;
 
   /**
@@ -62,7 +62,7 @@ export interface SinkTestListInstance {
 
 export function SinkTestListInstance(
   version: V1,
-  sid: string
+  sid: string,
 ): SinkTestListInstance {
   if (!isValidPathParam(sid)) {
     throw new Error("Parameter 'sid' is not valid.");
@@ -75,7 +75,7 @@ export function SinkTestListInstance(
   instance._uri = `/Sinks/${sid}/Test`;
 
   instance.create = function create(
-    callback?: (error: Error | null, items: SinkTestInstance) => any
+    callback?: (error: Error | null, items: SinkTestInstance) => any,
   ): Promise<SinkTestInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -89,12 +89,12 @@ export function SinkTestListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SinkTestInstance(operationVersion, payload, instance._solution.sid)
+        new SinkTestInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -102,8 +102,8 @@ export function SinkTestListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SinkTestInstance>
-    ) => any
+      items: ApiResponse<SinkTestInstance>,
+    ) => any,
   ): Promise<ApiResponse<SinkTestInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -122,14 +122,14 @@ export function SinkTestListInstance(
           body: new SinkTestInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -140,7 +140,7 @@ export function SinkTestListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -155,7 +155,11 @@ interface SinkTestResource {
 }
 
 export class SinkTestInstance {
-  constructor(protected _version: V1, payload: SinkTestResource, sid: string) {
+  constructor(
+    protected _version: V1,
+    payload: SinkTestResource,
+    sid: string,
+  ) {
     this.result = payload.result;
   }
 

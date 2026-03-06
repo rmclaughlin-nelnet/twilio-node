@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Describe how a user opts-in to text messages.
@@ -222,7 +222,7 @@ export interface TollfreeVerificationListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TollfreeVerificationInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -282,7 +282,7 @@ export interface TollfreeVerificationContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -293,7 +293,7 @@ export interface TollfreeVerificationContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -304,7 +304,10 @@ export interface TollfreeVerificationContext {
    * @returns Resolves to processed TollfreeVerificationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance>;
 
   /**
@@ -317,8 +320,8 @@ export interface TollfreeVerificationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>>;
 
   /**
@@ -329,7 +332,10 @@ export interface TollfreeVerificationContext {
    * @returns Resolves to processed TollfreeVerificationInstance
    */
   update(
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance>;
   /**
    * Update a TollfreeVerificationInstance
@@ -341,7 +347,10 @@ export interface TollfreeVerificationContext {
    */
   update(
     params: TollfreeVerificationContextUpdateOptions,
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance>;
 
   /**
@@ -354,8 +363,8 @@ export interface TollfreeVerificationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>>;
   /**
    * Update a TollfreeVerificationInstance and return HTTP info
@@ -369,8 +378,8 @@ export interface TollfreeVerificationContext {
     params: TollfreeVerificationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>>;
 
   /**
@@ -384,13 +393,14 @@ export interface TollfreeVerificationContextSolution {
   sid: string;
 }
 
-export class TollfreeVerificationContextImpl
-  implements TollfreeVerificationContext
-{
+export class TollfreeVerificationContextImpl implements TollfreeVerificationContext {
   protected _solution: TollfreeVerificationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -400,7 +410,7 @@ export class TollfreeVerificationContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -414,13 +424,13 @@ export class TollfreeVerificationContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -433,18 +443,21 @@ export class TollfreeVerificationContextImpl
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -462,13 +475,13 @@ export class TollfreeVerificationContextImpl
         new TollfreeVerificationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -476,8 +489,8 @@ export class TollfreeVerificationContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -497,14 +510,14 @@ export class TollfreeVerificationContextImpl
           body: new TollfreeVerificationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -513,7 +526,10 @@ export class TollfreeVerificationContextImpl
     params?:
       | TollfreeVerificationContextUpdateOptions
       | ((error: Error | null, item?: TollfreeVerificationInstance) => any),
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -533,7 +549,7 @@ export class TollfreeVerificationContextImpl
     if (params["useCaseCategories"] !== undefined)
       data["UseCaseCategories"] = serialize.map(
         params["useCaseCategories"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["useCaseSummary"] !== undefined)
       data["UseCaseSummary"] = params["useCaseSummary"];
@@ -542,7 +558,7 @@ export class TollfreeVerificationContextImpl
     if (params["optInImageUrls"] !== undefined)
       data["OptInImageUrls"] = serialize.map(
         params["optInImageUrls"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["optInType"] !== undefined)
       data["OptInType"] = params["optInType"];
@@ -601,7 +617,7 @@ export class TollfreeVerificationContextImpl
     if (params["optInKeywords"] !== undefined)
       data["OptInKeywords"] = serialize.map(
         params["optInKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["vettingProvider"] !== undefined)
       data["VettingProvider"] = params["vettingProvider"];
@@ -626,13 +642,13 @@ export class TollfreeVerificationContextImpl
         new TollfreeVerificationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -642,12 +658,12 @@ export class TollfreeVerificationContextImpl
       | TollfreeVerificationContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<TollfreeVerificationInstance>
+          item?: ApiResponse<TollfreeVerificationInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -667,7 +683,7 @@ export class TollfreeVerificationContextImpl
     if (params["useCaseCategories"] !== undefined)
       data["UseCaseCategories"] = serialize.map(
         params["useCaseCategories"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["useCaseSummary"] !== undefined)
       data["UseCaseSummary"] = params["useCaseSummary"];
@@ -676,7 +692,7 @@ export class TollfreeVerificationContextImpl
     if (params["optInImageUrls"] !== undefined)
       data["OptInImageUrls"] = serialize.map(
         params["optInImageUrls"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["optInType"] !== undefined)
       data["OptInType"] = params["optInType"];
@@ -735,7 +751,7 @@ export class TollfreeVerificationContextImpl
     if (params["optInKeywords"] !== undefined)
       data["OptInKeywords"] = serialize.map(
         params["optInKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["vettingProvider"] !== undefined)
       data["VettingProvider"] = params["vettingProvider"];
@@ -762,14 +778,14 @@ export class TollfreeVerificationContextImpl
           body: new TollfreeVerificationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -855,7 +871,7 @@ export class TollfreeVerificationInstance {
   constructor(
     protected _version: V1,
     payload: TollfreeVerificationResource,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -912,7 +928,7 @@ export class TollfreeVerificationInstance {
     this.vettingId = payload.vetting_id;
     this.vettingProvider = payload.vetting_provider;
     this.vettingIdExpiration = deserialize.iso8601DateTime(
-      payload.vetting_id_expiration
+      payload.vetting_id_expiration,
     );
 
     this._solution = { sid: sid || this.sid };
@@ -1131,7 +1147,7 @@ export class TollfreeVerificationInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -1144,7 +1160,7 @@ export class TollfreeVerificationInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -1157,7 +1173,10 @@ export class TollfreeVerificationInstance {
    * @returns Resolves to processed TollfreeVerificationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -1172,8 +1191,8 @@ export class TollfreeVerificationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -1186,7 +1205,10 @@ export class TollfreeVerificationInstance {
    * @returns Resolves to processed TollfreeVerificationInstance
    */
   update(
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance>;
   /**
    * Update a TollfreeVerificationInstance
@@ -1198,12 +1220,18 @@ export class TollfreeVerificationInstance {
    */
   update(
     params: TollfreeVerificationContextUpdateOptions,
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -1218,8 +1246,8 @@ export class TollfreeVerificationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>>;
   /**
    * Update a TollfreeVerificationInstance and return HTTP info
@@ -1233,16 +1261,16 @@ export class TollfreeVerificationInstance {
     params: TollfreeVerificationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -1335,7 +1363,10 @@ export interface TollfreeVerificationListInstance {
    */
   create(
     params: TollfreeVerificationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      item?: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance>;
 
   /**
@@ -1350,8 +1381,8 @@ export interface TollfreeVerificationListInstance {
     params: TollfreeVerificationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      item?: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>>;
 
   /**
@@ -1372,15 +1403,15 @@ export interface TollfreeVerificationListInstance {
   each(
     callback?: (
       item: TollfreeVerificationInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: TollfreeVerificationListInstanceEachOptions,
     callback?: (
       item: TollfreeVerificationInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams TollfreeVerificationInstance records from the API with HTTP metadata captured per page.
@@ -1400,15 +1431,15 @@ export interface TollfreeVerificationListInstance {
   eachWithHttpInfo(
     callback?: (
       item: TollfreeVerificationInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: TollfreeVerificationListInstanceEachOptions,
     callback?: (
       item: TollfreeVerificationInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of TollfreeVerificationInstance records from the API.
@@ -1420,7 +1451,7 @@ export interface TollfreeVerificationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any,
   ): Promise<TollfreeVerificationPage>;
   /**
    * Retrieve a single target page of TollfreeVerificationInstance records from the API with HTTP metadata.
@@ -1434,8 +1465,8 @@ export interface TollfreeVerificationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollfreeVerificationPage>
-    ) => any
+      items: ApiResponse<TollfreeVerificationPage>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationPage>>;
   /**
    * Lists TollfreeVerificationInstance records from the API as a list.
@@ -1449,15 +1480,15 @@ export interface TollfreeVerificationListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: TollfreeVerificationInstance[]
-    ) => any
+      items: TollfreeVerificationInstance[],
+    ) => any,
   ): Promise<TollfreeVerificationInstance[]>;
   list(
     params: TollfreeVerificationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: TollfreeVerificationInstance[]
-    ) => any
+      items: TollfreeVerificationInstance[],
+    ) => any,
   ): Promise<TollfreeVerificationInstance[]>;
   /**
    * Lists TollfreeVerificationInstance records from the API as a list with HTTP metadata.
@@ -1473,15 +1504,15 @@ export interface TollfreeVerificationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollfreeVerificationInstance[]>
-    ) => any
+      items: ApiResponse<TollfreeVerificationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance[]>>;
   listWithHttpInfo(
     params: TollfreeVerificationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollfreeVerificationInstance[]>
-    ) => any
+      items: ApiResponse<TollfreeVerificationInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance[]>>;
   /**
    * Retrieve a single page of TollfreeVerificationInstance records from the API.
@@ -1495,11 +1526,11 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any,
   ): Promise<TollfreeVerificationPage>;
   page(
     params: TollfreeVerificationListInstancePageOptions,
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any,
   ): Promise<TollfreeVerificationPage>;
   /**
    * Retrieve a single page of TollfreeVerificationInstance records from the API with HTTP metadata.
@@ -1515,15 +1546,15 @@ export interface TollfreeVerificationListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollfreeVerificationPage>
-    ) => any
+      items: ApiResponse<TollfreeVerificationPage>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationPage>>;
   pageWithHttpInfo(
     params: TollfreeVerificationListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollfreeVerificationPage>
-    ) => any
+      items: ApiResponse<TollfreeVerificationPage>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationPage>>;
 
   /**
@@ -1534,7 +1565,7 @@ export interface TollfreeVerificationListInstance {
 }
 
 export function TollfreeVerificationListInstance(
-  version: V1
+  version: V1,
 ): TollfreeVerificationListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as TollfreeVerificationListInstance;
@@ -1549,7 +1580,10 @@ export function TollfreeVerificationListInstance(
 
   instance.create = function create(
     params: TollfreeVerificationListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TollfreeVerificationInstance) => any
+    callback?: (
+      error: Error | null,
+      items: TollfreeVerificationInstance,
+    ) => any,
   ): Promise<TollfreeVerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1567,7 +1601,7 @@ export function TollfreeVerificationListInstance(
       params["businessWebsite"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['businessWebsite']\" missing."
+        "Required parameter \"params['businessWebsite']\" missing.",
       );
     }
 
@@ -1576,7 +1610,7 @@ export function TollfreeVerificationListInstance(
       params["notificationEmail"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['notificationEmail']\" missing."
+        "Required parameter \"params['notificationEmail']\" missing.",
       );
     }
 
@@ -1585,7 +1619,7 @@ export function TollfreeVerificationListInstance(
       params["useCaseCategories"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['useCaseCategories']\" missing."
+        "Required parameter \"params['useCaseCategories']\" missing.",
       );
     }
 
@@ -1594,7 +1628,7 @@ export function TollfreeVerificationListInstance(
       params["useCaseSummary"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['useCaseSummary']\" missing."
+        "Required parameter \"params['useCaseSummary']\" missing.",
       );
     }
 
@@ -1603,7 +1637,7 @@ export function TollfreeVerificationListInstance(
       params["productionMessageSample"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['productionMessageSample']\" missing."
+        "Required parameter \"params['productionMessageSample']\" missing.",
       );
     }
 
@@ -1612,7 +1646,7 @@ export function TollfreeVerificationListInstance(
       params["optInImageUrls"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['optInImageUrls']\" missing."
+        "Required parameter \"params['optInImageUrls']\" missing.",
       );
     }
 
@@ -1625,7 +1659,7 @@ export function TollfreeVerificationListInstance(
       params["messageVolume"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['messageVolume']\" missing."
+        "Required parameter \"params['messageVolume']\" missing.",
       );
     }
 
@@ -1634,7 +1668,7 @@ export function TollfreeVerificationListInstance(
       params["tollfreePhoneNumberSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['tollfreePhoneNumberSid']\" missing."
+        "Required parameter \"params['tollfreePhoneNumberSid']\" missing.",
       );
     }
 
@@ -1648,7 +1682,7 @@ export function TollfreeVerificationListInstance(
 
     data["UseCaseCategories"] = serialize.map(
       params["useCaseCategories"],
-      (e: string) => e
+      (e: string) => e,
     );
 
     data["UseCaseSummary"] = params["useCaseSummary"];
@@ -1657,7 +1691,7 @@ export function TollfreeVerificationListInstance(
 
     data["OptInImageUrls"] = serialize.map(
       params["optInImageUrls"],
-      (e: string) => e
+      (e: string) => e,
     );
 
     data["OptInType"] = params["optInType"];
@@ -1720,7 +1754,7 @@ export function TollfreeVerificationListInstance(
     if (params["optInKeywords"] !== undefined)
       data["OptInKeywords"] = serialize.map(
         params["optInKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["vettingProvider"] !== undefined)
       data["VettingProvider"] = params["vettingProvider"];
@@ -1740,12 +1774,12 @@ export function TollfreeVerificationListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TollfreeVerificationInstance(operationVersion, payload)
+      (payload) => new TollfreeVerificationInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1754,8 +1788,8 @@ export function TollfreeVerificationListInstance(
     params: TollfreeVerificationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollfreeVerificationInstance>
-    ) => any
+      items: ApiResponse<TollfreeVerificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1773,7 +1807,7 @@ export function TollfreeVerificationListInstance(
       params["businessWebsite"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['businessWebsite']\" missing."
+        "Required parameter \"params['businessWebsite']\" missing.",
       );
     }
 
@@ -1782,7 +1816,7 @@ export function TollfreeVerificationListInstance(
       params["notificationEmail"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['notificationEmail']\" missing."
+        "Required parameter \"params['notificationEmail']\" missing.",
       );
     }
 
@@ -1791,7 +1825,7 @@ export function TollfreeVerificationListInstance(
       params["useCaseCategories"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['useCaseCategories']\" missing."
+        "Required parameter \"params['useCaseCategories']\" missing.",
       );
     }
 
@@ -1800,7 +1834,7 @@ export function TollfreeVerificationListInstance(
       params["useCaseSummary"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['useCaseSummary']\" missing."
+        "Required parameter \"params['useCaseSummary']\" missing.",
       );
     }
 
@@ -1809,7 +1843,7 @@ export function TollfreeVerificationListInstance(
       params["productionMessageSample"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['productionMessageSample']\" missing."
+        "Required parameter \"params['productionMessageSample']\" missing.",
       );
     }
 
@@ -1818,7 +1852,7 @@ export function TollfreeVerificationListInstance(
       params["optInImageUrls"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['optInImageUrls']\" missing."
+        "Required parameter \"params['optInImageUrls']\" missing.",
       );
     }
 
@@ -1831,7 +1865,7 @@ export function TollfreeVerificationListInstance(
       params["messageVolume"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['messageVolume']\" missing."
+        "Required parameter \"params['messageVolume']\" missing.",
       );
     }
 
@@ -1840,7 +1874,7 @@ export function TollfreeVerificationListInstance(
       params["tollfreePhoneNumberSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['tollfreePhoneNumberSid']\" missing."
+        "Required parameter \"params['tollfreePhoneNumberSid']\" missing.",
       );
     }
 
@@ -1854,7 +1888,7 @@ export function TollfreeVerificationListInstance(
 
     data["UseCaseCategories"] = serialize.map(
       params["useCaseCategories"],
-      (e: string) => e
+      (e: string) => e,
     );
 
     data["UseCaseSummary"] = params["useCaseSummary"];
@@ -1863,7 +1897,7 @@ export function TollfreeVerificationListInstance(
 
     data["OptInImageUrls"] = serialize.map(
       params["optInImageUrls"],
-      (e: string) => e
+      (e: string) => e,
     );
 
     data["OptInType"] = params["optInType"];
@@ -1926,7 +1960,7 @@ export function TollfreeVerificationListInstance(
     if (params["optInKeywords"] !== undefined)
       data["OptInKeywords"] = serialize.map(
         params["optInKeywords"],
-        (e: string) => e
+        (e: string) => e,
       );
     if (params["vettingProvider"] !== undefined)
       data["VettingProvider"] = params["vettingProvider"];
@@ -1951,14 +1985,14 @@ export function TollfreeVerificationListInstance(
           ...response,
           body: new TollfreeVerificationInstance(
             operationVersion,
-            response.body
+            response.body,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1967,7 +2001,7 @@ export function TollfreeVerificationListInstance(
     params?:
       | TollfreeVerificationListInstancePageOptions
       | ((error: Error | null, items: TollfreeVerificationPage) => any),
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any,
   ): Promise<TollfreeVerificationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1989,7 +2023,7 @@ export function TollfreeVerificationListInstance(
     if (params["trustProductSid"] !== undefined)
       data["TrustProductSid"] = serialize.map(
         params["trustProductSid"],
-        (e: string) => e
+        (e: string) => e,
       );
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
@@ -2011,13 +2045,13 @@ export function TollfreeVerificationListInstance(
         new TollfreeVerificationPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -2026,7 +2060,7 @@ export function TollfreeVerificationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any,
   ): Promise<TollfreeVerificationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -2037,8 +2071,8 @@ export function TollfreeVerificationListInstance(
         new TollfreeVerificationPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -2049,12 +2083,12 @@ export function TollfreeVerificationListInstance(
       | TollfreeVerificationListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<TollfreeVerificationPage>
+          items: ApiResponse<TollfreeVerificationPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<TollfreeVerificationPage>
-    ) => any
+      items: ApiResponse<TollfreeVerificationPage>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -2076,7 +2110,7 @@ export function TollfreeVerificationListInstance(
     if (params["trustProductSid"] !== undefined)
       data["TrustProductSid"] = serialize.map(
         params["trustProductSid"],
-        (e: string) => e
+        (e: string) => e,
       );
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
@@ -2097,14 +2131,14 @@ export function TollfreeVerificationListInstance(
           body: new TollfreeVerificationPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -2117,8 +2151,8 @@ export function TollfreeVerificationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<TollfreeVerificationPage>
-    ) => any
+      items?: ApiResponse<TollfreeVerificationPage>,
+    ) => any,
   ): Promise<ApiResponse<TollfreeVerificationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -2133,9 +2167,9 @@ export function TollfreeVerificationListInstance(
         body: new TollfreeVerificationPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -2147,7 +2181,7 @@ export function TollfreeVerificationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -2171,7 +2205,7 @@ export class TollfreeVerificationPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: TollfreeVerificationSolution
+    solution: TollfreeVerificationSolution,
   ) {
     super(version, response, solution);
   }
@@ -2182,7 +2216,7 @@ export class TollfreeVerificationPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: TollfreeVerificationResource
+    payload: TollfreeVerificationResource,
   ): TollfreeVerificationInstance {
     return new TollfreeVerificationInstance(this._version, payload);
   }

@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export type AnnotationAnsweredBy = "unknown_answered_by" | "human" | "machine";
 
@@ -58,7 +58,7 @@ export interface AnnotationContext {
    * @returns Resolves to processed AnnotationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance>;
 
   /**
@@ -71,8 +71,8 @@ export interface AnnotationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>>;
 
   /**
@@ -83,7 +83,7 @@ export interface AnnotationContext {
    * @returns Resolves to processed AnnotationInstance
    */
   update(
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance>;
   /**
    * Update a AnnotationInstance
@@ -95,7 +95,7 @@ export interface AnnotationContext {
    */
   update(
     params: AnnotationContextUpdateOptions,
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance>;
 
   /**
@@ -108,8 +108,8 @@ export interface AnnotationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>>;
   /**
    * Update a AnnotationInstance and return HTTP info
@@ -123,8 +123,8 @@ export interface AnnotationContext {
     params: AnnotationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>>;
 
   /**
@@ -142,7 +142,10 @@ export class AnnotationContextImpl implements AnnotationContext {
   protected _solution: AnnotationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, callSid: string) {
+  constructor(
+    protected _version: V1,
+    callSid: string,
+  ) {
     if (!isValidPathParam(callSid)) {
       throw new Error("Parameter 'callSid' is not valid.");
     }
@@ -152,7 +155,7 @@ export class AnnotationContextImpl implements AnnotationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -170,13 +173,13 @@ export class AnnotationContextImpl implements AnnotationContext {
         new AnnotationInstance(
           operationVersion,
           payload,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -184,8 +187,8 @@ export class AnnotationContextImpl implements AnnotationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -205,14 +208,14 @@ export class AnnotationContextImpl implements AnnotationContext {
           body: new AnnotationInstance(
             operationVersion,
             response.body,
-            instance._solution.callSid
+            instance._solution.callSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -221,7 +224,7 @@ export class AnnotationContextImpl implements AnnotationContext {
     params?:
       | AnnotationContextUpdateOptions
       | ((error: Error | null, item?: AnnotationInstance) => any),
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -263,13 +266,13 @@ export class AnnotationContextImpl implements AnnotationContext {
         new AnnotationInstance(
           operationVersion,
           payload,
-          instance._solution.callSid
-        )
+          instance._solution.callSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -280,8 +283,8 @@ export class AnnotationContextImpl implements AnnotationContext {
       | ((error: Error | null, item?: ApiResponse<AnnotationInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -325,14 +328,14 @@ export class AnnotationContextImpl implements AnnotationContext {
           body: new AnnotationInstance(
             operationVersion,
             response.body,
-            instance._solution.callSid
+            instance._solution.callSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -373,7 +376,7 @@ export class AnnotationInstance {
   constructor(
     protected _version: V1,
     payload: AnnotationResource,
-    callSid: string
+    callSid: string,
   ) {
     this.callSid = payload.call_sid;
     this.accountSid = payload.account_sid;
@@ -436,7 +439,7 @@ export class AnnotationInstance {
    * @returns Resolves to processed AnnotationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -451,8 +454,8 @@ export class AnnotationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -465,7 +468,7 @@ export class AnnotationInstance {
    * @returns Resolves to processed AnnotationInstance
    */
   update(
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance>;
   /**
    * Update a AnnotationInstance
@@ -477,12 +480,12 @@ export class AnnotationInstance {
    */
   update(
     params: AnnotationContextUpdateOptions,
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: AnnotationInstance) => any
+    callback?: (error: Error | null, item?: AnnotationInstance) => any,
   ): Promise<AnnotationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -497,8 +500,8 @@ export class AnnotationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>>;
   /**
    * Update a AnnotationInstance and return HTTP info
@@ -512,16 +515,16 @@ export class AnnotationInstance {
     params: AnnotationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnnotationInstance>
-    ) => any
+      item?: ApiResponse<AnnotationInstance>,
+    ) => any,
   ): Promise<ApiResponse<AnnotationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -572,7 +575,7 @@ export interface AnnotationListInstance {
 
 export function AnnotationListInstance(
   version: V1,
-  callSid: string
+  callSid: string,
 ): AnnotationListInstance {
   if (!isValidPathParam(callSid)) {
     throw new Error("Parameter 'callSid' is not valid.");
@@ -594,7 +597,7 @@ export function AnnotationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

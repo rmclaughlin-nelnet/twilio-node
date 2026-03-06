@@ -14,13 +14,16 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../../../../base/Page";
-import Response from "../../../../../../../../http/response";
-import V2010 from "../../../../../../V2010";
-const deserialize = require("../../../../../../../../base/deserialize");
-const serialize = require("../../../../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../../../../base/utility";
-import { ApiResponse } from "../../../../../../../../base/ApiResponse";
+import {
+  Page,
+  TwilioResponsePayload,
+} from "../../../../../../../../base/Page.js";
+import { Response } from "../../../../../../../../http/response.js";
+import { V2010 } from "../../../../../../V2010.js";
+import * as deserialize from "../../../../../../../../base/deserialize.js";
+import * as serialize from "../../../../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to create a AuthCallsCredentialListMappingInstance
@@ -38,7 +41,7 @@ export interface AuthCallsCredentialListMappingListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AuthCallsCredentialListMappingInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -78,7 +81,7 @@ export interface AuthCallsCredentialListMappingContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -89,7 +92,7 @@ export interface AuthCallsCredentialListMappingContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -102,8 +105,8 @@ export interface AuthCallsCredentialListMappingContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AuthCallsCredentialListMappingInstance
-    ) => any
+      item?: AuthCallsCredentialListMappingInstance,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingInstance>;
 
   /**
@@ -116,8 +119,8 @@ export interface AuthCallsCredentialListMappingContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthCallsCredentialListMappingInstance>
-    ) => any
+      item?: ApiResponse<AuthCallsCredentialListMappingInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingInstance>>;
 
   /**
@@ -133,9 +136,7 @@ export interface AuthCallsCredentialListMappingContextSolution {
   sid: string;
 }
 
-export class AuthCallsCredentialListMappingContextImpl
-  implements AuthCallsCredentialListMappingContext
-{
+export class AuthCallsCredentialListMappingContextImpl implements AuthCallsCredentialListMappingContext {
   protected _solution: AuthCallsCredentialListMappingContextSolution;
   protected _uri: string;
 
@@ -143,7 +144,7 @@ export class AuthCallsCredentialListMappingContextImpl
     protected _version: V2010,
     accountSid: string,
     domainSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -162,7 +163,7 @@ export class AuthCallsCredentialListMappingContextImpl
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -176,13 +177,13 @@ export class AuthCallsCredentialListMappingContextImpl
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -195,12 +196,12 @@ export class AuthCallsCredentialListMappingContextImpl
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -208,8 +209,8 @@ export class AuthCallsCredentialListMappingContextImpl
   fetch(
     callback?: (
       error: Error | null,
-      item?: AuthCallsCredentialListMappingInstance
-    ) => any
+      item?: AuthCallsCredentialListMappingInstance,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -229,13 +230,13 @@ export class AuthCallsCredentialListMappingContextImpl
           payload,
           instance._solution.accountSid,
           instance._solution.domainSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -243,8 +244,8 @@ export class AuthCallsCredentialListMappingContextImpl
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthCallsCredentialListMappingInstance>
-    ) => any
+      item?: ApiResponse<AuthCallsCredentialListMappingInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -266,14 +267,14 @@ export class AuthCallsCredentialListMappingContextImpl
             response.body,
             instance._solution.accountSid,
             instance._solution.domainSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -313,7 +314,7 @@ export class AuthCallsCredentialListMappingInstance {
     payload: AuthCallsCredentialListMappingResource,
     accountSid: string,
     domainSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -352,7 +353,7 @@ export class AuthCallsCredentialListMappingInstance {
         this._version,
         this._solution.accountSid,
         this._solution.domainSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -365,7 +366,7 @@ export class AuthCallsCredentialListMappingInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -378,7 +379,7 @@ export class AuthCallsCredentialListMappingInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -393,8 +394,8 @@ export class AuthCallsCredentialListMappingInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AuthCallsCredentialListMappingInstance
-    ) => any
+      item?: AuthCallsCredentialListMappingInstance,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingInstance> {
     return this._proxy.fetch(callback);
   }
@@ -409,8 +410,8 @@ export class AuthCallsCredentialListMappingInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthCallsCredentialListMappingInstance>
-    ) => any
+      item?: ApiResponse<AuthCallsCredentialListMappingInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -460,8 +461,8 @@ export interface AuthCallsCredentialListMappingListInstance {
     params: AuthCallsCredentialListMappingListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: AuthCallsCredentialListMappingInstance
-    ) => any
+      item?: AuthCallsCredentialListMappingInstance,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingInstance>;
 
   /**
@@ -476,8 +477,8 @@ export interface AuthCallsCredentialListMappingListInstance {
     params: AuthCallsCredentialListMappingListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthCallsCredentialListMappingInstance>
-    ) => any
+      item?: ApiResponse<AuthCallsCredentialListMappingInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingInstance>>;
 
   /**
@@ -498,15 +499,15 @@ export interface AuthCallsCredentialListMappingListInstance {
   each(
     callback?: (
       item: AuthCallsCredentialListMappingInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: AuthCallsCredentialListMappingListInstanceEachOptions,
     callback?: (
       item: AuthCallsCredentialListMappingInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams AuthCallsCredentialListMappingInstance records from the API with HTTP metadata captured per page.
@@ -526,15 +527,15 @@ export interface AuthCallsCredentialListMappingListInstance {
   eachWithHttpInfo(
     callback?: (
       item: AuthCallsCredentialListMappingInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: AuthCallsCredentialListMappingListInstanceEachOptions,
     callback?: (
       item: AuthCallsCredentialListMappingInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of AuthCallsCredentialListMappingInstance records from the API.
@@ -548,8 +549,8 @@ export interface AuthCallsCredentialListMappingListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: AuthCallsCredentialListMappingPage
-    ) => any
+      items: AuthCallsCredentialListMappingPage,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingPage>;
   /**
    * Retrieve a single target page of AuthCallsCredentialListMappingInstance records from the API with HTTP metadata.
@@ -563,8 +564,8 @@ export interface AuthCallsCredentialListMappingListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthCallsCredentialListMappingPage>
-    ) => any
+      items: ApiResponse<AuthCallsCredentialListMappingPage>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingPage>>;
   /**
    * Lists AuthCallsCredentialListMappingInstance records from the API as a list.
@@ -578,15 +579,15 @@ export interface AuthCallsCredentialListMappingListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: AuthCallsCredentialListMappingInstance[]
-    ) => any
+      items: AuthCallsCredentialListMappingInstance[],
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingInstance[]>;
   list(
     params: AuthCallsCredentialListMappingListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: AuthCallsCredentialListMappingInstance[]
-    ) => any
+      items: AuthCallsCredentialListMappingInstance[],
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingInstance[]>;
   /**
    * Lists AuthCallsCredentialListMappingInstance records from the API as a list with HTTP metadata.
@@ -602,15 +603,15 @@ export interface AuthCallsCredentialListMappingListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthCallsCredentialListMappingInstance[]>
-    ) => any
+      items: ApiResponse<AuthCallsCredentialListMappingInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingInstance[]>>;
   listWithHttpInfo(
     params: AuthCallsCredentialListMappingListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthCallsCredentialListMappingInstance[]>
-    ) => any
+      items: ApiResponse<AuthCallsCredentialListMappingInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingInstance[]>>;
   /**
    * Retrieve a single page of AuthCallsCredentialListMappingInstance records from the API.
@@ -626,15 +627,15 @@ export interface AuthCallsCredentialListMappingListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: AuthCallsCredentialListMappingPage
-    ) => any
+      items: AuthCallsCredentialListMappingPage,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingPage>;
   page(
     params: AuthCallsCredentialListMappingListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: AuthCallsCredentialListMappingPage
-    ) => any
+      items: AuthCallsCredentialListMappingPage,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingPage>;
   /**
    * Retrieve a single page of AuthCallsCredentialListMappingInstance records from the API with HTTP metadata.
@@ -650,15 +651,15 @@ export interface AuthCallsCredentialListMappingListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthCallsCredentialListMappingPage>
-    ) => any
+      items: ApiResponse<AuthCallsCredentialListMappingPage>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingPage>>;
   pageWithHttpInfo(
     params: AuthCallsCredentialListMappingListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthCallsCredentialListMappingPage>
-    ) => any
+      items: ApiResponse<AuthCallsCredentialListMappingPage>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingPage>>;
 
   /**
@@ -671,7 +672,7 @@ export interface AuthCallsCredentialListMappingListInstance {
 export function AuthCallsCredentialListMappingListInstance(
   version: V2010,
   accountSid: string,
-  domainSid: string
+  domainSid: string,
 ): AuthCallsCredentialListMappingListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -689,7 +690,7 @@ export function AuthCallsCredentialListMappingListInstance(
       version,
       accountSid,
       domainSid,
-      sid
+      sid,
     );
   };
 
@@ -701,8 +702,8 @@ export function AuthCallsCredentialListMappingListInstance(
     params: AuthCallsCredentialListMappingListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: AuthCallsCredentialListMappingInstance
-    ) => any
+      items: AuthCallsCredentialListMappingInstance,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -713,7 +714,7 @@ export function AuthCallsCredentialListMappingListInstance(
       params["credentialListSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['credentialListSid']\" missing."
+        "Required parameter \"params['credentialListSid']\" missing.",
       );
     }
 
@@ -739,13 +740,13 @@ export function AuthCallsCredentialListMappingListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.domainSid
-        )
+          instance._solution.domainSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -754,8 +755,8 @@ export function AuthCallsCredentialListMappingListInstance(
     params: AuthCallsCredentialListMappingListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthCallsCredentialListMappingInstance>
-    ) => any
+      items: ApiResponse<AuthCallsCredentialListMappingInstance>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -766,7 +767,7 @@ export function AuthCallsCredentialListMappingListInstance(
       params["credentialListSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['credentialListSid']\" missing."
+        "Required parameter \"params['credentialListSid']\" missing.",
       );
     }
 
@@ -794,14 +795,14 @@ export function AuthCallsCredentialListMappingListInstance(
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.domainSid
+            instance._solution.domainSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -811,12 +812,12 @@ export function AuthCallsCredentialListMappingListInstance(
       | AuthCallsCredentialListMappingListInstancePageOptions
       | ((
           error: Error | null,
-          items: AuthCallsCredentialListMappingPage
+          items: AuthCallsCredentialListMappingPage,
         ) => any),
     callback?: (
       error: Error | null,
-      items: AuthCallsCredentialListMappingPage
-    ) => any
+      items: AuthCallsCredentialListMappingPage,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingPage> {
     if (params instanceof Function) {
       callback = params;
@@ -848,13 +849,13 @@ export function AuthCallsCredentialListMappingListInstance(
         new AuthCallsCredentialListMappingPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -865,8 +866,8 @@ export function AuthCallsCredentialListMappingListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: AuthCallsCredentialListMappingPage
-    ) => any
+      items: AuthCallsCredentialListMappingPage,
+    ) => any,
   ): Promise<AuthCallsCredentialListMappingPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -877,8 +878,8 @@ export function AuthCallsCredentialListMappingListInstance(
         new AuthCallsCredentialListMappingPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -889,12 +890,12 @@ export function AuthCallsCredentialListMappingListInstance(
       | AuthCallsCredentialListMappingListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<AuthCallsCredentialListMappingPage>
+          items: ApiResponse<AuthCallsCredentialListMappingPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthCallsCredentialListMappingPage>
-    ) => any
+      items: ApiResponse<AuthCallsCredentialListMappingPage>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -925,14 +926,14 @@ export function AuthCallsCredentialListMappingListInstance(
           body: new AuthCallsCredentialListMappingPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -945,8 +946,8 @@ export function AuthCallsCredentialListMappingListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AuthCallsCredentialListMappingPage>
-    ) => any
+      items?: ApiResponse<AuthCallsCredentialListMappingPage>,
+    ) => any,
   ): Promise<ApiResponse<AuthCallsCredentialListMappingPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -961,9 +962,9 @@ export function AuthCallsCredentialListMappingListInstance(
         body: new AuthCallsCredentialListMappingPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -975,7 +976,7 @@ export function AuthCallsCredentialListMappingListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -999,7 +1000,7 @@ export class AuthCallsCredentialListMappingPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: AuthCallsCredentialListMappingSolution
+    solution: AuthCallsCredentialListMappingSolution,
   ) {
     super(version, response, solution);
   }
@@ -1010,13 +1011,13 @@ export class AuthCallsCredentialListMappingPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthCallsCredentialListMappingResource
+    payload: AuthCallsCredentialListMappingResource,
   ): AuthCallsCredentialListMappingInstance {
     return new AuthCallsCredentialListMappingInstance(
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.domainSid
+      this._solution.domainSid,
     );
   }
 

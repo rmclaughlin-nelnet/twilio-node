@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2 from "../../V2";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V2 } from "../../V2.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export class CreatePasskeysChallengeRequest {
   "identity"?: string;
@@ -45,7 +45,7 @@ export interface NewChallengeContext {
   create(
     params: CreatePasskeysChallengeRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
+    callback?: (error: Error | null, item?: NewChallengeInstance) => any,
   ): Promise<NewChallengeInstance>;
 
   /**
@@ -62,8 +62,8 @@ export interface NewChallengeContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
+      item?: ApiResponse<NewChallengeInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewChallengeInstance>>;
 
   /**
@@ -81,7 +81,10 @@ export class NewChallengeContextImpl implements NewChallengeContext {
   protected _solution: NewChallengeContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, serviceSid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -93,7 +96,7 @@ export class NewChallengeContextImpl implements NewChallengeContext {
   create(
     params: CreatePasskeysChallengeRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
+    callback?: (error: Error | null, item?: NewChallengeInstance) => any,
   ): Promise<NewChallengeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -124,13 +127,13 @@ export class NewChallengeContextImpl implements NewChallengeContext {
         new NewChallengeInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -140,8 +143,8 @@ export class NewChallengeContextImpl implements NewChallengeContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
+      item?: ApiResponse<NewChallengeInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewChallengeInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -174,14 +177,14 @@ export class NewChallengeContextImpl implements NewChallengeContext {
           body: new NewChallengeInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -231,7 +234,7 @@ export class NewChallengeInstance {
   constructor(
     protected _version: V2,
     payload: NewChallengeResource,
-    serviceSid: string
+    serviceSid: string,
   ) {
     this.options = payload.options;
     this.sid = payload.sid;
@@ -352,12 +355,12 @@ export class NewChallengeInstance {
   create(
     params: CreatePasskeysChallengeRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
+    callback?: (error: Error | null, item?: NewChallengeInstance) => any,
   ): Promise<NewChallengeInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
+    callback?: (error: Error | null, item?: NewChallengeInstance) => any,
   ): Promise<NewChallengeInstance> {
     return this._proxy.create(params, callback);
   }
@@ -376,16 +379,16 @@ export class NewChallengeInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
+      item?: ApiResponse<NewChallengeInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewChallengeInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
+      item?: ApiResponse<NewChallengeInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewChallengeInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -445,7 +448,7 @@ export interface NewChallengeListInstance {
 
 export function NewChallengeListInstance(
   version: V2,
-  serviceSid: string
+  serviceSid: string,
 ): NewChallengeListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -467,7 +470,7 @@ export function NewChallengeListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 /**
  * The priority of the notification. Can be: `low` or `high` and the default is `high`. A value of `low` optimizes the client app\'s battery consumption; however, notifications may be delivered with unspecified delay. For FCM and GCM, `low` priority is the same as `Normal` priority. For APNS `low` priority is the same as `5`. A value of `high` sends the notification immediately, and can wake up a sleeping device. For FCM and GCM, `high` is the same as `High` priority. For APNS, `high` is a priority `10`. SMS does not support this property.
@@ -83,7 +83,7 @@ export interface NotificationListInstance {
    * @returns Resolves to processed NotificationInstance
    */
   create(
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance>;
   /**
    * Create a NotificationInstance
@@ -95,7 +95,7 @@ export interface NotificationListInstance {
    */
   create(
     params: NotificationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+    callback?: (error: Error | null, item?: NotificationInstance) => any,
   ): Promise<NotificationInstance>;
 
   /**
@@ -108,8 +108,8 @@ export interface NotificationListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>>;
   /**
    * Create a NotificationInstance and return HTTP info
@@ -123,8 +123,8 @@ export interface NotificationListInstance {
     params: NotificationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>
-    ) => any
+      item?: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
@@ -136,7 +136,7 @@ export interface NotificationListInstance {
 
 export function NotificationListInstance(
   version: V1,
-  serviceSid: string
+  serviceSid: string,
 ): NotificationListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -152,7 +152,7 @@ export function NotificationListInstance(
     params?:
       | NotificationListInstanceCreateOptions
       | ((error: Error | null, items: NotificationInstance) => any),
-    callback?: (error: Error | null, items: NotificationInstance) => any
+    callback?: (error: Error | null, items: NotificationInstance) => any,
   ): Promise<NotificationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -211,13 +211,13 @@ export function NotificationListInstance(
         new NotificationInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -227,12 +227,12 @@ export function NotificationListInstance(
       | NotificationListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<NotificationInstance>
+          items: ApiResponse<NotificationInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<NotificationInstance>
-    ) => any
+      items: ApiResponse<NotificationInstance>,
+    ) => any,
   ): Promise<ApiResponse<NotificationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -293,14 +293,14 @@ export function NotificationListInstance(
           body: new NotificationInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -311,7 +311,7 @@ export function NotificationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -348,7 +348,7 @@ export class NotificationInstance {
   constructor(
     protected _version: V1,
     payload: NotificationResource,
-    serviceSid: string
+    serviceSid: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

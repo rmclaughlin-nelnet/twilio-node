@@ -13,13 +13,13 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { AwsListInstance } from "./credential/aws";
-import { PublicKeyListInstance } from "./credential/publicKey";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { AwsListInstance } from "./credential/aws.js";
+import { PublicKeyListInstance } from "./credential/publicKey.js";
 
 export interface CredentialSolution {}
 
@@ -71,7 +71,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

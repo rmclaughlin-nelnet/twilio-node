@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to each
@@ -94,11 +94,11 @@ export interface PolicyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: PolicyListInstanceEachOptions,
-    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams PolicyInstance records from the API with HTTP metadata captured per page.
@@ -116,11 +116,11 @@ export interface PolicyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: PolicyListInstanceEachOptions,
-    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void
+    callback?: (item: PolicyInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of PolicyInstance records from the API.
@@ -132,7 +132,7 @@ export interface PolicyListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PolicyPage) => any
+    callback?: (error: Error | null, items: PolicyPage) => any,
   ): Promise<PolicyPage>;
   /**
    * Retrieve a single target page of PolicyInstance records from the API with HTTP metadata.
@@ -144,7 +144,7 @@ export interface PolicyListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any,
   ): Promise<ApiResponse<PolicyPage>>;
   /**
    * Lists PolicyInstance records from the API as a list.
@@ -156,11 +156,11 @@ export interface PolicyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: PolicyInstance[]) => any
+    callback?: (error: Error | null, items: PolicyInstance[]) => any,
   ): Promise<PolicyInstance[]>;
   list(
     params: PolicyListInstanceOptions,
-    callback?: (error: Error | null, items: PolicyInstance[]) => any
+    callback?: (error: Error | null, items: PolicyInstance[]) => any,
   ): Promise<PolicyInstance[]>;
   /**
    * Lists PolicyInstance records from the API as a list with HTTP metadata.
@@ -176,15 +176,15 @@ export interface PolicyListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<PolicyInstance[]>
-    ) => any
+      items: ApiResponse<PolicyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<PolicyInstance[]>>;
   listWithHttpInfo(
     params: PolicyListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PolicyInstance[]>
-    ) => any
+      items: ApiResponse<PolicyInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<PolicyInstance[]>>;
   /**
    * Retrieve a single page of PolicyInstance records from the API.
@@ -198,11 +198,11 @@ export interface PolicyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: PolicyPage) => any
+    callback?: (error: Error | null, items: PolicyPage) => any,
   ): Promise<PolicyPage>;
   page(
     params: PolicyListInstancePageOptions,
-    callback?: (error: Error | null, items: PolicyPage) => any
+    callback?: (error: Error | null, items: PolicyPage) => any,
   ): Promise<PolicyPage>;
   /**
    * Retrieve a single page of PolicyInstance records from the API with HTTP metadata.
@@ -216,11 +216,11 @@ export interface PolicyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any,
   ): Promise<ApiResponse<PolicyPage>>;
   pageWithHttpInfo(
     params: PolicyListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any,
   ): Promise<ApiResponse<PolicyPage>>;
 
   /**
@@ -241,7 +241,7 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
     params?:
       | PolicyListInstancePageOptions
       | ((error: Error | null, items: PolicyPage) => any),
-    callback?: (error: Error | null, items: PolicyPage) => any
+    callback?: (error: Error | null, items: PolicyPage) => any,
   ): Promise<PolicyPage> {
     if (params instanceof Function) {
       callback = params;
@@ -272,12 +272,13 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new PolicyPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new PolicyPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -286,7 +287,7 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PolicyPage) => any
+    callback?: (error: Error | null, items: PolicyPage) => any,
   ): Promise<PolicyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -294,7 +295,7 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new PolicyPage(instance._version, payload, instance._solution)
+        new PolicyPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -304,7 +305,7 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
     params?:
       | PolicyListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<PolicyPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<PolicyPage>) => any,
   ): Promise<ApiResponse<PolicyPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -336,12 +337,12 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
           statusCode: response.statusCode,
           headers: response.headers,
           body: new PolicyPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -352,7 +353,7 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<PolicyPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<PolicyPage>) => any,
   ): Promise<ApiResponse<PolicyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -365,7 +366,7 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new PolicyPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -377,7 +378,7 @@ export function PolicyListInstance(version: V1): PolicyListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -402,7 +403,10 @@ interface PolicyResource {
 }
 
 export class PolicyInstance {
-  constructor(protected _version: V1, payload: PolicyResource) {
+  constructor(
+    protected _version: V1,
+    payload: PolicyResource,
+  ) {
     this.id = payload.id;
     this.name = payload.name;
     this.description = payload.description;
@@ -491,7 +495,7 @@ export class PolicyPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: PolicySolution
+    solution: PolicySolution,
   ) {
     super(version, response, solution);
   }

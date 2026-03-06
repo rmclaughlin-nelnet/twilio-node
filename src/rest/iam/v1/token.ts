@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to create a TokenInstance
@@ -58,7 +58,7 @@ export interface TokenListInstance {
    */
   create(
     params: TokenListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TokenInstance) => any
+    callback?: (error: Error | null, item?: TokenInstance) => any,
   ): Promise<TokenInstance>;
 
   /**
@@ -71,7 +71,7 @@ export interface TokenListInstance {
    */
   createWithHttpInfo(
     params: TokenListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any,
   ): Promise<ApiResponse<TokenInstance>>;
 
   /**
@@ -90,7 +90,7 @@ export function TokenListInstance(version: V1): TokenListInstance {
 
   instance.create = function create(
     params: TokenListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TokenInstance) => any
+    callback?: (error: Error | null, items: TokenInstance) => any,
   ): Promise<TokenInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -132,19 +132,19 @@ export function TokenListInstance(version: V1): TokenListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TokenInstance(operationVersion, payload)
+      (payload) => new TokenInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: TokenListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any,
   ): Promise<ApiResponse<TokenInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -190,12 +190,12 @@ export function TokenListInstance(version: V1): TokenListInstance {
         (response): ApiResponse<TokenInstance> => ({
           ...response,
           body: new TokenInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -206,7 +206,7 @@ export function TokenListInstance(version: V1): TokenListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -225,7 +225,10 @@ interface TokenResource {
 }
 
 export class TokenInstance {
-  constructor(protected _version: V1, payload: TokenResource) {
+  constructor(
+    protected _version: V1,
+    payload: TokenResource,
+  ) {
     this.accessToken = payload.access_token;
     this.refreshToken = payload.refresh_token;
     this.idToken = payload.id_token;

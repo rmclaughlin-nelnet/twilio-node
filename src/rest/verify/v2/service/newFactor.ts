@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2 from "../../V2";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V2 } from "../../V2.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 export class CreateNewPasskeysFactorRequest {
   "friendlyName": string;
@@ -70,7 +70,7 @@ export interface NewFactorListInstance {
   create(
     params: CreateNewPasskeysFactorRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: NewFactorInstance) => any
+    callback?: (error: Error | null, item?: NewFactorInstance) => any,
   ): Promise<NewFactorInstance>;
 
   /**
@@ -87,8 +87,8 @@ export interface NewFactorListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewFactorInstance>
-    ) => any
+      item?: ApiResponse<NewFactorInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewFactorInstance>>;
 
   /**
@@ -100,7 +100,7 @@ export interface NewFactorListInstance {
 
 export function NewFactorListInstance(
   version: V2,
-  serviceSid: string
+  serviceSid: string,
 ): NewFactorListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -115,7 +115,7 @@ export function NewFactorListInstance(
   instance.create = function create(
     params: CreateNewPasskeysFactorRequest,
     headers?: any,
-    callback?: (error: Error | null, items: NewFactorInstance) => any
+    callback?: (error: Error | null, items: NewFactorInstance) => any,
   ): Promise<NewFactorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -145,13 +145,13 @@ export function NewFactorListInstance(
         new NewFactorInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid
-        )
+          instance._solution.serviceSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -161,8 +161,8 @@ export function NewFactorListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NewFactorInstance>
-    ) => any
+      items: ApiResponse<NewFactorInstance>,
+    ) => any,
   ): Promise<ApiResponse<NewFactorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -194,14 +194,14 @@ export function NewFactorListInstance(
           body: new NewFactorInstance(
             operationVersion,
             response.body,
-            instance._solution.serviceSid
+            instance._solution.serviceSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -212,7 +212,7 @@ export function NewFactorListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -244,7 +244,7 @@ export class NewFactorInstance {
   constructor(
     protected _version: V2,
     payload: NewFactorResource,
-    serviceSid: string
+    serviceSid: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

@@ -14,14 +14,14 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V1 from "../../../V1";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
-import { StepContextListInstance } from "./step/stepContext";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V1 } from "../../../V1.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
+import { StepContextListInstance } from "./step/stepContext.js";
 
 /**
  * Options to pass to each
@@ -71,7 +71,7 @@ export interface StepContext {
    * @returns Resolves to processed StepInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: StepInstance) => any
+    callback?: (error: Error | null, item?: StepInstance) => any,
   ): Promise<StepInstance>;
 
   /**
@@ -82,7 +82,7 @@ export interface StepContext {
    * @returns Resolves to processed StepInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StepInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<StepInstance>) => any,
   ): Promise<ApiResponse<StepInstance>>;
 
   /**
@@ -108,7 +108,7 @@ export class StepContextImpl implements StepContext {
     protected _version: V1,
     flowSid: string,
     engagementSid: string,
-    sid: string
+    sid: string,
   ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
@@ -133,13 +133,13 @@ export class StepContextImpl implements StepContext {
         this._version,
         this._solution.flowSid,
         this._solution.engagementSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._stepContext;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: StepInstance) => any
+    callback?: (error: Error | null, item?: StepInstance) => any,
   ): Promise<StepInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -159,19 +159,19 @@ export class StepContextImpl implements StepContext {
           payload,
           instance._solution.flowSid,
           instance._solution.engagementSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StepInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<StepInstance>) => any,
   ): Promise<ApiResponse<StepInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -193,14 +193,14 @@ export class StepContextImpl implements StepContext {
             response.body,
             instance._solution.flowSid,
             instance._solution.engagementSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -249,7 +249,7 @@ export class StepInstance {
     payload: StepResource,
     flowSid: string,
     engagementSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -333,7 +333,7 @@ export class StepInstance {
         this._version,
         this._solution.flowSid,
         this._solution.engagementSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -346,7 +346,7 @@ export class StepInstance {
    * @returns Resolves to processed StepInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: StepInstance) => any
+    callback?: (error: Error | null, item?: StepInstance) => any,
   ): Promise<StepInstance> {
     return this._proxy.fetch(callback);
   }
@@ -359,7 +359,7 @@ export class StepInstance {
    * @returns Resolves to processed StepInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StepInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<StepInstance>) => any,
   ): Promise<ApiResponse<StepInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -429,11 +429,11 @@ export interface StepListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: StepInstance, done: (err?: Error) => void) => void
+    callback?: (item: StepInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: StepListInstanceEachOptions,
-    callback?: (item: StepInstance, done: (err?: Error) => void) => void
+    callback?: (item: StepInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams StepInstance records from the API with HTTP metadata captured per page.
@@ -451,11 +451,11 @@ export interface StepListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: StepInstance, done: (err?: Error) => void) => void
+    callback?: (item: StepInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: StepListInstanceEachOptions,
-    callback?: (item: StepInstance, done: (err?: Error) => void) => void
+    callback?: (item: StepInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of StepInstance records from the API.
@@ -467,7 +467,7 @@ export interface StepListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: StepPage) => any
+    callback?: (error: Error | null, items: StepPage) => any,
   ): Promise<StepPage>;
   /**
    * Retrieve a single target page of StepInstance records from the API with HTTP metadata.
@@ -479,7 +479,7 @@ export interface StepListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<StepPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<StepPage>) => any,
   ): Promise<ApiResponse<StepPage>>;
   /**
    * Lists StepInstance records from the API as a list.
@@ -491,11 +491,11 @@ export interface StepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: StepInstance[]) => any
+    callback?: (error: Error | null, items: StepInstance[]) => any,
   ): Promise<StepInstance[]>;
   list(
     params: StepListInstanceOptions,
-    callback?: (error: Error | null, items: StepInstance[]) => any
+    callback?: (error: Error | null, items: StepInstance[]) => any,
   ): Promise<StepInstance[]>;
   /**
    * Lists StepInstance records from the API as a list with HTTP metadata.
@@ -509,11 +509,11 @@ export interface StepListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<StepInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<StepInstance[]>) => any,
   ): Promise<ApiResponse<StepInstance[]>>;
   listWithHttpInfo(
     params: StepListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<StepInstance[]>) => any
+    callback?: (error: Error | null, items: ApiResponse<StepInstance[]>) => any,
   ): Promise<ApiResponse<StepInstance[]>>;
   /**
    * Retrieve a single page of StepInstance records from the API.
@@ -527,11 +527,11 @@ export interface StepListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: StepPage) => any
+    callback?: (error: Error | null, items: StepPage) => any,
   ): Promise<StepPage>;
   page(
     params: StepListInstancePageOptions,
-    callback?: (error: Error | null, items: StepPage) => any
+    callback?: (error: Error | null, items: StepPage) => any,
   ): Promise<StepPage>;
   /**
    * Retrieve a single page of StepInstance records from the API with HTTP metadata.
@@ -545,11 +545,11 @@ export interface StepListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<StepPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<StepPage>) => any,
   ): Promise<ApiResponse<StepPage>>;
   pageWithHttpInfo(
     params: StepListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<StepPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<StepPage>) => any,
   ): Promise<ApiResponse<StepPage>>;
 
   /**
@@ -562,7 +562,7 @@ export interface StepListInstance {
 export function StepListInstance(
   version: V1,
   flowSid: string,
-  engagementSid: string
+  engagementSid: string,
 ): StepListInstance {
   if (!isValidPathParam(flowSid)) {
     throw new Error("Parameter 'flowSid' is not valid.");
@@ -586,7 +586,7 @@ export function StepListInstance(
     params?:
       | StepListInstancePageOptions
       | ((error: Error | null, items: StepPage) => any),
-    callback?: (error: Error | null, items: StepPage) => any
+    callback?: (error: Error | null, items: StepPage) => any,
   ): Promise<StepPage> {
     if (params instanceof Function) {
       callback = params;
@@ -614,12 +614,12 @@ export function StepListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new StepPage(operationVersion, payload, instance._solution)
+      (payload) => new StepPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -628,14 +628,14 @@ export function StepListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: StepPage) => any
+    callback?: (error: Error | null, items: StepPage) => any,
   ): Promise<StepPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new StepPage(instance._version, payload, instance._solution)
+      (payload) => new StepPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -645,7 +645,7 @@ export function StepListInstance(
     params?:
       | StepListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<StepPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<StepPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<StepPage>) => any,
   ): Promise<ApiResponse<StepPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -674,12 +674,12 @@ export function StepListInstance(
           statusCode: response.statusCode,
           headers: response.headers,
           body: new StepPage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -690,7 +690,7 @@ export function StepListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<StepPage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<StepPage>) => any,
   ): Promise<ApiResponse<StepPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -703,7 +703,7 @@ export function StepListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new StepPage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -715,7 +715,7 @@ export function StepListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -750,7 +750,7 @@ export class StepPage extends Page<
       this._version,
       payload,
       this._solution.flowSid,
-      this._solution.engagementSid
+      this._solution.engagementSid,
     );
   }
 

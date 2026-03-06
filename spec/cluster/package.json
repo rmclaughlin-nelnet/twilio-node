@@ -1,12 +1,12 @@
 {
+  "type": "module",
   "dependencies": {
-    "jest": "^29.4.3",
     "localtunnel": "^2.0.2",
-    "twilio": "../../package"
+    "twilio": "../../package",
+    "vitest": "4.0.18"
   },
   "scripts": {
-    "prepare": "tsc",
-    "test": "jest lib --testPathIgnorePatterns=lib/webhook",
-    "webhook-test": "jest --testPathPattern=lib/webhook"
+    "test": "vitest run --config ../../vitest.cluster.config.ts --exclude '**/webhook*'",
+    "webhook-test": "vitest run webhook.spec.ts"
   }
 }

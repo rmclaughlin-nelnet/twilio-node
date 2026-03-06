@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to create a BulkEligibilityInstance
@@ -36,7 +36,7 @@ export interface BulkEligibilityContext {
    * @returns Resolves to processed BulkEligibilityInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
+    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any,
   ): Promise<BulkEligibilityInstance>;
 
   /**
@@ -49,8 +49,8 @@ export interface BulkEligibilityContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BulkEligibilityInstance>
-    ) => any
+      item?: ApiResponse<BulkEligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkEligibilityInstance>>;
 
   /**
@@ -68,7 +68,10 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
   protected _solution: BulkEligibilityContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, requestId: string) {
+  constructor(
+    protected _version: V1,
+    requestId: string,
+  ) {
     if (!isValidPathParam(requestId)) {
       throw new Error("Parameter 'requestId' is not valid.");
     }
@@ -78,7 +81,7 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
+    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any,
   ): Promise<BulkEligibilityInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -96,13 +99,13 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
         new BulkEligibilityInstance(
           operationVersion,
           payload,
-          instance._solution.requestId
-        )
+          instance._solution.requestId,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -110,8 +113,8 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BulkEligibilityInstance>
-    ) => any
+      item?: ApiResponse<BulkEligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkEligibilityInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -131,14 +134,14 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
           body: new BulkEligibilityInstance(
             operationVersion,
             response.body,
-            instance._solution.requestId
+            instance._solution.requestId,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -176,7 +179,7 @@ export class BulkEligibilityInstance {
   constructor(
     protected _version: V1,
     payload: BulkEligibilityResource,
-    requestId?: string
+    requestId?: string,
   ) {
     this.requestId = payload.request_id;
     this.url = payload.url;
@@ -227,7 +230,7 @@ export class BulkEligibilityInstance {
    * @returns Resolves to processed BulkEligibilityInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
+    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any,
   ): Promise<BulkEligibilityInstance> {
     return this._proxy.fetch(callback);
   }
@@ -242,8 +245,8 @@ export class BulkEligibilityInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BulkEligibilityInstance>
-    ) => any
+      item?: ApiResponse<BulkEligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkEligibilityInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -288,7 +291,7 @@ export interface BulkEligibilityListInstance {
    * @returns Resolves to processed BulkEligibilityInstance
    */
   create(
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
+    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any,
   ): Promise<BulkEligibilityInstance>;
   /**
    * Create a BulkEligibilityInstance
@@ -302,7 +305,7 @@ export interface BulkEligibilityListInstance {
   create(
     params: object,
     headers?: any,
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
+    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any,
   ): Promise<BulkEligibilityInstance>;
 
   /**
@@ -315,8 +318,8 @@ export interface BulkEligibilityListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BulkEligibilityInstance>
-    ) => any
+      item?: ApiResponse<BulkEligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkEligibilityInstance>>;
   /**
    * Create a BulkEligibilityInstance and return HTTP info
@@ -332,8 +335,8 @@ export interface BulkEligibilityListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BulkEligibilityInstance>
-    ) => any
+      item?: ApiResponse<BulkEligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkEligibilityInstance>>;
 
   /**
@@ -344,7 +347,7 @@ export interface BulkEligibilityListInstance {
 }
 
 export function BulkEligibilityListInstance(
-  version: V1
+  version: V1,
 ): BulkEligibilityListInstance {
   const instance = ((requestId) =>
     instance.get(requestId)) as BulkEligibilityListInstance;
@@ -362,7 +365,7 @@ export function BulkEligibilityListInstance(
       | object
       | ((error: Error | null, items: BulkEligibilityInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: BulkEligibilityInstance) => any
+    callback?: (error: Error | null, items: BulkEligibilityInstance) => any,
   ): Promise<BulkEligibilityInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -391,12 +394,12 @@ export function BulkEligibilityListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BulkEligibilityInstance(operationVersion, payload)
+      (payload) => new BulkEligibilityInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -406,13 +409,13 @@ export function BulkEligibilityListInstance(
       | object
       | ((
           error: Error | null,
-          items: ApiResponse<BulkEligibilityInstance>
+          items: ApiResponse<BulkEligibilityInstance>,
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BulkEligibilityInstance>
-    ) => any
+      items: ApiResponse<BulkEligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<BulkEligibilityInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -445,12 +448,12 @@ export function BulkEligibilityListInstance(
         (response): ApiResponse<BulkEligibilityInstance> => ({
           ...response,
           body: new BulkEligibilityInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -461,7 +464,7 @@ export function BulkEligibilityListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

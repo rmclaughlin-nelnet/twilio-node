@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to create a EligibilityInstance
@@ -42,7 +42,7 @@ export interface EligibilityListInstance {
    * @returns Resolves to processed EligibilityInstance
    */
   create(
-    callback?: (error: Error | null, item?: EligibilityInstance) => any
+    callback?: (error: Error | null, item?: EligibilityInstance) => any,
   ): Promise<EligibilityInstance>;
   /**
    * Create a EligibilityInstance
@@ -56,7 +56,7 @@ export interface EligibilityListInstance {
   create(
     params: object,
     headers?: any,
-    callback?: (error: Error | null, item?: EligibilityInstance) => any
+    callback?: (error: Error | null, item?: EligibilityInstance) => any,
   ): Promise<EligibilityInstance>;
 
   /**
@@ -69,8 +69,8 @@ export interface EligibilityListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EligibilityInstance>
-    ) => any
+      item?: ApiResponse<EligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<EligibilityInstance>>;
   /**
    * Create a EligibilityInstance and return HTTP info
@@ -86,8 +86,8 @@ export interface EligibilityListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EligibilityInstance>
-    ) => any
+      item?: ApiResponse<EligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<EligibilityInstance>>;
 
   /**
@@ -109,7 +109,7 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
       | object
       | ((error: Error | null, items: EligibilityInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: EligibilityInstance) => any
+    callback?: (error: Error | null, items: EligibilityInstance) => any,
   ): Promise<EligibilityInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -138,12 +138,12 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EligibilityInstance(operationVersion, payload)
+      (payload) => new EligibilityInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -155,8 +155,8 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EligibilityInstance>
-    ) => any
+      items: ApiResponse<EligibilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<EligibilityInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -189,12 +189,12 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
         (response): ApiResponse<EligibilityInstance> => ({
           ...response,
           body: new EligibilityInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -205,7 +205,7 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -220,7 +220,10 @@ interface EligibilityResource {
 }
 
 export class EligibilityInstance {
-  constructor(protected _version: V1, payload: EligibilityResource) {
+  constructor(
+    protected _version: V1,
+    payload: EligibilityResource,
+  ) {
     this.results = payload.results;
   }
 

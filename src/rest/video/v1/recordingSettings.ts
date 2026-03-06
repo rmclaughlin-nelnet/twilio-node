@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * Options to pass to create a RecordingSettingsInstance
@@ -48,7 +48,7 @@ export interface RecordingSettingsContext {
    */
   create(
     params: RecordingSettingsContextCreateOptions,
-    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any,
   ): Promise<RecordingSettingsInstance>;
 
   /**
@@ -63,8 +63,8 @@ export interface RecordingSettingsContext {
     params: RecordingSettingsContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingSettingsInstance>
-    ) => any
+      item?: ApiResponse<RecordingSettingsInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingSettingsInstance>>;
 
   /**
@@ -75,7 +75,7 @@ export interface RecordingSettingsContext {
    * @returns Resolves to processed RecordingSettingsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any,
   ): Promise<RecordingSettingsInstance>;
 
   /**
@@ -88,8 +88,8 @@ export interface RecordingSettingsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingSettingsInstance>
-    ) => any
+      item?: ApiResponse<RecordingSettingsInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingSettingsInstance>>;
 
   /**
@@ -112,7 +112,7 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
 
   create(
     params: RecordingSettingsContextCreateOptions,
-    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any,
   ): Promise<RecordingSettingsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -152,12 +152,12 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RecordingSettingsInstance(operationVersion, payload)
+      (payload) => new RecordingSettingsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -166,8 +166,8 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     params: RecordingSettingsContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingSettingsInstance>
-    ) => any
+      item?: ApiResponse<RecordingSettingsInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingSettingsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -211,18 +211,18 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
         (response): ApiResponse<RecordingSettingsInstance> => ({
           ...response,
           body: new RecordingSettingsInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any,
   ): Promise<RecordingSettingsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -236,12 +236,12 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RecordingSettingsInstance(operationVersion, payload)
+      (payload) => new RecordingSettingsInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -249,8 +249,8 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingSettingsInstance>
-    ) => any
+      item?: ApiResponse<RecordingSettingsInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingSettingsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -268,12 +268,12 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
         (response): ApiResponse<RecordingSettingsInstance> => ({
           ...response,
           body: new RecordingSettingsInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -309,7 +309,10 @@ export class RecordingSettingsInstance {
   protected _solution: RecordingSettingsContextSolution;
   protected _context?: RecordingSettingsContext;
 
-  constructor(protected _version: V1, payload: RecordingSettingsResource) {
+  constructor(
+    protected _version: V1,
+    payload: RecordingSettingsResource,
+  ) {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.awsCredentialsSid = payload.aws_credentials_sid;
@@ -371,12 +374,12 @@ export class RecordingSettingsInstance {
    */
   create(
     params: RecordingSettingsContextCreateOptions,
-    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any,
   ): Promise<RecordingSettingsInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any,
   ): Promise<RecordingSettingsInstance> {
     return this._proxy.create(params, callback);
   }
@@ -393,16 +396,16 @@ export class RecordingSettingsInstance {
     params: RecordingSettingsContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingSettingsInstance>
-    ) => any
+      item?: ApiResponse<RecordingSettingsInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingSettingsInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingSettingsInstance>
-    ) => any
+      item?: ApiResponse<RecordingSettingsInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingSettingsInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -415,7 +418,7 @@ export class RecordingSettingsInstance {
    * @returns Resolves to processed RecordingSettingsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any,
   ): Promise<RecordingSettingsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -430,8 +433,8 @@ export class RecordingSettingsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingSettingsInstance>
-    ) => any
+      item?: ApiResponse<RecordingSettingsInstance>,
+    ) => any,
   ): Promise<ApiResponse<RecordingSettingsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -477,7 +480,7 @@ export interface RecordingSettingsListInstance {
 }
 
 export function RecordingSettingsListInstance(
-  version: V1
+  version: V1,
 ): RecordingSettingsListInstance {
   const instance = (() => instance.get()) as RecordingSettingsListInstance;
 
@@ -495,7 +498,7 @@ export function RecordingSettingsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

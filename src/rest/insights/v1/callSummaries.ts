@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 export type CallSummariesAnsweredBy =
   | "unknown"
@@ -336,15 +336,15 @@ export interface CallSummariesListInstance {
   each(
     callback?: (
       item: CallSummariesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: CallSummariesListInstanceEachOptions,
     callback?: (
       item: CallSummariesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams CallSummariesInstance records from the API with HTTP metadata captured per page.
@@ -364,15 +364,15 @@ export interface CallSummariesListInstance {
   eachWithHttpInfo(
     callback?: (
       item: CallSummariesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: CallSummariesListInstanceEachOptions,
     callback?: (
       item: CallSummariesInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of CallSummariesInstance records from the API.
@@ -384,7 +384,7 @@ export interface CallSummariesListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage>;
   /**
    * Retrieve a single target page of CallSummariesInstance records from the API with HTTP metadata.
@@ -398,8 +398,8 @@ export interface CallSummariesListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesPage>
-    ) => any
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>>;
   /**
    * Lists CallSummariesInstance records from the API as a list.
@@ -411,11 +411,11 @@ export interface CallSummariesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: CallSummariesInstance[]) => any
+    callback?: (error: Error | null, items: CallSummariesInstance[]) => any,
   ): Promise<CallSummariesInstance[]>;
   list(
     params: CallSummariesListInstanceOptions,
-    callback?: (error: Error | null, items: CallSummariesInstance[]) => any
+    callback?: (error: Error | null, items: CallSummariesInstance[]) => any,
   ): Promise<CallSummariesInstance[]>;
   /**
    * Lists CallSummariesInstance records from the API as a list with HTTP metadata.
@@ -431,15 +431,15 @@ export interface CallSummariesListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesInstance[]>
-    ) => any
+      items: ApiResponse<CallSummariesInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesInstance[]>>;
   listWithHttpInfo(
     params: CallSummariesListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesInstance[]>
-    ) => any
+      items: ApiResponse<CallSummariesInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesInstance[]>>;
   /**
    * Retrieve a single page of CallSummariesInstance records from the API.
@@ -453,11 +453,11 @@ export interface CallSummariesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage>;
   page(
     params: CallSummariesListInstancePageOptions,
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage>;
   /**
    * Retrieve a single page of CallSummariesInstance records from the API with HTTP metadata.
@@ -473,15 +473,15 @@ export interface CallSummariesListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesPage>
-    ) => any
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>>;
   pageWithHttpInfo(
     params: CallSummariesListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesPage>
-    ) => any
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>>;
 
   /**
@@ -492,7 +492,7 @@ export interface CallSummariesListInstance {
 }
 
 export function CallSummariesListInstance(
-  version: V1
+  version: V1,
 ): CallSummariesListInstance {
   const instance = {} as CallSummariesListInstance;
 
@@ -504,7 +504,7 @@ export function CallSummariesListInstance(
     params?:
       | CallSummariesListInstancePageOptions
       | ((error: Error | null, items: CallSummariesPage) => any),
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage> {
     if (params instanceof Function) {
       callback = params;
@@ -561,7 +561,7 @@ export function CallSummariesListInstance(
       data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
     if (params["voiceIntegrityEnabled"] !== undefined)
       data["VoiceIntegrityEnabled"] = serialize.bool(
-        params["voiceIntegrityEnabled"]
+        params["voiceIntegrityEnabled"],
       );
     if (params["brandedBundleSid"] !== undefined)
       data["BrandedBundleSid"] = params["brandedBundleSid"];
@@ -603,12 +603,12 @@ export function CallSummariesListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CallSummariesPage(operationVersion, payload, instance._solution)
+        new CallSummariesPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -617,7 +617,7 @@ export function CallSummariesListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CallSummariesPage) => any
+    callback?: (error: Error | null, items: CallSummariesPage) => any,
   ): Promise<CallSummariesPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -625,7 +625,7 @@ export function CallSummariesListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new CallSummariesPage(instance._version, payload, instance._solution)
+        new CallSummariesPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -637,8 +637,8 @@ export function CallSummariesListInstance(
       | ((error: Error | null, items: ApiResponse<CallSummariesPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CallSummariesPage>
-    ) => any
+      items: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -695,7 +695,7 @@ export function CallSummariesListInstance(
       data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
     if (params["voiceIntegrityEnabled"] !== undefined)
       data["VoiceIntegrityEnabled"] = serialize.bool(
-        params["voiceIntegrityEnabled"]
+        params["voiceIntegrityEnabled"],
       );
     if (params["brandedBundleSid"] !== undefined)
       data["BrandedBundleSid"] = params["brandedBundleSid"];
@@ -739,14 +739,14 @@ export function CallSummariesListInstance(
           body: new CallSummariesPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -759,8 +759,8 @@ export function CallSummariesListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CallSummariesPage>
-    ) => any
+      items?: ApiResponse<CallSummariesPage>,
+    ) => any,
   ): Promise<ApiResponse<CallSummariesPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -775,9 +775,9 @@ export function CallSummariesListInstance(
         body: new CallSummariesPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -789,7 +789,7 @@ export function CallSummariesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -828,7 +828,10 @@ interface CallSummariesResource {
 }
 
 export class CallSummariesInstance {
-  constructor(protected _version: V1, payload: CallSummariesResource) {
+  constructor(
+    protected _version: V1,
+    payload: CallSummariesResource,
+  ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.answeredBy = payload.answered_by;
@@ -986,7 +989,7 @@ export class CallSummariesPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: CallSummariesSolution
+    solution: CallSummariesSolution,
   ) {
     super(version, response, solution);
   }

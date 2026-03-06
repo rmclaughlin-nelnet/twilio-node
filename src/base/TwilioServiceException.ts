@@ -13,7 +13,7 @@ interface TwilioServiceErrorResponse {
   errors?: ValidationError[];
 }
 
-export default class TwilioServiceException
+export class TwilioServiceException
   extends Error
   implements TwilioServiceErrorResponse
 {
@@ -75,7 +75,7 @@ export default class TwilioServiceException
 }
 
 function parseResponseBody(
-  response_body: string
+  response_body: string,
 ): TwilioServiceErrorResponse | null {
   let body = null;
   try {

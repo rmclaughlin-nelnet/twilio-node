@@ -14,13 +14,13 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../../base/Page";
-import Response from "../../../../../http/response";
-import V1 from "../../../V1";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { Page, TwilioResponsePayload } from "../../../../../base/Page.js";
+import { Response } from "../../../../../http/response.js";
+import { V1 } from "../../../V1.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to each
@@ -43,7 +43,7 @@ export interface TaskQueuesStatisticsListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TaskQueuesStatisticsInstance,
-    done: (err?: Error) => void
+    done: (err?: Error) => void,
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -125,15 +125,15 @@ export interface TaskQueuesStatisticsListInstance {
   each(
     callback?: (
       item: TaskQueuesStatisticsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   each(
     params: TaskQueuesStatisticsListInstanceEachOptions,
     callback?: (
       item: TaskQueuesStatisticsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Streams TaskQueuesStatisticsInstance records from the API with HTTP metadata captured per page.
@@ -153,15 +153,15 @@ export interface TaskQueuesStatisticsListInstance {
   eachWithHttpInfo(
     callback?: (
       item: TaskQueuesStatisticsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   eachWithHttpInfo(
     params: TaskQueuesStatisticsListInstanceEachOptions,
     callback?: (
       item: TaskQueuesStatisticsInstance,
-      done: (err?: Error) => void
-    ) => void
+      done: (err?: Error) => void,
+    ) => void,
   ): void;
   /**
    * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API.
@@ -173,7 +173,7 @@ export interface TaskQueuesStatisticsListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
+    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any,
   ): Promise<TaskQueuesStatisticsPage>;
   /**
    * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API with HTTP metadata.
@@ -187,8 +187,8 @@ export interface TaskQueuesStatisticsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskQueuesStatisticsPage>
-    ) => any
+      items: ApiResponse<TaskQueuesStatisticsPage>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueuesStatisticsPage>>;
   /**
    * Lists TaskQueuesStatisticsInstance records from the API as a list.
@@ -202,15 +202,15 @@ export interface TaskQueuesStatisticsListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: TaskQueuesStatisticsInstance[]
-    ) => any
+      items: TaskQueuesStatisticsInstance[],
+    ) => any,
   ): Promise<TaskQueuesStatisticsInstance[]>;
   list(
     params: TaskQueuesStatisticsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: TaskQueuesStatisticsInstance[]
-    ) => any
+      items: TaskQueuesStatisticsInstance[],
+    ) => any,
   ): Promise<TaskQueuesStatisticsInstance[]>;
   /**
    * Lists TaskQueuesStatisticsInstance records from the API as a list with HTTP metadata.
@@ -226,15 +226,15 @@ export interface TaskQueuesStatisticsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskQueuesStatisticsInstance[]>
-    ) => any
+      items: ApiResponse<TaskQueuesStatisticsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueuesStatisticsInstance[]>>;
   listWithHttpInfo(
     params: TaskQueuesStatisticsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskQueuesStatisticsInstance[]>
-    ) => any
+      items: ApiResponse<TaskQueuesStatisticsInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueuesStatisticsInstance[]>>;
   /**
    * Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
@@ -248,11 +248,11 @@ export interface TaskQueuesStatisticsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
+    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any,
   ): Promise<TaskQueuesStatisticsPage>;
   page(
     params: TaskQueuesStatisticsListInstancePageOptions,
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
+    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any,
   ): Promise<TaskQueuesStatisticsPage>;
   /**
    * Retrieve a single page of TaskQueuesStatisticsInstance records from the API with HTTP metadata.
@@ -268,15 +268,15 @@ export interface TaskQueuesStatisticsListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskQueuesStatisticsPage>
-    ) => any
+      items: ApiResponse<TaskQueuesStatisticsPage>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueuesStatisticsPage>>;
   pageWithHttpInfo(
     params: TaskQueuesStatisticsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskQueuesStatisticsPage>
-    ) => any
+      items: ApiResponse<TaskQueuesStatisticsPage>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueuesStatisticsPage>>;
 
   /**
@@ -288,7 +288,7 @@ export interface TaskQueuesStatisticsListInstance {
 
 export function TaskQueuesStatisticsListInstance(
   version: V1,
-  workspaceSid: string
+  workspaceSid: string,
 ): TaskQueuesStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -304,7 +304,7 @@ export function TaskQueuesStatisticsListInstance(
     params?:
       | TaskQueuesStatisticsListInstancePageOptions
       | ((error: Error | null, items: TaskQueuesStatisticsPage) => any),
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
+    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any,
   ): Promise<TaskQueuesStatisticsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -347,13 +347,13 @@ export function TaskQueuesStatisticsListInstance(
         new TaskQueuesStatisticsPage(
           operationVersion,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -362,7 +362,7 @@ export function TaskQueuesStatisticsListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
+    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any,
   ): Promise<TaskQueuesStatisticsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -373,8 +373,8 @@ export function TaskQueuesStatisticsListInstance(
         new TaskQueuesStatisticsPage(
           instance._version,
           payload,
-          instance._solution
-        )
+          instance._solution,
+        ),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -385,12 +385,12 @@ export function TaskQueuesStatisticsListInstance(
       | TaskQueuesStatisticsListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<TaskQueuesStatisticsPage>
+          items: ApiResponse<TaskQueuesStatisticsPage>,
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskQueuesStatisticsPage>
-    ) => any
+      items: ApiResponse<TaskQueuesStatisticsPage>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueuesStatisticsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -432,14 +432,14 @@ export function TaskQueuesStatisticsListInstance(
           body: new TaskQueuesStatisticsPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -452,8 +452,8 @@ export function TaskQueuesStatisticsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<TaskQueuesStatisticsPage>
-    ) => any
+      items?: ApiResponse<TaskQueuesStatisticsPage>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueuesStatisticsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -468,9 +468,9 @@ export function TaskQueuesStatisticsListInstance(
         body: new TaskQueuesStatisticsPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -482,7 +482,7 @@ export function TaskQueuesStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -506,7 +506,7 @@ export class TaskQueuesStatisticsInstance {
   constructor(
     protected _version: V1,
     payload: TaskQueuesStatisticsResource,
-    workspaceSid: string
+    workspaceSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.cumulative = payload.cumulative;
@@ -572,7 +572,7 @@ export class TaskQueuesStatisticsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: TaskQueuesStatisticsSolution
+    solution: TaskQueuesStatisticsSolution,
   ) {
     super(version, response, solution);
   }
@@ -583,12 +583,12 @@ export class TaskQueuesStatisticsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: TaskQueuesStatisticsResource
+    payload: TaskQueuesStatisticsResource,
   ): TaskQueuesStatisticsInstance {
     return new TaskQueuesStatisticsInstance(
       this._version,
       payload,
-      this._solution.workspaceSid
+      this._solution.workspaceSid,
     );
   }
 

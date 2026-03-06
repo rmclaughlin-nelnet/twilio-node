@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2 from "../V2";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V2 } from "../V2.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 export class CallForwardingInfo {
   "callForwardingEnabled"?: boolean;
@@ -175,7 +175,7 @@ export interface QueryListInstance {
    * @returns Resolves to processed QueryInstance
    */
   create(
-    callback?: (error: Error | null, item?: QueryInstance) => any
+    callback?: (error: Error | null, item?: QueryInstance) => any,
   ): Promise<QueryInstance>;
   /**
    * Create a QueryInstance
@@ -189,7 +189,7 @@ export interface QueryListInstance {
   create(
     params: LookupRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: QueryInstance) => any
+    callback?: (error: Error | null, item?: QueryInstance) => any,
   ): Promise<QueryInstance>;
 
   /**
@@ -200,7 +200,7 @@ export interface QueryListInstance {
    * @returns Resolves to processed QueryInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any,
   ): Promise<ApiResponse<QueryInstance>>;
   /**
    * Create a QueryInstance and return HTTP info
@@ -214,7 +214,7 @@ export interface QueryListInstance {
   createWithHttpInfo(
     params: LookupRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any,
   ): Promise<ApiResponse<QueryInstance>>;
 
   /**
@@ -236,7 +236,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
       | LookupRequest
       | ((error: Error | null, items: QueryInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: QueryInstance) => any
+    callback?: (error: Error | null, items: QueryInstance) => any,
   ): Promise<QueryInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -265,12 +265,12 @@ export function QueryListInstance(version: V2): QueryListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueryInstance(operationVersion, payload)
+      (payload) => new QueryInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -280,7 +280,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
       | LookupRequest
       | ((error: Error | null, items: ApiResponse<QueryInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any,
   ): Promise<ApiResponse<QueryInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -313,12 +313,12 @@ export function QueryListInstance(version: V2): QueryListInstance {
         (response): ApiResponse<QueryInstance> => ({
           ...response,
           body: new QueryInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -329,7 +329,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -344,7 +344,10 @@ interface QueryResource {
 }
 
 export class QueryInstance {
-  constructor(protected _version: V2, payload: QueryResource) {
+  constructor(
+    protected _version: V2,
+    payload: QueryResource,
+  ) {
     this.phoneNumbers = payload.phone_numbers;
   }
 

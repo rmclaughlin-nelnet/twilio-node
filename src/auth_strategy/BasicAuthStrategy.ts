@@ -1,6 +1,6 @@
-import AuthStrategy from "./AuthStrategy";
+import { AuthStrategy } from "./AuthStrategy.js";
 
-export default class BasicAuthStrategy extends AuthStrategy {
+export class BasicAuthStrategy extends AuthStrategy {
   private username: string;
   private password: string;
 
@@ -12,7 +12,7 @@ export default class BasicAuthStrategy extends AuthStrategy {
 
   getAuthString(): Promise<string> {
     const auth = Buffer.from(this.username + ":" + this.password).toString(
-      "base64"
+      "base64",
     );
     return Promise.resolve(`Basic ${auth}`);
   }

@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to create a SinkValidateInstance
@@ -46,7 +46,7 @@ export interface SinkValidateListInstance {
    */
   create(
     params: SinkValidateListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SinkValidateInstance) => any
+    callback?: (error: Error | null, item?: SinkValidateInstance) => any,
   ): Promise<SinkValidateInstance>;
 
   /**
@@ -61,8 +61,8 @@ export interface SinkValidateListInstance {
     params: SinkValidateListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SinkValidateInstance>
-    ) => any
+      item?: ApiResponse<SinkValidateInstance>,
+    ) => any,
   ): Promise<ApiResponse<SinkValidateInstance>>;
 
   /**
@@ -74,7 +74,7 @@ export interface SinkValidateListInstance {
 
 export function SinkValidateListInstance(
   version: V1,
-  sid: string
+  sid: string,
 ): SinkValidateListInstance {
   if (!isValidPathParam(sid)) {
     throw new Error("Parameter 'sid' is not valid.");
@@ -88,7 +88,7 @@ export function SinkValidateListInstance(
 
   instance.create = function create(
     params: SinkValidateListInstanceCreateOptions,
-    callback?: (error: Error | null, items: SinkValidateInstance) => any
+    callback?: (error: Error | null, items: SinkValidateInstance) => any,
   ): Promise<SinkValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -119,13 +119,13 @@ export function SinkValidateListInstance(
         new SinkValidateInstance(
           operationVersion,
           payload,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -134,8 +134,8 @@ export function SinkValidateListInstance(
     params: SinkValidateListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SinkValidateInstance>
-    ) => any
+      items: ApiResponse<SinkValidateInstance>,
+    ) => any,
   ): Promise<ApiResponse<SinkValidateInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -168,14 +168,14 @@ export function SinkValidateListInstance(
           body: new SinkValidateInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -186,7 +186,7 @@ export function SinkValidateListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -204,7 +204,7 @@ export class SinkValidateInstance {
   constructor(
     protected _version: V1,
     payload: SinkValidateResource,
-    sid: string
+    sid: string,
   ) {
     this.result = payload.result;
   }

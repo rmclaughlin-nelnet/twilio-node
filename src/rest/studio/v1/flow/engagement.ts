@@ -14,15 +14,15 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../../base/Page";
-import Response from "../../../../http/response";
-import V1 from "../../V1";
-const deserialize = require("../../../../base/deserialize");
-const serialize = require("../../../../base/serialize");
-import { isValidPathParam } from "../../../../base/utility";
-import { ApiResponse } from "../../../../base/ApiResponse";
-import { EngagementContextListInstance } from "./engagement/engagementContext";
-import { StepListInstance } from "./engagement/step";
+import { Page, TwilioResponsePayload } from "../../../../base/Page.js";
+import { Response } from "../../../../http/response.js";
+import { V1 } from "../../V1.js";
+import * as deserialize from "../../../../base/deserialize.js";
+import * as serialize from "../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../base/utility.js";
+import { ApiResponse } from "../../../../base/ApiResponse.js";
+import { EngagementContextListInstance } from "./engagement/engagementContext.js";
+import { StepListInstance } from "./engagement/step.js";
 
 /**
  * The status of the Engagement. Can be: `active` or `ended`.
@@ -89,7 +89,7 @@ export interface EngagementContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -100,7 +100,7 @@ export interface EngagementContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -111,7 +111,7 @@ export interface EngagementContext {
    * @returns Resolves to processed EngagementInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EngagementInstance) => any
+    callback?: (error: Error | null, item?: EngagementInstance) => any,
   ): Promise<EngagementInstance>;
 
   /**
@@ -124,8 +124,8 @@ export interface EngagementContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EngagementInstance>
-    ) => any
+      item?: ApiResponse<EngagementInstance>,
+    ) => any,
   ): Promise<ApiResponse<EngagementInstance>>;
 
   /**
@@ -147,7 +147,11 @@ export class EngagementContextImpl implements EngagementContext {
   protected _engagementContext?: EngagementContextListInstance;
   protected _steps?: StepListInstance;
 
-  constructor(protected _version: V1, flowSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    flowSid: string,
+    sid: string,
+  ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
     }
@@ -166,7 +170,7 @@ export class EngagementContextImpl implements EngagementContext {
       EngagementContextListInstance(
         this._version,
         this._solution.flowSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._engagementContext;
   }
@@ -177,13 +181,13 @@ export class EngagementContextImpl implements EngagementContext {
       StepListInstance(
         this._version,
         this._solution.flowSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._steps;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -197,13 +201,13 @@ export class EngagementContextImpl implements EngagementContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -216,18 +220,18 @@ export class EngagementContextImpl implements EngagementContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EngagementInstance) => any
+    callback?: (error: Error | null, item?: EngagementInstance) => any,
   ): Promise<EngagementInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -246,13 +250,13 @@ export class EngagementContextImpl implements EngagementContext {
           operationVersion,
           payload,
           instance._solution.flowSid,
-          instance._solution.sid
-        )
+          instance._solution.sid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -260,8 +264,8 @@ export class EngagementContextImpl implements EngagementContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EngagementInstance>
-    ) => any
+      item?: ApiResponse<EngagementInstance>,
+    ) => any,
   ): Promise<ApiResponse<EngagementInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -282,14 +286,14 @@ export class EngagementContextImpl implements EngagementContext {
             operationVersion,
             response.body,
             instance._solution.flowSid,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -334,7 +338,7 @@ export class EngagementInstance {
     protected _version: V1,
     payload: EngagementResource,
     flowSid: string,
-    sid?: string
+    sid?: string,
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -399,7 +403,7 @@ export class EngagementInstance {
       new EngagementContextImpl(
         this._version,
         this._solution.flowSid,
-        this._solution.sid
+        this._solution.sid,
       );
     return this._context;
   }
@@ -412,7 +416,7 @@ export class EngagementInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -425,7 +429,7 @@ export class EngagementInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -438,7 +442,7 @@ export class EngagementInstance {
    * @returns Resolves to processed EngagementInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EngagementInstance) => any
+    callback?: (error: Error | null, item?: EngagementInstance) => any,
   ): Promise<EngagementInstance> {
     return this._proxy.fetch(callback);
   }
@@ -453,8 +457,8 @@ export class EngagementInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EngagementInstance>
-    ) => any
+      item?: ApiResponse<EngagementInstance>,
+    ) => any,
   ): Promise<ApiResponse<EngagementInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -521,7 +525,7 @@ export interface EngagementListInstance {
    */
   create(
     params: EngagementListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EngagementInstance) => any
+    callback?: (error: Error | null, item?: EngagementInstance) => any,
   ): Promise<EngagementInstance>;
 
   /**
@@ -536,8 +540,8 @@ export interface EngagementListInstance {
     params: EngagementListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EngagementInstance>
-    ) => any
+      item?: ApiResponse<EngagementInstance>,
+    ) => any,
   ): Promise<ApiResponse<EngagementInstance>>;
 
   /**
@@ -556,11 +560,11 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void
+    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: EngagementListInstanceEachOptions,
-    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void
+    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams EngagementInstance records from the API with HTTP metadata captured per page.
@@ -578,11 +582,11 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void
+    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: EngagementListInstanceEachOptions,
-    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void
+    callback?: (item: EngagementInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of EngagementInstance records from the API.
@@ -594,7 +598,7 @@ export interface EngagementListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EngagementPage) => any
+    callback?: (error: Error | null, items: EngagementPage) => any,
   ): Promise<EngagementPage>;
   /**
    * Retrieve a single target page of EngagementInstance records from the API with HTTP metadata.
@@ -606,7 +610,7 @@ export interface EngagementListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<EngagementPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EngagementPage>) => any,
   ): Promise<ApiResponse<EngagementPage>>;
   /**
    * Lists EngagementInstance records from the API as a list.
@@ -618,11 +622,11 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: EngagementInstance[]) => any
+    callback?: (error: Error | null, items: EngagementInstance[]) => any,
   ): Promise<EngagementInstance[]>;
   list(
     params: EngagementListInstanceOptions,
-    callback?: (error: Error | null, items: EngagementInstance[]) => any
+    callback?: (error: Error | null, items: EngagementInstance[]) => any,
   ): Promise<EngagementInstance[]>;
   /**
    * Lists EngagementInstance records from the API as a list with HTTP metadata.
@@ -638,15 +642,15 @@ export interface EngagementListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EngagementInstance[]>
-    ) => any
+      items: ApiResponse<EngagementInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EngagementInstance[]>>;
   listWithHttpInfo(
     params: EngagementListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EngagementInstance[]>
-    ) => any
+      items: ApiResponse<EngagementInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<EngagementInstance[]>>;
   /**
    * Retrieve a single page of EngagementInstance records from the API.
@@ -660,11 +664,11 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: EngagementPage) => any
+    callback?: (error: Error | null, items: EngagementPage) => any,
   ): Promise<EngagementPage>;
   page(
     params: EngagementListInstancePageOptions,
-    callback?: (error: Error | null, items: EngagementPage) => any
+    callback?: (error: Error | null, items: EngagementPage) => any,
   ): Promise<EngagementPage>;
   /**
    * Retrieve a single page of EngagementInstance records from the API with HTTP metadata.
@@ -678,11 +682,11 @@ export interface EngagementListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<EngagementPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EngagementPage>) => any,
   ): Promise<ApiResponse<EngagementPage>>;
   pageWithHttpInfo(
     params: EngagementListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<EngagementPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EngagementPage>) => any,
   ): Promise<ApiResponse<EngagementPage>>;
 
   /**
@@ -694,7 +698,7 @@ export interface EngagementListInstance {
 
 export function EngagementListInstance(
   version: V1,
-  flowSid: string
+  flowSid: string,
 ): EngagementListInstance {
   if (!isValidPathParam(flowSid)) {
     throw new Error("Parameter 'flowSid' is not valid.");
@@ -712,7 +716,7 @@ export function EngagementListInstance(
 
   instance.create = function create(
     params: EngagementListInstanceCreateOptions,
-    callback?: (error: Error | null, items: EngagementInstance) => any
+    callback?: (error: Error | null, items: EngagementInstance) => any,
   ): Promise<EngagementInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -751,13 +755,13 @@ export function EngagementListInstance(
         new EngagementInstance(
           operationVersion,
           payload,
-          instance._solution.flowSid
-        )
+          instance._solution.flowSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -766,8 +770,8 @@ export function EngagementListInstance(
     params: EngagementListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EngagementInstance>
-    ) => any
+      items: ApiResponse<EngagementInstance>,
+    ) => any,
   ): Promise<ApiResponse<EngagementInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -808,14 +812,14 @@ export function EngagementListInstance(
           body: new EngagementInstance(
             operationVersion,
             response.body,
-            instance._solution.flowSid
+            instance._solution.flowSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -824,7 +828,7 @@ export function EngagementListInstance(
     params?:
       | EngagementListInstancePageOptions
       | ((error: Error | null, items: EngagementPage) => any),
-    callback?: (error: Error | null, items: EngagementPage) => any
+    callback?: (error: Error | null, items: EngagementPage) => any,
   ): Promise<EngagementPage> {
     if (params instanceof Function) {
       callback = params;
@@ -853,12 +857,12 @@ export function EngagementListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EngagementPage(operationVersion, payload, instance._solution)
+        new EngagementPage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -867,7 +871,7 @@ export function EngagementListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EngagementPage) => any
+    callback?: (error: Error | null, items: EngagementPage) => any,
   ): Promise<EngagementPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -875,7 +879,7 @@ export function EngagementListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new EngagementPage(instance._version, payload, instance._solution)
+        new EngagementPage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -885,7 +889,7 @@ export function EngagementListInstance(
     params?:
       | EngagementListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<EngagementPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<EngagementPage>) => any
+    callback?: (error: Error | null, items: ApiResponse<EngagementPage>) => any,
   ): Promise<ApiResponse<EngagementPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -916,14 +920,14 @@ export function EngagementListInstance(
           body: new EngagementPage(
             operationVersion,
             response,
-            instance._solution
+            instance._solution,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -934,7 +938,10 @@ export function EngagementListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<EngagementPage>) => any
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<EngagementPage>,
+    ) => any,
   ): Promise<ApiResponse<EngagementPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -949,9 +956,9 @@ export function EngagementListInstance(
         body: new EngagementPage(
           instance._version,
           response,
-          instance._solution
+          instance._solution,
         ),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -963,7 +970,7 @@ export function EngagementListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -987,7 +994,7 @@ export class EngagementPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: EngagementSolution
+    solution: EngagementSolution,
   ) {
     super(version, response, solution);
   }
@@ -1001,7 +1008,7 @@ export class EngagementPage extends Page<
     return new EngagementInstance(
       this._version,
       payload,
-      this._solution.flowSid
+      this._solution.flowSid,
     );
   }
 

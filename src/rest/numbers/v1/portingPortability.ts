@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
 
 /**
  * The type of the requested phone number. One of `LOCAL`, `UNKNOWN`, `MOBILE`, `TOLL-FREE`.
@@ -47,7 +47,7 @@ export interface PortingPortabilityContext {
    * @returns Resolves to processed PortingPortabilityInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any,
   ): Promise<PortingPortabilityInstance>;
   /**
    * Fetch a PortingPortabilityInstance
@@ -59,7 +59,7 @@ export interface PortingPortabilityContext {
    */
   fetch(
     params: PortingPortabilityContextFetchOptions,
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any,
   ): Promise<PortingPortabilityInstance>;
 
   /**
@@ -72,8 +72,8 @@ export interface PortingPortabilityContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
+      item?: ApiResponse<PortingPortabilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<PortingPortabilityInstance>>;
   /**
    * Fetch a PortingPortabilityInstance and return HTTP info
@@ -87,8 +87,8 @@ export interface PortingPortabilityContext {
     params: PortingPortabilityContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
+      item?: ApiResponse<PortingPortabilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<PortingPortabilityInstance>>;
 
   /**
@@ -102,13 +102,14 @@ export interface PortingPortabilityContextSolution {
   phoneNumber: string;
 }
 
-export class PortingPortabilityContextImpl
-  implements PortingPortabilityContext
-{
+export class PortingPortabilityContextImpl implements PortingPortabilityContext {
   protected _solution: PortingPortabilityContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, phoneNumber: string) {
+  constructor(
+    protected _version: V1,
+    phoneNumber: string,
+  ) {
     if (!isValidPathParam(phoneNumber)) {
       throw new Error("Parameter 'phoneNumber' is not valid.");
     }
@@ -121,7 +122,7 @@ export class PortingPortabilityContextImpl
     params?:
       | PortingPortabilityContextFetchOptions
       | ((error: Error | null, item?: PortingPortabilityInstance) => any),
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any,
   ): Promise<PortingPortabilityInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -154,13 +155,13 @@ export class PortingPortabilityContextImpl
         new PortingPortabilityInstance(
           operationVersion,
           payload,
-          instance._solution.phoneNumber
-        )
+          instance._solution.phoneNumber,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -170,12 +171,12 @@ export class PortingPortabilityContextImpl
       | PortingPortabilityContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<PortingPortabilityInstance>
+          item?: ApiResponse<PortingPortabilityInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
+      item?: ApiResponse<PortingPortabilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<PortingPortabilityInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -210,14 +211,14 @@ export class PortingPortabilityContextImpl
           body: new PortingPortabilityInstance(
             operationVersion,
             response.body,
-            instance._solution.phoneNumber
+            instance._solution.phoneNumber,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -257,7 +258,7 @@ export class PortingPortabilityInstance {
   constructor(
     protected _version: V1,
     payload: PortingPortabilityResource,
-    phoneNumber?: string
+    phoneNumber?: string,
   ) {
     this.phoneNumber = payload.phone_number;
     this.accountSid = payload.account_sid;
@@ -265,7 +266,7 @@ export class PortingPortabilityInstance {
     this.pinAndAccountNumberRequired = payload.pin_and_account_number_required;
     this.notPortableReason = payload.not_portable_reason;
     this.notPortableReasonCode = deserialize.integer(
-      payload.not_portable_reason_code
+      payload.not_portable_reason_code,
     );
     this.numberType = payload.number_type;
     this.country = payload.country;
@@ -313,7 +314,7 @@ export class PortingPortabilityInstance {
       this._context ||
       new PortingPortabilityContextImpl(
         this._version,
-        this._solution.phoneNumber
+        this._solution.phoneNumber,
       );
     return this._context;
   }
@@ -326,7 +327,7 @@ export class PortingPortabilityInstance {
    * @returns Resolves to processed PortingPortabilityInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any,
   ): Promise<PortingPortabilityInstance>;
   /**
    * Fetch a PortingPortabilityInstance
@@ -338,12 +339,12 @@ export class PortingPortabilityInstance {
    */
   fetch(
     params: PortingPortabilityContextFetchOptions,
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any,
   ): Promise<PortingPortabilityInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any,
   ): Promise<PortingPortabilityInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -358,8 +359,8 @@ export class PortingPortabilityInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
+      item?: ApiResponse<PortingPortabilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<PortingPortabilityInstance>>;
   /**
    * Fetch a PortingPortabilityInstance and return HTTP info
@@ -373,16 +374,16 @@ export class PortingPortabilityInstance {
     params: PortingPortabilityContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
+      item?: ApiResponse<PortingPortabilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<PortingPortabilityInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PortingPortabilityInstance>
-    ) => any
+      item?: ApiResponse<PortingPortabilityInstance>,
+    ) => any,
   ): Promise<ApiResponse<PortingPortabilityInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -429,7 +430,7 @@ export interface PortingPortabilityListInstance {
 }
 
 export function PortingPortabilityListInstance(
-  version: V1
+  version: V1,
 ): PortingPortabilityListInstance {
   const instance = ((phoneNumber) =>
     instance.get(phoneNumber)) as PortingPortabilityListInstance;
@@ -448,7 +449,7 @@ export function PortingPortabilityListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

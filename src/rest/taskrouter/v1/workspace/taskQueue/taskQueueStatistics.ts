@@ -13,11 +13,11 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V1 from "../../../V1";
-const deserialize = require("../../../../../base/deserialize");
-const serialize = require("../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../base/utility";
-import { ApiResponse } from "../../../../../base/ApiResponse";
+import { V1 } from "../../../V1.js";
+import * as deserialize from "../../../../../base/deserialize.js";
+import * as serialize from "../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../base/ApiResponse.js";
 
 /**
  * Options to pass to fetch a TaskQueueStatisticsInstance
@@ -44,7 +44,7 @@ export interface TaskQueueStatisticsContext {
    * @returns Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any,
   ): Promise<TaskQueueStatisticsInstance>;
   /**
    * Fetch a TaskQueueStatisticsInstance
@@ -56,7 +56,7 @@ export interface TaskQueueStatisticsContext {
    */
   fetch(
     params: TaskQueueStatisticsContextFetchOptions,
-    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any,
   ): Promise<TaskQueueStatisticsInstance>;
 
   /**
@@ -69,8 +69,8 @@ export interface TaskQueueStatisticsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueStatisticsInstance>
-    ) => any
+      item?: ApiResponse<TaskQueueStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueStatisticsInstance>>;
   /**
    * Fetch a TaskQueueStatisticsInstance and return HTTP info
@@ -84,8 +84,8 @@ export interface TaskQueueStatisticsContext {
     params: TaskQueueStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueStatisticsInstance>
-    ) => any
+      item?: ApiResponse<TaskQueueStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueStatisticsInstance>>;
 
   /**
@@ -100,16 +100,14 @@ export interface TaskQueueStatisticsContextSolution {
   taskQueueSid: string;
 }
 
-export class TaskQueueStatisticsContextImpl
-  implements TaskQueueStatisticsContext
-{
+export class TaskQueueStatisticsContextImpl implements TaskQueueStatisticsContext {
   protected _solution: TaskQueueStatisticsContextSolution;
   protected _uri: string;
 
   constructor(
     protected _version: V1,
     workspaceSid: string,
-    taskQueueSid: string
+    taskQueueSid: string,
   ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -127,7 +125,7 @@ export class TaskQueueStatisticsContextImpl
     params?:
       | TaskQueueStatisticsContextFetchOptions
       | ((error: Error | null, item?: TaskQueueStatisticsInstance) => any),
-    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any,
   ): Promise<TaskQueueStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -166,13 +164,13 @@ export class TaskQueueStatisticsContextImpl
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.taskQueueSid
-        )
+          instance._solution.taskQueueSid,
+        ),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -182,12 +180,12 @@ export class TaskQueueStatisticsContextImpl
       | TaskQueueStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<TaskQueueStatisticsInstance>
+          item?: ApiResponse<TaskQueueStatisticsInstance>,
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueStatisticsInstance>
-    ) => any
+      item?: ApiResponse<TaskQueueStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -228,14 +226,14 @@ export class TaskQueueStatisticsContextImpl
             operationVersion,
             response.body,
             instance._solution.workspaceSid,
-            instance._solution.taskQueueSid
+            instance._solution.taskQueueSid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -273,7 +271,7 @@ export class TaskQueueStatisticsInstance {
     protected _version: V1,
     payload: TaskQueueStatisticsResource,
     workspaceSid: string,
-    taskQueueSid: string
+    taskQueueSid: string,
   ) {
     this.accountSid = payload.account_sid;
     this.cumulative = payload.cumulative;
@@ -316,7 +314,7 @@ export class TaskQueueStatisticsInstance {
       new TaskQueueStatisticsContextImpl(
         this._version,
         this._solution.workspaceSid,
-        this._solution.taskQueueSid
+        this._solution.taskQueueSid,
       );
     return this._context;
   }
@@ -329,7 +327,7 @@ export class TaskQueueStatisticsInstance {
    * @returns Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any,
   ): Promise<TaskQueueStatisticsInstance>;
   /**
    * Fetch a TaskQueueStatisticsInstance
@@ -341,12 +339,12 @@ export class TaskQueueStatisticsInstance {
    */
   fetch(
     params: TaskQueueStatisticsContextFetchOptions,
-    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any,
   ): Promise<TaskQueueStatisticsInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any,
   ): Promise<TaskQueueStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -361,8 +359,8 @@ export class TaskQueueStatisticsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueStatisticsInstance>
-    ) => any
+      item?: ApiResponse<TaskQueueStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueStatisticsInstance>>;
   /**
    * Fetch a TaskQueueStatisticsInstance and return HTTP info
@@ -376,16 +374,16 @@ export class TaskQueueStatisticsInstance {
     params: TaskQueueStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueStatisticsInstance>
-    ) => any
+      item?: ApiResponse<TaskQueueStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueStatisticsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueStatisticsInstance>
-    ) => any
+      item?: ApiResponse<TaskQueueStatisticsInstance>,
+    ) => any,
   ): Promise<ApiResponse<TaskQueueStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -434,7 +432,7 @@ export interface TaskQueueStatisticsListInstance {
 export function TaskQueueStatisticsListInstance(
   version: V1,
   workspaceSid: string,
-  taskQueueSid: string
+  taskQueueSid: string,
 ): TaskQueueStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -450,7 +448,7 @@ export function TaskQueueStatisticsListInstance(
     return new TaskQueueStatisticsContextImpl(
       version,
       workspaceSid,
-      taskQueueSid
+      taskQueueSid,
     );
   };
 
@@ -464,7 +462,7 @@ export function TaskQueueStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

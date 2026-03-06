@@ -14,15 +14,15 @@
 
 import { inspect, InspectOptions } from "util";
 
-import Page, { TwilioResponsePayload } from "../../../base/Page";
-import Response from "../../../http/response";
-import V1 from "../V1";
-const deserialize = require("../../../base/deserialize");
-const serialize = require("../../../base/serialize");
-import { isValidPathParam } from "../../../base/utility";
-import { ApiResponse } from "../../../base/ApiResponse";
-import { BindingListInstance } from "./service/binding";
-import { NotificationListInstance } from "./service/notification";
+import { Page, TwilioResponsePayload } from "../../../base/Page.js";
+import { Response } from "../../../http/response.js";
+import { V1 } from "../V1.js";
+import * as deserialize from "../../../base/deserialize.js";
+import * as serialize from "../../../base/serialize.js";
+import { isValidPathParam } from "../../../base/utility.js";
+import { ApiResponse } from "../../../base/ApiResponse.js";
+import { BindingListInstance } from "./service/binding.js";
+import { NotificationListInstance } from "./service/notification.js";
 
 /**
  * Options to pass to update a ServiceInstance
@@ -146,7 +146,7 @@ export interface ServiceContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean>;
 
   /**
@@ -157,7 +157,7 @@ export interface ServiceContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -168,7 +168,7 @@ export interface ServiceContext {
    * @returns Resolves to processed ServiceInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance>;
 
   /**
@@ -179,7 +179,10 @@ export interface ServiceContext {
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>>;
 
   /**
@@ -190,7 +193,7 @@ export interface ServiceContext {
    * @returns Resolves to processed ServiceInstance
    */
   update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
@@ -202,7 +205,7 @@ export interface ServiceContext {
    */
   update(
     params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance>;
 
   /**
@@ -213,7 +216,10 @@ export interface ServiceContext {
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Update a ServiceInstance and return HTTP info
@@ -225,7 +231,10 @@ export interface ServiceContext {
    */
   updateWithHttpInfo(
     params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>>;
 
   /**
@@ -246,7 +255,10 @@ export class ServiceContextImpl implements ServiceContext {
   protected _bindings?: BindingListInstance;
   protected _notifications?: NotificationListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string,
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -269,7 +281,7 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -283,13 +295,13 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -302,18 +314,18 @@ export class ServiceContextImpl implements ServiceContext {
         (response): ApiResponse<boolean> => ({
           ...response,
           body: response.statusCode === 204,
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -328,18 +340,21 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, instance._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -359,14 +374,14 @@ export class ServiceContextImpl implements ServiceContext {
           body: new ServiceInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -375,7 +390,7 @@ export class ServiceContextImpl implements ServiceContext {
     params?:
       | ServiceContextUpdateOptions
       | ((error: Error | null, item?: ServiceInstance) => any),
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -418,7 +433,7 @@ export class ServiceContextImpl implements ServiceContext {
       data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
     if (params["deliveryCallbackEnabled"] !== undefined)
       data["DeliveryCallbackEnabled"] = serialize.bool(
-        params["deliveryCallbackEnabled"]
+        params["deliveryCallbackEnabled"],
       );
 
     const headers: any = {};
@@ -436,12 +451,12 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, instance._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -450,7 +465,10 @@ export class ServiceContextImpl implements ServiceContext {
     params?:
       | ServiceContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<ServiceInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -493,7 +511,7 @@ export class ServiceContextImpl implements ServiceContext {
       data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
     if (params["deliveryCallbackEnabled"] !== undefined)
       data["DeliveryCallbackEnabled"] = serialize.bool(
-        params["deliveryCallbackEnabled"]
+        params["deliveryCallbackEnabled"],
       );
 
     const headers: any = {};
@@ -516,14 +534,14 @@ export class ServiceContextImpl implements ServiceContext {
           body: new ServiceInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.sid,
           ),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   }
@@ -573,7 +591,11 @@ export class ServiceInstance {
   protected _solution: ServiceContextSolution;
   protected _context?: ServiceContext;
 
-  constructor(protected _version: V1, payload: ServiceResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ServiceResource,
+    sid?: string,
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -698,7 +720,7 @@ export class ServiceInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any
+    callback?: (error: Error | null, item?: boolean) => any,
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -711,7 +733,7 @@ export class ServiceInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -724,7 +746,7 @@ export class ServiceInstance {
    * @returns Resolves to processed ServiceInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance> {
     return this._proxy.fetch(callback);
   }
@@ -737,7 +759,10 @@ export class ServiceInstance {
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -750,7 +775,7 @@ export class ServiceInstance {
    * @returns Resolves to processed ServiceInstance
    */
   update(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance>;
   /**
    * Update a ServiceInstance
@@ -762,12 +787,12 @@ export class ServiceInstance {
    */
   update(
     params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance> {
     return this._proxy.update(params, callback);
   }
@@ -780,7 +805,10 @@ export class ServiceInstance {
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Update a ServiceInstance and return HTTP info
@@ -792,12 +820,18 @@ export class ServiceInstance {
    */
   updateWithHttpInfo(
     params: ServiceContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -873,7 +907,7 @@ export interface ServiceListInstance {
    * @returns Resolves to processed ServiceInstance
    */
   create(
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance>;
   /**
    * Create a ServiceInstance
@@ -885,7 +919,7 @@ export interface ServiceListInstance {
    */
   create(
     params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, item?: ServiceInstance) => any,
   ): Promise<ServiceInstance>;
 
   /**
@@ -896,7 +930,10 @@ export interface ServiceListInstance {
    * @returns Resolves to processed ServiceInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>>;
   /**
    * Create a ServiceInstance and return HTTP info
@@ -908,7 +945,10 @@ export interface ServiceListInstance {
    */
   createWithHttpInfo(
     params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>>;
 
   /**
@@ -927,11 +967,11 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void,
   ): void;
   each(
     params: ServiceListInstanceEachOptions,
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Streams ServiceInstance records from the API with HTTP metadata captured per page.
@@ -949,11 +989,11 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void,
   ): void;
   eachWithHttpInfo(
     params: ServiceListInstanceEachOptions,
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void,
   ): void;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
@@ -965,7 +1005,7 @@ export interface ServiceListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ServicePage) => any
+    callback?: (error: Error | null, items: ServicePage) => any,
   ): Promise<ServicePage>;
   /**
    * Retrieve a single target page of ServiceInstance records from the API with HTTP metadata.
@@ -977,7 +1017,7 @@ export interface ServiceListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any,
   ): Promise<ApiResponse<ServicePage>>;
   /**
    * Lists ServiceInstance records from the API as a list.
@@ -989,11 +1029,11 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ServiceInstance[]) => any
+    callback?: (error: Error | null, items: ServiceInstance[]) => any,
   ): Promise<ServiceInstance[]>;
   list(
     params: ServiceListInstanceOptions,
-    callback?: (error: Error | null, items: ServiceInstance[]) => any
+    callback?: (error: Error | null, items: ServiceInstance[]) => any,
   ): Promise<ServiceInstance[]>;
   /**
    * Lists ServiceInstance records from the API as a list with HTTP metadata.
@@ -1009,15 +1049,15 @@ export interface ServiceListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ServiceInstance[]>
-    ) => any
+      items: ApiResponse<ServiceInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance[]>>;
   listWithHttpInfo(
     params: ServiceListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ServiceInstance[]>
-    ) => any
+      items: ApiResponse<ServiceInstance[]>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance[]>>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
@@ -1031,11 +1071,11 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ServicePage) => any
+    callback?: (error: Error | null, items: ServicePage) => any,
   ): Promise<ServicePage>;
   page(
     params: ServiceListInstancePageOptions,
-    callback?: (error: Error | null, items: ServicePage) => any
+    callback?: (error: Error | null, items: ServicePage) => any,
   ): Promise<ServicePage>;
   /**
    * Retrieve a single page of ServiceInstance records from the API with HTTP metadata.
@@ -1049,11 +1089,11 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any,
   ): Promise<ApiResponse<ServicePage>>;
   pageWithHttpInfo(
     params: ServiceListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any,
   ): Promise<ApiResponse<ServicePage>>;
 
   /**
@@ -1078,7 +1118,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     params?:
       | ServiceListInstanceCreateOptions
       | ((error: Error | null, items: ServiceInstance) => any),
-    callback?: (error: Error | null, items: ServiceInstance) => any
+    callback?: (error: Error | null, items: ServiceInstance) => any,
   ): Promise<ServiceInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -1121,7 +1161,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
     if (params["deliveryCallbackEnabled"] !== undefined)
       data["DeliveryCallbackEnabled"] = serialize.bool(
-        params["deliveryCallbackEnabled"]
+        params["deliveryCallbackEnabled"],
       );
 
     const headers: any = {};
@@ -1137,12 +1177,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ServiceInstance(operationVersion, payload)
+      (payload) => new ServiceInstance(operationVersion, payload),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1151,7 +1191,10 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     params?:
       | ServiceListInstanceCreateOptions
       | ((error: Error | null, items: ApiResponse<ServiceInstance>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ServiceInstance>) => any
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ServiceInstance>,
+    ) => any,
   ): Promise<ApiResponse<ServiceInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -1194,7 +1237,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
     if (params["deliveryCallbackEnabled"] !== undefined)
       data["DeliveryCallbackEnabled"] = serialize.bool(
-        params["deliveryCallbackEnabled"]
+        params["deliveryCallbackEnabled"],
       );
 
     const headers: any = {};
@@ -1214,12 +1257,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
         (response): ApiResponse<ServiceInstance> => ({
           ...response,
           body: new ServiceInstance(operationVersion, response.body),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1228,7 +1271,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     params?:
       | ServiceListInstancePageOptions
       | ((error: Error | null, items: ServicePage) => any),
-    callback?: (error: Error | null, items: ServicePage) => any
+    callback?: (error: Error | null, items: ServicePage) => any,
   ): Promise<ServicePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1259,12 +1302,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServicePage(operationVersion, payload, instance._solution)
+        new ServicePage(operationVersion, payload, instance._solution),
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1273,7 +1316,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ServicePage) => any
+    callback?: (error: Error | null, items: ServicePage) => any,
   ): Promise<ServicePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1281,7 +1324,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ServicePage(instance._version, payload, instance._solution)
+        new ServicePage(instance._version, payload, instance._solution),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1291,7 +1334,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     params?:
       | ServiceListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ServicePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any
+    callback?: (error: Error | null, items: ApiResponse<ServicePage>) => any,
   ): Promise<ApiResponse<ServicePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1322,12 +1365,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
           statusCode: response.statusCode,
           headers: response.headers,
           body: new ServicePage(operationVersion, response, instance._solution),
-        })
+        }),
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback
+      callback,
     );
     return operationPromise;
   };
@@ -1338,7 +1381,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ServicePage>) => any
+    callback?: (error: Error | null, items?: ApiResponse<ServicePage>) => any,
   ): Promise<ApiResponse<ServicePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1351,7 +1394,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new ServicePage(instance._version, response, instance._solution),
-      })
+      }),
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1363,7 +1406,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1387,7 +1430,7 @@ export class ServicePage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ServiceSolution
+    solution: ServiceSolution,
   ) {
     super(version, response, solution);
   }

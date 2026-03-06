@@ -1,7 +1,11 @@
-import util from "util";
-import Request from "../../src/http/request";
-import moduleInfo from "../../package.json";
-import os from "os";
+import util from "node:util";
+import { Request } from "../../src/http/request";
+import { readFileSync } from "node:fs";
+import os from "node:os";
+
+const moduleInfo = JSON.parse(
+  readFileSync(new URL("../../package.json", import.meta.url), "utf-8")
+);
 
 class Hologram {
   constructor(request, response) {
@@ -74,7 +78,7 @@ class Holodeck {
 
     if (matchedHologramIndex >= 0) {
       const matchedHologram = this.holograms[matchedHologramIndex];
-      this.holograms.splice(matchedHologram, 1);
+      this.holograms.splice(matchedHologramIndex, 1);
 
       const response = matchedHologram.response;
       return {
@@ -87,4 +91,4 @@ class Holodeck {
   }
 }
 
-module.exports = Holodeck;
+export default Holodeck;

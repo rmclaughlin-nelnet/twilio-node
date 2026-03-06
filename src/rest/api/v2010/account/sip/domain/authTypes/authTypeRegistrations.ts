@@ -13,12 +13,12 @@
  */
 
 import { inspect, InspectOptions } from "util";
-import V2010 from "../../../../../V2010";
-const deserialize = require("../../../../../../../base/deserialize");
-const serialize = require("../../../../../../../base/serialize");
-import { isValidPathParam } from "../../../../../../../base/utility";
-import { ApiResponse } from "../../../../../../../base/ApiResponse";
-import { AuthRegistrationsCredentialListMappingListInstance } from "./authTypeRegistrations/authRegistrationsCredentialListMapping";
+import { V2010 } from "../../../../../V2010.js";
+import * as deserialize from "../../../../../../../base/deserialize.js";
+import * as serialize from "../../../../../../../base/serialize.js";
+import { isValidPathParam } from "../../../../../../../base/utility.js";
+import { ApiResponse } from "../../../../../../../base/ApiResponse.js";
+import { AuthRegistrationsCredentialListMappingListInstance } from "./authTypeRegistrations/authRegistrationsCredentialListMapping.js";
 
 export interface AuthTypeRegistrationsSolution {
   accountSid: string;
@@ -43,7 +43,7 @@ export interface AuthTypeRegistrationsListInstance {
 export function AuthTypeRegistrationsListInstance(
   version: V2010,
   accountSid: string,
-  domainSid: string
+  domainSid: string,
 ): AuthTypeRegistrationsListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -66,7 +66,7 @@ export function AuthTypeRegistrationsListInstance(
           AuthRegistrationsCredentialListMappingListInstance(
             instance._version,
             instance._solution.accountSid,
-            instance._solution.domainSid
+            instance._solution.domainSid,
           );
       }
       return instance._credentialListMappings;
@@ -79,7 +79,7 @@ export function AuthTypeRegistrationsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions
+    options: InspectOptions,
   ) {
     return inspect(instance.toJSON(), options);
   };

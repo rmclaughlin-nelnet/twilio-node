@@ -1,17 +1,20 @@
-import { Client as BaseTwilio, RequestOpts } from "./BaseTwilio";
-import { trim } from "./utility";
+import { Client as BaseTwilio, RequestOpts } from "./BaseTwilio.js";
+import { trim } from "./utility.js";
 
 /**
  * Base domain object
  */
-export default class Domain {
+export class Domain {
   /**
    * Creates a Domain instance
    *
    * @param twilio - A Twilio Client
    * @param baseUrl - Base url for this domain
    */
-  constructor(public twilio: BaseTwilio, public baseUrl: string) {}
+  constructor(
+    public twilio: BaseTwilio,
+    public baseUrl: string,
+  ) {}
 
   /**
    * Turn a uri into an absolute url
